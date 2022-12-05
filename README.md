@@ -7,4 +7,5 @@ Bash Shell command
 |cal|Calendar.sh||
 |date|CurrentDate.sh||
 |echo|PrintLine.sh||
+|exit|ShowExit||
 |pwd|ShowPwd.sh||
