@@ -8,4 +8,5 @@ Bash Shell command
 |date|CurrentDate.sh||
 |echo|PrintLine.sh||
 |exit|ShowExit||
+|mkdir|CreateDirectory|
 |pwd|ShowPwd.sh||
