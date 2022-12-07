@@ -7,6 +7,7 @@ Bash Shell command
 |cal|Calendar.sh||
 |date|CurrentDate.sh||
 |echo|PrintLine.sh||
-|exit|ShowExit||
-|mkdir|CreateDirectory|
+|exit|ShowExit.sh||
+|mkdir|CreateDirectory.sh||
 |pwd|ShowPwd.sh||
+|rmdir|DeleteDirectory.sh||
