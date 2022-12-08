@@ -1,14 +1,14 @@
 # Bash_Shell_CMD
 Bash Shell command
 
-
-|명령어|쉘이름|비고|
-|---|---|---|
-|cal|Calendar.sh||
-|cat|FileContentPrint.sh||
-|date|CurrentDate.sh||
-|echo|PrintLine.sh||
-|exit|ShowExit.sh||
-|mkdir|CreateDirectory.sh||
-|pwd|ShowPwd.sh||
-|rmdir|DeleteDirectory.sh||
+**명령어 모음 표**
+|명령어|쉘이름|간략 설명|비고|
+|---|---|---|---|
+|cal|Calendar.sh|달력 출력 처리||
+|cat|FileContentPrint.sh|파일 내용 출력 처리||
+|date|CurrentDate.sh|현재 시간 출력 처리||
+|echo|PrintLine.sh|기본 출력 처리||
+|exit|ShowExit.sh|종료 출력 처리||
+|mkdir|CreateDirectory.sh|디렉토리 생성 처리||
+|pwd|ShowPwd.sh|작업 디렉토리 출력 처리||
+|rmdir|DeleteDirectory.sh|디렉토리 삭제 처리||
