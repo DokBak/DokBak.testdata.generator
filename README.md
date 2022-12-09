@@ -12,3 +12,4 @@ Bash Shell command
 |mkdir|CreateDirectory.sh|디렉토리 생성 처리||
 |pwd|ShowPwd.sh|작업 디렉토리 출력 처리||
 |rmdir|DeleteDirectory.sh|디렉토리 삭제 처리||
+|touch|UpdateFileModificationDate.sh|파일의 갱신 일자 수정 처리||
