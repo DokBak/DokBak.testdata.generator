@@ -13,12 +13,12 @@ function TapeARchiver(){
     echo " 사전실행) tar 명령어 실행에 필요한 샘플 폴더 및 파일 작성 방법"
     echo "    mkdir Tar_CMD_TestFolder"
     mkdir -p Tar_CMD_TestFolder/Tar_CMD_TestFolder2
-    echo "    echo 'TestFile1' > Tar_CMD_TestFolder/Cat_CMD_TestFile1.txt"
-    echo "TestFile1" > Tar_CMD_TestFolder/Cat_CMD_TestFile1.txt
-    echo "    echo 'TestFile2' > Tar_CMD_TestFolder/Cat_CMD_TestFile2.txt"
-    echo "TestFile2" > Tar_CMD_TestFolder/Cat_CMD_TestFile2.txt
-    echo "    echo 'TestFile3' > Tar_CMD_TestFolder/Cat_CMD_TestFile3.txt"
-    echo "TestFile3" > Tar_CMD_TestFolder/Cat_CMD_TestFile3.txt
+    echo "    echo 'TestFile1' > Tar_CMD_TestFolder/Tar_CMD_TestFile1.txt"
+    echo "TestFile1" > Tar_CMD_TestFolder/Tar_CMD_TestFile1.txt
+    echo "    echo 'TestFile2' > Tar_CMD_TestFolder/Tar_CMD_TestFile2.txt"
+    echo "TestFile2" > Tar_CMD_TestFolder/Tar_CMD_TestFile2.txt
+    echo "    echo 'TestFile3' > Tar_CMD_TestFolder/Tar_CMD_TestFile3.txt"
+    echo "TestFile3" > Tar_CMD_TestFolder/Tar_CMD_TestFile3.txt
     echo "    cd Tar_CMD_TestFolder"
     cd Tar_CMD_TestFolder
     echo
@@ -33,8 +33,8 @@ function TapeARchiver(){
     echo " 기능 -v : 처리되는 파일을 자세히 나열"
     echo " 기능 -f : 대상 tar 아카이브 지정(기본 옵션)"
     echo " 지정한 파일을 TestTar2.tar로 묶기"
-    echo " 예시2) tar cvf TestTar2.tar Cat_CMD_TestFile1.txt Cat_CMD_TestFile2.txt "
-    tar cvf TestTar2.tar Cat_CMD_TestFile1.txt Cat_CMD_TestFile2.txt
+    echo " 예시2) tar cvf TestTar2.tar Tar_CMD_TestFile1.txt Tar_CMD_TestFile2.txt "
+    tar cvf TestTar2.tar Tar_CMD_TestFile1.txt Tar_CMD_TestFile2.txt
     echo
     echo " 기능 -t : tar 아카이브에 포함된 내용 확인 -> list"
     echo " 기능 -v : 처리되는 파일을 자세히 나열"
@@ -64,10 +64,10 @@ function TapeARchiver(){
     echo " 기능 -v : 처리되는 파일을 자세히 나열"
     echo " 기능 -f : 대상 tar 아카이브 지정(기본 옵션)"
     echo " 지정한 파일을 TestTar3.tar에 추가하기"
-    echo " 예시2) tar rvf TestTar3.tar Cat_CMD_TestFile3.txt"
+    echo " 예시2) tar rvf TestTar3.tar Tar_CMD_TestFile3.txt"
     cp TestTar2.tar TestTar3.tar
     tar tvf TestTar3.tar
-    tar rvf TestTar3.tar Cat_CMD_TestFile3.txt
+    tar rvf TestTar3.tar Tar_CMD_TestFile3.txt
     echo "       tar tvf TestTar3.tar"
     tar tvf TestTar3.tar 
     echo
@@ -75,10 +75,10 @@ function TapeARchiver(){
     echo " 기능 -v : 처리되는 파일을 자세히 나열"
     echo " 기능 -f : 대상 tar 아카이브 지정(기본 옵션)"
     echo " 지정한 파일을 TestTar3.tar에 추가하기"
-    echo " 예시2) tar uvf TestTar4.tar Cat_CMD_TestFile3.txt"
+    echo " 예시2) tar uvf TestTar4.tar Tar_CMD_TestFile3.txt"
     cp TestTar2.tar TestTar4.tar
     tar tvf TestTar4.tar
-    tar uvf TestTar4.tar Cat_CMD_TestFile3.txt
+    tar uvf TestTar4.tar Tar_CMD_TestFile3.txt
     echo "       tar tvf TestTar4.tar"
     tar tvf TestTar4.tar 
     echo
