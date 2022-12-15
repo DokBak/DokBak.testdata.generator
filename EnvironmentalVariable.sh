@@ -8,7 +8,10 @@ function EnvironmentalVariable(){
     echo "## 전역 변수 조회 시작 ##"
     echo " 명령어  : env"
     echo " 사용방법 : env"
-    echo " 기본설명 : 전역 변수 조회"
+    echo " 기본설명 : 전역 변수 조회, export 명령어로 일시적으로 전역 변수를 선언 할 수 있다."
+    echo "          모든 사용자가 사용가능하도록 등록하고 싶을 경우에는 쉘 환경 설정 파일을 수정한다."
+    echo " zsh쉘 변경 시작 : vi ~/.zshrc, zsh쉘 수정 내용 반영 : source ~/.zshrc"
+    echo " bash쉘 변경 시작 : vi ~/bash_profile, bahs쉘 수정 내용 반영 : source ~/bash_profile"
     echo
     echo " 예시1) env"
     env
