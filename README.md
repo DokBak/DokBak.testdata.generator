@@ -10,6 +10,7 @@ Bash Shell command
 |cp|CopyFileFolder.sh|파일 디렉토리 복사 처리||
 |date|CurrentDate.sh|현재 시간 출력 처리||
 |echo|PrintLine.sh|기본 출력 처리||
+|env|EnvironmentalVariable.sh|전역 변수 조회||
 |exit|ShowExit.sh|종료 출력 처리||
 |gzip|gzipCompress.sh|gzip 압축 처리 시작||
 |mkdir|CreateDirectory.sh|디렉토리 생성 처리||
