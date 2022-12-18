@@ -32,4 +32,4 @@ function GzipCompress(){
     echo 
 }
 
-gzipCompress
+GzipCompress
