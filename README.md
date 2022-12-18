@@ -15,6 +15,7 @@ Bash Shell command
 |export|CreateGlobalVariable.sh|전역 변수 생성||
 |gzip|GzipCompress.sh|gzip 압축 처리 시작||
 |mkdir|CreateDirectory.sh|디렉토리 생성 처리||
+|mv|MoveFileAndFolder.sh|파일(디렉토리) 이동 처리||
 |pwd|ShowPwd.sh|작업 디렉토리 출력 처리||
 |rm|RemoveFileAndFolder.sh|파일(폴더) 삭제 처리||
 |rmdir|DeleteDirectory.sh|디렉토리 삭제 처리||
