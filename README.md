@@ -21,3 +21,4 @@ Bash Shell command
 |set|LocalEnvironmentalVariable.sh|지역 변수 조회||
 |tar|TapeARchiver.sh|여래 개의 파일을 하나의 파일로 묶거나 푸는 처리||
 |touch|UpdateFileModificationDate.sh|파일의 갱신 일자 수정 처리||
+|unset|DeleteVariable.sh|환경 변수 삭제||
