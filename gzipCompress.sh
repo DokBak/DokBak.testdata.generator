@@ -3,7 +3,7 @@
 #-------------------------
 # 테스트 쉘 : gzip 압축 처리 시작
 #-------------------------
-function gzipCompress(){
+function GzipCompress(){
     echo 
     echo "## gzip 압축 처리 시작 ##"
     echo " 명령어  : gzip"
