@@ -8,7 +8,7 @@ function StringSearch(){
     echo "## 특정 문자열 검색 처리 시작 ##"
     echo " 명령어  : grep"
     echo " 사용방법 : grep [검색어] [검색대상]"
-    echo " 기본설명 : "
+    echo " 기본설명 : 파일에 작성된 내용중 원하는 검색어가 존재하는지를 확인할 때 사용한다."
     echo
     echo " 사전실행) grep 명령어 실행에 필요한 샘플 폴더 및 파일 작성 방법"
     echo "    mkdir grep_CMD_TestFolder/grep_CMD_TestFolder2/grep_CMD_TestFolder3/"
