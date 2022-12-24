@@ -27,4 +27,5 @@ Bash Shell command
 |tar|TapeARchiver.sh|여래 개의 파일을 하나의 파일로 묶거나 푸는 처리||
 |touch|UpdateFileModificationDate.sh|파일의 갱신 일자 수정 처리||
 |unset|DeleteVariable.sh|환경 변수 삭제||
+|wc|FileDataCounting.sh|파일 내의 데이터 수 조회 처리||
 |zip(unzip)|ZipCompress.sh|zip 압축 처리||
