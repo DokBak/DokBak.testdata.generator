@@ -14,6 +14,7 @@ Bash Shell command
 |exit|ShowExit.sh|종료 출력 처리||
 |export|CreateGlobalVariable.sh|전역 변수 생성||
 |find|FileSearch.sh|파일 및 디렉토리 검색||
+|grep|StringSearch.sh|특정 문자열 검색 처리||
 |gzip|GzipCompress.sh|gzip 압축 처리 시작||
 |head|ShowFileContentHead.sh|파일 내용의 선두 부분 출력 처리||
 |mkdir|CreateDirectory.sh|디렉토리 생성 처리||
