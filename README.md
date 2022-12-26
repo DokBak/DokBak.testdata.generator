@@ -17,6 +17,7 @@ Bash Shell command
 |grep|StringSearch.sh|특정 문자열 검색 처리||
 |gzip|GzipCompress.sh|gzip 압축 처리 시작||
 |head|ShowFileContentHead.sh|파일 내용의 선두 부분 출력 처리||
+|man|HowToUseCommand.sh|리눅스 명령어 사용법 확인||
 |mkdir|CreateDirectory.sh|디렉토리 생성 처리||
 |mv|MoveFileAndFolder.sh|파일(디렉토리) 이동 처리||
 |pwd|ShowPwd.sh|작업 디렉토리 출력 처리||
