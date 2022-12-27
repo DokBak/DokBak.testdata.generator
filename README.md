@@ -8,6 +8,7 @@ Bash Shell command
 |cal|Calendar.sh|달력 출력 처리||
 |cat|FileContentPrint.sh|파일 내용 출력 처리||
 |cd|DirectoryMove.sh|디렉토리 이동||
+|clear|TerminalClear.sh|터미널 화면 초기화||
 |cp|CopyFileFolder.sh|파일 디렉토리 복사 처리||
 |date|CurrentDate.sh|현재 시간 출력 처리||
 |echo|PrintLine.sh|기본 출력 처리||
