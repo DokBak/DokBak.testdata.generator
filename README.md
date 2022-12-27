@@ -4,6 +4,7 @@ Bash Shell command
 **명령어 모음 표**
 |명령어|쉘이름|간략 설명|비고|
 |---|---|---|---|
+|alias|CommandCreate.sh|명령어 선언|쉘 스크립트내에서 선언시 정상작동하지 않는것으로 보임, alias로 변수를 설정하기보단 bash의 설정파일에 직접 추가하는 방법을 권장함|
 |cal|Calendar.sh|달력 출력 처리||
 |cat|FileContentPrint.sh|파일 내용 출력 처리||
 |cd|DirectoryMove.sh|디렉토리 이동||
