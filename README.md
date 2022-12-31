@@ -27,6 +27,7 @@ Bash Shell command
 |rm|RemoveFileAndFolder.sh|파일(폴더) 삭제 처리||
 |rmdir|DeleteDirectory.sh|디렉토리 삭제 처리||
 |set|LocalEnvironmentalVariable.sh|지역 변수 조회||
+|sleep|ProgramDelay.sh|작업 간 중간 딜레이 부여||
 |sort|FileSort.sh|데이터 정렬||
 |tail|ShowFileContentTail.sh|파일 내용의 끝 부분 출력 처리||
 |tar|TapeARchiver.sh|여래 개의 파일을 하나의 파일로 묶거나 푸는 처리||
