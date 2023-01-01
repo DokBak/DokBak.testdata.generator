@@ -23,6 +23,7 @@ Bash Shell command
 |man|HowToUseCommand.sh|리눅스 명령어 사용법 확인||
 |mkdir|CreateDirectory.sh|디렉토리 생성 처리||
 |mv|MoveFileAndFolder.sh|파일(디렉토리) 이동 처리||
+|ps|CheckProcess.sh|실행중인 프로세스 출력||
 |pwd|ShowPwd.sh|작업 디렉토리 출력 처리||
 |rm|RemoveFileAndFolder.sh|파일(폴더) 삭제 처리||
 |rmdir|DeleteDirectory.sh|디렉토리 삭제 처리||
