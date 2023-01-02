@@ -35,4 +35,5 @@ Bash Shell command
 |touch|UpdateFileModificationDate.sh|파일의 갱신 일자 수정 처리||
 |unset|DeleteVariable.sh|환경 변수 삭제||
 |wc|FileDataCounting.sh|파일 내의 데이터 수 조회 처리||
+|whoami|WhoAmI.sh|작업중인 사용자 출력||
 |zip(unzip)|ZipCompress.sh|zip 압축 처리||
