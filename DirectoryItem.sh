@@ -66,6 +66,10 @@ function DirectoryItem(){
     echo " 예시2) ls -p ls_CMD_TestFolder"
     ls -p ls_CMD_TestFolder
     echo
+    echo " 옵션 -R : 하위 디렉토리까지 모두 출력"
+    echo " 예시2) ls -R ls_CMD_TestFolder"
+    ls -R ls_CMD_TestFolder
+    echo
     echo "## 디렉토리내 아이템 출력 종료 ##"
     echo 
 }
