@@ -45,4 +45,4 @@ Bash Shell command
 **스크립트 작성법 모음 표**
 |기능|쉘이름|간략 설명|비고|
 |---|---|---|---|
-|파라미터받기,활용|ShellScriptParameter|||
+|파라미터취득,활용|ShellScriptParameter|||
