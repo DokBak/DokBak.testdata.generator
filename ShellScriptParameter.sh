@@ -33,6 +33,7 @@ function ShellScriptParameter(){
     echo
     echo "입력받은 파라미터 갯수(\$#) : $#"
     echo "입력받은 파라미터의 값들(\$@) : $@"
+    echo
     echo "## 쉘 스크립트 실행 종료 ##"
     echo 
 }
