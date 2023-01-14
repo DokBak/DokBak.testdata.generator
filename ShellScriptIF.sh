@@ -127,4 +127,4 @@ function ShellScriptIF(){
     echo 
 }
 
-ShellScriptIF Seoul 10
+ShellScriptIF Seoul 10 20
