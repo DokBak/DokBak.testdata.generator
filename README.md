@@ -48,6 +48,6 @@ Bash Shell command
 |파라미터취득,활용|ShellScriptParameter.sh|||
 |함수 사용법|ShellScriptFunction.sh|||
 |사용자 입력|ShellScriptUserWrite.sh|||
-|쉘 스크립트 조건문|ShellScriptIF.sh|||
+|쉘 스크립트 조건문(if)|ShellScriptIF.sh|||
 |쉘 스크립트 반복문(while)|ShellScriptLoopWhile.sh|||
 |쉘 스크립트 반복문(for)|ShellScriptLoopFor.sh|||
