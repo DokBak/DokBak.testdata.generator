@@ -17,6 +17,7 @@ Bash Shell command
 |env|EnvironmentalVariable.sh|전역 변수 조회||
 |exit|ShowExit.sh|종료 출력 처리||
 |export|CreateGlobalVariable.sh|전역 변수 생성||
+|expr|ValueOperation.sh|값 연산||
 |find|FileSearch.sh|파일 및 디렉토리 검색||
 |grep|StringSearch.sh|특정 문자열 검색 처리||
 |gzip|GzipCompress.sh|gzip 압축 처리 시작||
