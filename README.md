@@ -53,3 +53,4 @@ Bash Shell command
 |쉘 스크립트 조건문(case)|ShellScriptCase.sh|||
 |쉘 스크립트 반복문(while)|ShellScriptLoopWhile.sh|||
 |쉘 스크립트 반복문(for)|ShellScriptLoopFor.sh|||
+|쉘 스크립트 명령 내용 변수에 담기|ShellScriptPrintCommand.sh|||
