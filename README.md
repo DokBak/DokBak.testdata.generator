@@ -55,3 +55,4 @@ Bash Shell command
 |쉘 스크립트 반복문(for)|ShellScriptLoopFor.sh|||
 |쉘 스크립트 명령 내용 변수에 담기|ShellScriptPrintCommand.sh|||
 |쉘 스크립트 산술 계산(이중 괄호)|ShellScriptCalculateBracket.sh|||
+|쉘 스크립트 산술 계산(expr)|ShellScriptCalculateExpr.sh|||
