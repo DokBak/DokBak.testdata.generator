@@ -59,3 +59,4 @@ Bash Shell command
 |쉘 스크립트 산술 계산(expr)|ShellScriptCalculateExpr.sh|||
 |쉘 스크립트 다중명령|ShellScriptMultiCommand.sh|||
 |쉘 스크립트 조건명령|ShellScriptConditionalCommand.sh|||
+|쉘 스크립트 백그라운드 실행|ShellScriptBackgroundRun.sh|||
