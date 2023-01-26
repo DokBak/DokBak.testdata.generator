@@ -22,6 +22,7 @@ Bash Shell command
 |grep|StringSearch.sh|특정 문자열 검색 처리||
 |gzip|GzipCompress.sh|gzip 압축 처리 시작||
 |head|ShowFileContentHead.sh|파일 내용의 선두 부분 출력 처리||
+|history|CommandHistory.sh|명령어 히스토리 확인 (history)||
 |id|ShowId.sh|사용자 정보 출력||
 |ls|DirectoryItem.sh|디렉토리내 아이템 출력||
 |man|HowToUseCommand.sh|리눅스 명령어 사용법 확인||
