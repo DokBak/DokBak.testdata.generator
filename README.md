@@ -44,6 +44,7 @@ Bash Shell command
 |wc|FileDataCounting.sh|파일 내의 데이터 수 조회 처리||
 |whoami|WhoAmI.sh|작업중인 사용자 출력||
 |zip(unzip)|ZipCompress.sh|zip 압축 처리||
+|!|CommandExclamationMark.sh|명령어 히스토리 목록 처리 (!)||
 
 **스크립트 작성법 모음 표**
 |기능|쉘이름|간략 설명|비고|
