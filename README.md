@@ -18,6 +18,7 @@ Bash Shell command
 |exit|ShowExit.sh|종료 출력 처리||
 |export|CreateGlobalVariable.sh|전역 변수 생성||
 |expr|ValueOperation.sh|값 연산||
+|fc|CommandFc.sh|명령어 히스토리 리스트 처리 (fc)||
 |find|FileSearch.sh|파일 및 디렉토리 검색||
 |grep|StringSearch.sh|특정 문자열 검색 처리||
 |gzip|GzipCompress.sh|gzip 압축 처리 시작||
