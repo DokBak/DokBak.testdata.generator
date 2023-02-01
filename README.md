@@ -66,3 +66,4 @@ Bash Shell command
 |쉘 스크립트 조건명령|ShellScriptConditionalCommand.sh|||
 |쉘 스크립트 백그라운드 실행|ShellScriptBackgroundRun.sh|||
 |쉘 스크립트 변수 선언(declare/typeset)|ShellScriptVariableDeclareTypeset.sh|||
+|쉘 스크립트 읽기 전용 변수 선언(readonly)|ShellScriptVariableReadonly.sh|||
