@@ -31,6 +31,7 @@ Bash Shell command
 |man|리눅스 명령어 사용법 확인|HowToUseCommand.sh||
 |mkdir|디렉토리 생성 처리|CreateDirectory.sh||
 |mv|파일(디렉토리) 이동 처리|MoveFileAndFolder.sh||
+|printf|포멧 지정 출력|FormatOutputPrintf.sh||
 |ps|실행중인 프로세스 출력|CheckProcess.sh||
 |pwd|작업 디렉토리 출력 처리|ShowPwd.sh||
 |rm|파일(폴더) 삭제 처리|RemoveFileAndFolder.sh||
