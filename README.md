@@ -68,3 +68,4 @@ Bash Shell command
 |쉘 스크립트 백그라운드 실행|ShellScriptBackgroundRun.sh|||
 |쉘 스크립트 변수 선언(declare/typeset)|ShellScriptVariableDeclareTypeset.sh|||
 |쉘 스크립트 읽기 전용 변수 선언(readonly)|ShellScriptVariableReadonly.sh|||
+|쉘 스크립트 변수의 확장 변경자|ShellScriptVariablesExtensionModifiy|||
