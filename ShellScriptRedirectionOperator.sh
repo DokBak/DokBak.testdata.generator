@@ -3,7 +3,7 @@
 #-------------------------
 # 테스트 쉘 : 쉘 스크립트 리다이렉션 연산자
 #-------------------------
-function RedirectionOperator(){
+function ShellScriptRedirectionOperator(){
     echo 
     echo "## 쉘 스크립트 리다이렉션 연산자 시작 ##"
     echo 
@@ -68,4 +68,4 @@ function RedirectionOperator(){
     echo 
 }
 
-RedirectionOperator
+ShellScriptRedirectionOperator
