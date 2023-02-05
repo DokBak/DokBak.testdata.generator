@@ -52,7 +52,7 @@ Bash Shell command
 **스크립트 작성법 모음 표**
 |기능|쉘이름|간략 설명|비고|
 |---|---|---|---|
-|파라미터취득,활용|ShellScriptParameter.sh|||
+|쉘 스크립트 파라미터|ShellScriptParameter.sh|||
 |함수 사용법|ShellScriptFunction.sh|||
 |사용자 입력|ShellScriptUserWrite.sh|||
 |쉘 스크립트 조건문(if)|ShellScriptIF.sh|||
