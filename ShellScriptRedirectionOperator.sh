@@ -16,7 +16,7 @@ function ShellScriptRedirectionOperator(){
     pwd >> RedirectionOperator_CMD_TestFolder/ReadFile.txt
     cd RedirectionOperator_CMD_TestFolder
     echo 
-    echo " 기본설명 : 변수의 특정 패턴부분을 잘라내기 할 경우 사용"
+    echo " 기본설명 : 명령의 결과를 리다이렉션, 결과를 파일에 출력하거나 명령의 결과를 다시 명령에 입력값으로 시작한다."
     echo
     echo " 기능1) [ < ] 사용할 경우, < 좌측의 명령에 < 우측 입력값을 대입하여 실행한다." 
     echo "   cat < ReadingRedirectFile.txt"
