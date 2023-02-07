@@ -21,7 +21,7 @@ Bash Shell command
 |expr|값 연산|ValueOperation.sh||
 |fc|명령어 히스토리 리스트 처리 (fc)|CommandFc.sh||
 |find|파일 및 디렉토리 검색|FileSearch.sh||
-|grep|특정 문자열 검색 처리|StringSearch.sh||
+|grep(egrep,fgrep)|특정 문자열 검색 처리|StringSearch.sh||
 |gunzip|gzip 압축 풀기|GzipUnzip.sh||
 |gzip|gzip 압축 처리 시작|GzipCompress.sh||
 |head|파일 내용의 선두 부분 출력 처리|ShowFileContentHead.sh||
