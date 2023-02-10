@@ -36,6 +36,7 @@ Bash Shell command
 |pwd|작업 디렉토리 출력 처리|ShowPwd.sh||
 |rm|파일(폴더) 삭제 처리|RemoveFileAndFolder.sh||
 |rmdir|디렉토리 삭제 처리|DeleteDirectory.sh||
+|sed|비대화형 모드의 텍스트 파일 에디터|TextEditerSed.sh||
 |set|지역 변수 조회|LocalEnvironmentalVariable.sh||
 |sh|쉘 스크립트 실행 |ShellScriptStart.sh||
 |sleep|작업 간 중간 딜레이 부여|ProgramDelay.sh||
