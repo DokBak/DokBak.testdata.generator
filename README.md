@@ -13,7 +13,7 @@ Bash Shell command
 |cut|세션 구분 출력|SectionCut.sh||
 |date|현재 시간 출력 처리|CurrentDate.sh||
 |dd|블록단위 파일 복사 및 변환|BlockFile.sh||
-|df|디스크 사용량 체크|DiscSpaceCheck.sh||
+|df|디스크 사용량 체크|DiskSpaceCheck.sh||
 |diff|파일 내용 비교|CompareFileContents.sh||
 |echo|기본 출력 처리|PrintLine.sh||
 |env|전역 변수 조회|EnvironmentalVariable.sh||

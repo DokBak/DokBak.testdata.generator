@@ -3,7 +3,7 @@
 #-------------------------
 # 테스트 쉘 : 디스크 사용량 체크
 #-------------------------
-function DiscSpaceCheck(){
+function DiskSpaceCheck(){
     echo 
     echo "## 디스크 사용량 체크 시작 ##"
     echo " 명령어  : df"
@@ -33,4 +33,4 @@ function DiscSpaceCheck(){
     echo 
 }
 
-DiscSpaceCheck
+DiskSpaceCheck
