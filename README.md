@@ -15,6 +15,7 @@ Bash Shell command
 |dd|블록단위 파일 복사 및 변환|BlockFile.sh||
 |df|디스크 사용량 체크|DiskSpaceCheck.sh||
 |diff|파일 내용 비교|CompareFileContents.sh||
+|du|디렉토리 사용량 체크|DirectoryUsageCheck.sh||
 |echo|기본 출력 처리|PrintLine.sh||
 |env|전역 변수 조회|EnvironmentalVariable.sh||
 |exit|종료 출력 처리|ShowExit.sh||
