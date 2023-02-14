@@ -35,7 +35,21 @@ function ShellScriptParameter(){
     echo "입력받은 파라미터 갯수(\$#) : $#"
     echo "입력받은 파라미터의 값들(\$@) : $@"
     echo
-    echo "## 쉘 스크립트 실행 종료 ##"
+    echo "모든 파라미터를 출력하는 \$* \$@ 차이 확인"
+    echo ' 부가설명) ""로 \\* \\@ 감싸기 전까지는 공백으로 데이터를 구분하여 사용하는 같은 역할을 수행한다.'
+    echo '         ""로 감싸면 \\*는 모든 단어를 하나의 문자열로 인식, \\@는 따옴표로 감싸진 데이터를 하나의 데이터 인식한다.'
+    echo "set 'week Sunday' Monday Tuesday"
+    set 'week Sunday' Monday Tuesday
+    echo "\$* 출력로 내용 확인"
+    for i in $*; do echo $i; done
+    echo "\$@ 출력로 내용 확인"
+    for i in $@; do echo $i; done
+    echo \""\$*\" 출력로 내용 확인"
+    for i in "$*"; do echo $i; done
+    echo \""\$@\" 출력로 내용 확인"
+    for i in "$@"; do echo $i; done
+    echo 
+    echo "## 쉘 스크립트 파라미터 종료 ##"
     echo 
 }
 
