@@ -6,6 +6,7 @@ Bash Shell command
 |---|---|---|---|
 |alias|명령어 선언|CommandCreate.sh|쉘 스크립트내에서 선언시 정상작동하지 않는것으로 보임, alias로 변수를 설정하기보단 bash의 설정파일에 직접 추가하는 방법을 권장함|
 |awk|데이터 컨트롤(awk)|DataControlAwk.sh||
+|break|루프문 강제 종료|LoopTermination.sh||
 |cal|달력 출력 처리|Calendar.sh||
 |cat|파일 내용 출력 처리|FileContentPrint.sh||
 |cd|디렉토리 이동|DirectoryMove.sh||
