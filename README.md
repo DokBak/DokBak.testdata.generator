@@ -43,6 +43,7 @@ Bash Shell command
 |sed|비대화형 모드의 텍스트 파일 에디터|TextEditerSed.sh||
 |set|지역 변수 조회|LocalEnvironmentalVariable.sh||
 |sh|쉘 스크립트 실행 |ShellScriptStart.sh||
+|shift|파라미터 리스트중 한 개 삭제|ParameterDelete.sh||
 |sleep|작업 간 중간 딜레이 부여|ProgramDelay.sh||
 |sort|데이터 정렬|FileSort.sh||
 |tail|파일 내용의 끝 부분 출력 처리|ShowFileContentTail.sh||
