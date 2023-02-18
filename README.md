@@ -11,6 +11,7 @@ Bash Shell command
 |cat|파일 내용 출력 처리|FileContentPrint.sh||
 |cd|디렉토리 이동|DirectoryMove.sh||
 |clear|터미널 화면 초기화|TerminalClear.sh||
+|continue|루프문 하위 처리 무시|LoopContinue.sh||
 |cp|파일 디렉토리 복사 처리|CopyFileFolder.sh||
 |cut|세션 구분 출력|SectionCut.sh||
 |date|현재 시간 출력 처리|CurrentDate.sh||
