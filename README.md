@@ -84,3 +84,4 @@ Bash Shell command
 |쉘 스크립트 리다이렉션 연산자|ShellScriptRedirectionOperator.sh|||
 |쉘 스크립트 명령 결과에 추가 명령|ShellScriptPipeCommand.sh|||
 |쉘 스크립트 정규식표현|ShellScriptRegularExpression.sh|||
+|쉘 스크립트 디버그|ShellScriptDebug.sh|||
