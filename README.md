@@ -85,3 +85,4 @@ Bash Shell command
 |쉘 스크립트 명령 결과에 추가 명령|ShellScriptPipeCommand.sh|||
 |쉘 스크립트 정규식표현|ShellScriptRegularExpression.sh|||
 |쉘 스크립트 디버그|ShellScriptDebug.sh|||
+|쉘 스크립트 내부 필드 분리자|ShellScriptIFS.sh|||
