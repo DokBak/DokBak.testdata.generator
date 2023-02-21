@@ -86,3 +86,7 @@ Bash Shell command
 |쉘 스크립트 정규식표현|ShellScriptRegularExpression.sh|||
 |쉘 스크립트 디버그|ShellScriptDebug.sh|||
 |쉘 스크립트 내부 필드 분리자|ShellScriptIFS.sh|||
+
+**Vim 사용법**
+
+VimCommand.sh
