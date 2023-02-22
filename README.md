@@ -38,6 +38,7 @@ Bash Shell command
 |mkdir|디렉토리 생성 처리|CreateDirectory.sh||
 |more|파일 내용 출력 처리(more)|FileContentShow_More.sh||
 |mv|파일(디렉토리) 이동 처리|MoveFileAndFolder.sh||
+|paste|파일 내용 합치기|FileContentAdd.sh||
 |printf|포멧 지정 출력|FormatOutputPrintf.sh||
 |ps|실행중인 프로세스 출력|CheckProcess.sh||
 |pwd|작업 디렉토리 출력 처리|ShowPwd.sh||
