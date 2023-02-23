@@ -55,6 +55,7 @@ Bash Shell command
 |tar|여래 개의 파일을 하나의 파일로 묶거나 푸는 처리|TapeARchiver.sh||
 |top|OS상태 정보 확인|OSInformation.sh||
 |touch|파일의 갱신 일자 수정 처리|UpdateFileModificationDate.sh||
+|tr|파일 내용 수정|FileContentEdit.sh||
 |unset|환경 변수 삭제|DeleteVariable.sh||
 |wc|파일 내의 데이터 수 조회 처리|FileDataCounting.sh||
 |whoami|작업중인 사용자 출력|WhoAmI.sh||
