@@ -34,6 +34,7 @@ Bash Shell command
 |id|사용자 정보 출력|ShowId.sh||
 |join|파일 내용 조인|FileContentJoin.sh||
 |less|파일 내용 출력 처리(less)|FileContentShow_Less.sh||
+|ln|심볼릭 링크|SymbolicLink.sh||
 |ls|디렉토리내 아이템 출력|DirectoryItem.sh||
 |man|리눅스 명령어 사용법 확인|HowToUseCommand.sh||
 |mkdir|디렉토리 생성 처리|CreateDirectory.sh||
