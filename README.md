@@ -57,6 +57,7 @@ Bash Shell command
 |top|OS상태 정보 확인|OSInformation.sh||
 |touch|파일의 갱신 일자 수정 처리|UpdateFileModificationDate.sh||
 |tr|파일 내용 수정|FileContentEdit.sh||
+|umask|접근 권한 기본 설정|AccessAuthoritySet.sh||
 |uname|시스템 정보 확인|SystemInfo.sh||
 |uniq|파일 내용 중복 제거|FileContentDuplicationDelete.sh||
 |unset|환경 변수 삭제|DeleteVariable.sh||
