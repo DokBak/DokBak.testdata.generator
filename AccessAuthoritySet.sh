@@ -7,7 +7,7 @@ function AccessAuthoritySet(){
     echo 
     echo "## 접근 권한 기본 설정 시작 ##"
     echo
-    echo " 명령어  : umask"
+    echo " 명령어  : umask "
     echo " 사용방법 : umask [옵션] [마스크값]"
     echo " 기본설명 : 파일 혹은 디렉토리가 생성될때 기본적으로 설정되는 접근모드를 지정하는데 마스크값은 해당 접근권한을 부여하지 않겠다는 의미이다. (관리자의 경우 기본 마스크 값:022)"
     echo
