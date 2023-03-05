@@ -10,6 +10,7 @@ Bash Shell command
 |cal|달력 출력 처리|Calendar.sh||
 |cat|파일 내용 출력 처리|FileContentPrint.sh||
 |cd|디렉토리 이동|DirectoryMove.sh||
+|chgrp|파일 그룹 변경|FileGroupEdit.sh||
 |chmod|접근 권한 변경|AccessAuthorityEdit.sh||
 |chown|파일 소유자 변경|FileOwnerEdit.sh||
 |clear|터미널 화면 초기화|TerminalClear.sh||
