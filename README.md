@@ -11,6 +11,7 @@ Bash Shell command
 |cat|파일 내용 출력 처리|FileContentPrint.sh||
 |cd|디렉토리 이동|DirectoryMove.sh||
 |chmod|접근 권한 변경|AccessAuthorityEdit.sh||
+|chown|파일 소유자 변경|FileOwnerEdit.sh||
 |clear|터미널 화면 초기화|TerminalClear.sh||
 |continue|루프문 하위 처리 무시|LoopContinue.sh||
 |cp|파일 디렉토리 복사 처리|CopyFileFolder.sh||
