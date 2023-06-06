@@ -1,9 +1,9 @@
 #!/bin/sh
 
 #------------------------------------------------------------
-# Cmd Test Shell : [Zip]_[ZipCompress]
+# Cmd Test Shell : [zip]_[zipCompress]
 #------------------------------------------------------------
-function Zip_ZipCompress(){
+function zip_zipCompress(){
     echo 
     echo "## zip Start ##"
     echo
@@ -11,7 +11,7 @@ function Zip_ZipCompress(){
     echo
     echo " Command  : zip"
     echo " HowToUse : zip [Option] [Argument1] [Argument2] [Argument3] ..."
-    echo "            [Argument1] : ZipFile_Path "
+    echo "            [Argument1] : zipFile_Path "
     echo "            [Argument2] : TargetFile1_Path "
     echo "            [Argument3] : TargetFile2_Path "
     echo "            [Option : -r] : Preserve directory structure "
@@ -61,8 +61,8 @@ function Zip_ZipCompress(){
     echo
     # Example End
     echo
-    echo "## Zip End ##"
+    echo "## zip End ##"
     echo 
 }
 
-Zip_ZipCompress
+zip_zipCompress
