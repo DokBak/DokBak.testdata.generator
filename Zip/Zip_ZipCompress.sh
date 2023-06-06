@@ -14,6 +14,7 @@ function Zip_ZipCompress(){
     echo "            [Argument1] : ZipFile_Path "
     echo "            [Argument2] : TargetFile1_Path "
     echo "            [Argument3] : TargetFile2_Path "
+    echo "            [Option : -r] : Preserve directory structure "
     echo
     # Basic Information End
     # Preparation Start
