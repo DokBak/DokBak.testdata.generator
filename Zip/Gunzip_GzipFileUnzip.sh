@@ -1,9 +1,9 @@
 #!/bin/sh
 
 #------------------------------------------------------------
-# Cmd Test Shell : [Gunzip]_[GzipFileUnZip]
+# Cmd Test Shell : [gunzip]_[GzipFileUnZip]
 #------------------------------------------------------------
-function Gunzip_GzipFileUnzip(){
+function gunzip_GzipFileUnzip(){
     echo 
     echo " ## gunzip Start ## "
     echo
@@ -17,23 +17,23 @@ function Gunzip_GzipFileUnzip(){
     # Preparation Start
     echo
     # Preparation : mkdir
-    echo " mkdir -p `pwd`/Gunzip_CMD_TestFolder "
-    mkdir -p `pwd`/Gunzip_CMD_TestFolder
+    echo " mkdir -p `pwd`/gunzip_CMD_TestFolder "
+    mkdir -p `pwd`/gunzip_CMD_TestFolder
     # Preparation : Create File
-    echo " echo 'TestFile1' > `pwd`/Gunzip_CMD_TestFolder/Gunzip_CMD_TestFile1.txt "
-    echo " TestFile1 " > Gunzip_CMD_TestFolder/Gunzip_CMD_TestFile1.txt
-    echo " echo 'TestFile2' > `pwd`/Gunzip_CMD_TestFolder/Gunzip_CMD_TestFile2.txt "
-    echo " TestFile2 " > Gunzip_CMD_TestFolder/Gunzip_CMD_TestFile2.txt
+    echo " echo 'TestFile1' > `pwd`/gunzip_CMD_TestFolder/gunzip_CMD_TestFile1.txt "
+    echo " TestFile1 " > gunzip_CMD_TestFolder/gunzip_CMD_TestFile1.txt
+    echo " echo 'TestFile2' > `pwd`/gunzip_CMD_TestFolder/gunzip_CMD_TestFile2.txt "
+    echo " TestFile2 " > gunzip_CMD_TestFolder/gunzip_CMD_TestFile2.txt
     # Preparation : Create gzip File
-    echo " gzip `pwd`/Gunzip_CMD_TestFolder/Gunzip_CMD_TestFile1.txt; gzip `pwd`/Gunzip_CMD_TestFolder/Gunzip_CMD_TestFile2.txt "
-    gzip Gunzip_CMD_TestFolder/Gunzip_CMD_TestFile1.txt; gzip Gunzip_CMD_TestFolder/Gunzip_CMD_TestFile2.txt
+    echo " gzip `pwd`/gunzip_CMD_TestFolder/gunzip_CMD_TestFile1.txt; gzip `pwd`/gunzip_CMD_TestFolder/gunzip_CMD_TestFile2.txt "
+    gzip gunzip_CMD_TestFolder/gunzip_CMD_TestFile1.txt; gzip gunzip_CMD_TestFolder/gunzip_CMD_TestFile2.txt
     echo
     # Preparation End
     # Example Start
     # Example 01 (Not Option)
     echo
-    echo " gunzip `pwd`/Gunzip_CMD_TestFolder/Gunzip_CMD_TestFile1.txt.gz "
-    gunzip `pwd`/Gunzip_CMD_TestFolder/Gunzip_CMD_TestFile1.txt.gz
+    echo " gunzip `pwd`/gunzip_CMD_TestFolder/gunzip_CMD_TestFile1.txt.gz "
+    gunzip `pwd`/gunzip_CMD_TestFolder/gunzip_CMD_TestFile1.txt.gz
     echo
     # Example End
     echo
@@ -41,4 +41,4 @@ function Gunzip_GzipFileUnzip(){
     echo 
 }
 
-Gunzip_GzipFileUnzip
+gunzip_GzipFileUnzip
