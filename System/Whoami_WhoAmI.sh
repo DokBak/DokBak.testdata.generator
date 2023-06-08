@@ -1,20 +1,31 @@
 #!/bin/sh
 
-#-------------------------
-# 테스트 쉘 : 작업중인 사용자 출력
-#-------------------------
-function WhoAmI(){
+#------------------------------------------------------------
+# Cmd Test Shell : [whoami]_[Whoami]
+#------------------------------------------------------------
+function whoami_WhoAmI(){
     echo 
-    echo "## 작업중인 사용자 출력 시작 ##"
-    echo " 명령어  : whoami"
-    echo " 사용방법 : whoami"
-    echo " 기본설명 : 현재 작업중인 사용자를 출력한다."
+    echo "## whoami Start ##"
     echo
-    echo " 예시1) whoami"
+    # Basic Information Start
+    echo
+    echo " Command  : whoami "
+    echo " HowToUse : whoami "  
+    echo
+    # Basic Information End
+    # Preparation Start
+    echo
+    echo
+    # Preparation End
+    # Example Start
+    # Example 01 (Not Option)
+    echo
     whoami
     echo
-    echo "## 작업중인 사용자 출력 종료 ##"
+    # Example End
+    echo
+    echo "## whoami End ##"
     echo 
 }
 
-WhoAmI
+whoami_WhoAmI 
