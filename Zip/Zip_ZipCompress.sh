@@ -49,15 +49,15 @@ function zip_zipCompress(){
     echo " zip `pwd`/zip_CMD_TestFolder/zip_CMD_TestFileFolder.zip `pwd`/zip_CMD_TestFolder/zip_CMD_TestFolder2/* "
     zip `pwd`/zip_CMD_TestFolder/zip_CMD_TestFileFolder.zip `pwd`/zip_CMD_TestFolder/zip_CMD_TestFolder2/*
     echo
-    # Example 04 (Not Option : Uncompress)
-    echo
-    echo " unzip zip_CMD_TestFolder/zip_CMD_TestFile1.zip "
-    unzip zip_CMD_TestFolder/zip_CMD_TestFile1.zip
-    echo
-    # Example 05 (Option -r : Folder and Files)
+    # Example 04 (Option -r : Folder and Files)
     echo
     echo " zip -r `pwd`/zip_CMD_TestFolder/zip_CMD_TestFileFolder2.zip `pwd`/zip_CMD_TestFolder/"
     zip -r `pwd`/zip_CMD_TestFolder/zip_CMD_TestFileFolder2.zip `pwd`/zip_CMD_TestFolder/
+    echo
+    # Example 05 (Option -r : Folder and Files)
+    echo
+    echo " unzip zip_CMD_TestFolder/zip_CMD_TestFile1.zip "
+    unzip zip_CMD_TestFolder/zip_CMD_TestFile1.zip
     echo
     # Example End
     echo
