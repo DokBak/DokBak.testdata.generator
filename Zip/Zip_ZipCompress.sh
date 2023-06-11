@@ -14,7 +14,6 @@ function zip_zipCompress(){
     echo "            [Argument1] : zipFile_Path "
     echo "            [Argument2] : TargetFile1_Path "
     echo "            [Argument3] : TargetFile2_Path "
-    echo "            [Option : -r] : Preserve directory structure "
     echo "            [Option : -r] : Folder and Files (All Tree)) "
     echo "            [Option : -q] : Compress Process Not Printing) "
     echo "            [Option : -9] : High Level Compress) "
