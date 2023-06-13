@@ -1,53 +1,75 @@
 #!/bin/sh
 
-#-------------------------
-# 테스트 쉘 : 시스템 정보 확인
-#-------------------------
-function SystemInfo(){
+#------------------------------------------------------------
+# Cmd Test Shell : [uname]_[SystemInfo]
+#------------------------------------------------------------
+function uname_SystemInfo(){
     echo 
-    echo "## 시스템 정보 확인 시작 ##"
+    echo "## uname Start ##"
     echo
-    echo " 명령어  : uname"
-    echo " 사용방법 : uname [옵션] "
-    echo " 기본설명 : "
+    # Basic Information Start
     echo
-    echo " 예시1) uname"
-    echo " 부가설명) 옵션 없이 사용하는 경우 uname -s 와 동일하게 커널의 이름을 출력한다."
+    echo " Command  : uname "
+    echo " HowToUse : uname "  
+    echo "            [Option : -s] : Kernel Name "
+    echo "            [Option : -n] : Network Host Name "
+    echo "            [Option : -r] : Kernel Release Version "
+    echo "            [Option : -v] : Kernel Version "
+    echo "            [Option : -m] : System Hardware Type Info "
+    echo "            [Option : -p] : Processor Type "
+    echo "            [Option : -a] : All Info (-s -n -r -v -m) "
+    echo
+    # Basic Information End
+    # Preparation Start
+    echo
+    echo
+    # Preparation End
+    # Example Start
+    # Example 01 (Not Option)
+    echo
+    echo " uname "
     uname
     echo
-    echo " 옵션 -s : 커널 이름을 출력"
-    echo " 예시2) uname -s "
+    # Example 02 (Option -s : Kernel Name )
+    echo
+    echo " uname -s "
     uname -s
     echo
-    echo " 옵션 -m : 시스템의 하드웨어 타입을 출력"
-    echo " 예시3) uname -m "
-    uname -m
-    echo
-    echo " 옵션 -n : 네트워크의 호스트 이름을 출력"
-    echo " 예시4) uname -n "
+    # Example 03 (Option -n : Network Host Name )
+    echo    
+    echo " uname -n "
     uname -n
+    echo    
+    # Example 04 (Option -r : Kernel Release Version )
     echo
-    echo " 옵션 -p : 프로세서 종류를 출력"
-    echo " 예시5) uname -p "
-    uname -p
-    echo
-    echo " 옵션 -r : 커널 릴리스 정보를 출력"
-    echo " 예시6) uname -r "
+    echo " uname -r "
     uname -r
+    echo    
+    # Example 05 (Option -v : Kernel Version )
     echo
-    echo " 옵션 -v : 커널 버전 및 출시 일자를 출력"
-    echo " 예시7) uname -v "
+    echo " uname -v "
     uname -v
+    echo    
+    # Example 06 (Option -m : System Hardware Type Info )
     echo
-    echo " 옵션 -a : 시스템의 모든 정보를 출력"
-    echo " 예시8) uname -a "
-    echo "        uname -snrvm "
-    echo " 부가설명) uname -s -n -r -v -m 과 동일한 결과 출력 : [커널이름](s), [네트워크 호스트 이름](n), [커널 릴리스 정보](r), [커널 버전 및 출시일자](v), [시스템 하드웨어 타입](m) 순으로 출력"
+    echo " uname -m "
+    uname -m
+    echo    
+    # Example 07 (Option -p : Processor Type )
+    echo
+    echo " uname -p "
+    uname -p
+    echo    
+    # Example 08 (Option -a : All Info (-s -n -r -v -m) )
+    echo    
+    echo " uname -a "
     uname -a
     uname -snrvm
     echo
-    echo "## 시스템 정보 확인 종료 ##"
+    # Example End
+    echo
+    echo "## uname End ##"
     echo 
 }
 
-SystemInfo
+uname_SystemInfo
