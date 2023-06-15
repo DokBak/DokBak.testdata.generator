@@ -20,6 +20,7 @@ function whoami_WhoAmI(){
     # Example Start
     # Example 01 (Not Option)
     echo
+    echo " whoami "
     whoami
     echo
     # Example End
