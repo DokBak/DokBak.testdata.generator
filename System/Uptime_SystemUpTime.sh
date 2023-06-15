@@ -20,6 +20,7 @@ function uptime_SystemUpTime(){
     # Example Start
     # Example 01 (Not Option)
     echo
+    echo " uptime "
     uptime
     echo
     # Example End
