@@ -1,21 +1,51 @@
 #!/bin/sh
 
-#-------------------------
-# 테스트 쉘 : 네트워크 연결 확인
-#-------------------------
-function NetworkConnecting(){
+#------------------------------------------------------------
+# Cmd Test Shell : [ping]_[NetworkConnecting]
+#------------------------------------------------------------
+function ping_NetworkConnecting(){
     echo 
-    echo "## 네트워크 연결 확인 시작 ##"
+    echo "## ping Start ##"
     echo
-    echo " 명령어  : ping"
-    echo " 사용방법 : ping [옵션] [IP주소 or 도메인주소]"
-    echo " 기본설명 : 파라미터로 지정되어있는 [IP주소 or 도메인주소]과의 통신이 잘 이루어 지는지를 확인가능하다."
+    # Basic Information Start
     echo
-    echo " 예시1) ping google.com"
+    echo " Command  : ping "
+    echo " HowToUse : ping [Argument1] [Option] "  
+    echo "            [Argument1] : Host DomainName or IP "
+    echo "            [Option : -c] : Number of Packet Transmissions "
+    echo "            [Option : -i] : Packet Transmissions Interval(Seconds) "
+    echo "            [Option : -t] : The Maximum Time To Wait For a Response "
+    echo
+    # Basic Information End
+    # Preparation Start
+    echo
+    echo
+    # Preparation End
+    # Example Start
+    # Example 01 (Not Option)
+    echo
+    echo " ping google.com"
     ping google.com
     echo
-    echo "## 네트워크 연결 확인 종료 ##"
+    # Example 02 (Option -c : Number of Packet Transmissions)
+    echo
+    echo " ping google.com -c 3"
+    ping google.com -c 3
+    echo
+    # Example 03 (Option -i : Packet Transmissions Interval(Seconds))
+    echo
+    echo " ping google.com -i 3"
+    ping google.com -i 3
+    echo
+    # Example 04 (Option -t : The Maximum Time To Wait For a Response)
+    echo
+    echo " ping google.com -t 2"
+    ping google.com -t 2
+    echo
+    # Example End
+    echo
+    echo "## ping End ##"
     echo 
 }
 
-NetworkConnecting
+ping_NetworkConnecting
