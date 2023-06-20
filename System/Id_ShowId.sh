@@ -1,33 +1,52 @@
 #!/bin/sh
 
-#-------------------------
-# 테스트 쉘 : 사용자 정보 출력
-#-------------------------
-function ShowId(){
+#------------------------------------------------------------
+# Cmd Test Shell : [Id]_[ShowId]
+#------------------------------------------------------------
+function id_ShowId(){
     echo 
-    echo "## 사용자 정보 출력 시작 ##"
-    echo " 명령어  : id"
-    echo " 사용방법 : id "
-    echo " 기본설명 : 사용자 및 그룹 이름과 숫자 ID"
+    echo "## id Start ##"
     echo
-    echo " 예시1) id"
-    id
+    # Basic Information Start
     echo
-    echo " 옵션 -F : 사용자의 풀네임이 출력"
-    echo " 예시2) id -F"
-    id -F
+    echo " Command  : id"
+    echo " HowToUse : id [Option] "
     echo
-    echo " 옵션 -u : 유효한 사용자 아이디를 숫자로 표기한다."
-    echo " 예시3) id -u"
+    # Basic Information End
+    # Preparation Start
+    echo
+    echo
+    # Preparation End
+    # Example Start
+    # Example 01 (Not Option)
+    echo
+    echo " id "
+    id 
+    echo 
+    # Example 02 (Option -u : Current User UID)
+    echo
+    echo " id -u "
     id -u
     echo
-    echo " 옵션 -un : whoami와 같은 출력"
-    echo " 예시4) id -un"
-    id -un
+    # Example 03 (Option -g : Current User GID)
     echo
-    echo "## 사용자 정보 출력 종료 ##"
+    echo " id -g "
+    id -g
+    echo
+    # Example 04 (Option -G : Current User All Group ID)
+    echo
+    echo " id -G "
+    id -G
+    echo
+    # Example 05 (Option -F : Group Name(,))
+    echo
+    echo " id -F "
+    id -F
+    echo
+    # Example End
+    echo 
+    echo "## id End ##"
     echo 
 }
 
-
-ShowId
+id_ShowId
