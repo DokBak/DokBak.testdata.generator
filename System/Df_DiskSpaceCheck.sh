@@ -49,7 +49,10 @@ function df_DiskSpaceCheck(){
     echo " Command  : df"
     echo " HowToUse : df [Option] [Argument1] [Argument2] ..."
     echo "            [Argument1] : tarFile_Path "
-    echo "            [Option : -q] : No Message) "
+    echo "            [Option : -h] : Human-readable output /1024) "
+    echo "            [Option : -H] : Human-readable output /1000) "
+    echo "            [Option : -l] : Only display information about locally-mounted) "
+    echo "            [Option : -P] : Path Line 2 -> 1) "
     echo
     # Basic Information End
     # Preparation Start
