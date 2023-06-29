@@ -12,8 +12,8 @@ function uniq_FileContentDuplicationDelete(){
     echo " Command  : uniq"
     echo " HowToUse : uniq [Option] [Argument1] "
     echo "            [Argument1] : tarFile_Path "
-    echo "            [Option : -c] : No Message "
-    echo "            [Option : -i] : No Message "
+    echo "            [Option : -c] : duplicate values print "
+    echo "            [Option : -i] : Not case sensitive "
     echo
     # Basic Information End
     # Preparation Start
