@@ -1,36 +1,73 @@
 #!/bin/sh
 
-#-------------------------
-# 테스트 쉘 : 파일 내용 수정
-#-------------------------
-function FileContentEdit(){
-    echo 
-    echo "## 파일 내용 수정 시작 ##"
+#------------------------------------------------------------
+# Cmd Test Shell : [Tr]_[FileContentEdit]
+#------------------------------------------------------------
+function tr_FileContentEdit(){
     echo
-    echo " 명령어  : tr"
-    echo " 사용방법 : tr [패턴1] [패턴2] "
-    echo " 기본설명 : 표준입력으로부터 문자들을 변경하거나 삭제하고 표준출력으로 출력한다."
+    echo "## tr Start ##"
     echo
-    echo " 사전실행) tr 명령어 실행에 필요한 샘플 폴더 및 파일 작성 방법"
-    echo "    mkdir tr_CMD_TestFolder/"
-    mkdir -p tr_CMD_TestFolder
-    echo 'test apple' > tr_CMD_TestFolder/tr_CMD_TestFile1.txt
-    echo 'test banana' >> tr_CMD_TestFolder/tr_CMD_TestFile1.txt
-    echo 'test melon' >> tr_CMD_TestFolder/tr_CMD_TestFile1.txt
-    echo 'test pear' >> tr_CMD_TestFolder/tr_CMD_TestFile1.txt
-    echo 'test peach' >> tr_CMD_TestFolder/tr_CMD_TestFile1.txt
-    echo 
-    echo " 예시1) tr 'es' 'xy' < tr_CMD_TestFolder/tr_CMD_TestFile1.txt"
-    tr 'es' 'xy' < tr_CMD_TestFolder/tr_CMD_TestFile1.txt
+    # Basic Information Start
     echo
-    echo " 예시2) tr '[a-z]' '[A-Z]' < tr_CMD_TestFolder/tr_CMD_TestFile1.txt"
-    tr '[a-z]' '[A-Z]' < tr_CMD_TestFolder/tr_CMD_TestFile1.txt
+    echo " Command  : tr"
+    echo " HowToUse : tr [Option] [Argument1] [Argument2] "
+    echo "            [Argument1] : Pre-Modification data "
+    echo "            [Argument2] : Post-Modification data "
+    echo "            [Option : -d] : delete [Argument1] "
+    echo "            [Option : -s] : [Argument1] Duplicate values Compress "
     echo
-    echo " 예시3) tr -d 'es' < tr_CMD_TestFolder/tr_CMD_TestFile1.txt"
-    tr -d 'es' < tr_CMD_TestFolder/tr_CMD_TestFile1.txt
+    # Basic Information End
+    # Preparation Start
     echo
-    echo "## 파일 내용 수정 종료 ##"
-    echo 
+    # Preparation : mkdir
+    echo " mkdir -p `pwd`/tr_CMD_TestFolder/ "
+    mkdir -p `pwd`/tr_CMD_TestFolder/
+    # Preparation : Create File
+    echo " echo 'test  apple' > `pwd`/tr_CMD_TestFolder/tr_CMD_TestFile1.txt "
+    echo 'test  apple' > `pwd`/tr_CMD_TestFolder/tr_CMD_TestFile1.txt
+    echo " echo 'test  banana' >> `pwd`/tr_CMD_TestFolder/tr_CMD_TestFile1.txt "
+    echo 'test  banana' >> `pwd`/tr_CMD_TestFolder/tr_CMD_TestFile1.txt
+    echo " echo 'test  melon' >> `pwd`/tr_CMD_TestFolder/tr_CMD_TestFile1.txt "
+    echo 'test  melon' >> `pwd`/tr_CMD_TestFolder/tr_CMD_TestFile1.txt
+    echo " echo 'test  pear' >> `pwd`/tr_CMD_TestFolder/tr_CMD_TestFile1.txt "
+    echo 'test  pear' >> `pwd`/tr_CMD_TestFolder/tr_CMD_TestFile1.txt
+    echo " echo 'test  peach' >> `pwd`/tr_CMD_TestFolder/tr_CMD_TestFile1.txt "
+    echo 'test  peach' >> `pwd`/tr_CMD_TestFolder/tr_CMD_TestFile1.txt
+    echo
+    # Preparation End
+    # Example Start
+    # Example 01 (Not Option)
+    echo
+    cat `pwd`/tr_CMD_TestFolder/tr_CMD_TestFile1.txt
+    echo " tr [a-z] [A-Z] < `pwd`/tr_CMD_TestFolder/tr_CMD_TestFile1.txt "
+    tr [a-z] [A-Z] < `pwd`/tr_CMD_TestFolder/tr_CMD_TestFile1.txt
+    cat `pwd`/tr_CMD_TestFolder/tr_CMD_TestFile1.txt
+    echo
+    # Example 02 (Not Option)
+    echo
+    cat `pwd`/tr_CMD_TestFolder/tr_CMD_TestFile1.txt
+    echo " tr 'es' 'xy' < `pwd`/tr_CMD_TestFolder/tr_CMD_TestFile1.txt "
+    tr 'es' 'xy' < `pwd`/tr_CMD_TestFolder/tr_CMD_TestFile1.txt
+    cat `pwd`/tr_CMD_TestFolder/tr_CMD_TestFile1.txt
+    echo
+    # Example 03 (Option -d : delete [Argument1] )
+    echo
+    cat `pwd`/tr_CMD_TestFolder/tr_CMD_TestFile1.txt
+    echo " tr -d 'es' < `pwd`/tr_CMD_TestFolder/tr_CMD_TestFile1.txt "
+    tr -d 'es' < `pwd`/tr_CMD_TestFolder/tr_CMD_TestFile1.txt
+    cat `pwd`/tr_CMD_TestFolder/tr_CMD_TestFile1.txt
+    echo
+    # Example 04 (Option -s : [Argument1] Duplicate values Compress )
+    echo
+    cat `pwd`/tr_CMD_TestFolder/tr_CMD_TestFile1.txt
+    echo " tr -s ' ' < `pwd`/tr_CMD_TestFolder/tr_CMD_TestFile1.txt "
+    tr -s ' ' < `pwd`/tr_CMD_TestFolder/tr_CMD_TestFile1.txt
+    cat `pwd`/tr_CMD_TestFolder/tr_CMD_TestFile1.txt
+    echo
+    # Example End
+    echo
+    echo "## tr End ##"
+    echo
 }
 
-FileContentEdit
+tr_FileContentEdit
