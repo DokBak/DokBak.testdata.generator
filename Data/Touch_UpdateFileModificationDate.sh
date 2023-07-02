@@ -1,51 +1,84 @@
 #!/bin/sh
 
-#-------------------------
-# 테스트 쉘 : 파일의 갱신 일자 수정 처리
-#-------------------------
-function UpdateFileModificationDate(){
-    echo 
-    echo "## 파일의 갱신 일자 수정 처리 시작 ##"
-    echo " 명령어  : touch"
-    echo " 사용방법 : touch [파일명]"
-    echo " 기본설명 : 파일의 날짜 및 시간을 수정, 파일이 없는 경우 0 바이트 파일을 생성"
-    echo " 예시1) touch Touch_CMD_TestFile1.txt Touch_CMD_TestFile2.txt"
-    touch Touch_CMD_TestFile1.txt Touch_CMD_TestFile2.txt
-    echo " 갱신일자 확인법 : ls -lt Touch_CMD_TestFile1.txt"
-    ls -al Touch_CMD_TestFile1.txt Touch_CMD_TestFile2.txt
+#------------------------------------------------------------
+# Cmd Test Shell : [Touch]_[UpdateFileModificationDate]
+#------------------------------------------------------------
+function touch_UpdateFileModificationDate(){
     echo
-    echo " 옵션 -t : 지정된 날짜 및 시간[[CC]YY]MMDDhhmm[.SS]으로 수정한다."
-    echo " 예시2) touch -t 202101031409 Touch_CMD_TestFile1.txt"
-    touch -t 202101031409 Touch_CMD_TestFile1.txt
-    ls -al Touch_CMD_TestFile1.txt  Touch_CMD_TestFile2.txt
+    echo "## touch Start ##"
     echo
-    echo " 옵션 -r : 파라미터(앞)의 수정 날짜 정보를 파라미터(뒤)의 수정날짜 정보로 수정한다.."
-    echo " 예시3) touch -r Touch_CMD_TestFile1.txt Touch_CMD_TestFile2.txt"
-    touch -r Touch_CMD_TestFile1.txt Touch_CMD_TestFile2.txt
-    ls -al Touch_CMD_TestFile1.txt Touch_CMD_TestFile2.txt
+    # Basic Information Start
     echo
-    echo " 옵션 -c : 수정 날짜 정보를 현재 시간으로 갱신"
-    echo " 예시4) touch -c Touch_CMD_TestFile1.txt Touch_CMD_TestFile2.txt"
-    touch -c Touch_CMD_TestFile1.txt
-    ls -al Touch_CMD_TestFile1.txt Touch_CMD_TestFile2.txt
+    echo " Command  : touch"
+    echo " HowToUse : touch [Option] [Argument1] "
+    echo "            [Argument1] : targetFile_Path "
+    echo "            [Option : -t] : Modification Time Set [Argument1] before [time] "
+    echo "            [Option : -r] : [Argument1] Modification Time copy, [Argument2] Modification Time paste "
+    echo "            [Option : -c] : Not Exist, Do not Create "
+    echo "            [Option : -m] : Modification Time Set to Current Time "
+    echo "            [Option : -a] : Access Time Set to Current Time "
     echo
-    echo " 옵션 -a : 파일의 엑세스 시간을 갱신(-m 과같이 사용하여야 수정된다.)"
-    echo " 예시5) touch -am Touch_CMD_TestFile1.txt"
-    touch -am Touch_CMD_TestFile1.txt
-    ls -al Touch_CMD_TestFile1.txt Touch_CMD_TestFile2.txt
+    # Basic Information End
+    # Preparation Start
     echo
-    echo " 옵션 -m : 파일의 수정 시간을 갱신(-a 과같이 사용하여야 수정된다.)"
-    echo " 예시6) touch -am Touch_CMD_TestFile1.txt"
-    touch -am Touch_CMD_TestFile1.txt
-    ls -al Touch_CMD_TestFile1.txt Touch_CMD_TestFile2.txt
+    # Preparation : mkdir
+    echo " mkdir -p `pwd`/touch_CMD_TestFolder/ "
+    mkdir -p `pwd`/touch_CMD_TestFolder/
     echo
-    echo " 옵션 -h : 심볼릭 파일의 경우 링크가 가르키는 원본 파일의 시간을 수정한다."
-    echo " 예시7 touch -h Touch_CMD_TestFile1.txt"
-    touch -h Touch_CMD_TestFile1.txt
-    ls -al Touch_CMD_TestFile1.txt Touch_CMD_TestFile2.txt
+    # Preparation End
+    # Example Start
+    # Example 01 (Not Option)
     echo
-    echo "## 파일의 갱신 일자 수정 처리 시작 ##"
-    echo 
+    echo " touch `pwd`/touch_CMD_TestFolder/Touch_CMD_TestFile1.txt `pwd`/touch_CMD_TestFolder/Touch_CMD_TestFile2.txt "
+    touch `pwd`/touch_CMD_TestFolder/Touch_CMD_TestFile1.txt `pwd`/touch_CMD_TestFolder/Touch_CMD_TestFile2.txt
+    echo " ls -al `pwd`/touch_CMD_TestFolder/ "
+    ls -al `pwd`/touch_CMD_TestFolder/
+    echo
+    # Example 02 (Option -t : Modification Time Set)
+    echo
+    echo " touch -t 202306010409 `pwd`/touch_CMD_TestFolder/Touch_CMD_TestFile1.txt "
+    touch -t 202306010409 `pwd`/touch_CMD_TestFolder/Touch_CMD_TestFile1.txt
+    echo " ls -al `pwd`/touch_CMD_TestFolder/ "
+    ls -al `pwd`/touch_CMD_TestFolder/
+    echo
+    # Example 03 (Option -r : [Argument1] Modification Time copy, [Argument2] Modification Time paste)
+    echo
+    echo " touch -r `pwd`/touch_CMD_TestFolder/Touch_CMD_TestFile1.txt `pwd`/touch_CMD_TestFolder/Touch_CMD_TestFile2.txt "
+    touch -r `pwd`/touch_CMD_TestFolder/Touch_CMD_TestFile1.txt `pwd`/touch_CMD_TestFolder/Touch_CMD_TestFile2.txt
+    echo " ls -al `pwd`/touch_CMD_TestFolder/ "
+    ls -al `pwd`/touch_CMD_TestFolder/
+    echo
+    # Example 04 (Option -c : Not Exist, Do not Create)
+    echo
+    echo " touch -c `pwd`/touch_CMD_TestFolder/Touch_CMD_TestFile3.txt "
+    touch -c `pwd`/touch_CMD_TestFolder/Touch_CMD_TestFile3.txt
+    echo " ls -al `pwd`/touch_CMD_TestFolder/ "
+    ls -al `pwd`/touch_CMD_TestFolder/
+    echo
+    # Example 05 (Option -m : Modification Time Set to Current Time)
+    echo
+    echo " touch -m `pwd`/touch_CMD_TestFolder/Touch_CMD_TestFile1.txt "
+    touch -m `pwd`/touch_CMD_TestFolder/Touch_CMD_TestFile1.txt
+    echo " ls -al `pwd`/touch_CMD_TestFolder/ "
+    ls -al `pwd`/touch_CMD_TestFolder/
+    echo
+    # Example 06 (Option -a : Access Time Set to Current Time)
+    echo
+    echo " stat `pwd`/touch_CMD_TestFolder/Touch_CMD_TestFile2.txt "
+    stat `pwd`/touch_CMD_TestFolder/Touch_CMD_TestFile2.txt
+    echo
+    echo " touch -a `pwd`/touch_CMD_TestFolder/Touch_CMD_TestFile2.txt "
+    touch -a `pwd`/touch_CMD_TestFolder/Touch_CMD_TestFile2.txt
+    echo " ls -al `pwd`/touch_CMD_TestFolder/ "
+    ls -al `pwd`/touch_CMD_TestFolder/
+    echo
+    echo " stat `pwd`/touch_CMD_TestFolder/Touch_CMD_TestFile2.txt "
+    stat `pwd`/touch_CMD_TestFolder/Touch_CMD_TestFile2.txt
+    echo
+    # Example End
+    echo
+    echo "## touch End ##"
+    echo
 }
 
-UpdateFileModificationDate
+touch_UpdateFileModificationDate
