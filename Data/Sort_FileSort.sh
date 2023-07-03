@@ -1,57 +1,89 @@
 #!/bin/sh
 
-#-------------------------
-# 테스트 쉘 : 데이터 정렬
-#-------------------------
-function FileSort(){
-    echo 
-    echo "## 데이터 정렬 시작 ##"
-    echo " 명령어  : sort "
-    echo " 사용방법 : sort [정렬할대상]"
-    echo " 기본설명 : [정렬할대상]의 데이터를 내림차순/오름차순으로 정렬한다.(오름차순이 디폴트)"
+#------------------------------------------------------------
+# Cmd Test Shell : [Sort]_[FileSort]
+#------------------------------------------------------------
+function sort_FileSort(){
     echo
-    echo " 사전실행) sort 명령어 실행에 필요한 샘플 폴더 및 파일 작성 방법"
-    echo "    mkdir -p sort_CMD_TestFolder/sort_CMD_TestFolder2/sort_CMD_TestFolder3/"
-    mkdir -p sort_CMD_TestFolder/sort_CMD_TestFolder2/sort_CMD_TestFolder3/
-    echo "    echo 'TestFile1' > sort_CMD_TestFolder/sort_CMD_TestFile1.txt"
-    echo 'TestFile1' > sort_CMD_TestFolder/sort_CMD_TestFile1.txt
-    echo "apple,banana,cream,dust,Test,txt,TestFile1,gui" >> sort_CMD_TestFolder/sort_CMD_TestFile1.txt
-    echo "  Test,bash,zsh,sh" >> sort_CMD_TestFolder/sort_CMD_TestFile1.txt
-    echo "zTest,bash,zsh,sh" >> sort_CMD_TestFolder/sort_CMD_TestFile1.txt
-    echo "tTest,bash,zsh,sh" >> sort_CMD_TestFolder/sort_CMD_TestFile1.txt
-    echo "xTest,bash,zsh,sh" >> sort_CMD_TestFolder/sort_CMD_TestFile1.txt
-    echo "cdTest,bash,zsh,sh" >> sort_CMD_TestFolder/sort_CMD_TestFile1.txt
-    echo "Test,bash,zsh,sh" >> sort_CMD_TestFolder/sort_CMD_TestFile1.txt
-    echo "   vvTest,bash,zsh,sh" >> sort_CMD_TestFolder/sort_CMD_TestFile1.txt
-    echo "gTest,bash,zsh,sh" >> sort_CMD_TestFolder/sort_CMD_TestFile1.txt
-    echo "Test,bash,zsh,sh" >> sort_CMD_TestFolder/sort_CMD_TestFile1.txt
-    echo "oTest,bash,zsh,sh" >> sort_CMD_TestFolder/sort_CMD_TestFile1.txt
-    echo "iTest,bash,zsh,sh" >> sort_CMD_TestFolder/sort_CMD_TestFile1.txt
-    echo "pTest,bash,zsh,sh" >> sort_CMD_TestFolder/sort_CMD_TestFile1.txt
-    echo "vvTest,bash,zsh,sh" >> sort_CMD_TestFolder/sort_CMD_TestFile1.txt
-    echo "qlTest,bash,zsh,sh" >> sort_CMD_TestFolder/sort_CMD_TestFile1.txt
-    echo "sTest,java,Javascript,C,C#,C++,python,ruby" >> sort_CMD_TestFolder/sort_CMD_TestFile1.txt
+    echo "## sort Start ##"
     echo
-    echo " 예시1) sort sort_CMD_TestFolder/sort_CMD_TestFile1.txt"
-    sort sort_CMD_TestFolder/sort_CMD_TestFile1.txt
+    # Basic Information Start
     echo
+    echo " Command  : sort"
+    echo " HowToUse : sort [Option] [Argument1] [Argument2] ..."
+    echo "            [Argument1] : tarFile_Path "
+    echo "            [Option : -r] : Descending Order [z -> a -> Z -> A] "
+    echo "            [Option : -f] : Case-Insensitive Sorting [last data output] "
+    echo "            [Option : -b] : Ignore leading spaces and sort "
     echo
-    echo " 옵션 -r : 내림차순으로 정렬하여 출력한다."
-    echo " 예시1) sort -r sort_CMD_TestFolder/sort_CMD_TestFile1.txt"
-    sort -r sort_CMD_TestFolder/sort_CMD_TestFile1.txt
+    # Basic Information End
+    # Preparation Start
     echo
-    echo " 옵션 -f : 대소문자를 구분하지 않고 정렬하여 출력한다.([--ignore-case]로도 가능하다.)"
-    echo " 예시2-1) sort -f sort_CMD_TestFolder/sort_CMD_TestFile1.txt"
-    sort -f sort_CMD_TestFolder/sort_CMD_TestFile1.txt
-    echo " 예시2-2) sort --ignore-case sort_CMD_TestFolder/sort_CMD_TestFile1.txt"
-    sort --ignore-case sort_CMD_TestFolder/sort_CMD_TestFile1.txt
+    # Preparation : mkdir
+    echo " mkdir -p `pwd`/sort_CMD_TestFolder/ "
+    mkdir -p `pwd`/sort_CMD_TestFolder/
+    # Preparation : Create File
+    echo " echo 'TestFile1' > `pwd`/sort_CMD_TestFolder/sort_CMD_TestFile1.txt "
+    echo 'TestFile1' > `pwd`/sort_CMD_TestFolder/sort_CMD_TestFile1.txt
+    echo " echo 'apple,banana,cream,dust,Test,txt,TestFile1,gui' >> `pwd`/sort_CMD_TestFolder/sort_CMD_TestFile1.txt "
+    echo 'apple,banana,cream,dust,Test,txt,TestFile1,gui' >> `pwd`/sort_CMD_TestFolder/sort_CMD_TestFile1.txt
+    echo " echo 'DTest,bash,zsh,sh' >> `pwd`/sort_CMD_TestFolder/sort_CMD_TestFile1.txt "
+    echo 'DTest,bash,zsh,sh' >> `pwd`/sort_CMD_TestFolder/sort_CMD_TestFile1.txt
+    echo 'zTest,bash,zsh,sh' >> `pwd`/sort_CMD_TestFolder/sort_CMD_TestFile1.txt
+    echo " echo 'zTest,bash,zsh,sh' >> `pwd`/sort_CMD_TestFolder/sort_CMD_TestFile1.txt "
+    echo 'tTest,bash,zsh,sh' >> `pwd`/sort_CMD_TestFolder/sort_CMD_TestFile1.txt
+    echo " echo 'tTest,bash,zsh,sh' >> `pwd`/sort_CMD_TestFolder/sort_CMD_TestFile1.txt "
+    echo 'xTest,bash,zsh,sh' >> `pwd`/sort_CMD_TestFolder/sort_CMD_TestFile1.txt
+    echo " echo 'xTest,bash,zsh,sh' >> `pwd`/sort_CMD_TestFolder/sort_CMD_TestFile1.txt "
+    echo 'cdTest,bash,zsh,sh' >> `pwd`/sort_CMD_TestFolder/sort_CMD_TestFile1.txt
+    echo " echo 'cdTest,bash,zsh,sh' >> `pwd`/sort_CMD_TestFolder/sort_CMD_TestFile1.txt "
+    echo 'Test,bash,zsh,sh' >> `pwd`/sort_CMD_TestFolder/sort_CMD_TestFile1.txt
+    echo " echo 'Test,bash,zsh,sh' >> `pwd`/sort_CMD_TestFolder/sort_CMD_TestFile1.txt "
+    echo '   vvTest,bash,zsh,sh' >> `pwd`/sort_CMD_TestFolder/sort_CMD_TestFile1.txt
+    echo " echo '   vvTest,bash,zsh,sh' >> `pwd`/sort_CMD_TestFolder/sort_CMD_TestFile1.txt "
+    echo 'gTest,bash,zsh,sh' >> `pwd`/sort_CMD_TestFolder/sort_CMD_TestFile1.txt
+    echo " echo 'gTest,bash,zsh,sh' >> `pwd`/sort_CMD_TestFolder/sort_CMD_TestFile1.txt "
+    echo 'Test,bash,zsh,sh' >> `pwd`/sort_CMD_TestFolder/sort_CMD_TestFile1.txt
+    echo " echo 'Test,bash,zsh,sh' >> `pwd`/sort_CMD_TestFolder/sort_CMD_TestFile1.txt "
+    echo 'oTest,bash,zsh,sh' >> `pwd`/sort_CMD_TestFolder/sort_CMD_TestFile1.txt
+    echo " echo 'oTest,bash,zsh,sh' >> `pwd`/sort_CMD_TestFolder/sort_CMD_TestFile1.txt "
+    echo 'iTest,bash,zsh,sh' >> `pwd`/sort_CMD_TestFolder/sort_CMD_TestFile1.txt
+    echo " echo 'iTest,bash,zsh,sh' >> `pwd`/sort_CMD_TestFolder/sort_CMD_TestFile1.txt "
+    echo 'pTest,bash,zsh,sh' >> `pwd`/sort_CMD_TestFolder/sort_CMD_TestFile1.txt
+    echo " echo 'pTest,bash,zsh,sh' >> `pwd`/sort_CMD_TestFolder/sort_CMD_TestFile1.txt "
+    echo 'vvTest,bash,zsh,sh' >> `pwd`/sort_CMD_TestFolder/sort_CMD_TestFile1.txt
+    echo " echo 'vvTest,bash,zsh,sh' >> `pwd`/sort_CMD_TestFolder/sort_CMD_TestFile1.txt " 
+    echo 'qlTest,bash,zsh,sh' >> `pwd`/sort_CMD_TestFolder/sort_CMD_TestFile1.txt
+    echo " echo 'qlTest,bash,zsh,sh' >> `pwd`/sort_CMD_TestFolder/sort_CMD_TestFile1.txt "
+    echo 'sTest,java,Javascript,C,C#,C++,python,ruby' >> `pwd`/sort_CMD_TestFolder/sort_CMD_TestFile1.txt
+    echo " echo 'sTest,java,Javascript,C,C#,C++,python,ruby' >> `pwd`/sort_CMD_TestFolder/sort_CMD_TestFile1.txt "
     echo
-    echo " 옵션 -b : 선두의 공백은 무시하고 정렬하여 출력한다."
-    echo " 예시3) sort -b sort_CMD_TestFolder/sort_CMD_TestFile1.txt"
-    sort -b sort_CMD_TestFolder/sort_CMD_TestFile1.txt
+    # Preparation End
+    # Example Start
+    # Example 01 (Not Option : [A -> Z -> a -> z])
     echo
-    echo "## 데이터 정렬 종료 ##"
-    echo 
+    echo " sort `pwd`/sort_CMD_TestFolder/sort_CMD_TestFile1.txt "
+    sort `pwd`/sort_CMD_TestFolder/sort_CMD_TestFile1.txt
+    echo
+    # Example 02 (Option -r : Descending Order [z -> a -> Z -> A] )
+    echo
+    echo " sort -r `pwd`/sort_CMD_TestFolder/sort_CMD_TestFile1.txt "
+    sort -r `pwd`/sort_CMD_TestFolder/sort_CMD_TestFile1.txt
+    echo
+    # Example 03 (Option -f : Case-Insensitive Sorting [last data output])
+    echo
+    echo " sort -f `pwd`/sort_CMD_TestFolder/sort_CMD_TestFile1.txt "
+    sort -f `pwd`/sort_CMD_TestFolder/sort_CMD_TestFile1.txt
+    echo
+    # Example 04 (Option -b : Ignore leading spaces and sort)
+    echo
+    echo " sort -b `pwd`/sort_CMD_TestFolder/sort_CMD_TestFile1.txt "
+    sort -b `pwd`/sort_CMD_TestFolder/sort_CMD_TestFile1.txt
+    echo
+    # Example End
+    echo
+    echo "## sort End ##"
+    echo
 }
 
-FileSort 
+sort_FileSort
