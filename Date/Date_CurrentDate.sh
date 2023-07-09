@@ -10,10 +10,10 @@ function Date_CurrentDate(){
     # Basic Information Start
     echo
     echo " Command  : Date"
-    echo " HowToUse : Date [Option] [Argument1] [Argument2] ..."
-    echo "            [Argument1] : tarFile_Path "
-    echo "            [Option : -q] : No Message) "
-    echo
+    echo " HowToUse : Date [Option] "
+    echo "            [Option : -u] : Output in standard time [UTC Time] "
+    echo "            [Option : -R] : Output in standard time [RFC2822 Format + UTC Time] "
+    echo 
     # Basic Information End
     # Preparation Start
     echo
@@ -335,12 +335,12 @@ function Date_CurrentDate(){
     echo ' date "+%%" '
     date "+%%"
     echo
-    # Example 15 (Option -u : Output in standard time [UTC Time])
+    # Example 15 (Option -u : Output in standard time [UTC Time] )
     echo
     echo " date -u "
     date -u
     echo
-    # Example 16 (Option -R : Output in standard time [RFC2822 Format + UTC Time])
+    # Example 16 (Option -R : Output in standard time [RFC2822 Format + UTC Time] )
     echo
     echo " date -R "
     date -R
