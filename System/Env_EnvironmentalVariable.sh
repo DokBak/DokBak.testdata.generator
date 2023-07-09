@@ -11,8 +11,9 @@ function Env_EnvironmentalVariable(){
     echo
     echo " Command  : Env"
     echo " HowToUse : Env [Option] "
-    echo "            [Option : -0] : Not NewLine) "
-    echo "            [Option : -u] : Not include) "
+    echo "            [Option : -0] : Not NewLine "
+    echo "            [Option : -u] : Not include "
+    echo
     # Registration Variable #
     echo " zsh Variable Registration  : vi ~/.zshrc "
     echo " zsh Variable Apply         : source ~/.zshrc "
@@ -27,18 +28,21 @@ function Env_EnvironmentalVariable(){
     echo
     # Preparation End
     # Example Start
-    # Example 01 (Not Option)
+    # Example 01 (Not Option : All Environment variable output )
     echo
+    echo " Not Option : All Environment variable output "
     echo " env "
     env
     echo 
     # Example 02 (Option -0 : Not NewLine )
     echo
+    echo " Option -0 : Not NewLine "
     echo " env -0 "
     env -0
     echo
     # Example 03 (Option -u : Not include )
     echo
+    echo " Option -u : Not include "
     echo " env -u TESTenv "
     env -u TESTenv
     echo
