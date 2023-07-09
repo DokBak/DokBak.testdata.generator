@@ -30,8 +30,9 @@ function gunzip_GzipFileUnzip(){
     echo
     # Preparation End
     # Example Start
-    # Example 01 (Not Option)
+    # Example 01 (Not Option : UnCompress )
     echo
+    echo " Not Option : UnCompress "
     echo " gunzip `pwd`/gunzip_CMD_TestFolder/gunzip_CMD_TestFile1.txt.gz "
     gunzip `pwd`/gunzip_CMD_TestFolder/gunzip_CMD_TestFile1.txt.gz
     echo
