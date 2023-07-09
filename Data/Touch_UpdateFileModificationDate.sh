@@ -27,43 +27,49 @@ function touch_UpdateFileModificationDate(){
     echo
     # Preparation End
     # Example Start
-    # Example 01 (Not Option)
+    # Example 01 (Not Option : empty File Create )
     echo
+    echo " Not Option : empty File Create "
     echo " touch `pwd`/touch_CMD_TestFolder/Touch_CMD_TestFile1.txt `pwd`/touch_CMD_TestFolder/Touch_CMD_TestFile2.txt "
     touch `pwd`/touch_CMD_TestFolder/Touch_CMD_TestFile1.txt `pwd`/touch_CMD_TestFolder/Touch_CMD_TestFile2.txt
     echo " ls -al `pwd`/touch_CMD_TestFolder/ "
     ls -al `pwd`/touch_CMD_TestFolder/
     echo
-    # Example 02 (Option -t : Modification Time Set)
+    # Example 02 (Option -t : Modification Time Set )
     echo
+    echo " Option -t : Modification Time Set "
     echo " touch -t 202306010409 `pwd`/touch_CMD_TestFolder/Touch_CMD_TestFile1.txt "
     touch -t 202306010409 `pwd`/touch_CMD_TestFolder/Touch_CMD_TestFile1.txt
     echo " ls -al `pwd`/touch_CMD_TestFolder/ "
     ls -al `pwd`/touch_CMD_TestFolder/
     echo
-    # Example 03 (Option -r : [Argument1] Modification Time copy, [Argument2] Modification Time paste)
+    # Example 03 (Option -r : [Argument1] Modification Time copy, [Argument2] Modification Time paste )
     echo
+    echo " Option -r : [Argument1] Modification Time copy, [Argument2] Modification Time paste "
     echo " touch -r `pwd`/touch_CMD_TestFolder/Touch_CMD_TestFile1.txt `pwd`/touch_CMD_TestFolder/Touch_CMD_TestFile2.txt "
     touch -r `pwd`/touch_CMD_TestFolder/Touch_CMD_TestFile1.txt `pwd`/touch_CMD_TestFolder/Touch_CMD_TestFile2.txt
     echo " ls -al `pwd`/touch_CMD_TestFolder/ "
     ls -al `pwd`/touch_CMD_TestFolder/
     echo
-    # Example 04 (Option -c : Not Exist, Do not Create)
+    # Example 04 (Option -c : Not Exist, Do not Create )
     echo
+    echo " Option -c : Not Exist, Do not Create "
     echo " touch -c `pwd`/touch_CMD_TestFolder/Touch_CMD_TestFile3.txt "
     touch -c `pwd`/touch_CMD_TestFolder/Touch_CMD_TestFile3.txt
     echo " ls -al `pwd`/touch_CMD_TestFolder/ "
     ls -al `pwd`/touch_CMD_TestFolder/
     echo
-    # Example 05 (Option -m : Modification Time Set to Current Time)
+    # Example 05 (Option -m : Modification Time Set to Current Time )
     echo
+    echo " Option -m : Modification Time Set to Current Time "
     echo " touch -m `pwd`/touch_CMD_TestFolder/Touch_CMD_TestFile1.txt "
     touch -m `pwd`/touch_CMD_TestFolder/Touch_CMD_TestFile1.txt
     echo " ls -al `pwd`/touch_CMD_TestFolder/ "
     ls -al `pwd`/touch_CMD_TestFolder/
     echo
-    # Example 06 (Option -a : Access Time Set to Current Time)
+    # Example 06 (Option -a : Access Time Set to Current Time )
     echo
+    echo " Option -a : Access Time Set to Current Time "
     echo " stat `pwd`/touch_CMD_TestFolder/Touch_CMD_TestFile2.txt "
     stat `pwd`/touch_CMD_TestFolder/Touch_CMD_TestFile2.txt
     echo
