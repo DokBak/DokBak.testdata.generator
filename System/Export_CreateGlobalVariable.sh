@@ -10,7 +10,7 @@ function export_CreateGlobalVariable(){
     # Basic Information Start
     echo
     echo " Command  : export"
-    echo " HowToUse : export [Option] [Argument1]=[Argument2] "
+    echo " HowToUse : export [Argument1]=[Argument2] "
     echo "            [Argument1] : Variable "
     echo "            [Argument2] : Value "
     echo
@@ -20,8 +20,9 @@ function export_CreateGlobalVariable(){
     echo
     # Preparation End
     # Example Start
-    # Example 01 (Not Option)
+    # Example 01 (Not Option : export Environment variable output )
     echo
+    echo " Not Option : export Environment variable output "
     export GLOBALVAR=GLOBALDATA
     echo " env | grep GLOBALVAR "
     env | grep GLOBALVAR
