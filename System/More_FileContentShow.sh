@@ -53,8 +53,9 @@ function more_FileContentShow(){
     echo
     # Preparation End
     # Example Start
-    # Example 01 (Not Option)
+    # Example 01 (Not Option : like vim, Can't modify )
     echo
+    echo " Not Option : like vim, Can't modify "
     echo " more `pwd`/more_CMD_TestFolder/more_CMD_TestFile1.txt"
     more `pwd`/more_CMD_TestFolder/more_CMD_TestFile1.txt
     echo
