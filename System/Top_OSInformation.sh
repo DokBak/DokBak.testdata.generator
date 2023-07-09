@@ -19,7 +19,7 @@ function top_OSInformation(){
     echo
     # Preparation End
     # Example Start
-    # Example 01 (Not Option)
+    # Example 01 (Not Option : All Process Monitor )
     echo
     echo " top "
     top
