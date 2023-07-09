@@ -19,8 +19,9 @@ function man_NetworkConnecting(){
     echo
     # Preparation End
     # Example Start
-    # Example 01 (Not Option)
+    # Example 01 (Not Option : Command manual )
     echo
+    echo " Not Option : Command manual "
     echo " man cd"
     man cd
     echo
