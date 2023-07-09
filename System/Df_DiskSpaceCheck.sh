@@ -10,12 +10,11 @@ function df_DiskSpaceCheck(){
     # Basic Information Start
     echo
     echo " Command  : df"
-    echo " HowToUse : df [Option] [Argument1] [Argument2] ..."
-    echo "            [Argument1] : tarFile_Path "
-    echo "            [Option : -h] : Human-readable output /1024) "
-    echo "            [Option : -H] : Human-readable output /1000) "
-    echo "            [Option : -l] : Only display information about locally-mounted) "
-    echo "            [Option : -P] : Path Line 2 -> 1) "
+    echo " HowToUse : df [Option] "
+    echo "            [Option : -h] : Human-readable output /1024 "
+    echo "            [Option : -H] : Human-readable output /1000 "
+    echo "            [Option : -l] : Only display information about locally-mounted "
+    echo "            [Option : -P] : Path Line 2 -> 1 "
     echo
     # Basic Information End
     # Preparation Start
@@ -40,13 +39,13 @@ function df_DiskSpaceCheck(){
     echo " df -H "
     df -H 
     echo
-    # Example 04 (Option -l : Only display information about locally-mounted)
+    # Example 04 (Option -l : Only display information about locally-mounted )
     echo
     echo " Option -l : Only display information about locally-mounted "
     echo " df -l "
     df -l 
     echo
-    # Example 05 (Option -P : Path Line 2 -> 1)
+    # Example 05 (Option -P : Path Line 2 -> 1 )
     echo
     echo " Option -P : Path Line 2 -> 1 "
     echo " df -P "
