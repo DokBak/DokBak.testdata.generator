@@ -32,18 +32,21 @@ function tail_ShowFileContentTail(){
     echo
     # Preparation End
     # Example Start
-    # Example 01 (Not Option)
+    # Example 01 (Not Option : Like cat Command )
     echo
+    echo " Not Option : Like cat Command "
     echo " tail `pwd`/tail_CMD_TestFolder/tail_CMD_TestFile1.txt "
     tail `pwd`/tail_CMD_TestFolder/tail_CMD_TestFile1.txt
     echo
-    # Example 02 (Option -c : Output bytes specified from behind [newline = 1byte])
+    # Example 02 (Option -c : Output bytes specified from behind [newline = 1byte] )
     echo
+    echo " Option -c : Output bytes specified from behind [newline = 1byte] "
     echo " tail -c 17 `pwd`/tail_CMD_TestFolder/tail_CMD_TestFile1.txt "
     tail -c 17 `pwd`/tail_CMD_TestFolder/tail_CMD_TestFile1.txt
     echo
-    # Example 03 (Option -n : Output lines specified from behind)
+    # Example 03 (Option -n : Output lines specified from behind )
     echo
+    echo " Option -n : Output lines specified from behind "
     echo " tail -n 17 `pwd`/tail_CMD_TestFolder/tail_CMD_TestFile1.txt "
     tail -n 17 `pwd`/tail_CMD_TestFolder/tail_CMD_TestFile1.txt
     echo
