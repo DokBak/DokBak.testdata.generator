@@ -95,24 +95,28 @@ function sed_TextEditerSed(){
     echo
     # Example 06 (Not Option -n : Only Correct Pattern Print )
     echo
+    echo " Not Option -n : Only Correct Pattern Print "
     echo " Only Correct Pattern Print : [ -n 's(tart),e(nd)p'] "
     echo " sed -n '2,5p' `pwd`/sed_CMD_TestFolder/sed_CMD_TestFile1.txt "
     sed -n '2,5p' `pwd`/sed_CMD_TestFolder/sed_CMD_TestFile1.txt
     echo
     # Example 07 (Not Option -n : Only Correct Pattern Print )
     echo
+    echo " Not Option -n : Only Correct Pattern Print "
     echo " Only Correct Pattern Print : [ -n 's/pattern1/pattern2/p'] "
     echo " sed -n 's/TestFile/SedSample/p' `pwd`/sed_CMD_TestFolder/sed_CMD_TestFile1.txt "
     sed -n 's/TestFile/SedSample/p' `pwd`/sed_CMD_TestFolder/sed_CMD_TestFile1.txt
     echo
-    # Example 08 (Not Option -e : Script Set)
+    # Example 08 (Not Option -e : Script Set )
     echo
+    echo " Not Option -e : Script Set "
     echo " Script Set : [ -e 's/pattern1/pattern2/g'] "
     echo " sed -e 's/TestFile/SedSample/g' -e 's/SedSample/tt/g' `pwd`/sed_CMD_TestFolder/sed_CMD_TestFile1.txt "
     sed -e 's/TestFile/SedSample/g' -e 's/SedSample/tt/g' `pwd`/sed_CMD_TestFolder/sed_CMD_TestFile1.txt
     echo
-    # Example 09 (Not Option -f : Script File Read)
+    # Example 09 (Not Option -f : Script File Read )
     echo
+    echo " Not Option -f : Script File Read "
     echo " Script Set : [ -f 's/pattern1/pattern2/g'] "
     echo " sed -f `pwd`/sed_CMD_TestFolder/sed_CMD_TestFile2.txt `pwd`/sed_CMD_TestFolder/sed_CMD_TestFile1.txt "
     sed -f `pwd`/sed_CMD_TestFolder/sed_CMD_TestFile2.txt `pwd`/sed_CMD_TestFolder/sed_CMD_TestFile1.txt
