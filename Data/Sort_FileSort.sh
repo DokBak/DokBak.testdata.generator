@@ -60,23 +60,27 @@ function sort_FileSort(){
     echo
     # Preparation End
     # Example Start
-    # Example 01 (Not Option : [A -> Z -> a -> z])
+    # Example 01 (Not Option : [A -> Z -> a -> z] )
     echo
+    echo " Not Option : [A -> Z -> a -> z] "
     echo " sort `pwd`/sort_CMD_TestFolder/sort_CMD_TestFile1.txt "
     sort `pwd`/sort_CMD_TestFolder/sort_CMD_TestFile1.txt
     echo
     # Example 02 (Option -r : Descending Order [z -> a -> Z -> A] )
     echo
+    echo " Option -r : Descending Order [z -> a -> Z -> A]  "
     echo " sort -r `pwd`/sort_CMD_TestFolder/sort_CMD_TestFile1.txt "
     sort -r `pwd`/sort_CMD_TestFolder/sort_CMD_TestFile1.txt
     echo
-    # Example 03 (Option -f : Case-Insensitive Sorting [last data output])
+    # Example 03 (Option -f : Case-Insensitive Sorting [last data output] )
     echo
+    echo " Option -f : Case-Insensitive Sorting [last data output] "
     echo " sort -f `pwd`/sort_CMD_TestFolder/sort_CMD_TestFile1.txt "
     sort -f `pwd`/sort_CMD_TestFolder/sort_CMD_TestFile1.txt
     echo
-    # Example 04 (Option -b : Ignore leading spaces and sort)
+    # Example 04 (Option -b : Ignore leading spaces and sort )
     echo
+    echo " Option -b : Ignore leading spaces and sort "
     echo " sort -b `pwd`/sort_CMD_TestFolder/sort_CMD_TestFile1.txt "
     sort -b `pwd`/sort_CMD_TestFolder/sort_CMD_TestFile1.txt
     echo
