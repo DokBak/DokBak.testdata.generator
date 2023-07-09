@@ -18,8 +18,9 @@ function whoami_WhoAmI(){
     echo
     # Preparation End
     # Example Start
-    # Example 01 (Not Option)
+    # Example 01 (Not Option : Working User )
     echo
+    echo " Not Option : Working User "
     echo " whoami "
     whoami
     echo
