@@ -36,15 +36,17 @@ function tr_FileContentEdit(){
     echo
     # Preparation End
     # Example Start
-    # Example 01 (Not Option)
+    # Example 01 (Not Option : Value Replacement of Regular Expression )
     echo
+    echo " Not Option : Value Replacement of Regular Expression "
     cat `pwd`/tr_CMD_TestFolder/tr_CMD_TestFile1.txt
     echo " tr [a-z] [A-Z] < `pwd`/tr_CMD_TestFolder/tr_CMD_TestFile1.txt "
     tr [a-z] [A-Z] < `pwd`/tr_CMD_TestFolder/tr_CMD_TestFile1.txt
     cat `pwd`/tr_CMD_TestFolder/tr_CMD_TestFile1.txt
     echo
-    # Example 02 (Not Option)
+    # Example 02 (Not Option : Value Replacement )
     echo
+    echo " Not Option : Value Replacement "
     cat `pwd`/tr_CMD_TestFolder/tr_CMD_TestFile1.txt
     echo " tr 'es' 'xy' < `pwd`/tr_CMD_TestFolder/tr_CMD_TestFile1.txt "
     tr 'es' 'xy' < `pwd`/tr_CMD_TestFolder/tr_CMD_TestFile1.txt
@@ -52,6 +54,7 @@ function tr_FileContentEdit(){
     echo
     # Example 03 (Option -d : delete [Argument1] )
     echo
+    echo " Option -d : delete [Argument1] "
     cat `pwd`/tr_CMD_TestFolder/tr_CMD_TestFile1.txt
     echo " tr -d 'es' < `pwd`/tr_CMD_TestFolder/tr_CMD_TestFile1.txt "
     tr -d 'es' < `pwd`/tr_CMD_TestFolder/tr_CMD_TestFile1.txt
@@ -59,6 +62,7 @@ function tr_FileContentEdit(){
     echo
     # Example 04 (Option -s : [Argument1] Duplicate values Compress )
     echo
+    echo " Option -s : [Argument1] Duplicate values Compress "
     cat `pwd`/tr_CMD_TestFolder/tr_CMD_TestFile1.txt
     echo " tr -s ' ' < `pwd`/tr_CMD_TestFolder/tr_CMD_TestFile1.txt "
     tr -s ' ' < `pwd`/tr_CMD_TestFolder/tr_CMD_TestFile1.txt
