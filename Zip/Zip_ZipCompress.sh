@@ -10,7 +10,7 @@ function zip_zipCompress(){
     # Basic Information Start
     echo
     echo " Command  : zip"
-    echo " HowToUse : zip [Option] [Argument1] [Argument2] [Argument3] ..."
+    echo " HowToUse : zip [Option] [Argument1] [Argument2] [Argument3] "
     echo "            [Argument1] : zipFile_Path "
     echo "            [Argument2] : TargetFile1_Path "
     echo "            [Argument3] : TargetFile2_Path "
@@ -38,43 +38,51 @@ function zip_zipCompress(){
     # Example Start
     # Example 01 (Not Option : Single File Compress)
     echo
+    echo " Not Option : Single File Compress "
     echo " zip `pwd`/zip_CMD_TestFolder/zip_CMD_TestFile1.zip `pwd`/zip_CMD_TestFolder/zip_CMD_TestFile1.txt "
     zip `pwd`/zip_CMD_TestFolder/zip_CMD_TestFile1.zip `pwd`/zip_CMD_TestFolder/zip_CMD_TestFile1.txt 
     echo " zip `pwd`/zip_CMD_TestFolder/zip_CMD_TestFile2.z `pwd`/zip_CMD_TestFolder/zip_CMD_TestFile2.txt "
     zip `pwd`/zip_CMD_TestFolder/zip_CMD_TestFile2.z `pwd`/zip_CMD_TestFolder/zip_CMD_TestFile2.txt
     echo
-    # Example 02 (Not Option : Multi File Compress1)
+    # Example 02 (Not Option : Multi File Compress )
     echo
+    echo " Not Option : Multi File Compress "
     echo " zip `pwd`/zip_CMD_TestFolder/zip_CMD_TestFileGroup.zip `pwd`/zip_CMD_TestFolder/zip_CMD_TestFile1.txt `pwd`/zip_CMD_TestFolder/zip_CMD_TestFile2.txt "
     zip `pwd`/zip_CMD_TestFolder/zip_CMD_TestFileGroup.zip `pwd`/zip_CMD_TestFolder/zip_CMD_TestFile1.txt `pwd`/zip_CMD_TestFolder/zip_CMD_TestFile2.txt
     echo    
-    # Example 03 (Not Option : Folder and Files (1 Tree))
+    # Example 03 (Not Option : Folder and Files (1 Tree) )
     echo
+    echo " Not Option : Folder and Files (1 Tree) "
     echo " zip `pwd`/zip_CMD_TestFolder/zip_CMD_TestFileFolder.zip `pwd`/zip_CMD_TestFolder/* "
     zip `pwd`/zip_CMD_TestFolder/zip_CMD_TestFileFolder.zip `pwd`/zip_CMD_TestFolder/*
     echo
-    # Example 04 (Option -r : Folder and Files (All Tree))
+    # Example 04 (Option -r : Folder and Files (All Tree) )
     echo
+    echo " Option -r : Folder and Files (All Tree) "
     echo " zip -r `pwd`/zip_CMD_TestFolder/zip_CMD_TestFileFolder_r.zip `pwd`/zip_CMD_TestFolder/*"
     zip -r `pwd`/zip_CMD_TestFolder/zip_CMD_TestFileFolder_r.zip `pwd`/zip_CMD_TestFolder/
     echo
-    # Example 05 (Option -q : Compress Process Not Printing)
+    # Example 05 (Option -q : Compress Process Not Printing )
     echo
+    echo " Option -q : Compress Process Not Printing "
     echo " zip -q `pwd`/zip_CMD_TestFolder/zip_CMD_TestFileFolder_q.zip `pwd`/zip_CMD_TestFolder/*"
     zip -q `pwd`/zip_CMD_TestFolder/zip_CMD_TestFileFolder_q.zip `pwd`/zip_CMD_TestFolder/*
     echo
-    # Example 06 (Option -9 : High Level Compress)
+    # Example 06 (Option -9 : High Level Compress )
     echo
+    echo " Option -9 : High Level Compress "
     echo " zip -9 `pwd`/zip_CMD_TestFolder/zip_CMD_TestFileFolder_9.zip `pwd`/zip_CMD_TestFolder/*"
     zip -9 `pwd`/zip_CMD_TestFolder/zip_CMD_TestFileFolder_9.zip `pwd`/zip_CMD_TestFolder/*
     echo
-    # Example 07 (Option -j : No tree, Only Files)
+    # Example 07 (Option -j : No tree, Only Files )
     echo
+    echo " Option -j : No tree, Only Files "
     echo " zip -j `pwd`/zip_CMD_TestFolder/zip_CMD_TestFileFolder_j.zip `pwd`/zip_CMD_TestFolder/*"
     zip -j `pwd`/zip_CMD_TestFolder/zip_CMD_TestFileFolder_j.zip `pwd`/zip_CMD_TestFolder/*
     echo
-    # Example 08 (Option -d : delete File from zip file)
+    # Example 08 (Option -d : delete File from zip file )
     echo
+    echo " Option -d : delete File from zip file "
     echo " zip -d `pwd`/zip_CMD_TestFolder/zip_CMD_TestFileFolder_j.zip zip_CMD_TestFile1.txt"
     zip -d `pwd`/zip_CMD_TestFolder/zip_CMD_TestFileFolder_j.zip zip_CMD_TestFile1.txt
     echo
