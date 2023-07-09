@@ -32,23 +32,27 @@ function unzip_FileUnzip(){
     echo
     # Preparation End
     # Example Start
-    # Example 01 (Not Option : Current Folder Unzip)
+    # Example 01 (Not Option : Current Folder Unzip )
     echo
+    echo " Not Option : Current Folder Unzip "
     echo " unzip `pwd`/unzip_CMD_TestFolder/unzip_CMD_TestFile1.zip "
     unzip `pwd`/unzip_CMD_TestFolder/unzip_CMD_TestFile1.zip
     echo
-    # Example 02 (Option -l : zip File List Show)
+    # Example 02 (Option -l : zip File List Show )
     echo
+    echo " Option -l : zip File List Show "
     echo " unzip -l `pwd`/unzip_CMD_TestFolder/unzip_CMD_TestFile1.zip "
     unzip -l `pwd`/unzip_CMD_TestFolder/unzip_CMD_TestFile1.zip 
     echo
-    # Example 03 (Option -q : No Message)
+    # Example 03 (Option -q : No Message )
     echo
+    echo " Option -q : No Message "
     echo " unzip -q `pwd`/unzip_CMD_TestFolder/unzip_CMD_TestFile1.zip "
     unzip -q `pwd`/unzip_CMD_TestFolder/unzip_CMD_TestFile1.zip 
     echo
-    # Example 04 (Option -d : Unzip Directory Select)
+    # Example 04 (Option -d : Unzip Directory Select )
     echo
+    echo " Option -d : Unzip Directory Select "
     echo " unzip -d `pwd`/unzip_CMD_TestFolder/unzip_CMD_TestFile1.zip `pwd`/unzip_CMD_TestFolder/unzip_CMD_TestFolder2/ "
     unzip `pwd`/unzip_CMD_TestFolder/unzip_CMD_TestFile1.zip -d `pwd`/unzip_CMD_TestFolder/unzip_CMD_TestFolder2/
     echo
