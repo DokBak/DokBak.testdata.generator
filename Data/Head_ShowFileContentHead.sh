@@ -32,18 +32,21 @@ function head_ShowFileContentHead(){
     echo
     # Preparation End
     # Example Start
-    # Example 01 (Not Option : Default 10 Lines)
+    # Example 01 (Not Option : Default 10 Lines )
     echo
+    echo " Not Option : Default 10 Lines "
     echo " head `pwd`/head_CMD_TestFolder/Head_CMD_TestFile1.txt"
     head `pwd`/head_CMD_TestFolder/Head_CMD_TestFile1.txt
     echo
-    # Example 02 (Option -c : Output bytes specified from behind [newline = 1byte])
+    # Example 02 (Option -c : Output bytes specified from behind [newline = 1byte] )
     echo
+    echo " Option -c : Output bytes specified from behind [newline = 1byte] "
     echo " head -c 17 `pwd`/head_CMD_TestFolder/Head_CMD_TestFile1.txt"
     head -c 17 `pwd`/head_CMD_TestFolder/Head_CMD_TestFile1.txt
     echo
-    # Example 03 (Option -n : Output lines specified from behind)
+    # Example 03 (Option -n : Output lines specified from behind )
     echo
+    echo " Option -n : Output lines specified from behind "
     echo " head -n 17 `pwd`/head_CMD_TestFolder/Head_CMD_TestFile1.txt"
     head -n 17 `pwd`/head_CMD_TestFolder/Head_CMD_TestFile1.txt
     echo
