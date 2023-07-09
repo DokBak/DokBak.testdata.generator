@@ -58,7 +58,7 @@ function wc_FileDataCounting(){
     echo
     # Preparation End
     # Example Start
-    # Example 01 (Not Option)
+    # Example 01 (Not Option : line count, word count, byte count)
     echo
     echo " `pwd`/wc wc_CMD_TestFolder/wc_CMD_TestFile1.txt "
     wc `pwd`/wc_CMD_TestFolder/wc_CMD_TestFile1.txt
