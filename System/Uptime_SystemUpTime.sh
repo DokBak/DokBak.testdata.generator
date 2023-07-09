@@ -18,8 +18,9 @@ function uptime_SystemUpTime(){
     echo
     # Preparation End
     # Example Start
-    # Example 01 (Not Option)
+    # Example 01 (Not Option : Commands for displaying how long the stem has been running and system load information )
     echo
+    echo " Not Option : Commands for displaying how long the stem has been running and system load information "
     echo " uptime "
     uptime
     echo
