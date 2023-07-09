@@ -11,6 +11,10 @@ function id_ShowId(){
     echo
     echo " Command  : id"
     echo " HowToUse : id [Option] "
+    echo "            [Option : -u] : Current User UID "
+    echo "            [Option : -g] : Current User GID "
+    echo "            [Option : -G] : Current User All Group ID "
+    echo "            [Option : -F] : Group Name(,) "
     echo
     # Basic Information End
     # Preparation Start
@@ -18,28 +22,33 @@ function id_ShowId(){
     echo
     # Preparation End
     # Example Start
-    # Example 01 (Not Option)
+    # Example 01 (Not Option : Print user Info )
     echo
+    echo " Not Option : Print user Info "
     echo " id "
     id 
     echo 
-    # Example 02 (Option -u : Current User UID)
+    # Example 02 (Option -u : Current User UID )
     echo
+    echo " Option -u : Current User UID "
     echo " id -u "
     id -u
     echo
-    # Example 03 (Option -g : Current User GID)
+    # Example 03 (Option -g : Current User GID )
     echo
+    echo " Option -g : Current User GID "
     echo " id -g "
     id -g
     echo
-    # Example 04 (Option -G : Current User All Group ID)
+    # Example 04 (Option -G : Current User All Group ID )
     echo
+    echo " Option -G : Current User All Group ID "
     echo " id -G "
     id -G
     echo
-    # Example 05 (Option -F : Group Name(,))
-    echo
+    # Example 05 (Option -F : Group Name(,) )
+    echo 
+    echo " Option -F : Group Name(,) "
     echo " id -F "
     id -F
     echo
