@@ -18,7 +18,7 @@ function set_LocalEnvironmentalVariable(){
     echo
     # Preparation End
     # Example Start
-    # Example 01 (Not Option : Environment variable output )
+    # Example 01 (Not Option : Environment variable Set )
     echo
     echo " Not Option : Environment variable output "
     echo " set "
