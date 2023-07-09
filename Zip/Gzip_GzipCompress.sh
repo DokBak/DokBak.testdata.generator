@@ -18,7 +18,7 @@ function gzip_gzipCompress(){
     # Preparation Start
     echo
     # Preparation : mkdir
-    echo " mkdir -p  `pwd`/gzip_CMD_TestFolder"
+    echo " mkdir -p  `pwd`/gzip_CMD_TestFolder/ "
     mkdir -p `pwd`/gzip_CMD_TestFolder/
     # Preparation : Create File
     echo " echo 'TestFile1' > `pwd`/gzip_CMD_TestFolder/gzip_CMD_TestFile1.txt "
@@ -28,13 +28,15 @@ function gzip_gzipCompress(){
     echo
     # Preparation End
     # Example Start
-    # Example 01 (Not Option)
+    # Example 01 (Not Option : gz Compress )
     echo
+    echo " Not Option : gz Compress "
     echo " gzip `pwd`/gzip_CMD_TestFolder/gzip_CMD_TestFile1.txt; gzip `pwd`/gzip_CMD_TestFolder/gzip_CMD_TestFile2.txt "
     gzip `pwd`/gzip_CMD_TestFolder/gzip_CMD_TestFile1.txt; gzip `pwd`/gzip_CMD_TestFolder/gzip_CMD_TestFile2.txt
     echo
-    # Example 02 (Option -d : UnCompress)
+    # Example 02 (Option -d : UnCompress )
     echo
+    echo " Option -d : UnCompress "
     echo " gzip -d `pwd`/gzip_CMD_TestFolder/gzip_CMD_TestFile2.txt "
     gzip -d `pwd`/gzip_CMD_TestFolder/gzip_CMD_TestFile2.txt
     echo
