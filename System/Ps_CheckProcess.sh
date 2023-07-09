@@ -21,23 +21,27 @@ function ps_CheckProcess(){
     echo
     # Preparation End
     # Example Start
-    # Example 01 (Not Option)
+    # Example 01 (Not Option : Check All Process )
     echo
+    echo " Not Option : Check All Process "
     echo " ps "
     ps
     echo
-    # Example 02 (Option -f : Process Info)
+    # Example 02 (Option -f : Process Info )
     echo
+    echo " Option -f : Process Info "
     echo " ps -f "
     ps -f
     echo
-    # Example 03 (Option -e : All User Process List)
+    # Example 03 (Option -e : All User Process List )
     echo
+    echo " Option -e : All User Process List "
     echo " ps -e "
     ps -e
     echo
-    # Example 04 (Option -l : Process Info + resource, runtime)
+    # Example 04 (Option -l : Process Info + resource, runtime )
     echo
+    echo " Option -l : Process Info + resource, runtime "
     echo " ps -l "
     ps -l
     echo
