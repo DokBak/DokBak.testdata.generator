@@ -53,8 +53,9 @@ function less_FileContentShow(){
     echo
     # Preparation End
     # Example Start
-    # Example 01 (Not Option)
+    # Example 01 (Not Option : like vim, Can't modify )
     echo
+    echo " Not Option : like vim, Can't modify "
     echo " less `pwd`/less_CMD_TestFolder/less_CMD_TestFile1.txt"
     less `pwd`/less_CMD_TestFolder/less_CMD_TestFile1.txt
     echo
