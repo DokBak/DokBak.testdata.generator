@@ -61,6 +61,7 @@ function uniq_FileContentDuplicationDelete(){
     # Example Start
     # Example 01 (Not Option : Remove consecutive duplicate values )
     echo
+    echo " Not Option : Remove consecutive duplicate values "
     cat `pwd`/uniq_CMD_TestFolder/uniq_CMD_TestFile1.txt
     echo
     echo " uniq `pwd`/uniq_CMD_TestFolder/uniq_CMD_TestFile1.txt "
@@ -68,11 +69,13 @@ function uniq_FileContentDuplicationDelete(){
     echo
     # Example 02 (Option -c : duplicate values print )
     echo
+    echo " Option -c : duplicate values print "
     echo " uniq -c `pwd`/uniq_CMD_TestFolder/uniq_CMD_TestFile1.txt "
     uniq -c `pwd`/uniq_CMD_TestFolder/uniq_CMD_TestFile1.txt
     echo
     # Example 03 (Option -i : Not case sensitive )
     echo
+    echo " Option -i : Not case sensitive "
     echo " uniq -i `pwd`/uniq_CMD_TestFolder/uniq_CMD_TestFile1.txt "
     uniq -i `pwd`/uniq_CMD_TestFolder/uniq_CMD_TestFile1.txt
     echo
