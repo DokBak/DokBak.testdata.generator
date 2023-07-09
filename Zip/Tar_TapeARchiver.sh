@@ -39,36 +39,42 @@ function tar_TapeARchiver(){
     echo
     # Preparation End
     # Example Start
-    # Example 01 (Option cvf : Creating a tar Archive1)
+    # Example 01 (Option cvf : Creating a tar Archive1 )
     echo
+    echo " Option cvf : Creating a tar Archive1 "
     echo " tar cvf `pwd`/tar_CMD_TestFolder/Testtar1.tar `pwd`/tar_CMD_TestFolder/tar_CMD_TestFile1.txt `pwd`/tar_CMD_TestFolder/tar_CMD_TestFile2.txt "
     tar cvf `pwd`/tar_CMD_TestFolder/Testtar1.tar `pwd`/tar_CMD_TestFolder/tar_CMD_TestFile1.txt `pwd`/tar_CMD_TestFolder/tar_CMD_TestFile2.txt
     echo    
-    # Example 02 (Option cvf : Creating a tar Archive2)
+    # Example 02 (Option cvf : Creating a tar Archive2 )
     echo
+    echo " Option cvf : Creating a tar Archive2 "
     echo " tar cvf `pwd`/tar_CMD_TestFolder/Testtar2.tar `pwd`/tar_CMD_TestFolder/* "
     tar cvf `pwd`/tar_CMD_TestFolder/Testtar2.tar `pwd`/tar_CMD_TestFolder/*
     echo    
-    # Example 03 (Option tvf : tar Archive Show)
+    # Example 03 (Option tvf : tar Archive Show )
     echo
+    echo " Option tvf : tar Archive Show "
     echo " tar tvf `pwd`/tar_CMD_TestFolder/Testtar1.tar "
     tar tvf `pwd`/tar_CMD_TestFolder/Testtar1.tar
     echo " tar tvf `pwd`/tar_CMD_TestFolder/Testtar2.tar "
     tar tvf `pwd`/tar_CMD_TestFolder/Testtar2.tar
     echo
-    # Example 04 (Option xvf : Extracting a tar Archive)
+    # Example 04 (Option xvf : Extracting a tar Archive )
     echo
+    echo " Option xvf : Extracting a tar Archive "
     echo " tar xvf `pwd`/tar_CMD_TestFolder/Testtar1.tar "
     tar xvf `pwd`/tar_CMD_TestFolder/Testtar1.tar
     echo
-    # Example 05 (Option xvf : Extracting a tar Archive)
-    #            (Option -C : To specify a directory)
+    # Example 05 (Option xvf : Extracting a tar Archive )
+    #            (Option -C : To specify a directory )
     echo
+    echo " Option -C : To specify a directory "
     echo " tar xvf `pwd`/tar_CMD_TestFolder/Testtar2.tar -C `pwd`/tar_CMD_TestFolder/tar_CMD_TestFolder2 "
     tar xvf `pwd`/tar_CMD_TestFolder/Testtar2.tar -C `pwd`/tar_CMD_TestFolder/tar_CMD_TestFolder2
     echo
-    # Example 06 (Option rvf : Add File to tar Archive)
+    # Example 06 (Option rvf : Add File to tar Archive )
     echo
+    echo " Option rvf : Add File to tar Archive "
     echo " cp `pwd`/tar_CMD_TestFolder/Testtar1.tar `pwd`/tar_CMD_TestFolder/Testtar3.tar "
     cp `pwd`/tar_CMD_TestFolder/Testtar1.tar `pwd`/tar_CMD_TestFolder/Testtar3.tar
     echo " tar tvf `pwd`/tar_CMD_TestFolder/Testtar3.tar "
@@ -80,8 +86,9 @@ function tar_TapeARchiver(){
     echo " tar tvf `pwd`/tar_CMD_TestFolder/Testtar3.tar "
     tar tvf `pwd`/tar_CMD_TestFolder/Testtar3.tar 
     echo
-    # Example 07 (Option uvf : Update File to tar Archive)
+    # Example 07 (Option uvf : Update File to tar Archive )
     echo
+    echo " Option uvf : Update File to tar Archive "
     echo " cp `pwd`/tar_CMD_TestFolder/Testtar1.tar `pwd`/tar_CMD_TestFolder/Testtar4.tar "
     cp `pwd`/tar_CMD_TestFolder/Testtar1.tar `pwd`/tar_CMD_TestFolder/Testtar4.tar
     echo " tar tvf `pwd`/tar_CMD_TestFolder/Testtar4.tar "
