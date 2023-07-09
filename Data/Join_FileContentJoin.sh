@@ -49,18 +49,21 @@ function join_FileContentJoin(){
     echo
     # Preparation End
     # Example Start
-    # Example 01 (Not Option : cross Join)
+    # Example 01 (Not Option : cross Join )
     echo
+    echo " Not Option : cross Join "
     echo " join `pwd`/join_CMD_TestFolder/join_CMD_TestFile1.txt `pwd`/join_CMD_TestFolder/join_CMD_TestFile2.txt "
     join `pwd`/join_CMD_TestFolder/join_CMD_TestFile1.txt `pwd`/join_CMD_TestFolder/join_CMD_TestFile2.txt
     echo
-    # Example 02 (Option -o : [Argument1.column],[Argument2.column] select column Join)
+    # Example 02 (Option -o : [Argument1.column],[Argument2.column] select column Join )
     echo
+    echo " Option -o : [Argument1.column],[Argument2.column] select column Join "
     echo " join -o 1.2,2.2 `pwd`/join_CMD_TestFolder/join_CMD_TestFile1.txt `pwd`/join_CMD_TestFolder/join_CMD_TestFile2.txt "
     join -o 1.2,2.2 `pwd`/join_CMD_TestFolder/join_CMD_TestFile1.txt `pwd`/join_CMD_TestFolder/join_CMD_TestFile2.txt
     echo
     # Example 03 (Option -t : [delimiters] Join )
     echo
+    echo " Option -t : [delimiters] Join "
     echo " join -t,  `pwd`/join_CMD_TestFolder/join_CMD_TestFile3.txt `pwd`/join_CMD_TestFolder/join_CMD_TestFile4.txt "
     join -t,  `pwd`/join_CMD_TestFolder/join_CMD_TestFile3.txt `pwd`/join_CMD_TestFolder/join_CMD_TestFile4.txt
     echo
