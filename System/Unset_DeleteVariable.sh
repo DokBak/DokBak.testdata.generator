@@ -23,8 +23,9 @@ function unset_DeleteVariable(){
     echo
     # Preparation End
     # Example Start
-    # Example 01 (Not Option)
+    # Example 01 (Not Option : Environment variable Unset )
     echo
+    echo " Not Option : Environment variable Unset "
     echo " unset GLOBALVAR"
     unset GLOBALVAR
     echo " env | grep GLOBALVAR"
