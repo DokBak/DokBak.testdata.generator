@@ -340,7 +340,7 @@ function Date_CurrentDate(){
     echo " date -u "
     date -u
     echo
-    # Example 15 (Option -R : Output in standard time [RFC2822 Format + UTC Time])
+    # Example 16 (Option -R : Output in standard time [RFC2822 Format + UTC Time])
     echo
     echo " date -R "
     date -R
