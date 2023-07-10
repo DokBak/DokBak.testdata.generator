@@ -1,58 +1,89 @@
 #!/bin/sh
 
-#-------------------------
-# 테스트 쉘 : 파일 내용 출력 처리
-#-------------------------
-function FileContentPrint(){
-    echo 
-    echo "## 파일 내용 출력 처리 시작 ##"
-    echo " 명령어  : cat"
-    echo " 사용방법 : cat [파일명]"
-    echo " 기본설명 : 명령어 뒤 [파일명]에 해당하는 파일을 순차적으로 읽고 출력한다. 파일이 존재 하지 않는 경우에는 더미파일을 생성한다."
+#------------------------------------------------------------
+# Cmd Test Shell : [Cat]_[FileContentPrint]
+#------------------------------------------------------------
+function cat_FileContentPrint(){
     echo
-    echo " 사전실행) echo 명령어 실행에 필요한 작성 방법"
-    echo "    echo '' > Cat_CMD_TestFile.txt"
-    echo "" > Cat_CMD_TestFile.txt
-    echo "    echo 'testfile1' >> Cat_CMD_TestFile.txt"
-    echo "testfile1" >> Cat_CMD_TestFile.txt
-    echo "    echo '' >> Cat_CMD_TestFile.txt"
-    echo "" >> Cat_CMD_TestFile.txt
-    echo "    echo '' >> Cat_CMD_TestFile.txt"
-    echo "" >> Cat_CMD_TestFile.txt
-    echo "    echo 'testfile2' >> Cat_CMD_TestFile.txt"
-    echo "testfile2" >> Cat_CMD_TestFile.txt
-    echo "    echo 'testfile3' >> Cat_CMD_TestFile.txt"
-    echo "testfile3" >> Cat_CMD_TestFile.txt
-    echo "    echo '' >> Cat_CMD_TestFile.txt"
-    echo "" >> Cat_CMD_TestFile.txt
-    echo "    echo 'testfile4\t' >> Cat_CMD_TestFile.txt"
-    echo "testfile4\t" >> Cat_CMD_TestFile.txt
-    echo 
-    echo " 예시1) cat Cat_CMD_TestFile.txt"
-    cat Cat_CMD_TestFile.txt
+    echo "## cat Start ##"
     echo
-    echo " 옵션 -b : 공백이 아닌 라인의 앞에 줄 번호를 붙여서 출력한다."
-    echo " 예시1) cat -b Cat_CMD_TestFile.txt"
-    cat -b Cat_CMD_TestFile.txt
+    # Basic Information Start
     echo
-    echo " 옵션 -e : 모든 라인의 끝에 $마크를 출력한다."
-    echo " 예시2) cat -e Cat_CMD_TestFile.txt"
-    cat -e Cat_CMD_TestFile.txt
+    echo " Command  : cat"
+    echo " HowToUse : cat [Option] [Argument1] "
+    echo "            [Argument1] : tarFile_Path "
+    echo "            [Option : -b] : Outputs a line number in front of a line that is not blank "
+    echo "            [Option : -e] : Print a [$] at the end of all lines "
+    echo "            [Option : -n] : Print out all lines with line numbers "
+    echo "            [Option : -s] : Compresses consecutive blank lines and outputs them as a single line "
+    echo "            [Option : -t] : tab string is replaced with a string "^I" and outputted "
     echo
-    echo " 옵션 -n : 모든 라인의 앞에 줄 번호를 붙여서 출력한다."
-    echo " 예시3) cat -n Cat_CMD_TestFile.txt"
-    cat -n Cat_CMD_TestFile.txt
+    # Basic Information End
+    # Preparation Start
     echo
-    echo " 옵션 -s : 연속된 공백 줄을 압축하여 한 줄로 출력한다."
-    echo " 예시4) cat -s Cat_CMD_TestFile.txt"
-    cat -s Cat_CMD_TestFile.txt
+    # Preparation : mkdir
+    echo " mkdir -p `pwd`/cat_CMD_TestFolder/ "
+    mkdir -p `pwd`/cat_CMD_TestFolder/
+    # Preparation : Create File
+    echo " echo '' > `pwd`/cat_CMD_TestFolder/cat_CMD_TestFile.txt "
+    echo '' > `pwd`/cat_CMD_TestFolder/cat_CMD_TestFile.txt
+    echo " echo 'testfile1' >> `pwd`/cat_CMD_TestFolder/cat_CMD_TestFile.txt "
+    echo 'testfile1' >> `pwd`/cat_CMD_TestFolder/cat_CMD_TestFile.txt
+    echo " echo '' >> `pwd`/cat_CMD_TestFolder/cat_CMD_TestFile.txt "
+    echo '' >> `pwd`/cat_CMD_TestFolder/cat_CMD_TestFile.txt
+    echo " echo '' >> `pwd`/cat_CMD_TestFolder/cat_CMD_TestFile.txt "
+    echo '' >> `pwd`/cat_CMD_TestFolder/cat_CMD_TestFile.txt
+    echo " echo 'testfile2' >> `pwd`/cat_CMD_TestFolder/cat_CMD_TestFile.txt "
+    echo 'testfile2' >> `pwd`/cat_CMD_TestFolder/cat_CMD_TestFile.txt
+    echo " echo 'testfile3' >> `pwd`/cat_CMD_TestFolder/cat_CMD_TestFile.txt "
+    echo 'testfile3' >> `pwd`/cat_CMD_TestFolder/cat_CMD_TestFile.txt
+    echo " echo '' >> `pwd`/cat_CMD_TestFolder/cat_CMD_TestFile.txt "
+    echo '' >> `pwd`/cat_CMD_TestFolder/cat_CMD_TestFile.txt
+    echo " echo 'testfile4\t' >> `pwd`/cat_CMD_TestFolder/cat_CMD_TestFile.txt "
+    echo 'testfile4\t' >> `pwd`/cat_CMD_TestFolder/cat_CMD_TestFile.txt
     echo
-    echo " 옵션 -t : 탭 문자열(\t)을 「^I」 문자열로 치환하여 출력한다."
-    echo " 예시4) cat -t Cat_CMD_TestFile.txt"
-    cat -t Cat_CMD_TestFile.txt
+    # Preparation End
+    # Example Start
+    # Example 01 (Not Option : File Contents Print )
     echo
-    echo "## 파일 내용 출력 처리 종료 ##"
-    echo 
+    echo " Not Option : File Contents Print "
+    echo " cat `pwd`/cat_CMD_TestFolder/cat_CMD_TestFile.txt "
+    cat `pwd`/cat_CMD_TestFolder/cat_CMD_TestFile.txt
+    echo
+    # Example 02 (Option -b : Outputs a line number in front of a line that is not blank )
+    echo
+    echo " Option -b : Outputs a line number in front of a line that is not blank "
+    echo " cat -b `pwd`/cat_CMD_TestFolder/cat_CMD_TestFile.txt "
+    cat -b `pwd`/cat_CMD_TestFolder/cat_CMD_TestFile.txt
+    echo
+    # Example 03 (Option -e : Print a [$] at the end of all lines )
+    echo
+    echo " Option -e : Print a [$] at the end of all lines "
+    echo " cat -e `pwd`/cat_CMD_TestFolder/cat_CMD_TestFile.txt "
+    cat -e `pwd`/cat_CMD_TestFolder/cat_CMD_TestFile.txt
+    echo
+    # Example 04 (Option -n : Print out all lines with line numbers )
+    echo
+    echo " Option -n : Print out all lines with line numbers "
+    echo " cat -n `pwd`/cat_CMD_TestFolder/cat_CMD_TestFile.txt "
+    cat -n `pwd`/cat_CMD_TestFolder/cat_CMD_TestFile.txt
+    echo
+    # Example 05 (Option -s : Compresses consecutive blank lines and outputs them as a single line )
+    echo
+    echo " Option -s : Compresses consecutive blank lines and outputs them as a single line "
+    echo " cat -s `pwd`/cat_CMD_TestFolder/cat_CMD_TestFile.txt "
+    cat -s `pwd`/cat_CMD_TestFolder/cat_CMD_TestFile.txt
+    echo
+    # Example 06 (Option -t : tab string is replaced with a string "^I" and outputted )
+    echo
+    echo " Option -t : tab string is replaced with a string "^I" and outputted "
+    echo " cat -t `pwd`/cat_CMD_TestFolder/cat_CMD_TestFile.txt "
+    cat -t `pwd`/cat_CMD_TestFolder/cat_CMD_TestFile.txt
+    echo
+    # Example End
+    echo
+    echo "## cat End ##"
+    echo
 }
 
-FileContentPrint 
+cat_FileContentPrint
