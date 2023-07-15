@@ -1,28 +1,51 @@
 #!/bin/sh
 
-#-------------------------
-# 테스트 쉘 : 디렉토리 삭제 처리
-#-------------------------
-function DeleteDirectory(){
-    echo 
-    echo "## 디렉토리 삭제 시작 ##"
-    echo " 명령어  : rmdir"
-    echo " 사용방법 : rmdir [삭제할 디렉토리명]"
-    echo " 기본설명 : 명령어뒤 [삭제할 디렉토리명]에 해당하는 폴더를 삭제. 단, 내부에 파일이 존재한다면 삭제하지 않는다."
-    echo " 예시1) rmdir testdir"
-    rmdir testdir
+#------------------------------------------------------------
+# Cmd Test Shell : [Rmdir]_[DeleteDirectory]
+#------------------------------------------------------------
+function rmdir_DeleteDirectory(){
     echo
-    echo " 옵션 -p : 디렉토리 삭제시 상위 디렉토리까지 모두 삭제. 단, 내부에 파일이 존재하는 디렉토리는 삭제하지 않는다."
-    echo " 예시2) rmdir -p testdir2/underTestdir"
-    rmdir -p testdir2/underTestdir
+    echo "## rmdir Start ##"
     echo
-    echo " 옵션 -v : 디렉토리 삭제시 메시지 출력. 단, 내부에 파일이 존재하는 디렉토리는 삭제하지 않는다."
-    echo " 예시2) rmdir -p testdir4"
-    rmdir -v testdir3
-    rmdir -v testdir4
+    # Basic Information Start
     echo
-    echo "## 디렉토리 삭제 종료 ##"
-    echo 
+    echo " Command  : rmdir"
+    echo " HowToUse : rmdir [Option] [Argument1] "
+    echo "            [Argument1] : tarFile_Path "
+    echo "            [Option : -p] : Create all intermediate directories, even if the directory does not exist "
+    echo "            [Option : -v] : Output detailed information " 
+    echo
+    # Basic Information End
+    # Preparation Start
+    echo
+    # Preparation : mkdir
+    echo " mkdir -p `pwd`/rmdir_CMD_TestFolder/rmdir_CMD_TestFolder2/rmdir_CMD_TestFolder3/rmdir_CMD_TestFolder4/ "
+    mkdir -p `pwd`/rmdir_CMD_TestFolder/rmdir_CMD_TestFolder2/rmdir_CMD_TestFolder3/rmdir_CMD_TestFolder4/
+    echo
+    # Preparation End
+    # Example Start
+    # Example 01 (Not Option : directory delete )
+    echo
+    echo " Not Option : directory delete "
+    echo " rmdir `pwd`/rmdir_CMD_TestFolder/rmdir_CMD_TestFolder2/rmdir_CMD_TestFolder3/rmdir_CMD_TestFolder4/ "
+    rmdir `pwd`/rmdir_CMD_TestFolder/rmdir_CMD_TestFolder2/rmdir_CMD_TestFolder3/rmdir_CMD_TestFolder4/
+    echo
+    # Example 02 (Option -p : with subdirectory delete )
+    echo
+    echo " Option -p : with subdirectory delete "
+    echo " rmdir -p `pwd`/rmdir_CMD_TestFolder/rmdir_CMD_TestFolder2/ "
+    rmdir -p `pwd`/rmdir_CMD_TestFolder/rmdir_CMD_TestFolder2/
+    echo
+    # Example 03 (Option -v : Output detailed information )
+    echo
+    echo " Option -v : Output detailed information "
+    echo " rmdir -v `pwd`/rmdir_CMD_TestFolder/ "
+    rmdir -v `pwd`/rmdir_CMD_TestFolder/
+    echo
+    # Example End
+    echo
+    echo "## rmdir End ##"
+    echo
 }
 
-DeleteDirectory 
+rmdir_DeleteDirectory 
