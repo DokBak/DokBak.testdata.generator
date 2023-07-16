@@ -1,26 +1,40 @@
 #!/bin/sh
 
-#-------------------------
-# 테스트 쉘 : 쉘 스크립트 백그라운드 실행
-#-------------------------
-function ShellScriptBackgroundRun(){
+#------------------------------------------------------------
+# Cmd Test Shell : [Tip]_[BackgroundRun]
+#------------------------------------------------------------
+function Tip_BackgroundRun(){
+    echo
+    echo "## BackgroundRun Start ##"
+    echo
+    # Basic Information Start
+    echo
+    echo " Command  : BackgroundRun"
+    echo " HowToUse : [Shell to run in the background] & "
+    echo
+    # Basic Information End
+    # Preparation Start
+    echo
+    echo
+    # Preparation End
+    # Example Start
+    # Example 01 (Not Option)
+    echo
+    echo " sh `pwd`/Test_Sample/Test_BackgroundRun.sh & "
+    sh `pwd`/Test_Sample/Test_BackgroundRun.sh &
     echo 
-    echo "## 쉘 스크립트 백그라운드 실행 시작 ##"
+    echo " ps -ef | grep Test_BackgroundRun.sh "
+    ps -ef | grep Test_BackgroundRun.sh
     echo
-    echo " 기본설명 : 쉘 스크립트를 백그라운드 실행하는 방법"
+    echo " $! "
     echo
-    echo " 사용법) 명령 뒤에 & 를 작성하면 쉘 프롬프트는 즉시 출력되고 실행한 명령은 백그라운드로 처리된다."
-    echo
-    echo "man bash &"
-    man bash &
-    echo
-    echo "실행된 man bash 의 PID : $!"
-    echo 
-    echo "kill -9 $!"
+    echo " kill -9 $! "
     kill -9 $!
-    echo 
-    echo "## 쉘 스크립트 백그라운드 실행 종료 ##"
-    echo 
+    echo
+    # Example End
+    echo
+    echo "## BackgroundRun End ##"
+    echo
 }
 
-ShellScriptBackgroundRun
+Tip_BackgroundRun
