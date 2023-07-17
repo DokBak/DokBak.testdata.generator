@@ -9,7 +9,6 @@ function Tip_BackgroundRun(){
     echo
     # Basic Information Start
     echo
-    echo " Command  : BackgroundRun"
     echo " HowToUse : [Shell to run in the background] & "
     echo
     # Basic Information End
