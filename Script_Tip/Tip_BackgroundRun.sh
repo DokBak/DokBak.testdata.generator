@@ -17,7 +17,7 @@ function Tip_BackgroundRun(){
     echo
     # Preparation End
     # Example Start
-    # Example 01 (Not Option)
+    # Example 01
     echo
     echo " sh `pwd`/Test_Sample/Test_BackgroundRun.sh & "
     sh `pwd`/Test_Sample/Test_BackgroundRun.sh &
