@@ -1,35 +1,49 @@
 #!/bin/sh
 
-#-------------------------
-# 테스트 쉘 : 쉘 스크립트 조건명령
-#-------------------------
-function ShellScriptConditionalCommand(){
-    echo 
-    echo "## 쉘 스크립트 조건명령 시작 ##"
+#------------------------------------------------------------
+# Cmd Test Shell : [Tip]_[ConditionalCommand]
+#------------------------------------------------------------
+function Tip_ConditionalCommand(){
     echo
-    echo " 기본설명 : 쉘 스크립트에서 이전 명령의 실행 여부에 따라 실행하는 방법"
+    echo "## ConditionalCommand Start ##"
     echo
-    echo " 사용법) 명령1 && 명령2 : 명령1이 실행되지 않으면 명령2도 실행되지 않는다."
-    echo "       명령1 || 명령2 : 명령1이 실행되면 명령2는 실행되지 않는다."
-    echo 
-    echo " 예시1) pwd && date"
+    # Basic Information Start
     echo
+    echo " HowToUse : Command1 && Command2 "
+    echo "            && ) : If Command1 is not executed, Command2 is not executed "
+    echo " HowToUse : Command1 || Command2 "
+    echo "            || ) : If Command1 is not executed, Command2 is executed "
+    echo
+    # Basic Information End
+    # Preparation Start
+    echo
+    echo
+    # Preparation End
+    # Example Start
+    # Example 01
+    echo
+    echo " pwd && date "
     pwd && date
     echo 
-    echo " 예시2) pwdd && date"
+    # Example 02
     echo
+    echo " pwdd && date "
     pwdd && date
-    echo 
-    echo " 예시3) pwd || date"
     echo
+    # Example 02
+    echo
+    echo " pwd || date "
     pwd || date
     echo 
-    echo " 예시4) pwdd || date"
+    # Example 02
     echo
+    echo " pwdd || date "
     pwdd || date
-    echo 
-    echo "## 쉘 스크립트 조건명령 종료 ##"
-    echo 
+    echo
+    # Example End
+    echo
+    echo "## ConditionalCommand End ##"
+    echo
 }
 
-ShellScriptConditionalCommand
+Tip_ConditionalCommand
