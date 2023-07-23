@@ -1,97 +1,119 @@
 #!/bin/sh
 
-#-------------------------
-# 테스트 쉘 : 쉘 스크립트 파일 속성 판별 연산자
-#-------------------------
-function ShellScriptIFFileProperties(){
-    echo 
-    echo "## 쉘 스크립트 파일 속성 판별 연산자 시작 ##"
-    echo " 기본설명 : 쉘 스크립트에서 파일 속성 판별 연산자 사용"
+#------------------------------------------------------------
+# Cmd Test Shell : [If]_[FileProperties]
+#------------------------------------------------------------
+function if_FileProperties(){
     echo
-    echo " 사전실행) 파일 속성 판별 연산자 명령어 실행에 필요한 샘플 폴더 및 파일 작성 방법"
-    echo "    mkdir -p ShellScriptFIleProperties"
-    mkdir -p ShellScriptFIleProperties
-    echo 'test apple' > ShellScriptFIleProperties/ShellScriptFIleProperties.txt
-    echo 'test apple' > ShellScriptFIleProperties/ShellScriptFIleProperties1.txt
-    chmod 777 ShellScriptFIleProperties/ShellScriptFIleProperties.txt
-    chmod 000 ShellScriptFIleProperties/ShellScriptFIleProperties1.txt
-    ls -l ShellScriptFIleProperties/ShellScriptFIleProperties.txt
-    ls -l ShellScriptFIleProperties/ShellScriptFIleProperties1.txt
+    echo "## if Start ##"
     echo
-    echo " 연산자 -e : 파일이 존재하면 참"
-    echo " if [ -e ShellScriptFIleProperties/ShellScriptFIleProperties_not.txt  ]"
-    if [ -e ShellScriptFIleProperties/ShellScriptFIleProperties_not.txt  ]
+    # Basic Information Start
+    echo
+    echo " Command  : if"
+    echo " HowToUse : if [ condition ] then elif [ condition ] else fi "
+    echo
+    # Basic Information End
+    echo
+    # Preparation : mkdir
+    echo " mkdir -p `pwd`/FIleProperties/ "
+    mkdir -p `pwd`/FIleProperties/
+    # Preparation : Create File
+    echo " echo 'test apple' > `pwd`/FIleProperties/FIleProperties_1.txt "
+    echo 'test apple' > `pwd`/FIleProperties/FIleProperties_1.txt
+    echo " chmod 777 `pwd`/FIleProperties/FIleProperties_1.txt "
+    chmod 777 `pwd`/FIleProperties/FIleProperties_1.txt
+    echo " echo 'test peach' > `pwd`/FIleProperties/FIleProperties_2.txt "
+    echo 'test peach' > `pwd`/FIleProperties/FIleProperties_2.txt
+    echo " chmod 555 `pwd`/FIleProperties/FIleProperties_2.txt "
+    chmod 077 `pwd`/FIleProperties/FIleProperties_2.txt
+    echo " ls -l `pwd`/FIleProperties/ "
+    ls -l `pwd`/FIleProperties/
+    echo
+    # Preparation End
+    # Example Start
+    # Example 01 (Not Option)
+    echo
+    echo " -e : If the file exists, it's true "
+    echo " if [ -e `pwd`/FIleProperties/FIleProperties_not.txt ] "
+    if [ -e `pwd`/FIleProperties/FIleProperties_not.txt ]
     then
-        echo "  파일이 존재"
+        echo " `pwd`/FIleProperties_not.txt file not exist "
     fi
-    echo " if [ -e ShellScriptFIleProperties/ShellScriptFIleProperties.txt  ]"
-    if [ -e ShellScriptFIleProperties/ShellScriptFIleProperties.txt  ]
+    echo " if [ -e `pwd`/FIleProperties/FIleProperties_1.txt ] "
+    if [ -e `pwd`/FIleProperties/FIleProperties_1.txt  ]
     then
-        echo "  파일이 존재"
+        echo " `pwd`/FIleProperties_1.txt file exist "
     fi
-    echo 
-    echo " 연산자 -f : 파일이 일반 파일이면 참"
-    echo " if [ -f ShellScriptFIleProperties/ShellScriptFIleProperties_not.txt  ]"
-    if [ -f ShellScriptFIleProperties/ShellScriptFIleProperties_not.txt  ]
+    echo " if [ -e `pwd`/FIleProperties/ ] "
+    if [ -e `pwd`/FIleProperties/ ]
     then
-        echo "  파일이 일반 파일"
-    fi
-    echo " if [ -f ShellScriptFIleProperties/ShellScriptFIleProperties.txt  ]"
-    if [ -f ShellScriptFIleProperties/ShellScriptFIleProperties.txt  ]
-    then
-        echo "  파일이 일반 파일"
-    fi
-    echo 
-    echo " 연산자 -d : 파일이 디렉토리이면 참"
-    echo " if [ -d ShellScriptFIleProperties/ShellScriptFIleProperties.txt  ]"
-    if [ -d ShellScriptFIleProperties/ShellScriptFIleProperties.txt  ]
-    then
-        echo "  파일이 디렉토리"
-    fi
-    echo " if [ -d ShellScriptFIleProperties  ]"
-    if [ -d ShellScriptFIleProperties  ]
-    then
-        echo "  파일이 디렉토리"
-    fi
-    echo 
-    echo " 연산자 -r : 파일의 읽기 권한이 있으면 참"
-    echo " if [ -r ShellScriptFIleProperties/ShellScriptFIleProperties1.txt  ]"
-    if [ -r ShellScriptFIleProperties/ShellScriptFIleProperties1.txt  ]
-    then
-        echo "  파일의 읽기 권한이 있음"
-    fi
-    echo " if [ -r ShellScriptFIleProperties/ShellScriptFIleProperties.txt  ]"
-    if [ -r ShellScriptFIleProperties/ShellScriptFIleProperties.txt  ]
-    then
-        echo "  파일의 읽기 권한이 있음"
+        echo " `pwd`/FIleProperties directory exist "
     fi
     echo 
-    echo " 연산자 -w : 파일의 쓰기 권한이 있으면 참"
-    echo " if [ -w ShellScriptFIleProperties/ShellScriptFIleProperties1.txt  ]"
-    if [ -w ShellScriptFIleProperties/ShellScriptFIleProperties1.txt  ]
+    echo " -f : if Argument is normal file "
+    echo " if [ -f `pwd`/FIleProperties/FIleProperties_not.txt ] "
+    if [ -f `pwd`/FIleProperties/FIleProperties_not.txt ]
     then
-        echo "  파일의 쓰기 권한이 있음"
+        echo " Argument is not normal file "
     fi
-    echo " if [ -w ShellScriptFIleProperties/ShellScriptFIleProperties.txt  ]"
-    if [ -w ShellScriptFIleProperties/ShellScriptFIleProperties.txt  ]
+    echo " if [ -f `pwd`/FIleProperties/FIleProperties_1.txt ] "
+    if [ -f `pwd`/FIleProperties/FIleProperties_1.txt ]
     then
-        echo "  파일의 쓰기 권한이 있음"
-    fi
-    echo 
-    echo " 연산자 -x : 파일의 실행 권한이 있으면 참"
-    echo " if [ -x ShellScriptFIleProperties/ShellScriptFIleProperties1.txt  ]"
-    if [ -x ShellScriptFIleProperties/ShellScriptFIleProperties1.txt  ]
-    then
-    echo "  파일의 실행 권한이 있음"
-    fi
-    echo " if [ -x ShellScriptFIleProperties/ShellScriptFIleProperties.txt  ]"
-    if [ -x ShellScriptFIleProperties/ShellScriptFIleProperties.txt  ]
-    then
-        echo "  파일의 실행 권한이 있음"
+        echo " Argument is normal file "
     fi
     echo 
-    echo "## 쉘 스크립트 파일 속성 판별 연산자 종료 ##"
+    echo " -d : If it's a folder, it's true "
+    echo " if [ -d `pwd`/FIleProperties/FIleProperties_1.txt ]"
+    if [ -d `pwd`/FIleProperties/FIleProperties_1.txt ]
+    then
+        echo " Argument is not folder "
+    fi
+    echo " if [ -d `pwd`/FIleProperties ]"
+    if [ -d `pwd`/FIleProperties ]
+    then
+        echo " Argument is folder "
+    fi
     echo 
+    echo " -r : If you have permission to read, it's true "
+    echo " if [ -r `pwd`/FIleProperties/FIleProperties_1.txt  ]"
+    if [ -r `pwd`/FIleProperties/FIleProperties_1.txt  ]
+    then
+        echo " permission to read "
+    fi
+    echo " if [ -r `pwd`/FIleProperties/FIleProperties_2.txt  ]"
+    if [ -r `pwd`/FIleProperties/FIleProperties_2.txt  ]
+    then
+        echo " permission to read "
+    fi
+    echo 
+    echo " -w : If you have permission to write, it's true "
+    echo " if [ -w `pwd`/FIleProperties/FIleProperties_1.txt  ]"
+    if [ -w `pwd`/FIleProperties/FIleProperties_1.txt  ]
+    then
+        echo " permission to write "
+    fi
+    echo " if [ -w `pwd`/FIleProperties/FIleProperties_2.txt  ]"
+    if [ -w `pwd`/FIleProperties/FIleProperties_2.txt  ]
+    then
+        echo " permission to write "
+    fi
+    echo 
+    echo " -x : If you have permission to run, it's true "
+    echo " if [ -x `pwd`/FIleProperties/FIleProperties_1.txt  ]"
+    if [ -x `pwd`/FIleProperties/FIleProperties_1.txt  ]
+    then
+        echo " permission to run "
+    fi
+    echo " if [ -x `pwd`/FIleProperties/FIleProperties_2.txt  ]"
+    if [ -x `pwd`/FIleProperties/FIleProperties_2.txt  ]
+    then
+        echo " permission to run "
+    fi
+    echo
+    # Example End
+    echo
+    echo "## if End ##"
+    echo
 }
 
-ShellScriptIFFileProperties
+if_FileProperties
