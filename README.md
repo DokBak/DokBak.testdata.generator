@@ -1,10 +1,63 @@
 # Bash_Shell_CMD
 Bash Shell command
 
-**명령어 모음 표**
-|명령어|간략 설명|쉘이름|비고|
+**Data Control**
+|명령어|옵션|쉘스크립트|비고|
 |---|---|---|---|
-|alias|명령어 선언|CommandCreate.sh|쉘 스크립트내에서 선언시 정상작동하지 않는것으로 보임, alias로 변수를 설정하기보단 bash의 설정파일에 직접 추가하는 방법을 권장함|
+|alias|-f|Awk_DataControlAwk.sh||
+<table>
+  <tr>
+    <td>쉘스크립트</td>
+    <td>명령어</td>
+    <td>옵션</td>
+    <td>비고</td>
+  </tr>
+  <tr>
+    <td rowspan="2"><a href="Data/Awk_DataControlAwk.sh">Awk_DataControlAwk.sh</a></td>
+    <td rowspan="2">awk</td>
+    <td> -f </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td> -F </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td rowspan="5">Cat_FileContentPrint.sh</td>
+    <td rowspan="5">awk</td>
+    <td> -b </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td> -e </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td> -n </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td> -s </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td> -t </td>
+    <td>Contents</td>
+  </tr>
+
+</table>
+
+
+
+
+
+
+
+
+
+
+|명령어|옵션|쉘스크립트|비고|
+|---|---|---|---|
 |awk|데이터 컨트롤(awk)|DataControlAwk.sh||
 |break|루프문 강제 종료|LoopTermination.sh||
 |cal|달력 출력 처리|Calendar.sh||
