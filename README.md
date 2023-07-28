@@ -18,7 +18,7 @@ Bash Shell command
     <td>비고</td>
   </tr>
   <tr>
-    <td rowspan="50">Data</td>
+    <td rowspan="54"><a href="Data/">Data</a></td>
     <td rowspan="2"><a href="Data/Awk_DataControlAwk.sh">Awk_DataControlAwk.sh</a></td>
     <td rowspan="2">awk</td>
     <td> -f </td>
@@ -119,21 +119,47 @@ Bash Shell command
     <td>Contents</td>
   </tr>
   <tr>
-    <td rowspan="10"><a href="Data/Nkf_CharacterCode_NewlineCode.sh">Nkf_CharacterCode_NewlineCode.sh</a></td>
-    <td rowspan="10">nkf</td>
-    <td> -g </td>
+    <td rowspan="9"><a href="Data/Od_SetPrintFormat.sh">Od_SetPrintFormat.sh</a></td>
+    <td rowspan="9">od</td>
+    <td> -a </td>
     <td>Contents</td>
   </tr>
   <tr>
-    <td> --guess </td>
+    <td> -b </td>
     <td>Contents</td>
   </tr>
   <tr>
-    <td> -e </td>
+    <td> -c </td>
     <td>Contents</td>
   </tr>
   <tr>
-    <td> -j </td>
+    <td> -d </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td> -x </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td> -N n </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td> -j n </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td> -s n </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td> -t n </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td rowspan="2"><a href="Data/Paste_FileContentAdd.sh">Paste_FileContentAdd.sh</a></td>
+    <td rowspan="2">paste</td>
+    <td> -d </td>
     <td>Contents</td>
   </tr>
   <tr>
@@ -141,29 +167,155 @@ Bash Shell command
     <td>Contents</td>
   </tr>
   <tr>
+    <td><a href="Data/Printf_FormatOutputPrintf.sh">Printf_FormatOutputPrintf.sh</a></td>
+    <td>printf</td>
+    <td> -v </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td rowspan="3"><a href="Data/Sed_TextEditerSed.sh">Sed_TextEditerSed.sh</a></td>
+    <td rowspan="3">sed</td>
+    <td> -n </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td> -e </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td> -f </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td rowspan="3"><a href="Data/Sort_FileSort.sh">Sort_FileSort.sh</a></td>
+    <td rowspan="3">sort</td>
+    <td> -r </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td> -f </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td> -b </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td rowspan="2"><a href="Data/Tail_ShowFileContentTail.sh">Tail_ShowFileContentTail.sh</a></td>
+    <td rowspan="2">tail</td>
+    <td> -c </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td> -n </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td rowspan="5"><a href="Data/Touch_UpdateFileModificationDate.sh">Touch_UpdateFileModificationDate.sh</a></td>
+    <td rowspan="5">touch</td>
+    <td> -t </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td> -r </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td> -c </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td> -m </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td> -a </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td rowspan="2"><a href="Data/Tr_FileContentEdit.sh">Tr_FileContentEdit.sh</a></td>
+    <td rowspan="2">tr</td>
+    <td> -d </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td> -s </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td rowspan="2"><a href="Data/Uniq_FileContentDuplicationDelete.sh">Uniq_FileContentDuplicationDelete.sh</a></td>
+    <td rowspan="2">uniq</td>
+    <td> -c </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td> -i </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td rowspan="3"><a href="Data/Wc_FileDataCounting.sh">Wc_FileDataCounting.sh</a></td>
+    <td rowspan="3">wc</td>
+    <td> -l </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
     <td> -w </td>
     <td>Contents</td>
   </tr>
   <tr>
-    <td> -Lw </td>
+    <td> -c </td>
     <td>Contents</td>
   </tr>
   <tr>
-    <td> -Lm </td>
+    <td rowspan="11"><a href="Date">Date</a></td>
+    <td rowspan="9"><a href="Date/Cal_Calendar.sh">Cal_Calendar.sh</a></td>
+    <td rowspan="9">cal</td>
+    <td> -h </td>
     <td>Contents</td>
   </tr>
   <tr>
-    <td> -Lu </td>
+    <td> -j </td>
     <td>Contents</td>
   </tr>
   <tr>
-    <td> --oc=[codeset] </td>
+    <td> -v </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td> -3 </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td> -A </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td> -B </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td> -N </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td> -d </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td> -H </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td rowspan="2"><a href="Date/Date_CurrentDate.sh">Date_CurrentDate.sh</a></td>
+    <td rowspan="2">date</td>
+    <td> -u </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td> -R </td>
     <td>Contents</td>
   </tr>
 </table>
-
-
-
 
 
 
