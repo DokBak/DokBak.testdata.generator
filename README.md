@@ -1,18 +1,24 @@
 # Bash_Shell_CMD
 Bash Shell command
-
-**Data Control**
-|명령어|옵션|쉘스크립트|비고|
-|---|---|---|---|
-|alias|-f|Awk_DataControlAwk.sh||
 <table>
   <tr>
+    <td><a href="README.md">Korean</a></td>
+    <td><a href="README_JP.md">Japanese</a></td>
+    <td><a href="README_EN.md">English</a></td>
+  </tr>
+</table>
+
+**Data Control**
+<table>
+  <tr>
+    <td>구분</td>
     <td>쉘스크립트</td>
     <td>명령어</td>
     <td>옵션</td>
     <td>비고</td>
   </tr>
   <tr>
+    <td rowspan="50">Data</td>
     <td rowspan="2"><a href="Data/Awk_DataControlAwk.sh">Awk_DataControlAwk.sh</a></td>
     <td rowspan="2">awk</td>
     <td> -f </td>
@@ -23,8 +29,8 @@ Bash Shell command
     <td>Contents</td>
   </tr>
   <tr>
-    <td rowspan="5">Cat_FileContentPrint.sh</td>
-    <td rowspan="5">awk</td>
+    <td rowspan="5"><a href="Data/Cat_FileContentPrint.sh">Cat_FileContentPrint.sh</a></td>
+    <td rowspan="5">cat</td>
     <td> -b </td>
     <td>Contents</td>
   </tr>
@@ -44,7 +50,116 @@ Bash Shell command
     <td> -t </td>
     <td>Contents</td>
   </tr>
-
+  <tr>
+    <td><a href="Data/Expr_ValueOperation.sh">Expr_ValueOperation.sh</a></td>
+    <td>expr</td>
+    <td>Contents</td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td rowspan="2"><a href="Data/Head_ShowFileContentHead.sh">Head_ShowFileContentHead.sh</a></td>
+    <td rowspan="2">head</td>
+    <td> -c </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td> -N </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td rowspan="2"><a href="Data/Join_FileContentJoin.sh">Join_FileContentJoin.sh</a></td>
+    <td rowspan="2">join</td>
+    <td> -o </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td> -t </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td rowspan="10"><a href="Data/Nkf_CharacterCode_NewlineCode.sh">Nkf_CharacterCode_NewlineCode.sh</a></td>
+    <td rowspan="10">nkf</td>
+    <td> -g </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td> --guess </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td> -e </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td> -j </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td> -s </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td> -w </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td> -Lw </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td> -Lm </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td> -Lu </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td> --oc=[codeset] </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td rowspan="10"><a href="Data/Nkf_CharacterCode_NewlineCode.sh">Nkf_CharacterCode_NewlineCode.sh</a></td>
+    <td rowspan="10">nkf</td>
+    <td> -g </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td> --guess </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td> -e </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td> -j </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td> -s </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td> -w </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td> -Lw </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td> -Lm </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td> -Lu </td>
+    <td>Contents</td>
+  </tr>
+  <tr>
+    <td> --oc=[codeset] </td>
+    <td>Contents</td>
+  </tr>
 </table>
 
 
