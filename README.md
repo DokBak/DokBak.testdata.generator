@@ -11,8 +11,7 @@ Bash Shell command
 **Data Control**
 <table>
   <tr>
-    <td>구분</td>
-    <td>쉘스크립트</td>
+    <td width="10%">쉘스크립트</td>
     <td>명령어</td>
     <td>기능</td>
     <td>옵션</td>
@@ -20,7 +19,6 @@ Bash Shell command
     <td>비고</td>
   </tr>
   <tr>
-    <td rowspan="54"><a href="Data/">Data</a></td>
     <td rowspan="3"><a href="Data/Awk_DataControlAwk.sh">Awk_DataControlAwk.sh</a></td>
     <td rowspan="3">awk</td>
     <td>　['/pattern/']　</td>
