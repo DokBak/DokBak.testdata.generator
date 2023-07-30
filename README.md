@@ -14,17 +14,33 @@ Bash Shell command
     <td>구분</td>
     <td>쉘스크립트</td>
     <td>명령어</td>
+    <td>기능</td>
     <td>옵션</td>
+    <td>예시</td>
     <td>비고</td>
   </tr>
   <tr>
     <td rowspan="54"><a href="Data/">Data</a></td>
-    <td rowspan="2"><a href="Data/Awk_DataControlAwk.sh">Awk_DataControlAwk.sh</a></td>
-    <td rowspan="2">awk</td>
+    <td rowspan="3"><a href="Data/Awk_DataControlAwk.sh">Awk_DataControlAwk.sh</a></td>
+    <td rowspan="3">awk</td>
+    <td>　['/pattern/']　</td>
+    <td></td>
+    <td>awk '/Korea/' `pwd`/awk_CMD_TestFolder/awk_CMD_TestFile1.txt</td>
+    <td>파일에서 pattern과 일치하는 데이터 라인을 출력</td>
+  </tr>
+  <tr>    
+    <td>　['{print $n}']　</td>
+    <td></td>
+    <td>awk '{print $2}' `pwd`/awk_CMD_TestFolder/awk_CMD_TestFile1.txt</td>
+    <td>파일에서 2번째 컬럼의 데이터만 출력($n 값이 없거나 $0 인 경우 모든 데이터 출력)</td>
+  </tr>
+  <tr>
+    <td></td>
     <td> -f </td>
     <td>Contents</td>
   </tr>
   <tr>
+    <td></td>
     <td> -F </td>
     <td>Contents</td>
   </tr>
