@@ -37,8 +37,8 @@ function gzip_gzipCompress(){
     # Example 02 (Option -d : UnCompress )
     echo
     echo " Option -d : UnCompress "
-    echo " gzip -d `pwd`/gzip_CMD_TestFolder/gzip_CMD_TestFile2.txt "
-    gzip -d `pwd`/gzip_CMD_TestFolder/gzip_CMD_TestFile2.txt
+    echo " gzip -d `pwd`/gzip_CMD_TestFolder/gzip_CMD_TestFile2.txt.gz "
+    gzip -d `pwd`/gzip_CMD_TestFolder/gzip_CMD_TestFile2.txt.gz
     echo
     # Example End
     echo
