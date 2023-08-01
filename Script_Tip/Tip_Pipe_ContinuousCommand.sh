@@ -1,22 +1,34 @@
 #!/bin/sh
 
-#-------------------------
-# 테스트 쉘 : 쉘 스크립트 명령 결과에 추가 명령
-#-------------------------
-function ShellScriptPipeCommand(){
-    echo 
-    echo "## 쉘 스크립트 명령 결과에 추가 명령 시작 ##"
+#------------------------------------------------------------
+# Cmd Test Shell : [Tip]_[Pipe_ContinuousCommand]
+#------------------------------------------------------------
+function Tip_Pipe_ContinuousCommand(){
     echo
-    echo " 기본설명 : 쉘 스크립트 명령 결과에 추가 명령"
+    echo "## pipe Start ##"
     echo
-    echo " 사용법) 파이프 [ | ] 왼쪽 명령이 먼저 실행되고 실행된 결과로 오른쪽 명령이 실행된다."
+    # Basic Information Start
     echo
-    echo " df | wc -l"
-    echo " 「df」 명령을 실행 후 실행 결과로 「wc -l」를 실행한다."
-    df | wc -l
+    echo " Command  : pipe"
+    echo " HowToUse : [Command] | [Command] ..."
     echo
-    echo "## 쉘 스크립트 명령 결과에 추가 명령 종료 ##"
-    echo 
+    # Basic Information End
+    echo
+    echo
+    # Preparation End
+    # Example Start
+    # Example 01 
+    echo
+    echo " ps -ef "
+    echo " ps -ef | grep System "
+    echo " ps -ef | grep System | head -n 5 "
+    echo " ps -ef | grep System | head -n 5 | wc -l "
+    ps -ef | grep System | head -n 5 | wc -l
+    echo
+    # Example End
+    echo
+    echo "## pipe End ##"
+    echo
 }
 
-ShellScriptPipeCommand
+Tip_Pipe_ContinuousCommand
