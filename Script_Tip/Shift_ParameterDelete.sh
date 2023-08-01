@@ -1,36 +1,50 @@
 #!/bin/sh
 
-#-------------------------
-# 테스트 쉘 : 파라미터 리스트중 한 개 삭제
-#-------------------------
-function ParameterDelete(){
-    echo 
-    echo "## 파라미터 리스트중 한 개 삭제 시작 ##"
+#------------------------------------------------------------
+# Cmd Test Shell : [Shift]_[ParameterDelete]
+#------------------------------------------------------------
+function shift_ParameterDelete(){
     echo
-    echo " 명령어  : shift"
-    echo " 사용방법 : shift "
-    echo " 기본설명 : shift 뒤에 아규먼트가 없는경우 파라미터 목록에서 가장 좌측의 파라미터가 영구삭제된다. "
+    echo "## shift Start ##"
     echo
+    # Basic Information Start
+    echo
+    echo " Command  : shift"
+    echo " HowToUse : shift [Argument1] "
+    echo "            [Argument1] : tarFile_Path "
+    echo
+    # Basic Information End
+    echo
+    echo " set Kor Jap Usa Eng "
     set Kor Jap Usa Eng
-    echo " 예시1) set Kor Jap Usa Eng 를 이용하여 파라미터 확인"
-    echo "현재 파라미터 갯수 : $# 개, 파라미터 출력 : $* "
+    echo
+    # Preparation End
+    # Example Start
+    # Example 01
+    echo
+    echo "Current number of parameters : $# , Parameter output : $* "
     shift
-    echo "현재 파라미터 갯수 : $# 개, 파라미터 출력 : $* "
+    echo "Current number of parameters : $# , Parameter output : $* "
     shift 2
-    echo "현재 파라미터 갯수 : $# 개, 파라미터 출력 : $* "
+    echo "Current number of parameters : $# , Parameter output : $* "
     shift 
-    echo "현재 파라미터 갯수 : $# 개, 파라미터 출력 : $* "
+    echo "Current number of parameters : $# , Parameter output : $* "
     shift
     echo
-    echo " 예시2) 반복문에서 사용"
+    # Example 02
+    echo
+    echo " date : " `date`
     set $(date)
     while (( $# > 0 ))
     do
         echo $1
         shift
     done
-    echo "## 파라미터 리스트중 한 개 삭제 종료 ##"
-    echo 
+    echo
+    # Example End
+    echo
+    echo "## shift End ##"
+    echo
 }
 
-ParameterDelete 
+shift_ParameterDelete 
