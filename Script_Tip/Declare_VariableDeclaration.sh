@@ -1,65 +1,94 @@
 #!/bin/sh
 
-#-------------------------
-# 테스트 쉘 : 쉘 스크립트 변수 선언(declare/typeset)
-#-------------------------
-function ShellScriptVariableDeclareTypeset(){
-    echo 
-    echo "## 쉘 스크립트 변수 선언(declare/typeset) 시작 ##"
+#------------------------------------------------------------
+# Cmd Test Shell : [Declare]_[VariableDeclaration]
+#------------------------------------------------------------
+function declare_VariableDeclaration(){
     echo
-    echo " 기본설명 : 쉘 스크립트 변수 선언하는 방법(declare/typeset)"
+    echo "## declare Start ##"
     echo
-    echo " 사용법) declare 뒤에 아규먼트가 없다면 등록된 전역변수 값들이 출력된다. declare대신typeset을 사용해도 된다.같은 역할"
+    # Basic Information Start
+    echo
+    echo " Command  : declare"
+    echo " HowToUse : declare [Option] [Argument1] "
+    echo "            [Argument1] : Variable "
+    echo "            [Option : -x] : Declared as a global variable as well "
+    echo "            [Option : -r] : Register as a read-only variable[Re-registration not possible] "
+    echo "            [Option : -a] : Defined by array "
+    echo "            [Option : -i] : Defined as numeric -> Set "0" if non-numeric characters are specified as values "
+    echo "            [Option : -f] : Show all currently defined functions [including content] "
+    echo "            [Option : -F] : Show all the currently defined function name "
+    echo "            [Option : -p] : Show all currently defined variables [ default ] "
+    echo
+    # Basic Information End
+    # Preparation Start
+    echo
+    echo
+    # Preparation End
+    # Example Start
+    # Example 01 (Not Option : Global variable values output )
+    echo
     echo " declare "
     declare
     echo
-    echo " 옵션) -x : export까지 진행하여 전역변수로도 선언되는 옵션"
-    echo " 전역 변수 선언 전 전역변수들 출력(env)"
-    env
-    declare -x DeclareVariExport=VariExport
-    echo " 전역 변수 선언 후 전역변수들 출력(env)"
+    # Example 02 (Option -x : Declared as a global variable as well )
+    echo
     env
     echo
-    echo " 옵션) -r : 읽기 전용 변수로 등록, 재등록은 불가"
+    echo " declare -x DeclareVariExport=VariExport "
+    declare -x DeclareVariExport=VariExport
+    echo
+    env
+    echo
+    # Example 03 (Option -r : Register as a read-only variable[Re-registration not possible] )
+    echo
+    echo " declare -r DeclareVariReadOnly=VariReadOnly "
     declare -r DeclareVariReadOnly=VariReadOnly
-    echo "declare DeclareVariReadOnly : $DeclareVariReadOnly"
+    echo " declare DeclareVariReadOnly : $DeclareVariReadOnly "
     #DeclareVariReadOnly=TestingRename
     #declare -r DeclareVariReadOnly=VariReadOnlyRename
-    #echo "DeclareVariReadOnly : $DeclareVariReadOnly"
+    #echo " DeclareVariReadOnly : $DeclareVariReadOnly "
     echo
-    echo " 옵션) -a : 배열로 정의"
-    echo "declare -a DeclareVariArray=(Text1 Text2)"
+    # Example 04 (Option -a : Defined by array )
+    echo
+    echo " declare -a DeclareVariArray=(Text1 Text2) "
     declare -a DeclareVariArray=(Text1 Text2)
-    echo "declare DeclareVariArray : Arrayitem1=${DeclareVariArray[0]}, Arrayitem2=${DeclareVariArray[1]}"
+    echo " Arrayitem1 : $Arrayitem1 "
+    echo " Arrayitem2 : $Arrayitem2 "
+    echo " declare DeclareVariArray : Arrayitem1=${DeclareVariArray[0]}, Arrayitem2=${DeclareVariArray[1]} "
+    echo " Arrayitem1 : $Arrayitem1 "
+    echo " Arrayitem2 : $Arrayitem2 "
     echo
-    echo " 옵션) -i : 숫자형으로 정의 -> 숫자가 아닌 문자를 값으로 지정하면 0값이 들어간다."
-    echo "declare -i DeclareVariInt=152"
+    # Example 05 (Option -i : Defined as numeric -> Set "0" if non-numeric characters are specified as values )
+    echo
+    echo " declare -i DeclareVariInt=152 "
     declare -i DeclareVariInt=152
-    echo "declare DeclareVariInt : $DeclareVariInt"
+    echo " declare DeclareVariInt : $DeclareVariInt "
+    echo " declare -i DeclareVariString=String "
+    declare -i DeclareVariString=String
+    echo " declare DeclareVariString : $DeclareVariString "
     echo
-    echo " 옵션) -f : 현재 정의된 모든 함수 표시[내용 포함] (아규먼트로 함수명을 지정하면 해당 함수만 출력된다.)"
-    echo "declare -f"
+    # Example 06 (Option -f : Show all currently defined functions [including content] )
+    echo
+    echo " declare -f "
     declare -f 
-    echo "declare -f ShellScriptVariableDeclare"
-    declare -f ShellScriptVariableDeclare
+    echo " declare -f declare_VariableDeclaration"
+    declare -f declare_VariableDeclaration
     echo
-    echo " 옵션) -F: 현재 정의된 모든 함수 이름 표시"
-    echo "declare -F"
+    # Example 07 (Option -F : Show all the currently defined function name )
+    echo
+    echo " declare -F "
     declare -F 
     echo
-    echo " 옵션) -p: 현재 정의된 변수를 모두 표시"
-    echo "declare -p"
+    # Example 08 (Option -p : Show all currently defined variables [ default ] )
+    echo
+    echo " declare -p "
     declare -p 
     echo
-    #echo " 옵션) -l : 변수값을 소문자로 선언하는 옵션"
-    #declare -l DeclareVariLower=VariLower
-    #echo "DeclareVariLower : $DeclareVariLower"
-    #echo " 옵션) -u : 변수값을 대문자로 선언하는 옵션"
-    #declare -u DeclareVariUpper=VariUpper
-    #echo "DeclareVariUpper : $DeclareVariUpper"
+    # Example End
     echo
-    echo "## 쉘 스크립트 변수 선언(declare/typeset) 종료 ##"
-    echo 
+    echo "## declare End ##"
+    echo
 }
 
-ShellScriptVariableDeclareTypeset
+declare_VariableDeclaration
