@@ -1,9 +1,9 @@
 #!/bin/sh
 
 #------------------------------------------------------------
-# Cmd Test Shell : [If]_[Compare]
+# Cmd Test Shell : [If]_[ConditionCompare]
 #------------------------------------------------------------
-function if_Compare(){
+function if_ConditionCompare(){
     echo
     echo "## if Start ##"
     echo
@@ -151,4 +151,4 @@ function if_Compare(){
     echo
 }
 
-if_Compare
+if_ConditionCompare
