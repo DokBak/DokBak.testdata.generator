@@ -1,77 +1,88 @@
 #!/bin/sh
 
-#-------------------------
-# 테스트 쉘 : 루프문 하위 처리 무시
-#-------------------------
-function LoopContinue(){
-    echo 
-    echo "## 루프문 하위 처리 무시 시작 ##"
+#------------------------------------------------------------
+# Cmd Test Shell : [Continue]_[LoopContinue]
+#------------------------------------------------------------
+function continue_LoopContinue(){
     echo
-    echo " 명령어  : continue"
-    echo " 사용방법 : continue [아규먼트] "
-    echo " 기본설명 : 루프문 내에서 continue를 사용하면 루프문 진행중 하위 처리를 진행하지 않고 루프문 처음부터 시작한다. 중첩루프문인 경우 숫자로된 [아규먼트]를 지정하면 원하는 루프문에서 시작할 수 있다."
-    echo "          3중 중첩 루프문인경우 [아규먼트]가 3인경우 제일 바깥쪽 루프, 2인 경우 그 안쪽 루프, 1인경우 제일 안쪽의 루프가 재시작된다. 숫자가 커질수록 바깥쪽 루프"
+    echo "## continue Start ##"
     echo
-    echo " 예시1) 데이터를 입력해주세요. 1:안쪽 루프가 실행, 2:중간 루프가 실행, 3:바깥쪽 루프가 실행"
+    # Basic Information Start
+    echo
+    echo " Command  : continue"
+    echo " HowToUse : continue [Argument1] "
+    echo "            [Argument1] : continue area "
+    echo
+    # Basic Information End
+    # Preparation Start
+    echo
+    echo
+    # Preparation End
+    # Example Start
+    # Example 01 (Not Option)
+    echo
     loopNum=0
-    echo "1,2,3 출력 시작"
     while true
     do
-        loopNum=$(( loopNum + 1))
-        echo $loopNum
-        if [[ $loopNum == "3" ]]
+        loopNum=` expr $loopNum + 1 `
+        if [[ $loopNum -le "3" ]]
         then
-            echo "O 또는 o 입력시 1,2,3 재출력"
-            read inputbreak
-            if [[ $inputbreak == [Oo] ]]
-            then
-                loopNum=0
-                echo "1,2,3 출력 재시작"
-                continue 1
-            else
-                echo "1,2,3,4,5,6 출력 시작"
-                while true
-                do 
-                    loopNum=$(( loopNum + 1))
-                    echo $loopNum
-                    if [[ $loopNum == "6" ]]
-                    then
-                        echo "O 또는 o 입력시 1,2,3,4,5,6 재출력"
-                        read inputbreak
-                        if [[ $inputbreak == [Oo] ]]
+            echo " first while loop $loopNum "
+        elif [[ $loopNum -le "5" ]]
+        then
+            continue 
+        elif [[ $loopNum -le "8" ]]
+        then
+            echo " first while loop $loopNum "
+        elif [[ $loopNum -le "10" ]]
+        then
+            continue 1
+        elif [[ $loopNum -gt "10" ]]
+        then    
+            while true
+            do 
+                if [[ $loopNum -le "13" ]]
+                then
+                echo " second while loop $loopNum "
+                loopNum=$(( loopNum + 1))
+                elif  [[ $loopNum -le "15" ]]
+                then
+                continue 2
+                elif  [[ $loopNum -le "18" ]]
+                then
+                echo " second while loop $loopNum "
+                loopNum=$(( loopNum + 1))
+                elif  [[ $loopNum -gt "18" ]]
+                then
+                    while true
+                    do 
+                        if [[ $loopNum -le "21" ]]
                         then
-                            loopNum=0
-                            echo "1,2,3 재출력 시작"
-                            continue 2
+                            echo " third while loop $loopNum "
+                            loopNum=$(( loopNum + 1))
+                        elif [[ $loopNum -le "25" ]]
+                        then
+                            continue 3
+                        elif [[ $loopNum -le "30" ]]
+                        then
+                            echo " third while loop $loopNum "
+                            loopNum=$(( loopNum + 1))
                         else
-                            echo "1,2,3,4,5,6,7,8,9 출력 시작"
-                            while true
-                            do 
-                                loopNum=$(( loopNum + 1))
-                                echo $loopNum
-                                if [[ $loopNum == "9" ]]
-                                then
-                                    echo "O 또는 o 입력시 1,2,3,4,5,6,7,8,9 재출력"
-                                    read inputbreak
-                                    if [[ $inputbreak == [Oo] ]]
-                                    then
-                                        loopNum=0
-                                        echo "1,2,3 재출력 시작"
-                                        continue 3 
-                                    else    
-                                        break 3
-                                    fi
-                                fi
-                            done
+                            break 3
                         fi
-                    fi
-                done 
-            fi
+                    done
+                fi
+            done 
+        elif [[ $loopNum == "40" ]]
+        then
+            break
         fi
     done
     echo
-    echo "## 루프문 하위 처리 무시 종료 ##"
-    echo 
+    # Example End
+    echo
+    echo "## continue End ##"
+    echo
 }
 
-LoopContinue 
+continue_LoopContinue 
