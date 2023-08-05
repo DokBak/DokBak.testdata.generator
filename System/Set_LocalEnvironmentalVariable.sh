@@ -11,6 +11,8 @@ function set_LocalEnvironmentalVariable(){
     echo
     echo " Command  : set "
     echo " HowToUse : set "  
+    echo "            [Option : -o] : variable Activation "
+    echo "            [Option : +o] : variable Deactivation "
     echo
     # Basic Information End
     # Preparation Start
@@ -51,6 +53,18 @@ function set_LocalEnvironmentalVariable(){
     env | grep ENV_PARAM
     echo " set | grep ENV_PARAM "
     set | grep ENV_PARAM
+    echo
+    # Example 05 (Option -o : variable Activation )
+    echo
+    echo " Option -o : variable Deactivation "
+    echo " set -o vi "
+    set -o vi
+    echo
+    # Example 06 (Option +o : variable Deactivation )
+    echo
+    echo " Option +o : variable Activation "
+    echo " set +o vi "
+    set +o vi
     echo
     # Example End
     echo
