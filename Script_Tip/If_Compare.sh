@@ -141,6 +141,10 @@ function if_Compare(){
         echo " Ture : [ 10 -le 10 ]" 
     fi
     echo
+    # Example 02
+    echo
+    if [ $Var2 = 11 ]; then echo " if_Data : $Var2 "; elif [ $Var2 = 9 ]; then echo " elif_Data : $Var2 "; else echo " else_Data : $Var2 "; fi
+    echo
     # Example End
     echo
     echo "## if End ##"
