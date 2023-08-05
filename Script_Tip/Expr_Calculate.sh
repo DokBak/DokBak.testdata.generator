@@ -1,11 +1,11 @@
 #!/bin/sh
 
 #------------------------------------------------------------
-# Cmd Test Shell : [Tip]_[CalculateExpr]
+# Cmd Test Shell : [expr]_[Calculate]
 #------------------------------------------------------------
-function Tip_CalculateExpr(){
+function expr_Calculate(){
     echo
-    echo "## CalculateExpr Start ##"
+    echo "## expr Start ##"
     echo
     # Basic Information Start
     echo
@@ -39,8 +39,8 @@ function Tip_CalculateExpr(){
     echo
     # Example End
     echo
-    echo "## CalculateExpr End ##"
+    echo "## expr End ##"
     echo
 }
 
-Tip_CalculateExpr
+expr_Calculate
