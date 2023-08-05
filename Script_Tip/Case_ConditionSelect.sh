@@ -1,9 +1,9 @@
 #!/bin/sh
 
 #------------------------------------------------------------
-# Cmd Test Shell : [Tip]_[Case]
+# Cmd Test Shell : [Case]_[ConditionSelect]
 #------------------------------------------------------------
-function Tip_Case(){
+function case_ConditionSelect(){
     echo
     echo "## Case Start ##"
     echo
@@ -52,4 +52,4 @@ function Tip_Case(){
     echo
 }
 
-Tip_Case
+case_ConditionSelect
