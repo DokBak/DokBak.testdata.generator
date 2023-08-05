@@ -25,31 +25,31 @@ function read_UserWrite(){
     # Example Start
     # Example 01 (Not Option : Receiving Inputs from Users )
     echo
-    echo " name : "
+    echo " read name "
     read name
     echo " name : $name "
     echo
     # Example 02 (Option -p : Set the value to output before receiving input from the user )
     echo
-    echo " tel : "
+    echo " read -p " input your number : " tel "
     read -p " input your number : " tel
     echo " tel : $tel "
     echo
     # Example 03 (Option -n : Set the number of characters to be entered )
     echo
-    echo " nickName : "
+    echo " read -n 4 nickName "
     read -n 4 nickName
     echo " nickName : $nickName "
     echo
     # Example 04 (Option -t : Set the time to wait for input )
     echo
-    echo " waittime : "
+    echo " read -t 3 waittime "
     read -t 3 waittime
     echo " waittime : $waittime "
     echo
     # Example 05 (Option -s : Enables you to receive input in a hidden form [Like the password] )
     echo
-    echo " hideString : "
+    echo " read -s hideString "
     read -s hideString
     echo " hideString : $hideString "
     echo
