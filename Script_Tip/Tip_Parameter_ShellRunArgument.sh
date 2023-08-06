@@ -15,7 +15,7 @@ function Tip_Parameter_ShellRunArgument(){
     echo "            [ \$! ] : ID of the process that was most recently run in the background "
     echo "            [ \$? ] : Shutdown status of the most recently executed foreground pipeline "
     echo "            [ \$0 ] : Name of the shell or shell script "
-    echo "            [ \$_ ] : Absolute path to the executed shell "
+    echo "            [ \$_ ] : Result of last executed command "
     echo "            [ \$* ] : All Parameter( All parameters are recognized as one value when wrapped with "" : '\$*' ) "
     echo "            [ \$@ ] : All Parameter( Wrapping with "" recognizes each as a parameter value : '\$@' ) "
     echo "            [ \$1 ] : First Parameter "
