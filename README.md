@@ -1559,7 +1559,7 @@
     <td>비고</td>
   </tr>
   <tr>
-    <td><a href="Script_Tip">Break_LoopTermination.sh</a></td>
+    <td><a href="Script_Tip/Break_LoopTermination.sh">Break_LoopTermination.sh</a></td>
     <td>break</td>
     <td> n </td>
     <td></td>
@@ -2116,6 +2116,3 @@
     <td>vim 편집기사용법 (한국어)</td>
   </tr>
 </table>
-
-<a href="Script_Tip/Break_LoopTermination.sh">Break_LoopTermination.sh</a>
-<a href="Vim_Control/Vi_VimCommand.sh">Vi_VimCommand.sh</a>
