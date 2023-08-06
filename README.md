@@ -1815,8 +1815,8 @@
     <td>스크립트에서 반복적으로 실행되는 함수를 선언( 생략 가능 부분 : function,함수명뒤의 () )</td>
   </tr>
   <tr>
-    <td rowspan="7"><a href="Script_Tip/Tip_Mark_CommandExclamationMark.sh">Tip_Mark_CommandExclamationMark.sh</a></td>
-    <td rowspan="7"></td>
+    <td rowspan="8"><a href="Script_Tip/Tip_Mark_CommandExclamationMark.sh">Tip_Mark_CommandExclamationMark.sh</a></td>
+    <td rowspan="8"></td>
     <td> ! </td>
     <td></td>
     <td>!!</td>
@@ -1851,6 +1851,12 @@
     <td></td>
     <td>!^</td>
     <td>이전에 사용하였던 [echo a s d f] 명령에서 첫번째 아규먼트를 가져온다.(예시로는 a)</td>
+  </tr>
+  <tr>
+    <td> $ </td>
+    <td></td>
+    <td>!$</td>
+    <td>이전에 사용하였던 [echo a s d f] 명령에서 마지막 아규먼트를 가져온다.(예시로는 f)</td>
   </tr>
   <tr>
     <td> * </td>

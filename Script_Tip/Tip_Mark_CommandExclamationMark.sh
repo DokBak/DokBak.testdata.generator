@@ -37,6 +37,8 @@ function Tip_Mark_CommandExclamationMark(){
     echo
     echo " !^   : Get the 1th argument from the previously used command "
     echo
+    echo " !$   : Gets the last argument from the previously used command "
+    echo
     echo " !*   : Get the all argument from the previously used command "
     echo
     # Example End
