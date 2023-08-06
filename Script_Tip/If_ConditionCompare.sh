@@ -10,7 +10,7 @@ function if_ConditionCompare(){
     # Basic Information Start
     echo
     echo " Command  : if"
-    echo " HowToUse : if [ condition ] then elif [ condition ] else fi "
+    echo " HowToUse : if [ condition ]; [ content ]; then elif [ condition ]; [ content ]; else [ content ]; fi "
     echo
     # Basic Information End
     # Preparation Start
