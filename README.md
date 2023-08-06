@@ -1559,7 +1559,7 @@
     <td>비고</td>
   </tr>
   <tr>
-    <td><a href="Script_Tip/Break_LoopTermination.sh">Break_LoopTermination.sh</a></td>
+    <td><a href="Script_Tip/">Break_LoopTermination.sh</a></td>
     <td>break</td>
     <td> n </td>
     <td></td>
