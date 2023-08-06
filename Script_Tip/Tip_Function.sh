@@ -32,7 +32,7 @@ function Tip_Function(){
     echo
     # Example 04
     echo
-    TestFunc3
+    TestFunc4
     echo
     # Example End
     echo
