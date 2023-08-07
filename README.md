@@ -1669,6 +1669,26 @@
     <td>조건문 if</td>
   </tr>
   <tr>
+    <td rowspan="3"><a href="Script_Tip/If_ConditionExtensionsCompare.sh">If_ConditionExtensionsCompare.sh</a></td>
+    <td rowspan="3">if</td>
+    <td> [[ =~ ]] </td>
+    <td></td>
+    <td>if [[ $Var1 =~ S...l  ]]; then echo " if_Data1 : $Var1 "; fi</td>
+    <td>정규식표현 비교</td>
+  </tr>
+  <tr>
+    <td> [[   ||   ]] </td>
+    <td></td>
+    <td>if [[ $Var1 == "SEOUL" || $Var1 == "Seoul" ]]; then echo " if_Data2 : $Var1 "; fi</td>
+    <td>논리 표현식 비교(||, &&) 가능</td>
+  </tr>
+  <tr>
+    <td> [[ < ]] </td>
+    <td></td>
+    <td>if [[ $Var2 < 11 ]]; then echo " if_Data3 : $Var2 "; fi</td>
+    <td>직관적인 <, > 비교가 가능</td>
+  </tr>
+  <tr>
     <td rowspan="6"><a href="Script_Tip/If_FileProperties.sh">If_FileProperties.sh</a></td>
     <td rowspan="6">if</td>
     <td> -e </td>
