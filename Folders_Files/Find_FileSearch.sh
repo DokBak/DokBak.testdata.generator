@@ -1,73 +1,115 @@
 #!/bin/sh
 
-#-------------------------
-# 테스트 쉘 : 파일 및 디렉토리 검색
-#-------------------------
-function FileSearch(){
-    echo 
-    echo "## 파일 및 디렉토리 검색 시작 ##"
-    echo " 명령어  : find"
-    echo " 사용방법 : find [검색 기준] [검색 타입] [패턴]"
-    echo " 기본설명 : "
+#------------------------------------------------------------
+# Cmd Test Shell : [Find]_[FileSearch]
+#------------------------------------------------------------
+function find_FileSearch(){
     echo
-    echo " 사전실행) find 명령어 실행에 필요한 샘플 폴더 및 파일 작성 방법"
-    echo "    mkdir -p find_CMD_TestFolder1/find_CMD_TestFolder2"
-    mkdir -p find_CMD_TestFolder1/find_CMD_TestFolder2
-    echo "    mkdir -p find_CMD_TestFolder3/find_CMD_TestFolder4"
-    mkdir -p find_CMD_TestFolder3/find_CMD_TestFolder4
-    echo "    mkdir -p find_CMD_TestFolder5/find_CMD_TestFolder6"
-    mkdir -p find_CMD_TestFolder5/find_CMD_TestFolder6
-    echo "    echo 'TestFile100' > find_CMD_TestFolder1/find_CMD_TestFile100.txt"
-    echo 'TestFile100' > find_CMD_TestFolder1/find_CMD_TestFile100.txt
-    echo "    echo 'TestFile200' > find_CMD_TestFolder1/find_CMD_TestFolder2/find_CMD_TestFile200.txt"
-    echo 'TestFile200' > find_CMD_TestFolder1/find_CMD_TestFolder2/find_CMD_TestFile200.txt
-    echo "    echo 'TestFile300' > find_CMD_TestFolder3/find_CMD_TestFile300.txt"
-    echo 'TestFile300' > find_CMD_TestFolder3/find_CMD_TestFile300.txt
-    echo "    touch find_CMD_TestFolder3/find_CMD_TestFolder4/find_CMD_TestFile400.txt"
-    touch find_CMD_TestFolder5/find_CMD_TestFolder4/find_CMD_TestFile400.txt
-    echo "    touch find_CMD_TestFolder5/find_CMD_TestFile500.tt"
-    touch find_CMD_TestFolder5/find_CMD_TestFile500.tt
-    echo "    touch find_CMD_TestFolder5/find_CMD_TestFile501.log"
-    touch find_CMD_TestFolder5/find_CMD_TestFile501.log
+    echo "## find Start ##"
     echo
-    echo " 예시1) find find_CMD_TestFolder1/find_CMD_TestFile100.txt"
-    echo " 부가설명) 존재하는 파일명을 파라미터로 검색해서 존재 할 경우 파일명이 출력된다."
-    find find_CMD_TestFolder1/find_CMD_TestFile100.txt
+    # Basic Information Start
     echo
-    echo " 예시2) find find_CMD_TestFolder1"
-    echo " 부가설명) 존재하는 디렉토리명을 파라미터로 검색해서 존재 할 경우 디렉토리명 및 내부의 파일, 폴더를 모두 출력한다."
-    find find_CMD_TestFolder1
+    echo " Command  : find"
+    echo " HowToUse : find [Option] [Argument1] [Argument2] ..."
+    echo "            [Argument1] : tarFile_Path "
+    echo "            [Argument1] : type Option "
+    echo "            [Argument1] : matchingdata "
+    echo "            [Option : -name] : search Pattern Name "
+    echo "            [Option : -empty] : empty Folder check "
+    echo "            [Option : -delete] : delete file "
+    echo "            [Option : -print] : print file and folder "
+    echo "            [Option : -print0] : print file and folder not new Line "
+    echo "            [Option : -maxdepth] : SubDirectories "
     echo
-    echo " 예시3) find . -name find_CMD_TestFile100.txt"
-    echo " 부가설명) . : 현재 디렉토리( / : 전체 디렉토리 ), -name : 이름으로 검색, 파일 또는 디렉토리명 검색 "
+    # Basic Information End
+    # Preparation Start
+    echo
+    # Preparation : mkdir
+    echo " mkdir -p `pwd`/find_CMD_TestFolder/find_CMD_TestFolder1/find_CMD_TestFolder2/ "
+    mkdir -p `pwd`/find_CMD_TestFolder/find_CMD_TestFolder1/find_CMD_TestFolder2/
+    echo " mkdir -p `pwd`/find_CMD_TestFolder/find_CMD_TestFolder3/find_CMD_TestFolder4/ "
+    mkdir -p `pwd`/find_CMD_TestFolder/find_CMD_TestFolder3/find_CMD_TestFolder4/
+    echo " mkdir -p `pwd`/find_CMD_TestFolder/find_CMD_TestFolder5/find_CMD_TestFolder6/ "
+    mkdir -p `pwd`/find_CMD_TestFolder/find_CMD_TestFolder5/find_CMD_TestFolder6/
+    # Preparation : Create File
+    echo " echo 'TestFile100' > `pwd`/find_CMD_TestFolder/find_CMD_TestFolder1/find_CMD_TestFile100.txt "
+    echo 'TestFile100' > `pwd`/find_CMD_TestFolder/find_CMD_TestFolder1/find_CMD_TestFile100.txt
+    echo " echo 'TestFile200' > `pwd`/find_CMD_TestFolder/find_CMD_TestFolder1/find_CMD_TestFolder2/find_CMD_TestFile200.txt "
+    echo 'TestFile200' > `pwd`/find_CMD_TestFolder/find_CMD_TestFolder1/find_CMD_TestFolder2/find_CMD_TestFile200.txt
+    echo " echo 'TestFile300' > `pwd`/find_CMD_TestFolder/find_CMD_TestFolder3/find_CMD_TestFile300.txt "
+    echo 'TestFile300' > `pwd`/find_CMD_TestFolder/find_CMD_TestFolder3/find_CMD_TestFile300.txt
+    echo " touch `pwd`/find_CMD_TestFolder/find_CMD_TestFolder5/find_CMD_TestFolder4/find_CMD_TestFile400.txt "
+    touch `pwd`/find_CMD_TestFolder/find_CMD_TestFolder5/find_CMD_TestFolder4/find_CMD_TestFile400.txt
+    echo " touch `pwd`/find_CMD_TestFolder/find_CMD_TestFolder5/find_CMD_TestFile500.tt "
+    touch `pwd`/find_CMD_TestFolder/find_CMD_TestFolder5/find_CMD_TestFile500.tt
+    echo " touch `pwd`/find_CMD_TestFolder/find_CMD_TestFolder5/find_CMD_TestFile501.log "
+    touch `pwd`/find_CMD_TestFolder/find_CMD_TestFolder5/find_CMD_TestFile501.log
+    echo
+    # Preparation End
+    # Example Start
+    # Example 01 (Not Option : exists File )
+    echo
+    echo " matchingdata -> file : exists check "
+    echo " find `pwd`/find_CMD_TestFolder/find_CMD_TestFolder1/find_CMD_TestFile100.txt "
+    find `pwd`/find_CMD_TestFolder/find_CMD_TestFolder1/find_CMD_TestFile100.txt
+    echo
+    # Example 02 (Not Option : Not exists File )
+    echo
+    echo " matchingdata -> file : exists check "
+    echo " find `pwd`/find_CMD_TestFolder/find_CMD_TestFolder1/find_CMD_TestFile1000.txt "
+    find `pwd`/find_CMD_TestFolder/find_CMD_TestFolder1/find_CMD_TestFile1000.txt
+    echo
+    # Example 03 (Not Option : SubDirectories All Print )
+    echo
+    echo " matchingdata -> folder : Files and SubDirectories Print "
+    echo " find `pwd`/find_CMD_TestFolder/find_CMD_TestFolder1/ "
+    find `pwd`/find_CMD_TestFolder/find_CMD_TestFolder1/
+    echo
+    # Example 04 (Option -name : search Pattern Name )
+    echo
+    echo " Option -name : search Pattern Name "
+    echo " find . -name find_CMD_TestFile100.txt "
     find . -name find_CMD_TestFile100.txt
     echo
-    echo " 예시3) find . -name find_CMD_TestFile100.txt"
-    echo " 부가설명) . : 현재 디렉토리, -name : 이름으로 검색, 파일 또는 디렉토리명 검색 "
-    find . -name find_CMD_TestFile100.txt
-    echo
-    echo " 예시4) find . -name '*find*'"
-    echo " 부가설명) . : 현재 디렉토리, -name : 이름으로 검색, 파일명에 find이 포함된 파일 및 디렉토리를 검색  "
+    echo " find . -name '*find*' "
     find . -name '*find*'
     echo
-    echo " 예시5) find . -empty"
-    echo " 부가설명) . : 현재 디렉토리, -empty : 빈 디렉토리 또는 크기가 0인 파일 검색 "
+    # Example 05 (Option -empty : empty Folder check )
+    echo
+    echo " Option -empty : empty Folder check "
+    echo " find . -empty "
     find . -empty
     echo
-    echo " 예시6) find . -name '*.tt' -delete"
-    echo " 부가설명) . : 현재 디렉토리, -name : 이름으로 검색, '.tt'확장자를 검색, 검색된 파일을 삭제"
+    # Example 06 (Option -delete : delete file )
+    echo
+    echo " Option -delete : delete file "
+    echo " find . -name '*.tt' -delete "
     find . -name '*.tt' -delete
     echo
-    echo " 예시7) find . -name '*find*' -print0"
-    echo " 부가설명) . : 현재 디렉토리, -name : 이름으로 검색, find이름이 있는 파일 및 폴더, 검색된 파일리스트를 줄바꿈 없이 출력"
+    # Example 07 (Option -print : print file and folder , Option -print0 : print file and folder not new Line )
+    echo
+    echo " Option -print : print file and folder "
+    echo " find . -name '*find*' -print0 "
     find . -name '*find*' -print0
     echo
-    echo " 예시8) find . -maxdepth 1 -name '*.tt'"
-    echo " 부가설명) . : 현재 디렉토리, -maxdepth 1 : 깊이는 현재 디렉토리 까지만, -name : '.tt'확장자를 검색 출력"
-    find . -maxdepth 1 -name '*.tt'
     echo
-    echo "## 파일 및 디렉토리 검색  종료 ##"
-    echo 
+    echo " Option -print0 : print file and folder not new Line "
+    echo " find . -name '*find*' -print "
+    find . -name '*find*' -print
+    echo
+    # Example 08 (Option -maxdepth : SubDirectories )
+    echo
+    echo " Option -maxdepth : SubDirectories "
+    echo " find . -maxdepth 1 -name '*log*' "
+    find . -maxdepth 2 -name '*log*'
+    echo
+    echo " find . -maxdepth 2 -name '*log*' "
+    find . -maxdepth 3 -name '*log*'
+    echo
+    # Example End
+    echo
+    echo "## find End ##"
+    echo
 }
 
-FileSearch
+find_FileSearch
