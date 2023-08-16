@@ -1,33 +1,59 @@
 #!/bin/sh
 
-#-------------------------
-# 테스트 쉘 : 파일 소유자 변경
-#-------------------------
-function FileOwnerEdit(){
-    echo 
-    echo "## 파일 소유자 변경 시작 ##"
+#------------------------------------------------------------
+# Cmd Test Shell : [Chown]_[FileOwnerEdit]
+#------------------------------------------------------------
+function chown_FileOwnerEdit(){
     echo
-    echo " 명령어  : chown"
-    echo " 사용방법 : chown [옵션] [소유자명] [파일명]"
-    echo " 기본설명 : 파일의 소유자명을 [소유자명]으로 변경"
+    echo "## chown Start ##"
     echo
-    echo " 사전실행) chown 명령어 실행에 필요한 샘플 폴더 및 파일 작성 방법"
-    echo "    mkdir chown_CMD_TestFolder/"
-    mkdir -p chown_CMD_TestFolder
-    echo 'test apple' > chown_CMD_TestFolder/chown_CMD_TestFile1.txt
-    ls -l chown_CMD_TestFolder/chown_CMD_TestFile1.txt
+    # Basic Information Start
     echo
-    echo " 예시1) sudo chown Dok chown_CMD_TestFolder/chown_CMD_TestFile1.txt"
-    sudo chown Dok chown_CMD_TestFolder/chown_CMD_TestFile1.txt
-    ls -l chown_CMD_TestFolder/chown_CMD_TestFile1.txt
+    echo " Command  : chown"
+    echo " HowToUse : chown [Option] [Argument1] [Argument2] "
+    echo "            [Argument1] : owner group "
+    echo "            [Argument2] : tarFile_Path "
+    echo "            [Option : -R] : Apply to subfolders and files as well "
     echo
-    echo " 옵션 -R : 디렉토리를 지정할 경우 하위 내용까지 모두 동일한 권한을 부여한다."
-    echo " 예시2) sudo chown -R jonmingi chown_CMD_TestFolder"
-    sudo chown -R jonmingi chown_CMD_TestFolder
-    ls -lR
+    # Basic Information End
+    # Preparation Start
     echo
-    echo "## 파일 소유자 변경 종료 ##"
-    echo 
+    # Preparation : mkdir
+    echo " mkdir -p `pwd`/chown_CMD_TestFolder/ "
+    mkdir -p `pwd`/chown_CMD_TestFolder/
+    # Preparation : Create File
+    echo " echo 'test apple' > `pwd`/chown_CMD_TestFolder/chown_CMD_TestFile1.txt "
+    echo 'test apple' > `pwd`/chown_CMD_TestFolder/chown_CMD_TestFile1.txt
+    echo
+    # Preparation End
+    # Example Start
+    # Example 01 (Not Option )
+    echo
+    echo " ls -l `pwd`/chown_CMD_TestFolder/ "
+    ls -l `pwd`/chown_CMD_TestFolder/
+    echo " sudo chown Dok `pwd`/chown_CMD_TestFolder/chown_CMD_TestFile1.txt "
+    sudo chown Dok `pwd`/chown_CMD_TestFolder/chown_CMD_TestFile1.txt
+    echo " ls -l `pwd`/chown_CMD_TestFolder/ "
+    ls -l `pwd`/chown_CMD_TestFolder/
+    echo
+    # Example 02 (Option -R : Apply to subfolders and files as well )
+    echo
+    echo " Option -R : Apply to subfolders and files as well "
+    echo " ls -l `pwd`/ "
+    ls -l `pwd`/
+    echo " ls -l `pwd`/chown_CMD_TestFolder/ "
+    ls -l `pwd`/chown_CMD_TestFolder/
+    echo " sudo chown -R jonmingi `pwd`/chown_CMD_TestFolder/ "
+    sudo chown -R jonmingi `pwd`/chown_CMD_TestFolder/
+    echo " ls -l `pwd`/ "
+    ls -l `pwd`/
+    echo " ls -l `pwd`/chown_CMD_TestFolder/ "
+    ls -l `pwd`/chown_CMD_TestFolder/
+    echo
+    # Example End
+    echo
+    echo "## chown End ##"
+    echo
 }
 
-FileOwnerEdit
+chown_FileOwnerEdit
