@@ -1,53 +1,104 @@
 #!/bin/sh
 
-#-------------------------
-# 테스트 쉘 : 접근 권한 변경
-#-------------------------
-function AccessAuthorityEdit(){
-    echo 
-    echo "## 접근 권한 변경 시작 ##"
+#------------------------------------------------------------
+# Cmd Test Shell : [Chmod]_[AccessAuthorityEdit]
+#------------------------------------------------------------
+function chmod_AccessAuthorityEdit(){
     echo
-    echo " 명령어  : chmod"
-    echo " 사용방법 : chmod [옵션] [접근권한] [인자2]"
-    echo " 기본설명 : 파일 또는 디렉토리[인자2]의 [접근권한]으로 변경한다."
+    echo "## chmod Start ##"
     echo
-    echo " 사전실행) chmod 명령어 실행에 필요한 샘플 폴더 및 파일 작성 방법"
-    echo "    mkdir chmod_CMD_TestFolder/"
-    mkdir -p chmod_CMD_TestFolder
-    echo 'test apple' > chmod_CMD_TestFolder/chmod_CMD_TestFile1.txt
-    ls -l chmod_CMD_TestFolder/chmod_CMD_TestFile1.txt
+    # Basic Information Start
     echo
-    echo " 예시1) chmod u-w chmod_CMD_TestFolder/chmod_CMD_TestFile1.txt "
-    chmod u-w chmod_CMD_TestFolder/chmod_CMD_TestFile1.txt
-    ls -l chmod_CMD_TestFolder
+    echo " Command  : chmod"
+    echo " HowToUse : chmod [Option] [Argument1] [Argument2] "
+    echo "            [Argument1] : owner group "
+    echo "            [Argument2] : tarFile_Path "
+    echo "            [Option : -R] : Apply to subfolders and files as well "
     echo
-    echo " 예시2) chmod g-w chmod_CMD_TestFolder/chmod_CMD_TestFile1.txt "
-    chmod g-w chmod_CMD_TestFolder/chmod_CMD_TestFile1.txt
-    ls -l chmod_CMD_TestFolder
+    # Basic Information End
+    # Preparation Start
     echo
-    echo " 예시3) chmod o-w chmod_CMD_TestFolder/chmod_CMD_TestFile1.txt "
-    chmod o-w chmod_CMD_TestFolder/chmod_CMD_TestFile1.txt
-    ls -l chmod_CMD_TestFolder
+    # Preparation : mkdir
+    echo " mkdir -p `pwd`/chmod_CMD_TestFolder/ "
+    mkdir -p `pwd`/chmod_CMD_TestFolder/
+    # Preparation : Create File
+    echo " echo 'test apple' > `pwd`/chmod_CMD_TestFolder/chmod_CMD_TestFile1.txt "
+    echo 'test apple' > `pwd`/chmod_CMD_TestFolder/chmod_CMD_TestFile1.txt
     echo
-    echo " 예시4) chmod a+w chmod_CMD_TestFolder/chmod_CMD_TestFile1.txt "
-    chmod a+w chmod_CMD_TestFolder/chmod_CMD_TestFile1.txt
-    ls -l chmod_CMD_TestFolder
+    # Preparation End
+    # Example Start
+    # Example 01 (Not Option : [r(4), w(2), x(1)] )
     echo
-    echo " 예시5) chmod a+x chmod_CMD_TestFolder/chmod_CMD_TestFile1.txt "
-    chmod a+x chmod_CMD_TestFolder/chmod_CMD_TestFile1.txt
-    ls -l chmod_CMD_TestFolder
+    echo " ls -l `pwd`/chmod_CMD_TestFolder/ "
+    ls -l `pwd`/chmod_CMD_TestFolder/
+    echo " chmod 777 `pwd`/chmod_CMD_TestFolder/chmod_CMD_TestFile1.txt "
+    chmod 777 `pwd`/chmod_CMD_TestFolder/chmod_CMD_TestFile1.txt
+    echo " ls -l `pwd`/chmod_CMD_TestFolder/ "
+    ls -l `pwd`/chmod_CMD_TestFolder/
     echo
-    echo " 예시6) chmod 763 chmod_CMD_TestFolder/chmod_CMD_TestFile1.txt "
-    chmod 763 chmod_CMD_TestFolder/chmod_CMD_TestFile1.txt
-    ls -l chmod_CMD_TestFolder
+    # Example 02 (Not Option : [u : user] )
     echo
-    echo " 옵션 -R : 디렉토리를 지정할 경우 하위 내용까지 모두 동일한 권한을 부여한다."
-    echo " 예시7) chmod -R 777 chmod_CMD_TestFolder"
-    chmod -R 777 chmod_CMD_TestFolder
-    ls -lR
+    echo " ls -l `pwd`/chmod_CMD_TestFolder/ "
+    ls -l `pwd`/chmod_CMD_TestFolder/
+    echo " chmod u-w `pwd`/chmod_CMD_TestFolder/chmod_CMD_TestFile1.txt "
+    chmod u-w `pwd`/chmod_CMD_TestFolder/chmod_CMD_TestFile1.txt
+    echo " ls -l `pwd`/chmod_CMD_TestFolder/ "
+    ls -l `pwd`/chmod_CMD_TestFolder/
     echo
-    echo "## 접근 권한 변경 종료 ##"
-    echo 
+    # Example 03 (Not Option : [g : group] )
+    echo
+    echo " ls -l `pwd`/chmod_CMD_TestFolder/ "
+    ls -l `pwd`/chmod_CMD_TestFolder/
+    echo " chmod g-w `pwd`/chmod_CMD_TestFolder/chmod_CMD_TestFile1.txt "
+    chmod g-w `pwd`/chmod_CMD_TestFolder/chmod_CMD_TestFile1.txt
+    echo " ls -l `pwd`/chmod_CMD_TestFolder/ "
+    ls -l `pwd`/chmod_CMD_TestFolder/
+    echo
+    # Example 04 (Not Option : [o : others] )
+    echo
+    echo " ls -l `pwd`/chmod_CMD_TestFolder/ "
+    ls -l `pwd`/chmod_CMD_TestFolder/
+    echo " chmod o-w `pwd`/chmod_CMD_TestFolder/chmod_CMD_TestFile1.txt "
+    chmod o-w `pwd`/chmod_CMD_TestFolder/chmod_CMD_TestFile1.txt
+    echo " ls -l `pwd`/chmod_CMD_TestFolder/ "
+    ls -l `pwd`/chmod_CMD_TestFolder/
+    echo
+    # Example 05 (Not Option : [a : all] )
+    echo
+    echo " ls -l `pwd`/chmod_CMD_TestFolder/ "
+    ls -l `pwd`/chmod_CMD_TestFolder/
+    echo " chmod a+w `pwd`/chmod_CMD_TestFolder/chmod_CMD_TestFile1.txt "
+    chmod a+w `pwd`/chmod_CMD_TestFolder/chmod_CMD_TestFile1.txt
+    echo " ls -l `pwd`/chmod_CMD_TestFolder/ "
+    ls -l `pwd`/chmod_CMD_TestFolder/
+    echo
+    # Example 06 (Not Option : [a : all] )
+    echo
+    echo " ls -l `pwd`/chmod_CMD_TestFolder/ "
+    ls -l `pwd`/chmod_CMD_TestFolder/
+    echo " chmod a-x `pwd`/chmod_CMD_TestFolder/chmod_CMD_TestFile1.txt "
+    chmod a-x `pwd`/chmod_CMD_TestFolder/chmod_CMD_TestFile1.txt
+    echo " ls -l `pwd`/chmod_CMD_TestFolder/ "
+    ls -l `pwd`/chmod_CMD_TestFolder/
+    echo
+    # Example 07 (Option -R : Apply to subfolders and files as well )
+    echo
+    echo " Option -R : Apply to subfolders and files as well "
+    echo " ls -l `pwd`/chmod_CMD_TestFolder/ "
+    ls -l `pwd`/chmod_CMD_TestFolder/
+    echo " ls -l `pwd`/ "
+    ls -l `pwd`/
+    echo " chmod -R 777 `pwd`/chmod_CMD_TestFolder/"
+    chmod -R 777 `pwd`/chmod_CMD_TestFolder/
+    echo " ls -l `pwd`/chmod_CMD_TestFolder/ "
+    ls -l `pwd`/chmod_CMD_TestFolder/
+    echo " ls -l `pwd`/ "
+    ls -l `pwd`/
+    echo
+    # Example End
+    echo
+    echo "## chmod End ##"
+    echo
 }
 
-AccessAuthorityEdit
+chmod_AccessAuthorityEdit
