@@ -1,37 +1,57 @@
 #!/bin/sh
 
-#-------------------------
-# 테스트 쉘 : 디렉토리 이동
-#-------------------------
-function DirectoryMove(){
-    echo 
-    echo "## 디렉토리 이동 시작 ##"
-    echo " 명령어  : cd"
-    echo " 사용방법 : cd [디렉토리]"
-    echo " 기본설명 : 지정된 디렉토리로 이동"
+#------------------------------------------------------------
+# Cmd Test Shell : [Cd]_[DirectoryMove]
+#------------------------------------------------------------
+function cd_DirectoryMove(){
     echo
-    echo " 예시1) cd Cd_CMD_TestFolder"
-    echo " 부가설명 : 지정된 폴더로 이동"
+    echo "## cd Start ##"
+    echo
+    # Basic Information Start
+    echo
+    echo " Command  : cd"
+    echo " HowToUse : cd [Argument1] "
+    echo "            [Argument1] : tarFolder_Path "
+    echo
+    # Basic Information End
+    # Preparation Start
+    echo
+    # Preparation : mkdir
+    echo " mkdir -p `pwd`/cd_CMD_TestFolder/ "
+    mkdir -p `pwd`/cd_CMD_TestFolder/
+    # Preparation : Create File
+    echo
+    # Preparation End
+    # Example Start
+    # Example 01 (Not Option )
+    echo
     pwd
-    mkdir Cd_CMD_TestFolder
-    cd Cd_CMD_TestFolder
+    echo " cd `pwd`/cd_CMD_TestFolder/ "
+    cd `pwd`/cd_CMD_TestFolder/
     pwd
     echo
-    echo " 예시2) cd ../ "
-    echo " 부가설명 : 하나 상위 폴더로 이동"
+    # Example 02 (Not Option )
+    echo
     pwd
-    cd ../
+    echo " cd .. "
+    cd ..
     pwd
     echo
-    echo " 예시3) cd "
-    echo " 부가설명 : 환경변수 home 디렉토리로 이동"
-    echo ${HOME}
+    # Example 03 (Not Option : Home Directory Move )
+    echo
+    echo " Home Directory Move "
     pwd
-    cd
+    echo " cd `pwd`/cd_CMD_TestFolder/ "
+    cd `pwd`/cd_CMD_TestFolder/
+    pwd
+    echo " cd  "
+    cd 
     pwd
     echo
-    echo "## 디렉토리 이동 종료 ##"
-    echo 
+    # Example End
+    echo
+    echo "## cd End ##"
+    echo
 }
 
-DirectoryMove
+cd_DirectoryMove
