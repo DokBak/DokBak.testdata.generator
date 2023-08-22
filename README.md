@@ -1247,6 +1247,14 @@
     <td>사용자의 이름</td>
   </tr>
   <tr>
+    <td><a href="System/Ifconfig_NetWorkInfo.sh">Ifconfig_NetWorkInfo.sh</a></td>
+    <td>ifconfig</td>
+    <td></td>
+    <td></td>
+    <td>ifconfig</td>
+    <td>네트워트 인터페이스 정포 표시(MAC주소 체크등)</td>
+  </tr>
+  <tr>
     <td><a href="System/Less_FileContentShow.sh">Less_FileContentShow.sh</a></td>
     <td>less</td>
     <td></td>
