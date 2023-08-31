@@ -20,6 +20,7 @@ function grep_StringSearch(){
     echo "            [Option : -l] : Outputs the name of a file with at least one line matched by a pattern "
     echo "            [Option : -s] : It does not print out even if there is an error "
     echo "            [Option : -r] : Recursively search files in the directory "
+    echo "            [Option : -e] : multiple patterns search "
     echo " Extended command : egrep "
     echo " Extended command : fgrep "
     echo
@@ -116,6 +117,12 @@ function grep_StringSearch(){
     echo " Option -r : Recursively search files in the directory "
     echo " grep -r 'ipod' `pwd`/grep_CMD_TestFolder/* "
     grep -r 'ipod' `pwd`/grep_CMD_TestFolder/*
+    echo
+    # Example 09 (Option -e : multiple patterns search )
+    echo
+    echo " Option -e : multiple patterns search "
+    echo " grep -e 'banana,cream' `pwd`/grep_CMD_TestFolder/grep_CMD_TestFile1.txt "
+    grep -e 'banana,cream' -e 'python' `pwd`/grep_CMD_TestFolder/grep_CMD_TestFile1.txt
     echo
     # Extended commands
     echo

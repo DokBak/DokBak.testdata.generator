@@ -814,8 +814,8 @@
     <td>.[현재디텍토리]로부터 상위 3번째 디렉토리에서 검색</td>
   </tr>
   <tr>
-    <td rowspan="7"><a href="Folders_Files/Grep_StringSearch.sh">Grep_StringSearch.sh</a></td>
-    <td rowspan="7">grep</td>
+    <td rowspan="8"><a href="Folders_Files/Grep_StringSearch.sh">Grep_StringSearch.sh</a></td>
+    <td rowspan="8">grep</td>
     <td></td>
     <td> -i </td>
     <td>grep -i 'PHONE' `pwd`/grep_CMD_TestFolder/*</td>
@@ -856,6 +856,12 @@
     <td> -r </td>
     <td>grep -r 'ipod' `pwd`/grep_CMD_TestFolder/*</td>
     <td>하위 디렉토리까지 검색</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td> -e </td>
+    <td>grep -e 'banana,cream' -e 'python' `pwd`/grep_CMD_TestFolder/grep_CMD_TestFile1.txt</td>
+    <td>멀티 패턴 검색(OR조건 검색)</td>
   </tr>
   <tr>
     <td rowspan="3"><a href="Folders_Files/Ln_SymbolicLink.sh">Ln_SymbolicLink.sh</a></td>
