@@ -53,8 +53,10 @@
 function func_basicSetting_StartingRunTime() {
     
     ### Language Parameter / 언어 파라미터 / 言語パラメータ
-    languageParam=$1
+    local languageParam=$1
     
+    local functionOutput=""
+
     ### RunDate / 실행시간 / 実行日
     sys_YYYYMMDDhhmmss=`date +%Y%m%d%H%M%S`
     sys_YYYY=${sys_YYYYMMDDhhmmss:0:4}
@@ -89,9 +91,9 @@ function func_basicSetting_StartingRunTime() {
 function func_basicSetting_LogFileName_Path() {
     
     ### ShellScript relativePath / 쉘 스크립트 풀패스 / シェルスクリプトフルパス
-    fileRelativePath=$0
+    local fileRelativePath=$0
     ### relativePath -> AbsolutePath / 상대경로 -> 절대경로 / 相対パス -> 絶対パス
-    fileAbsolutePath=$(realpath "$fileRelativePath")
+    local fileAbsolutePath=$(realpath "$fileRelativePath")
     ### ShellScript Name / 쉘 스크립트 이름 / シェルスクリプト名
     scriptName=$(basename $0)
     ### FilePath / 파일 패스 / ファイルパス
@@ -101,9 +103,9 @@ function func_basicSetting_LogFileName_Path() {
     ### ProcessID / 프로세스ID / プロセスID
     PID=$1
     ### StartEndflg / 시작종료flg / 開始終了flg
-    startEndflg=$2
+    local startEndflg=$2
     ### Command Parameter / 명령어 파라미터 / コマンドパラメータ
-    searchCommandParam=$3
+    local searchCommandParam=$3
 
     ### Directory or File exists check / 디렉토리 또는 파일 존재 체크 / ディレクトリ又はファイル存在チェック
     if [ -e "${logPath}" ]; then
@@ -142,7 +144,7 @@ function func_basicSetting_LogFileName_Path() {
 function func_howToUse() {
 
     ### Language Parameter / 언어 파라미터 / 言語パラメータ
-    languageParam=$1
+    local languageParam=$1
 
     if [[ ${languageParam} == [kK][rR] ]];then
         echo 
@@ -215,7 +217,7 @@ function func_supportLanguage() {
 function func_mainMenu() {
 
     ### Language Parameter / 언어 파라미터 / 言語パラメータ
-    languageParam=$1
+    local languageParam=$1
 
     ### Function Main Logic / 함수 메인 로직 / 関数メインロジック
     while true
@@ -299,7 +301,7 @@ function func_mainMenu() {
 function func_scriptEnd() {
 
     ### Language Parameter / 언어 파라미터 / 言語パラメータ
-    languageParam=$1
+    local languageParam=$1
 
     clear
 
@@ -347,7 +349,7 @@ function func_scriptEnd() {
 function func_selectLanguage() {
 
     ### Language Parameter / 언어 파라미터 / 言語パラメータ
-    languageParam=$1
+    local languageParam=$1
 
     ### Function Main Logic / 함수 메인 로직 / 関数メインロジック
     while true
@@ -446,10 +448,10 @@ function func_selectLanguage() {
 function func_linuxCommandsList() {
     
     ### Command Existed Check　Flg / 명령 존재 확인 플래그 / コマンド存在チェックフラグ
-    existCheckParam=$1
+    local existCheckParam=$1
     
     ### Language Parameter / 언어 파라미터 / 言語パラメータ
-    languageParam=$2
+    local languageParam=$2
 
     ### Function Main Logic / 함수 메인 로직 / 関数メインロジック
     Index=0
@@ -507,16 +509,16 @@ function func_linuxCommandsList() {
 function func_linuxCommandsExistCheck() {
 
     ### Command List Array / 명령어 리스트 배열 / コマンドリスト配列
-    commandListParam=($@)
+    local commandListParam=($@)
 
     ### Command List Array Length / 명령어 리스트 배열 길이 / コマンドリスト配列長
-    commandListArrayLength="${#commandListParam}"
+    local commandListArrayLength="${#commandListParam}"
 
     ### Last Item Except New Array / 마지막 항목 제외 신규 배열 / 最後項目除外新規配列
-    commandNewList=(${commandListParam[@]:0:$((commandListArrayLength-1))})
+    local commandNewList=(${commandListParam[@]:0:$((commandListArrayLength-1))})
 
     ### Command Parameter / 명령어 파라미터 / コマンドパラメータ
-    searchCommandParam="${commandListParam[${commandListArrayLength}]}"
+    local searchCommandParam="${commandListParam[${commandListArrayLength}]}"
 
     ### Command Exist Check Flg / 명령어 존재 체크 플래그 / コマンド存在チェックフラグ
     existCheck=0
@@ -543,13 +545,13 @@ function func_notExistCommand() {
     
 
     ### Command Parameter / 명령어 파라미터 / コマンドパラメータ
-    searchCommandParam=$1
+    local searchCommandParam=$1
     
     ### Language Parameter / 언어 파라미터 / 言語パラメータ
-    ouputLanguageParam=$2
+    local ouputLanguageParam=$2
 
     ### Exist Check Parameter / 존재 체크 파라미터 / 存在チェックパラメータ
-    existCheckParam=$3
+    local existCheckParam=$3
 
     if [[ ${ouputLanguageParam} == [kK][rR] ]];then
         echo "##############################################################################################"
@@ -581,15 +583,15 @@ function func_notExistCommand() {
 function func_linuxCommandExample() {
 
     ### Language Parameter / 언어 파라미터 / 言語パラメータ
-    ouputLanguageParam=$1
+    local ouputLanguageParam=$1
     ### FilePath / 파일 패스 파라미터 / ファイルパスパラメータ
-    filePath=$2
+    local filePathParam=$2
     ### Array Index / 배열 인덱스 파라미터 / 配列インデックスパラメータ
-    commandItemIndex=$3
+    local commandItemIndex=$3
 
     clear
     echo
-    case ${searchCommandParam} in
+    case ${commandList[${commandItemIndex}]} in
         cat)
             func_command_cat ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]}
             ;;
@@ -629,20 +631,26 @@ function func_linuxCommandExample() {
 # Command : cat                              #
 #--------------------------------------------#
 function func_command_cat() {
-    ouputLanguageParam=$1
-    filePathParam=$2
-    commandDescriptionEnParam=$3
-    commandDescriptionKrParam=$4
-    commandDescriptionJpParam=$5
-    commandItem="cat"
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### English Command Description Parameter / 영어 명령어 설명 파라미터 / 英語コマンド説明パラメータ
+    local commandDescriptionEnParam=$3
+    ### Korean Command Description Parameter / 한국어 명령어 설명 파라미터 / 韓国語コマンド説明パラメータ
+    local commandDescriptionKrParam=$4
+    ### Japense Command Description Parameter / 일본어 명령어 설명 파라미터 / 日本語コマンド説明パラメータ
+    local commandDescriptionJpParam=$5
+    ### Command / 명령어 / コマンド
+    local commandItem="cat"
 
-
-
-    echo "${filePathParam%/}"
-    #mkdir -p ${filePathParam%/}/tmp/${commandItem}/
-    echo "testFile,Command,data" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/
+    echo "testFile,Command,data" > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
     echo "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
-    echo "File,Command,data" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+    echo "File,Command,data\t" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+    echo "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+    echo "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
     echo "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
     echo "Command,date" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
     echo
@@ -653,19 +661,19 @@ function func_command_cat() {
     if [[ ${ouputLanguageParam} == [kK][rR] ]];then
         printf "  %-16s %s %s\n" "명령어" ":" "${commandItem}"
         printf "  %-17s %s %s\n" "기본설명" ":" "${commandDescriptionKrParam}" | sed 's/_/ /g'
-        printf "  %-16s %s %s\n" "※사용법" ":" "${commandItem}_[옵션]_[인수]" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※사용법" ":" "${commandItem}_[옵션]_[인수]" | sed 's/_/ /g'
         printf "  %-17s %s %s\n" "※옵션" ":" "[-benst]" | sed 's/_/ /g'
         printf "  %-17s %s %s\n" "※인수" ":" "[파일경로]" | sed 's/_/ /g'
     elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
         printf "  %-17s %s %s\n" "コマンド" ":" "${commandItem}"
         printf "  %-17s %s %s\n" "基本説明" ":" "${commandDescriptionJpParam}" | sed 's/_/ /g'
-        printf "  %-16s %s %s\n" "※使用法" ":" "${commandItem}_[オプション]_[引数]" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}_[オプション]_[引数]" | sed 's/_/ /g'
         printf "  %-20s %s %s\n" "※オプション" ":" "[-benst]" | sed 's/_/ /g'
         printf "  %-17s %s %s\n" "※引数" ":" "[ファイルパス]" | sed 's/_/ /g'
     else
         printf "  %-13s %s %s\n" "Command" ":" "${commandItem}"
         printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g'
-        printf "  %-13s %s %s\n" "※HowToUse" ":" "${commandItem}_[option]_[argument]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_[option]_[argument]" | sed 's/_/ /g'
         printf "  %-15s %s %s\n" "※option" ":" "[-benst]" | sed 's/_/ /g'
         printf "  %-15s %s %s\n" "※argument" ":" "[filePath]" | sed 's/_/ /g'
     fi
@@ -673,20 +681,351 @@ function func_command_cat() {
         printf "##############################################################################################\n"
         echo
     if [[ ${ouputLanguageParam} == [kK][rR] ]];then
-        printf "  %-15s\n" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
-        printf "    %-21s %s\n" "출력결과(예상)" ":"
-        printf "    %-21s %s\n" "출력결과(실제)" ":"
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "  %-12s %s %-15s\n" "옵션" ":" "없음"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "testFile,Command,data"
+            echo ""
+            echo "File,Command,data\t"
+            echo ""
+            echo ""
+            echo ""
+            echo "Command,date"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플" ":" "cat -b ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "  %-12s %s %-15s\n" "옵션" ":" "b"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "공백이 아닌 라인의 라인 번호를 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "     1  testFile,Command,data"
+            echo ""
+            echo "     2  File,Command,data\t"
+            echo ""
+            echo ""
+            echo ""
+            echo "     3  Command,date"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "cat -b ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            cat -b ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플" ":" "cat -n ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "  %-12s %s %-15s\n" "옵션" ":" "n"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "모든 라인을 라인 번호로 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "     1  testFile,Command,data"
+            echo "     2"
+            echo "     3  File,Command,data\t"
+            echo "     4"
+            echo "     5"
+            echo "     6"
+            echo "     7  Command,date"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "cat -n ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            cat -n ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플" ":" "cat -e ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "  %-12s %s %-15s\n" "옵션" ":" "e"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "모든 행 끝에 [$] 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "testFile,Command,data$"
+            echo "$"
+            echo "File,Command,data\t$"
+            echo "$"
+            echo "$"
+            echo "$"
+            echo "Command,date$"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "cat -e ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            cat -e ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플" ":" "cat -s ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "  %-12s %s %-15s\n" "옵션" ":" "s"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "연속된 빈 줄을 압축하여 한 줄로 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "testFile,Command,data"
+            echo ""
+            echo "File,Command,data\t"
+            echo ""
+            echo "Command,date"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "cat -s ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            cat -s ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플" ":" "cat -t ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "  %-12s %s %-15s\n" "옵션" ":" "t"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "탭 문자열 "^I"로 대체되어 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "testFile,Command,data"
+            echo ""
+            echo "File,Command,data^I"
+            echo ""
+            echo ""
+            echo ""
+            echo "Command,date"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "cat -t ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            cat -t ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
     elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
-        printf "  %-15s\n" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
-        printf "    %-21s %s\n" "出力結果(予想)" ":"
-        printf "    %-21s %s\n" "出力結果(実際)" ":"
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "  %-12s %s %-15s\n" "オプション" ":" "無"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "testFile,Command,data"
+            echo ""
+            echo "File,Command,data\t"
+            echo ""
+            echo ""
+            echo ""
+            echo "Command,date"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル" ":" "cat -b ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "  %-12s %s %-15s\n" "オプション" ":" "b"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "空白ではない行の前に行番号を出力します"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "     1  testFile,Command,data"
+            echo ""
+            echo "     2  File,Command,data\t"
+            echo ""
+            echo ""
+            echo ""
+            echo "     3  Command,date"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "cat -b ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            cat -b ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル" ":" "cat -n ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "  %-12s %s %-15s\n" "オプション" ":" "n"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "すべての行を行番号を出力します"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "     1  testFile,Command,data"
+            echo "     2"
+            echo "     3  File,Command,data\t"
+            echo "     4"
+            echo "     5"
+            echo "     6"
+            echo "     7  Command,date"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "cat -n ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            cat -n ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル" ":" "cat -e ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "  %-12s %s %-15s\n" "オプション" ":" "e"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "すべての行の末尾に[$]を出力します"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "testFile,Command,data$"
+            echo "$"
+            echo "File,Command,data\t$"
+            echo "$"
+            echo "$"
+            echo "$"
+            echo "Command,date$"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "cat -e ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            cat -e ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル" ":" "cat -s ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "  %-12s %s %-15s\n" "オプション" ":" "s"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "連続する空白行を圧縮し、1行として出力します"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "testFile,Command,data"
+            echo ""
+            echo "File,Command,data\t"
+            echo ""
+            echo "Command,date"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "cat -s ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            cat -s ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル" ":" "cat -t ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "  %-12s %s %-15s\n" "オプション" ":" "t"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "タブ文字列を"^I"に置き換えられ、出力されます"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "testFile,Command,data"
+            echo ""
+            echo "File,Command,data^I"
+            echo ""
+            echo ""
+            echo ""
+            echo "Command,date"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "cat -t ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            cat -t ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
     else
-        printf "  %-15s\n" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
-        printf "    %-15s %s\n" "Output(expect)" ":"
-        printf "    %-15s %s\n" "Output(Real)" ":"
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "  %-10s %s %-15s\n" "Option" ":" "Not"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "testFile,Command,data"
+            echo ""
+            echo "File,Command,data\t"
+            echo ""
+            echo ""
+            echo ""
+            echo "Command,date"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample" ":" "cat -b ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "  %-10s %s %-15s\n" "Option" ":" "b"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Outputs a line number in front of a line that is not blank"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "     1  testFile,Command,data"
+            echo ""
+            echo "     2  File,Command,data\t"
+            echo ""
+            echo ""
+            echo ""
+            echo "     3  Command,date"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "cat -b ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            cat -b ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample" ":" "cat -n ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "  %-10s %s %-15s\n" "Option" ":" "n"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Print out all lines with line numbers"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "     1  testFile,Command,data"
+            echo "     2"
+            echo "     3  File,Command,data\t"
+            echo "     4"
+            echo "     5"
+            echo "     6"
+            echo "     7  Command,date"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "cat -n ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            cat -n ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample" ":" "cat -e ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "  %-10s %s %-15s\n" "Option" ":" "e"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Print a [$] at the end of all lines"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "testFile,Command,data$"
+            echo "$"
+            echo "File,Command,data\t$"
+            echo "$"
+            echo "$"
+            echo "$"
+            echo "Command,date$"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "cat -e ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            cat -e ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample" ":" "cat -s ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "  %-10s %s %-15s\n" "Option" ":" "s"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Compresses consecutive blank lines and outputs them as a single line"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "testFile,Command,data"
+            echo ""
+            echo "File,Command,data\t"
+            echo ""
+            echo "Command,date"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "cat -s ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            cat -s ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample" ":" "cat -t ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "  %-10s %s %-15s\n" "Option" ":" "t"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "tab string is replaced with a string "^I" and outputted"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "testFile,Command,data"
+            echo ""
+            echo "File,Command,data^I"
+            echo ""
+            echo ""
+            echo ""
+            echo "Command,date"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "cat -t ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            cat -t ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
     fi
         echo
     printf "##############################################################################################\n"
+    
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    rm -rfv ${filePathParam%/}/tmp/${commandItem}/
+    
     func_basicSetting_LogFileName_Path ${PID} "1" "cat"
     echo 
     
@@ -739,10 +1078,13 @@ if [[ ! -z ${searchCommand} && ${existCheck} == 0 ]];then
     echo
     func_notExistCommand ${searchCommand} ${ouputLanguage} ${existCheck}
     exit
-elif [[ -z ${ouputLanguage} ]];then
+fi
+if [[ -z ${ouputLanguage} ]];then
     clear
+    ouputLanguage="en"
     func_howToUse
-elif ! [[ ${ouputLanguage} == [eE][nN] || ${ouputLanguage} == [kK][rR] || ${ouputLanguage} == [jJ][pP] ]];then
+fi
+if ! [[ ${ouputLanguage} == [eE][nN] || ${ouputLanguage} == [kK][rR] || ${ouputLanguage} == [jJ][pP] ]];then
     func_supportLanguage
     exit
 else
