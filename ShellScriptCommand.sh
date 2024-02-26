@@ -103,7 +103,7 @@ function func_basicSetting_LogFileName_Path() {
     ### StartEndflg / 시작종료flg / 開始終了flg
     startEndflg=$2
     ### Command Parameter / 명령어 파라미터 / コマンドパラメータ
-    commandParam=$3
+    searchCommandParam=$3
 
     ### Directory or File exists check / 디렉토리 또는 파일 존재 체크 / ディレクトリ又はファイル存在チェック
     if [ -e "${logPath}" ]; then
@@ -114,22 +114,23 @@ function func_basicSetting_LogFileName_Path() {
 
     ### logFileName Set / 로그 파일명 설정 / ログファイル名
     logFilePath=${logPath%/}/shellCommand_`date +%Y%m%d`.log
-    commandLogFilePath=${logPath%/}/shellCommand_${commandParam}_`date +%Y%m%d`.log
+    commandLogFilePath=${logPath%/}/shellCommand_${searchCommandParam}_`date +%Y%m%d`.log
 
     ### log Print / 로그 출력 / ログファイル出力
     if [ ${startEndflg} -eq 0 ]; then
         echo "### `date +%Y/%m/%d-%H:%M:%S` [${PID}] ${scriptName} >>> START "
         echo "### `date +%Y/%m/%d-%H:%M:%S` [${PID}] ${scriptName} >>> START " >> ${logFilePath}
-        if [ ! -z ${commandParam} ];then
-            echo "### `date +%Y/%m/%d-%H:%M:%S` [${PID}] ${scriptName} >>> ${commandParam} START " >> ${commandLogFilePath}
+        if [ ! -z ${searchCommandParam} ];then
+            echo "### `date +%Y/%m/%d-%H:%M:%S` [${PID}] ${scriptName} >>> ${searchCommandParam} START " >> ${commandLogFilePath}
         fi
     else
         echo "### `date +%Y/%m/%d-%H:%M:%S` [${PID}] ${scriptName} >>> END "
         echo "### `date +%Y/%m/%d-%H:%M:%S` [${PID}] ${scriptName} >>> END " >> ${logFilePath}
-        if [ ! -z ${commandParam} ];then
-            echo "### `date +%Y/%m/%d-%H:%M:%S` [${PID}] ${scriptName} >>> ${commandParam} START " >> ${commandLogFilePath}
+        if [ ! -z ${searchCommandParam} ];then
+            echo "### `date +%Y/%m/%d-%H:%M:%S` [${PID}] ${scriptName} >>> ${searchCommandParam} END " >> ${commandLogFilePath}
         fi
     fi
+
 }
 
 #--------------------------------------------#
@@ -183,6 +184,7 @@ function func_howToUse() {
         echo
         echo "##############################################################################################"
     fi
+
 }
 
 #--------------------------------------------#
@@ -192,6 +194,7 @@ function func_howToUse() {
 #  : 支援言語                                   #
 #--------------------------------------------#
 function func_supportLanguage() {
+
     echo
     echo "##############################################################################################"
     echo
@@ -200,6 +203,7 @@ function func_supportLanguage() {
     echo
     echo "##############################################################################################"
     echo
+
 }
 
 #--------------------------------------------#
@@ -283,6 +287,7 @@ function func_mainMenu() {
             fi
         fi
     done
+
 }
 
 #--------------------------------------------#
@@ -330,6 +335,7 @@ function func_scriptEnd() {
         echo
         break
     fi
+    
 }
 
 #--------------------------------------------#
@@ -428,6 +434,7 @@ function func_selectLanguage() {
             break
         fi
     done
+
 }
 
 #--------------------------------------------#
@@ -441,40 +448,54 @@ function func_linuxCommandsList() {
     ### Command Existed Check　Flg / 명령 존재 확인 플래그 / コマンド存在チェックフラグ
     existCheckParam=$1
     
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    languageParam=$2
+
     ### Function Main Logic / 함수 메인 로직 / 関数メインロジック
     Index=0
-    clear
     echo
     printf "##############################################################################################\n"
-    if [[ ${ouputLanguage} == [kK][rR] ]]; then
-        printf "   %-8s %s  %-18s %s  %-102s\n" "번호" "#" "명령어" "#" "설명"
+    if [[ ${languageParam} == [kK][rR] ]]; then
+        printf "  %-8s %s  %-18s %s  %-102s\n" "번호" "#" "명령어" "#" "설명"
         printf "##############################################################################################\n"
         for commandIndex in ${commandList[@]}; do
-            printf "   %03d    %s  %-15s %s  %-100s\n" ${Index} "#" ${commandList[0]} "#" ${commandDescriptionKr[0]}
+            printf "  %03d    %s  %-15s %s  %-100s\n" ${Index} "#" ${commandList[${Index}]} "#" ${commandDescriptionKr[${Index}]} | sed 's/_/ /g'
             Index=$(( ${Index} + 1 ))
         done
-    elif [[ ${ouputLanguage} == [jJ][pP] ]]; then
-        printf "   %-8s %s  %-19s %s  %-102s\n" "番号" "#" "コマンド" "#" "説明"
+    elif [[ ${languageParam} == [jJ][pP] ]]; then
+        printf "  %-8s %s  %-19s %s  %-102s\n" "番号" "#" "コマンド" "#" "説明"
         printf "##############################################################################################\n"
         for commandIndex in ${commandList[@]}; do
-            printf "   %03d    %s  %-15s %s  %-100s\n" ${Index} "#" ${commandList[${Index}]} "#" ${commandDescriptionJp[${Index}]}
+            printf "  %03d    %s  %-15s %s  %-100s\n" ${Index} "#" ${commandList[${Index}]} "#" ${commandDescriptionJp[${Index}]} | sed 's/_/ /g'
             Index=$(( ${Index} + 1 ))
         done
     else
-        printf "   %-6s %s  %-15s %s  %-100s\n" "Number" "#" "Command" "#" "Description"
+        printf "  %-6s %s  %-15s %s  %-100s\n" "Number" "#" "Command" "#" "Description"
         printf "##############################################################################################\n"
         for commandIndex in ${commandList[@]}; do
-            printf "   %03d    %s  %-15s %s  %-100s\n" ${Index} "#" ${commandList[${Index}]} "#" ${commandDescriptionEn[${Index}]}
+            printf "  %03d    %s  %-15s %s  %-100s\n" ${Index} "#" ${commandList[${Index}]} "#" ${commandDescriptionEn[${Index}]} | sed 's/_/ /g'
             Index=$(( ${Index} + 1 ))
         done
     fi
     printf "##############################################################################################\n"
     echo
     if [[ ${existCheckParam} == 1 ]];then
-        read -p " Search Command : " searchCommand
+        if [[ ${languageParam} == [kK][rR] ]];then
+            read -p " 검색 명령어 (취소:C) : " searchCommand
+        elif [[ ${languageParam} == [jJ][pP] ]];then
+            read -p " 検索コマンド (取り消し:C) : " searchCommand
+        else
+            read -p " Search Command (Cancel:C) : " searchCommand
+        fi
+
+        if [[ ${searchCommand} == [cC] || ${searchCommand} == [cC][aA][nN][cC][eE][lL] ]];then
+            searchCommand=""
+            break
+        fi
     else
         break
     fi
+
 }
 
 #--------------------------------------------#
@@ -486,29 +507,189 @@ function func_linuxCommandsList() {
 function func_linuxCommandsExistCheck() {
 
     ### Command List Array / 명령어 리스트 배열 / コマンドリスト配列
-    commandListParam=$@
-    commandListArrayLength="#${commandListParam[@]}"
-    echo "commandListArrayLength=${}"
+    commandListParam=($@)
 
-    ### Search　Command　Param / 검색 명령어 파라미터 / 検索コマンドパラメータ
-    searchCommandParam=$2
+    ### Command List Array Length / 명령어 리스트 배열 길이 / コマンドリスト配列長
+    commandListArrayLength="${#commandListParam}"
+
+    ### Last Item Except New Array / 마지막 항목 제외 신규 배열 / 最後項目除外新規配列
+    commandNewList=(${commandListParam[@]:0:$((commandListArrayLength-1))})
+
+    ### Command Parameter / 명령어 파라미터 / コマンドパラメータ
+    searchCommandParam="${commandListParam[${commandListArrayLength}]}"
+
+    ### Command Exist Check Flg / 명령어 존재 체크 플래그 / コマンド存在チェックフラグ
+    existCheck=0
+
     ### Command Array Index / 명령어 리스트 인덱스 / コマンド配列インデックス
-    CommandItemIndex=0
-    echo "commandListParam=${commandListParam}"
-    echo "commandListParam=${commandListParam[@]}"
-    echo "searchCommandParam=${searchCommandParam}"
-    for CommandItem in ${commandListParam[@]}; do
-        echo "existCheck=${existCheck}"
-        echo "CommandItem=${CommandItem}"
-        echo "CommandItemIndex=${CommandItemIndex}"
-        if [[ ${CommandItem} == ${searchCommandParam} ]];then
+    commandItemIndex=0
+    for commandItem in ${commandNewList[@]}; do
+        if [[ ${commandItem} == ${searchCommandParam} ]];then
             existCheck=1
+            break
         fi
-        CommandItemIndex=$(( ${CommandItemIndex} + 1 ))
-        echo "existCheck=${existCheck}"
-        echo "CommandItem=${CommandItem}"
-        echo "CommandItemIndex=${CommandItemIndex}"
+        commandItemIndex=$(( ${commandItemIndex} + 1 ))
     done
+
+}
+
+#--------------------------------------------#
+# Not Exist Command                          #
+#  : Not Exist Command                       #
+#  : 존재하지 않는 명령어                         #
+#  : 存在しないコマンド                           #
+#--------------------------------------------#
+function func_notExistCommand() {
+    
+
+    ### Command Parameter / 명령어 파라미터 / コマンドパラメータ
+    searchCommandParam=$1
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    ouputLanguageParam=$2
+
+    ### Exist Check Parameter / 존재 체크 파라미터 / 存在チェックパラメータ
+    existCheckParam=$3
+
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        echo "##############################################################################################"
+        echo
+        echo "  해당 명령어(${searchCommandParam})는 포함되어 있지 않습니다. "
+        echo "    ( 파라미터1 )  "
+        func_linuxCommandsList ${existCheckParam} ${ouputLanguageParam}
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        echo "##############################################################################################"
+        echo
+        echo "  ごのコマンド(${searchCommandParam})は含まれていません。"
+        echo "    ( パラメータ1 )  "
+        func_linuxCommandsList ${existCheckParam} ${ouputLanguageParam}
+    else
+        func_howToUse ${ouputLanguageParam}
+        echo
+        echo "  The Command(${searchCommandParam}) not included. "
+        echo "    ( Parameter1 )  "
+        func_linuxCommandsList ${existCheckParam} ${ouputLanguageParam}
+    fi
+}
+
+#--------------------------------------------#
+# Linux Command Example                      #
+#  : Linux Command Example                   #
+#  : 리눅스 명령어 예                            #
+#  : Linuxコマンド例                            #
+#--------------------------------------------#
+function func_linuxCommandExample() {
+
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    ouputLanguageParam=$1
+    ### FilePath / 파일 패스 파라미터 / ファイルパスパラメータ
+    filePath=$2
+    ### Array Index / 배열 인덱스 파라미터 / 配列インデックスパラメータ
+    commandItemIndex=$3
+
+    clear
+    echo
+    case ${searchCommandParam} in
+        cat)
+            func_command_cat ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]}
+            ;;
+        cd)
+            echo " $caseVar2 is us2 "
+            ;;
+        us)
+            echo " $caseVar3 is us3 "
+            ;;
+        *) echo " caseVar ? " # default
+    esac
+    
+    while true
+    do
+        if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+            read -p " 메인메뉴[Y] / 재검색[N/C] : " previousMenu
+        elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+            read -p " メインメニュー[Y] / 再検索[N/C] : " previousMenu
+        else
+            read -p " Main Menu[Y] / Re-searching[N/C] : " previousMenu
+        fi
+
+        if [[ ${previousMenu} == [yY] || ${previousMenu} == [yY][eE][sS] ]];then
+            clear
+            searchCommand=""
+            break 2
+        elif [[ ${previousMenu} == [nN] || ${previousMenu} == [nN][oO] || ${previousMenu} == [cC] || ${previousMenu} == [cC][aA][nN][cC][eE][lL] ]];then
+            clear
+            searchCommand=""
+            break
+        fi
+    done
+
+}
+
+#--------------------------------------------#
+# Command : cat                              #
+#--------------------------------------------#
+function func_command_cat() {
+    ouputLanguageParam=$1
+    filePathParam=$2
+    commandDescriptionEnParam=$3
+    commandDescriptionKrParam=$4
+    commandDescriptionJpParam=$5
+    commandItem="cat"
+
+
+
+    echo "${filePathParam%/}"
+    #mkdir -p ${filePathParam%/}/tmp/${commandItem}/
+    echo "testFile,Command,data" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+    echo "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+    echo "File,Command,data" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+    echo "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+    echo "Command,date" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" "cat"
+    printf "##############################################################################################\n"
+    echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        printf "  %-16s %s %s\n" "명령어" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "기본설명" ":" "${commandDescriptionKrParam}" | sed 's/_/ /g'
+        printf "  %-16s %s %s\n" "※사용법" ":" "${commandItem}_[옵션]_[인수]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※옵션" ":" "[-benst]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※인수" ":" "[파일경로]" | sed 's/_/ /g'
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        printf "  %-17s %s %s\n" "コマンド" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "基本説明" ":" "${commandDescriptionJpParam}" | sed 's/_/ /g'
+        printf "  %-16s %s %s\n" "※使用法" ":" "${commandItem}_[オプション]_[引数]" | sed 's/_/ /g'
+        printf "  %-20s %s %s\n" "※オプション" ":" "[-benst]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数" ":" "[ファイルパス]" | sed 's/_/ /g'
+    else
+        printf "  %-13s %s %s\n" "Command" ":" "${commandItem}"
+        printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g'
+        printf "  %-13s %s %s\n" "※HowToUse" ":" "${commandItem}_[option]_[argument]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※option" ":" "[-benst]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument" ":" "[filePath]" | sed 's/_/ /g'
+    fi
+        echo
+        printf "##############################################################################################\n"
+        echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        printf "  %-15s\n" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "    %-21s %s\n" "출력결과(예상)" ":"
+        printf "    %-21s %s\n" "출력결과(실제)" ":"
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        printf "  %-15s\n" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "    %-21s %s\n" "出力結果(予想)" ":"
+        printf "    %-21s %s\n" "出力結果(実際)" ":"
+    else
+        printf "  %-15s\n" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "    %-15s %s\n" "Output(expect)" ":"
+        printf "    %-15s %s\n" "Output(Real)" ":"
+    fi
+        echo
+    printf "##############################################################################################\n"
+    func_basicSetting_LogFileName_Path ${PID} "1" "cat"
+    echo 
+    
 }
 
 #--------------------------------------------#
@@ -549,31 +730,14 @@ startedFlg=0
 #  : メイン処理                                 #
 #--------------------------------------------#
 ### Parameter Check / 파라미터 체크 / パラメータチェック
-existCheck=0
-func_linuxCommandsExistCheck ${commandList[@]} ${searchCommand}
+if [[ ! -z ${searchCommand} ]] || [[ ${startedFlg} == 0 ]];then 
+    func_linuxCommandsExistCheck ${commandList[@]} ${searchCommand}
+fi
 
 if [[ ! -z ${searchCommand} && ${existCheck} == 0 ]];then
     clear
     echo
-    if [[ ${ouputLanguage} == [kK][rR] ]];then
-        echo "##############################################################################################"
-        echo
-        echo "  해당 명령어(${searchCommand})는 포함되어 있지 않습니다. "
-        echo "    ( 파라미터1 )  "
-        func_linuxCommandsList ${existCheck}
-    elif [[ ${ouputLanguage} == [jJ][pP] ]];then
-        echo "##############################################################################################"
-        echo
-        echo "  ごのコマンド(${searchCommand})は含まれていません。"
-        echo "    ( パラメータ1 )  "
-        func_linuxCommandsList ${existCheck}
-    else
-        func_howToUse ${ouputLanguage}
-        echo
-        echo "  The Command(${searchCommand}) not included. "
-        echo "    ( Parameter1 )  "
-        func_linuxCommandsList ${existCheck}
-    fi
+    func_notExistCommand ${searchCommand} ${ouputLanguage} ${existCheck}
     exit
 elif [[ -z ${ouputLanguage} ]];then
     clear
@@ -581,6 +745,8 @@ elif [[ -z ${ouputLanguage} ]];then
 elif ! [[ ${ouputLanguage} == [eE][nN] || ${ouputLanguage} == [kK][rR] || ${ouputLanguage} == [jJ][pP] ]];then
     func_supportLanguage
     exit
+else
+    clear
 fi
 
 echo
@@ -591,12 +757,17 @@ func_basicSetting_LogFileName_Path ${PID} "0" ${searchCommand}
 
 while true
 do
-    if [[ startedFlg == 1 ]];then
+    if [[ startedFlg -ge 1 ]];then
         clear
     fi
-    ### Function Run / 함수 실행 / 関数実行
-    func_mainMenu ${ouputLanguage}
-    startedFlg=1
+
+    if [[ ${startedFlg} == 0 && ! -z ${searchCommand} ]];then
+        selectMenu=2
+    else
+        ### Function Run / 함수 실행 / 関数実行
+        func_mainMenu ${ouputLanguage}
+    fi
+
     if [[ ${selectMenu} == 1 ]];then
         clear
         ### Function Run / 함수 실행 / 関数実行
@@ -605,51 +776,29 @@ do
         clear
         while true
         do
-            ### Function Run / 함수 실행 / 関数実行
-            func_linuxCommandsList 1
+            clear
+            if [[ ${startedFlg} -gt 0 && ! -z ${searchCommand} ]] || [[ -z ${searchCommand} ]];then
+                ### Function Run / 함수 실행 / 関数実行
+                func_linuxCommandsList 1 ${ouputLanguage} 
+            fi
+            existCheck=0
             ### Function Run / 함수 실행 / 関数実行
             func_linuxCommandsExistCheck ${commandList[@]} ${searchCommand}
             if [[ ${existCheck} == 1 ]];then
-                case ${searchCommand} in
-                    cat)
-                        clear
-                        cat_FileContentPrint ${filePath} 
-                        clear
-
-                        echo ${CommandItemIndex}
-                        echo ${commandList[${CommandItemIndex}]}
-                        echo ${commandDescriptionEn[${CommandItemIndex}]}
-                        echo ${commandDescriptionKr[${CommandItemIndex}]}
-                        echo ${commandDescriptionJp[${CommandItemIndex}]}
-
-                        ;;
-                    cd)
-                        echo ${CommandItemIndex}
-                        echo ${commandList[${CommandItemIndex}]}
-                        echo ${commandDescriptionEn[${CommandItemIndex}]}
-                        echo ${commandDescriptionKr[${CommandItemIndex}]}
-                        echo ${commandDescriptionJp[${CommandItemIndex}]}
-                        ;;
-                    us)
-                        echo " $caseVar is us "
-                        ;;
-                    *) echo " caseVar ? " # default
-                esac
-
-                existCheck=0
-                read -p " Previous Menu[Y/N] : " PreviousMenu
-                if [[ ${PreviousMenu} == [yY][eE][sS] || ${PreviousMenu} == [yY] ]];then
-                    clear
-                    break
-                fi
+                func_linuxCommandExample ${ouputLanguage} ${filePath} ${commandItemIndex} 
             fi
         done
+    elif [[ ${selectMenu} == 3 ]];then
+        clear
+
     elif [[ ${selectMenu} == "終了" || ${selectMenu} == "종료" || ${selectMenu} == [eE][nN][dD] || ${selectMenu} == [eE][xX][iI][tT] ||  ${selectMenu} == 9 ]];then
         ### Function Run / 함수 실행 / 関数実行
         func_scriptEnd ${ouputLanguage}
     else
         continue
-    fi 
+    fi
+    selectMenu=0
+    startedFlg=$((${startedFlg}+1))
 done
 
 ### Function Run / 함수 실행 / 関数実行
