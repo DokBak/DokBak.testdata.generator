@@ -595,8 +595,8 @@ function func_linuxCommandExample() {
         cat)
             func_command_cat ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]}
             ;;
-        cd)
-            echo " $caseVar2 is us2 "
+        expr)
+            func_command_expr ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]}
             ;;
         us)
             echo " $caseVar3 is us3 "
@@ -1032,6 +1032,225 @@ function func_command_cat() {
 }
 
 #--------------------------------------------#
+# Command : expr                             #
+#--------------------------------------------#
+function func_command_expr() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### English Command Description Parameter / 영어 명령어 설명 파라미터 / 英語コマンド説明パラメータ
+    local commandDescriptionEnParam=$3
+    ### Korean Command Description Parameter / 한국어 명령어 설명 파라미터 / 韓国語コマンド説明パラメータ
+    local commandDescriptionKrParam=$4
+    ### Japense Command Description Parameter / 일본어 명령어 설명 파라미터 / 日本語コマンド説明パラメータ
+    local commandDescriptionJpParam=$5
+    ### Command / 명령어 / コマンド
+    local commandItem="expr"
+
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" "cat"
+    printf "##############################################################################################\n"
+    echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        printf "  %-16s %s %s\n" "명령어" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "기본설명" ":" "${commandDescriptionKrParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※사용법" ":" "${commandItem}_[인수1]_[연산자]_[인수2]" | sed 's/_/ /g'
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        printf "  %-17s %s %s\n" "コマンド" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "基本説明" ":" "${commandDescriptionJpParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}_[引数1]_[演算子]_[引数2]" | sed 's/_/ /g'
+    else
+        printf "  %-13s %s %s\n" "Command" ":" "${commandItem}"
+        printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_[argument1]_[Operator]_[argument2]" | sed 's/_/ /g'
+    fi
+        echo
+        printf "##############################################################################################\n"
+        echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플" ":" "expr '5' '+' '2'"
+        printf "  %-12s %s %-15s\n" "샘플" ":" "expr '5' '-' '2'"
+        printf "  %-12s %s %-15s\n" "샘플" ":" "expr '5' '/' '2'"
+        printf "  %-12s %s %-15s\n" "샘플" ":" "expr '5' '*' '2'"
+        printf "  %-12s %s %-15s\n" "샘플" ":" "expr '5' '%' '2'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "산술연산"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "7"
+            echo "3"
+            echo "2"
+            echo "10"
+            echo "1"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "expr '5' '+' '2'"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "expr '5' '-' '2'"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "expr '5' '/' '2'"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "expr '5' '*' '2'"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "expr '5' '%' '2'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            expr '5' '+' '2'
+            expr '5' '-' '2'
+            expr '5' '/' '2'
+            expr '5' '*' '2'
+            expr '5' '%' '2'
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플" ":" "expr '5' '>' '2'"
+        printf "  %-12s %s %-15s\n" "샘플" ":" "expr '5' '>=' '2'"
+        printf "  %-12s %s %-15s\n" "샘플" ":" "expr '5' '=' '2'"
+        printf "  %-12s %s %-15s\n" "샘플" ":" "expr '5' '<=' '2'"
+        printf "  %-12s %s %-15s\n" "샘플" ":" "expr '5' '<' '2'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "관계연산"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "1"
+            echo "1"
+            echo "0"
+            echo "0"
+            echo "0"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "expr '5' '>' '2'"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "expr '5' '>=' '2'"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "expr '5' '=' '2'"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "expr '5' '<=' '2'"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "expr '5' '<' '2'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            expr '5' '>' '2'
+            expr '5' '>=' '2'
+            expr '5' '=' '2'
+            expr '5' '<=' '2'
+            expr '5' '<' '2'
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル" ":" "expr '5' '+' '2'"
+        printf "  %-14s %s %-15s\n" "サンプル" ":" "expr '5' '-' '2'"
+        printf "  %-14s %s %-15s\n" "サンプル" ":" "expr '5' '/' '2'"
+        printf "  %-14s %s %-15s\n" "サンプル" ":" "expr '5' '*' '2'"
+        printf "  %-14s %s %-15s\n" "サンプル" ":" "expr '5' '%' '2'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "算術演算"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "7"
+            echo "3"
+            echo "2"
+            echo "10"
+            echo "1"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "expr '5' '+' '2'"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "expr '5' '-' '2'"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "expr '5' '/' '2'"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "expr '5' '*' '2'"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "expr '5' '%' '2'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            expr '5' '+' '2'
+            expr '5' '-' '2'
+            expr '5' '/' '2'
+            expr '5' '*' '2'
+            expr '5' '%' '2'
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル" ":" "expr '5' '>' '2'"
+        printf "  %-14s %s %-15s\n" "サンプル" ":" "expr '5' '>=' '2'"
+        printf "  %-14s %s %-15s\n" "サンプル" ":" "expr '5' '=' '2'"
+        printf "  %-14s %s %-15s\n" "サンプル" ":" "expr '5' '<=' '2'"
+        printf "  %-14s %s %-15s\n" "サンプル" ":" "expr '5' '<' '2'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "算術演算"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "1"
+            echo "1"
+            echo "0"
+            echo "0"
+            echo "0"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "expr '5' '>' '2'"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "expr '5' '>=' '2'"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "expr '5' '=' '2'"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "expr '5' '<=' '2'"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "expr '5' '<' '2'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            expr '5' '>' '2'
+            expr '5' '>=' '2'
+            expr '5' '=' '2'
+            expr '5' '<=' '2'
+            expr '5' '<' '2'
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+    else
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample" ":" "expr '5' '+' '2'"
+        printf "  %-10s %s %-15s\n" "Sample" ":" "expr '5' '-' '2'"
+        printf "  %-10s %s %-15s\n" "Sample" ":" "expr '5' '/' '2'"
+        printf "  %-10s %s %-15s\n" "Sample" ":" "expr '5' '*' '2'"
+        printf "  %-10s %s %-15s\n" "Sample" ":" "expr '5' '%' '2'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "arithmetic operations"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "7"
+            echo "3"
+            echo "2"
+            echo "10"
+            echo "1"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "expr '5' '+' '2'"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "expr '5' '-' '2'"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "expr '5' '/' '2'"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "expr '5' '*' '2'"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "expr '5' '%' '2'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            expr '5' '+' '2'
+            expr '5' '-' '2'
+            expr '5' '/' '2'
+            expr '5' '*' '2'
+            expr '5' '%' '2'
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample" ":" "expr '5' '>' '2'"
+        printf "  %-10s %s %-15s\n" "Sample" ":" "expr '5' '>=' '2'"
+        printf "  %-10s %s %-15s\n" "Sample" ":" "expr '5' '=' '2'"
+        printf "  %-10s %s %-15s\n" "Sample" ":" "expr '5' '<=' '2'"
+        printf "  %-10s %s %-15s\n" "Sample" ":" "expr '5' '<' '2'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "arithmetic operations"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "1"
+            echo "1"
+            echo "0"
+            echo "0"
+            echo "0"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "expr '5' '>' '2'"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "expr '5' '>=' '2'"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "expr '5' '=' '2'"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "expr '5' '<=' '2'"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "expr '5' '<' '2'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            expr '5' '>' '2'
+            expr '5' '>=' '2'
+            expr '5' '=' '2'
+            expr '5' '<=' '2'
+            expr '5' '<' '2'
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+    fi
+        echo
+    printf "##############################################################################################\n"
+    
+    func_basicSetting_LogFileName_Path ${PID} "1" "cat"
+    echo 
+    
+}
+
+#--------------------------------------------#
 # Command List                               #
 #  : 명령어 리스트                               #
 #  : コマンドリスト                              #
@@ -1039,13 +1258,13 @@ function func_command_cat() {
 readonly catEn="Reads_files_sequentially_and_records_them_as_standard_outputs.file_operands_are_handled_in_command_line_order"
 readonly catKr="파일을_순차적으로_읽고_표준_출력으로_기록하며_파일_피연산자는_명령줄_순서로_처리"
 readonly catJp="ファイルを順番に読み取って標準出力で記録し、ファイルの被演算子はコマンドライン順に処理します"
-readonly cdEn="Reads_files_sequentially_and_records_them_as_standard_outputs.file_operands_are_handled_in_command_line_order"
-readonly cdKr="파일을_순차적으로_읽고_표준_출력으로_기록하며_파일_피연산자는_명령줄_순서로_처리"
-readonly cdJp="ファイルを順番に読み取って標準出力で記録し、ファイルの被演算子はコマンドライン順に処理します"
-declare -a commandList=("cat" "cd" "history")
-declare -a commandDescriptionEn=("${catEn}" "${cdEn}" "history")
-declare -a commandDescriptionKr=("${catKr}" "${cdKr}" "history")
-declare -a commandDescriptionJp=("${catJp}" "${cdJp}" "history")
+readonly exprEn="Evaluate_the_expression_and_record_the_results_in_the_standard_output"
+readonly exprKr="표현식을_평가하고_그_결과를_표준_출력에_기록"
+readonly exprJp="表現式を評価し、その結果を標準出力に記録"
+declare -a commandList=("cat" "expr" "history")
+declare -a commandDescriptionEn=("${catEn}" "${exprEn}" "history")
+declare -a commandDescriptionKr=("${catKr}" "${exprKr}" "history")
+declare -a commandDescriptionJp=("${catJp}" "${exprJp}" "history")
 
 #--------------------------------------------#
 # Script Basic Variable Setting              #
