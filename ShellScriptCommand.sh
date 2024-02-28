@@ -461,21 +461,21 @@ function func_linuxCommandsList() {
         printf "  %-8s %s  %-18s %s  %-102s\n" "번호" "#" "명령어" "#" "설명"
         printf "##############################################################################################\n"
         for commandIndex in ${commandList[@]}; do
-            printf "  %03d    %s  %-15s %s  %-100s\n" ${Index} "#" ${commandList[${Index}]} "#" ${commandDescriptionKr[${Index}]} | sed 's/_/ /g'
+            printf "  %03d    %s  %-15s %s  %-100s\n" $((${Index}+1)) "#" ${commandList[${Index}]} "#" ${commandDescriptionKr[${Index}]} | sed 's/_/ /g'
             Index=$(( ${Index} + 1 ))
         done
     elif [[ ${languageParam} == [jJ][pP] ]]; then
         printf "  %-8s %s  %-19s %s  %-102s\n" "番号" "#" "コマンド" "#" "説明"
         printf "##############################################################################################\n"
         for commandIndex in ${commandList[@]}; do
-            printf "  %03d    %s  %-15s %s  %-100s\n" ${Index} "#" ${commandList[${Index}]} "#" ${commandDescriptionJp[${Index}]} | sed 's/_/ /g'
+            printf "  %03d    %s  %-15s %s  %-100s\n" $((${Index}+1)) "#" ${commandList[${Index}]} "#" ${commandDescriptionJp[${Index}]} | sed 's/_/ /g'
             Index=$(( ${Index} + 1 ))
         done
     else
         printf "  %-6s %s  %-15s %s  %-100s\n" "Number" "#" "Command" "#" "Description"
         printf "##############################################################################################\n"
         for commandIndex in ${commandList[@]}; do
-            printf "  %03d    %s  %-15s %s  %-100s\n" ${Index} "#" ${commandList[${Index}]} "#" ${commandDescriptionEn[${Index}]} | sed 's/_/ /g'
+            printf "  %03d    %s  %-15s %s  %-100s\n" $((${Index}+1)) "#" ${commandList[${Index}]} "#" ${commandDescriptionEn[${Index}]} | sed 's/_/ /g'
             Index=$(( ${Index} + 1 ))
         done
     fi
@@ -498,6 +498,12 @@ function func_linuxCommandsList() {
         break
     fi
 
+    #Debug Check Code
+    #"#echo "func_linuxCommandsList Check"
+    #"#echo "existCheckParam=${existCheckParam}"
+    #"#echo "languageParam=${languageParam}"
+    #"#echo "languageParam=${languageParam}"
+
 }
 
 #--------------------------------------------#
@@ -509,29 +515,32 @@ function func_linuxCommandsList() {
 function func_linuxCommandsExistCheck() {
 
     ### Command List Array / 명령어 리스트 배열 / コマンドリスト配列
-    local commandListParam=($@)
-
+    local commandListParam=(${commandList[@]})
+    
     ### Command List Array Length / 명령어 리스트 배열 길이 / コマンドリスト配列長
-    local commandListArrayLength="${#commandListParam}"
-
-    ### Last Item Except New Array / 마지막 항목 제외 신규 배열 / 最後項目除外新規配列
-    local commandNewList=(${commandListParam[@]:0:$((commandListArrayLength-1))})
+    local commandListArrayLength="${#commandList[@]}"
 
     ### Command Parameter / 명령어 파라미터 / コマンドパラメータ
-    local searchCommandParam="${commandListParam[${commandListArrayLength}]}"
+    local searchCommandParam=$1
 
     ### Command Exist Check Flg / 명령어 존재 체크 플래그 / コマンド存在チェックフラグ
     existCheck=0
 
     ### Command Array Index / 명령어 리스트 인덱스 / コマンド配列インデックス
     commandItemIndex=0
-    for commandItem in ${commandNewList[@]}; do
+    for commandItem in ${commandListParam[@]}; do
         if [[ ${commandItem} == ${searchCommandParam} ]];then
             existCheck=1
             break
         fi
         commandItemIndex=$(( ${commandItemIndex} + 1 ))
     done
+
+    #Debug Check Code
+    #"#echo "func_linuxCommandsExistCheck Check"
+    #"#echo "commandListParam=${commandListParam[@]}"
+    #"#echo "commandListArrayLength=${commandListArrayLength}"
+    #"#echo "searchCommandParam=${searchCommandParam}"
 
 }
 
@@ -572,6 +581,13 @@ function func_notExistCommand() {
         echo "    ( Parameter1 )  "
         func_linuxCommandsList ${existCheckParam} ${ouputLanguageParam}
     fi
+
+    #Debug Check Code
+    #"#echo "func_notExistCommand Check"
+    #"#echo "searchCommandParam=${searchCommandParam}"
+    #"#echo "ouputLanguageParam=${ouputLanguageParam}"
+    #"#echo "existCheckParam=${existCheckParam}"
+
 }
 
 #--------------------------------------------#
@@ -598,10 +614,16 @@ function func_linuxCommandExample() {
         expr)
             func_command_expr ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]}
             ;;
-        us)
-            echo " $caseVar3 is us3 "
+        sleep)
+            func_command_sleep ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]}
             ;;
-        *) echo " caseVar ? " # default
+        gunzip)
+            func_command_gunzip ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]}
+            ;;
+        gzip)
+            func_command_gzip ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]}
+            ;;
+        *) echo " DEFAULT OUTPUT : Commands Not Included " # default
     esac
     
     while true
@@ -624,6 +646,13 @@ function func_linuxCommandExample() {
             break
         fi
     done
+
+    #Debug Check Code
+    #"#echo "func_linuxCommandExample Check"
+    #"#echo "ouputLanguageParam=${ouputLanguageParam}"
+    #"#echo "filePathParam=${filePathParam}"
+    #"#echo "commandItemIndex=${commandItemIndex}"
+    #"#echo "commandList[${commandItemIndex}]=${commandList[${commandItemIndex}]}"
 
 }
 
@@ -655,7 +684,7 @@ function func_command_cat() {
     echo "Command,date" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
     echo
     clear
-    func_basicSetting_LogFileName_Path ${PID} "0" "cat"
+    func_basicSetting_LogFileName_Path ${PID} "0" ${commandItem}
     printf "##############################################################################################\n"
     echo
     if [[ ${ouputLanguageParam} == [kK][rR] ]];then
@@ -792,7 +821,6 @@ function func_command_cat() {
         printf "#--------------------------------------------------------------------------------------------#\n"
             cat -t ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
         printf "#--------------------------------------------------------------------------------------------#\n"
-        echo
     elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
         printf "#============================================================================================#\n"
         printf "  %-14s %s %-15s\n" "サンプル" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
@@ -905,7 +933,6 @@ function func_command_cat() {
         printf "#--------------------------------------------------------------------------------------------#\n"
             cat -t ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
         printf "#--------------------------------------------------------------------------------------------#\n"
-        echo
     else
         printf "#============================================================================================#\n"
         printf "  %-10s %s %-15s\n" "Sample" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
@@ -1018,15 +1045,14 @@ function func_command_cat() {
         printf "#--------------------------------------------------------------------------------------------#\n"
             cat -t ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
         printf "#--------------------------------------------------------------------------------------------#\n"
-        echo
     fi
         echo
     printf "##############################################################################################\n"
     
     ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
-    rm -rfv ${filePathParam%/}/tmp/${commandItem}/
+    rm -rf ${filePathParam%/}/tmp/${commandItem}/
     
-    func_basicSetting_LogFileName_Path ${PID} "1" "cat"
+    func_basicSetting_LogFileName_Path ${PID} "1" ${commandItem}
     echo 
     
 }
@@ -1051,21 +1077,30 @@ function func_command_expr() {
 
     echo
     clear
-    func_basicSetting_LogFileName_Path ${PID} "0" "cat"
+    func_basicSetting_LogFileName_Path ${PID} "0" ${commandItem}
     printf "##############################################################################################\n"
     echo
     if [[ ${ouputLanguageParam} == [kK][rR] ]];then
         printf "  %-16s %s %s\n" "명령어" ":" "${commandItem}"
         printf "  %-17s %s %s\n" "기본설명" ":" "${commandDescriptionKrParam}" | sed 's/_/ /g'
         printf "  %-18s %s %s\n" "※사용법" ":" "${commandItem}_[인수1]_[연산자]_[인수2]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※인수1" ":" "[숫자1]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※연산자" ":" "[+,-,/,*,%,>,>=,=,<=,<]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※인수2" ":" "[숫자2]" | sed 's/_/ /g'
     elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
         printf "  %-17s %s %s\n" "コマンド" ":" "${commandItem}"
         printf "  %-17s %s %s\n" "基本説明" ":" "${commandDescriptionJpParam}" | sed 's/_/ /g'
         printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}_[引数1]_[演算子]_[引数2]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数1" ":" "[数字1]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※演算子" ":" "[+,-,/,*,%,>,>=,=,<=,<]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数2" ":" "[数字2]" | sed 's/_/ /g'
     else
         printf "  %-13s %s %s\n" "Command" ":" "${commandItem}"
         printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g'
         printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_[argument1]_[Operator]_[argument2]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument1" ":" "[number1]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※Operator" ":" "[+,-,/,*,%,>,>=,=,<=,<]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument2" ":" "[number2]" | sed 's/_/ /g'
     fi
         echo
         printf "##############################################################################################\n"
@@ -1126,7 +1161,6 @@ function func_command_expr() {
             expr '5' '<=' '2'
             expr '5' '<' '2'
         printf "#--------------------------------------------------------------------------------------------#\n"
-        echo
     elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
         printf "#============================================================================================#\n"
         printf "  %-14s %s %-15s\n" "サンプル" ":" "expr '5' '+' '2'"
@@ -1183,7 +1217,6 @@ function func_command_expr() {
             expr '5' '<=' '2'
             expr '5' '<' '2'
         printf "#--------------------------------------------------------------------------------------------#\n"
-        echo
     else
         printf "#============================================================================================#\n"
         printf "  %-10s %s %-15s\n" "Sample" ":" "expr '5' '+' '2'"
@@ -1240,15 +1273,438 @@ function func_command_expr() {
             expr '5' '<=' '2'
             expr '5' '<' '2'
         printf "#--------------------------------------------------------------------------------------------#\n"
-        echo
     fi
         echo
     printf "##############################################################################################\n"
     
-    func_basicSetting_LogFileName_Path ${PID} "1" "cat"
+    func_basicSetting_LogFileName_Path ${PID} "1" ${commandItem}
     echo 
     
 }
+
+#--------------------------------------------#
+# Command : sleep                            #
+#--------------------------------------------#
+function func_command_sleep() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### English Command Description Parameter / 영어 명령어 설명 파라미터 / 英語コマンド説明パラメータ
+    local commandDescriptionEnParam=$3
+    ### Korean Command Description Parameter / 한국어 명령어 설명 파라미터 / 韓国語コマンド説明パラメータ
+    local commandDescriptionKrParam=$4
+    ### Japense Command Description Parameter / 일본어 명령어 설명 파라미터 / 日本語コマンド説明パラメータ
+    local commandDescriptionJpParam=$5
+    ### Command / 명령어 / コマンド
+    local commandItem="sleep"
+
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${commandItem}
+    printf "##############################################################################################\n"
+    echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        printf "  %-16s %s %s\n" "명령어" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "기본설명" ":" "${commandDescriptionKrParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※사용법" ":" "${commandItem}_[인수1]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※인수" ":" "[대기시간:'n'초]" | sed 's/_/ /g'
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        printf "  %-17s %s %s\n" "コマンド" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "基本説明" ":" "${commandDescriptionJpParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}_[引数1]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数" ":" "[待機時間:'n'秒]" | sed 's/_/ /g'
+    else
+        printf "  %-13s %s %s\n" "Command" ":" "${commandItem}"
+        printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_[argument]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument" ":" "[waitingTime:'n'seconds]" | sed 's/_/ /g'
+    fi
+        echo
+        printf "##############################################################################################\n"
+        echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플" ":" "sleep 3"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "n초 후 다음 작업 실행"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "sleep 명령어 전 출력"
+            echo "sleep 명령어 3초 후 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "sleep 3"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "sleep 명령어 전 출력"
+            sleep 3
+            echo "sleep 명령어 3초 후 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル" ":" "sleep 3"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "n秒後に次の作業を実行"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "sleep コマンド前出力"
+            echo "sleep コマンド3秒後出力"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "sleep 3"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "sleep コマンド前出力"
+            sleep 3
+            echo "sleep コマンド3秒後出力"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    else
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample" ":" "sleep 3"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "After n seconds, perform the following actions"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "sleep Command Pre-Output"
+            echo "sleep command output after 3 seconds"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "sleep 3"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "sleep Command Pre-Output"
+            sleep 3
+            echo "sleep command output after 3 seconds"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    fi
+        echo
+    printf "##############################################################################################\n"
+    
+    func_basicSetting_LogFileName_Path ${PID} "1" ${commandItem}
+    echo 
+    
+}
+
+#--------------------------------------------#
+# Command : gzip                             #
+#--------------------------------------------#
+function func_command_gzip() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### English Command Description Parameter / 영어 명령어 설명 파라미터 / 英語コマンド説明パラメータ
+    local commandDescriptionEnParam=$3
+    ### Korean Command Description Parameter / 한국어 명령어 설명 파라미터 / 韓国語コマンド説明パラメータ
+    local commandDescriptionKrParam=$4
+    ### Japense Command Description Parameter / 일본어 명령어 설명 파라미터 / 日本語コマンド説明パラメータ
+    local commandDescriptionJpParam=$5
+    ### Command / 명령어 / コマンド
+    local commandItem="gzip"
+
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/
+    echo "testFile1,Command,data" > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+    echo "testFile2,Command,data" > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt
+    echo "testFile3,Command,data" > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile3.txt
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${commandItem}
+    printf "##############################################################################################\n"
+    echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        printf "  %-16s %s %s\n" "명령어" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "기본설명" ":" "${commandDescriptionKrParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※사용법" ":" "${commandItem}_[옵션]_[인수]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※옵션" ":" "[-d]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※인수" ":" "[파일경로]" | sed 's/_/ /g'
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        printf "  %-17s %s %s\n" "コマンド" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "基本説明" ":" "${commandDescriptionJpParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}_[オプション]_[引数]" | sed 's/_/ /g'
+        printf "  %-20s %s %s\n" "※オプション" ":" "[-d]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数" ":" "[ファイルパス]" | sed 's/_/ /g'
+    else
+        printf "  %-13s %s %s\n" "Command" ":" "${commandItem}"
+        printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_[option]_[argument]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※option" ":" "[-d]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument" ":" "[filePath]" | sed 's/_/ /g'
+    fi
+        echo
+        printf "##############################################################################################\n"
+        echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플" ":" "gzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "파일 단위로 압축"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "폴더 내 파일 확인"
+            echo "대상 폴더 : ${filePathParam%/}/tmp/${commandItem}/"
+            echo
+            echo "${commandItem}_TestFile1.txt.gz"
+            echo "${commandItem}_TestFile2.txt"
+            echo "${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "gzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "폴더 내 파일 확인"
+            echo "대상 폴더 : ${filePathParam%/}/tmp/${commandItem}/"
+            echo
+            gzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+            ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile1.txt.gz
+            ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile2.txt
+            ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile3.txt
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플" ":" "gzip -d ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt.gz"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "파일 단위로 압축 해제(gunzip)"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "폴더 내 파일 확인"
+            echo "대상 폴더 : ${filePathParam%/}/tmp/${commandItem}/"
+            echo
+            echo "${commandItem}_TestFile1.txt"
+            echo "${commandItem}_TestFile2.txt"
+            echo "${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "gzip -d ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt.gz"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "폴더 내 파일 확인"
+            echo "대상 폴더 : ${filePathParam%/}/tmp/${commandItem}/"
+            echo
+            gzip -d ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt.gz
+            ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile1.txt
+            ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile2.txt
+            ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile3.txt
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル" ":" "gzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "ファイル単位で圧縮"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "フォルダ内ファイル確認"
+            echo "対象フォルダ : ${filePathParam%/}/tmp/${commandItem}/"
+            echo
+            echo "${commandItem}_TestFile1.txt.gz"
+            echo "${commandItem}_TestFile2.txt"
+            echo "${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "gzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "フォルダ内ファイル確認"
+            echo "対象フォルダ : ${filePathParam%/}/tmp/${commandItem}/"
+            echo
+            gzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+            ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile1.txt.gz
+            ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile2.txt
+            ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile3.txt
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル" ":" "gzip -d ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt.gz"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "ファイル単位で解除(gunzip)"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "フォルダ内ファイル確認"
+            echo "対象フォルダ : ${filePathParam%/}/tmp/${commandItem}/"
+            echo
+            echo "${commandItem}_TestFile1.txt"
+            echo "${commandItem}_TestFile2.txt"
+            echo "${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "gzip -d ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt.gz"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "フォルダ内ファイル確認"
+            echo "対象フォルダ : ${filePathParam%/}/tmp/${commandItem}/"
+            echo
+            gzip -d ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt.gz
+            ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile1.txt
+            ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile2.txt
+            ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile3.txt
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    else
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample" ":" "gzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Compress by file"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "Checking files in folders"
+            echo "Target Folder : ${filePathParam%/}/tmp/${commandItem}/"
+            echo
+            echo "${commandItem}_TestFile1.txt.gz"
+            echo "${commandItem}_TestFile2.txt"
+            echo "${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "gzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "Checking files in folders"
+            echo "Target Folder : ${filePathParam%/}/tmp/${commandItem}/"
+            echo
+            gzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+            ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile1.txt.gz
+            ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile2.txt
+            ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile3.txt
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample" ":" "gzip -d ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt.gz"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Uncompress by file(gunzip)"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "Checking files in folders"
+            echo "Target Folder : ${filePathParam%/}/tmp/${commandItem}/"
+            echo
+            echo "${commandItem}_TestFile1.txt"
+            echo "${commandItem}_TestFile2.txt"
+            echo "${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "gzip -d ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt.gz"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "Checking files in folders"
+            echo "Target Folder : ${filePathParam%/}/tmp/${commandItem}/"
+            echo
+            gzip -d ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt.gz
+            ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile1.txt
+            ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile2.txt
+            ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile3.txt
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    fi
+        echo
+    printf "##############################################################################################\n"
+    
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    rm -rf ${filePathParam%/}/tmp/${commandItem}/
+
+    func_basicSetting_LogFileName_Path ${PID} "1" ${commandItem}
+    echo 
+    
+}
+
+#--------------------------------------------#
+# Command : gunzip                           #
+#--------------------------------------------#
+function func_command_gunzip() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### English Command Description Parameter / 영어 명령어 설명 파라미터 / 英語コマンド説明パラメータ
+    local commandDescriptionEnParam=$3
+    ### Korean Command Description Parameter / 한국어 명령어 설명 파라미터 / 韓国語コマンド説明パラメータ
+    local commandDescriptionKrParam=$4
+    ### Japense Command Description Parameter / 일본어 명령어 설명 파라미터 / 日本語コマンド説明パラメータ
+    local commandDescriptionJpParam=$5
+    ### Command / 명령어 / コマンド
+    local commandItem="gunzip"
+
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/
+    echo "testFile1,Command,data" > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+    echo "testFile2,Command,data" > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt
+    echo "testFile3,Command,data" > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile3.txt
+    gzip ${filePathParam%/}/tmp/${commandItem}/*
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${commandItem}
+    printf "##############################################################################################\n"
+    echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        printf "  %-16s %s %s\n" "명령어" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "기본설명" ":" "${commandDescriptionKrParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※사용법" ":" "${commandItem}_[인수]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※인수" ":" "[파일경로]" | sed 's/_/ /g'
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        printf "  %-17s %s %s\n" "コマンド" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "基本説明" ":" "${commandDescriptionJpParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}_[引数]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数" ":" "[ファイルパス]" | sed 's/_/ /g'
+    else
+        printf "  %-13s %s %s\n" "Command" ":" "${commandItem}"
+        printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_[argument]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument" ":" "[filePath]" | sed 's/_/ /g'
+    fi
+        echo
+        printf "##############################################################################################\n"
+        echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플" ":" "gunzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt.gz"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "파일 단위로 압축 해제"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "폴더 내 파일 확인"
+            echo "대상 폴더 : ${filePathParam%/}/tmp/${commandItem}/"
+            echo
+            echo "${commandItem}_TestFile1.txt"
+            echo "${commandItem}_TestFile2.txt.gz"
+            echo "${commandItem}_TestFile3.txt.gz"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "gunzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt.gz"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "폴더 내 파일 확인"
+            echo "대상 폴더 : ${filePathParam%/}/tmp/${commandItem}/"
+            echo
+            gunzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt.gz
+            ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile1.txt
+            ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile2.txt.gz
+            ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile3.txt.gz
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル" ":" "gunzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt.gz"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "ファイル単位で解除"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "フォルダ内ファイル確認"
+            echo "対象フォルダ : ${filePathParam%/}/tmp/${commandItem}/"
+            echo
+            echo "${commandItem}_TestFile1.txt"
+            echo "${commandItem}_TestFile2.txt.gz"
+            echo "${commandItem}_TestFile3.txt.gz"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "gunzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt.gz"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "フォルダ内ファイル確認"
+            echo "対象フォルダ : ${filePathParam%/}/tmp/${commandItem}/"
+            echo
+            gunzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt.gz
+            ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile1.txt
+            ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile2.txt.gz
+            ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile3.txt.gz
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    else
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample" ":" "gunzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt.gz"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Uncompress by file"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "Checking files in folders"
+            echo "Target Folder : ${filePathParam%/}/tmp/${commandItem}/"
+            echo
+            echo "${commandItem}_TestFile1.txt"
+            echo "${commandItem}_TestFile2.txt.gz"
+            echo "${commandItem}_TestFile3.txt.gz"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "gunzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt.gz"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "Checking files in folders"
+            echo "Target Folder : ${filePathParam%/}/tmp/${commandItem}/"
+            echo
+            gunzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt.gz
+            ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile1.txt
+            ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile2.txt.gz
+            ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile3.txt.gz
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    fi
+        echo
+    printf "##############################################################################################\n"
+    
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    rm -rf ${filePathParam%/}/tmp/${commandItem}/
+
+    func_basicSetting_LogFileName_Path ${PID} "1" ${commandItem}
+    echo 
+    
+}
+
 
 #--------------------------------------------#
 # Command List                               #
@@ -1261,10 +1717,19 @@ readonly catJp="ファイルを順番に読み取って標準出力で記録し�
 readonly exprEn="Evaluate_the_expression_and_record_the_results_in_the_standard_output"
 readonly exprKr="표현식을_평가하고_그_결과를_표준_출력에_기록"
 readonly exprJp="表現式を評価し、その結果を標準出力に記録"
-declare -a commandList=("cat" "expr" "history")
-declare -a commandDescriptionEn=("${catEn}" "${exprEn}" "history")
-declare -a commandDescriptionKr=("${catKr}" "${exprKr}" "history")
-declare -a commandDescriptionJp=("${catJp}" "${exprJp}" "history")
+readonly sleepEn="Suspends_the_execution_for_a_set_number_of_seconds"
+readonly sleepKr="설정된_시간(초)_동안_실행을_중지"
+readonly sleepJp="設定された時間(秒)の間、実行を停止します"
+readonly gzipEn="Compress_or_decompress_a_file"
+readonly gzipKr="파일을_압축하거나_압축_해제"
+readonly gzipJp="ファイルを圧縮したり解除する"
+readonly gunzipEn="Decompress_or_compress_a_file"
+readonly gunzipKr="파일을_압축_해제하거나_압축"
+readonly gunzipJp="ファイルを解除したり圧縮する"
+declare -a commandList=("cat" "expr" "sleep" "gzip" "gunzip")
+declare -a commandDescriptionEn=("${catEn}" "${exprEn}" "${sleepEn}" "${gzipEn}" "${gunzipEn}")
+declare -a commandDescriptionKr=("${catKr}" "${exprKr}" "${sleepKr}" "${gzipKr}" "${gunzipKr}")
+declare -a commandDescriptionJp=("${catJp}" "${exprJp}" "${sleepJp}" "${gzipJp}" "${gunzipJp}")
 
 #--------------------------------------------#
 # Script Basic Variable Setting              #
@@ -1288,21 +1753,25 @@ startedFlg=0
 #  : メイン処理                                 #
 #--------------------------------------------#
 ### Parameter Check / 파라미터 체크 / パラメータチェック
+#"# echo "CHECK TREE 1"
 if [[ ! -z ${searchCommand} ]] || [[ ${startedFlg} == 0 ]];then 
-    func_linuxCommandsExistCheck ${commandList[@]} ${searchCommand}
+    func_linuxCommandsExistCheck ${searchCommand}
 fi
 
+#"# echo "CHECK TREE 2"
 if [[ ! -z ${searchCommand} && ${existCheck} == 0 ]];then
     clear
     echo
     func_notExistCommand ${searchCommand} ${ouputLanguage} ${existCheck}
     exit
 fi
+#"# echo "CHECK TREE 3"
 if [[ -z ${ouputLanguage} ]];then
     clear
     ouputLanguage="en"
     func_howToUse
 fi
+#"# echo "CHECK TREE 4"
 if ! [[ ${ouputLanguage} == [eE][nN] || ${ouputLanguage} == [kK][rR] || ${ouputLanguage} == [jJ][pP] ]];then
     func_supportLanguage
     exit
@@ -1311,6 +1780,7 @@ else
 fi
 
 echo
+#"# echo "CHECK TREE 5"
 ### Function Run / 함수 실행 / 関数実行
 func_basicSetting_StartingRunTime ${ouputLanguage} 
 ### Function Run / 함수 실행 / 関数実行
@@ -1326,12 +1796,14 @@ do
         selectMenu=2
     else
         ### Function Run / 함수 실행 / 関数実行
+        #"# echo "CHECK TREE 6"
         func_mainMenu ${ouputLanguage}
     fi
 
     if [[ ${selectMenu} == 1 ]];then
         clear
         ### Function Run / 함수 실행 / 関数実行
+        #"# echo "CHECK TREE 7"
         func_selectLanguage ${ouputLanguage}
     elif [[ ${selectMenu} == 2 ]];then
         clear
@@ -1340,12 +1812,15 @@ do
             clear
             if [[ ${startedFlg} -gt 0 && ! -z ${searchCommand} ]] || [[ -z ${searchCommand} ]];then
                 ### Function Run / 함수 실행 / 関数実行
+                #"# echo "CHECK TREE 8"
                 func_linuxCommandsList 1 ${ouputLanguage} 
             fi
             existCheck=0
             ### Function Run / 함수 실행 / 関数実行
-            func_linuxCommandsExistCheck ${commandList[@]} ${searchCommand}
+            #"# echo "CHECK TREE 9"
+            func_linuxCommandsExistCheck ${searchCommand}
             if [[ ${existCheck} == 1 ]];then
+                #"# echo "CHECK TREE 10"
                 func_linuxCommandExample ${ouputLanguage} ${filePath} ${commandItemIndex} 
             fi
         done
@@ -1354,6 +1829,7 @@ do
 
     elif [[ ${selectMenu} == "終了" || ${selectMenu} == "종료" || ${selectMenu} == [eE][nN][dD] || ${selectMenu} == [eE][xX][iI][tT] ||  ${selectMenu} == 9 ]];then
         ### Function Run / 함수 실행 / 関数実行
+        #"# echo "CHECK TREE 11"
         func_scriptEnd ${ouputLanguage}
     else
         continue
@@ -1364,3 +1840,15 @@ done
 
 ### Function Run / 함수 실행 / 関数実行
 func_basicSetting_LogFileName_Path ${PID} "1" ${searchCommand}
+
+## What to do when adding a command (ex:gzip)
+## 명령어 추가시 작업 내용 (예:gzip)
+## コマンド追加時の作業内容 (例:gzip)
+#readonly gzipEn="Compress_or_decompress_a_file"
+#readonly gzipKr="파일을_압축하거나_압축_해제"
+#readonly gzipJp="ファイルを圧縮したり解除する"
+#declare -a commandList=("cat" "expr" "sleep" "gzip")
+#declare -a commandDescriptionEn=("${catEn}" "${exprEn}" "${sleepEn}" "${gzipEn}")
+#declare -a commandDescriptionKr=("${catKr}" "${exprKr}" "${sleepKr}" "${gzipKr}")
+#declare -a commandDescriptionJp=("${catJp}" "${exprJp}" "${sleepJp}" "${gzipJp}")
+#func_linuxCommandExample case 추가
