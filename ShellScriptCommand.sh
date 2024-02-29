@@ -626,6 +626,9 @@ function func_linuxCommandExample() {
         zip)
             func_command_zip ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]}
             ;;
+        unzip)
+            func_command_unzip ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]}
+            ;;
         *) echo " DEFAULT OUTPUT : Commands Not Included " # default
     esac
     
@@ -1412,19 +1415,19 @@ function func_command_gzip() {
         printf "  %-16s %s %s\n" "명령어" ":" "${commandItem}"
         printf "  %-17s %s %s\n" "기본설명" ":" "${commandDescriptionKrParam}" | sed 's/_/ /g'
         printf "  %-18s %s %s\n" "※사용법" ":" "${commandItem}_[옵션]_[인수]" | sed 's/_/ /g'
-        printf "  %-17s %s %s\n" "※옵션" ":" "[-d]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※옵션" ":" "[-dr]" | sed 's/_/ /g'
         printf "  %-17s %s %s\n" "※인수" ":" "[파일경로]" | sed 's/_/ /g'
     elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
         printf "  %-17s %s %s\n" "コマンド" ":" "${commandItem}"
         printf "  %-17s %s %s\n" "基本説明" ":" "${commandDescriptionJpParam}" | sed 's/_/ /g'
         printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}_[オプション]_[引数]" | sed 's/_/ /g'
-        printf "  %-20s %s %s\n" "※オプション" ":" "[-d]" | sed 's/_/ /g'
+        printf "  %-20s %s %s\n" "※オプション" ":" "[-dr]" | sed 's/_/ /g'
         printf "  %-17s %s %s\n" "※引数" ":" "[ファイルパス]" | sed 's/_/ /g'
     else
         printf "  %-13s %s %s\n" "Command" ":" "${commandItem}"
         printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g'
         printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_[option]_[argument]" | sed 's/_/ /g'
-        printf "  %-15s %s %s\n" "※option" ":" "[-d]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※option" ":" "[-dr]" | sed 's/_/ /g'
         printf "  %-15s %s %s\n" "※argument" ":" "[filePath]" | sed 's/_/ /g'
     fi
         echo
@@ -1680,17 +1683,20 @@ function func_command_gunzip() {
     if [[ ${ouputLanguageParam} == [kK][rR] ]];then
         printf "  %-16s %s %s\n" "명령어" ":" "${commandItem}"
         printf "  %-17s %s %s\n" "기본설명" ":" "${commandDescriptionKrParam}" | sed 's/_/ /g'
-        printf "  %-18s %s %s\n" "※사용법" ":" "${commandItem}_[인수]" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※사용법" ":" "${commandItem}_[옵션]_[인수]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※옵션" ":" "[-r]" | sed 's/_/ /g'
         printf "  %-17s %s %s\n" "※인수" ":" "[파일경로]" | sed 's/_/ /g'
     elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
         printf "  %-17s %s %s\n" "コマンド" ":" "${commandItem}"
         printf "  %-17s %s %s\n" "基本説明" ":" "${commandDescriptionJpParam}" | sed 's/_/ /g'
-        printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}_[引数]" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}_[オプション]_[引数]" | sed 's/_/ /g'
+        printf "  %-20s %s %s\n" "※オプション" ":" "[-r]" | sed 's/_/ /g'
         printf "  %-17s %s %s\n" "※引数" ":" "[ファイルパス]" | sed 's/_/ /g'
     else
         printf "  %-13s %s %s\n" "Command" ":" "${commandItem}"
         printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g'
-        printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_[argument]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_[argument]_[argument]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※option" ":" "[-r]" | sed 's/_/ /g'
         printf "  %-15s %s %s\n" "※argument" ":" "[filePath]" | sed 's/_/ /g'
     fi
         echo
@@ -1877,7 +1883,7 @@ function func_command_zip() {
         printf "  %-16s %s %s\n" "명령어" ":" "${commandItem}"
         printf "  %-17s %s %s\n" "기본설명" ":" "${commandDescriptionKrParam}" | sed 's/_/ /g'
         printf "  %-18s %s %s\n" "※사용법" ":" "${commandItem}_[옵션]_[인수1]_[인수2]_[인수3]_..." | sed 's/_/ /g'
-        printf "  %-17s %s %s\n" "※옵션" ":" "[-d]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※옵션" ":" "[-rjd]" | sed 's/_/ /g'
         printf "  %-17s %s %s\n" "※인수1" ":" "[압축 대상 파일 경로]" | sed 's/_/ /g'
         printf "  %-17s %s %s\n" "※인수2" ":" "[압축 파일 출력 경로]" | sed 's/_/ /g'
         printf "  %-17s %s %s\n" "※인수3" ":" "[압축 파일 출력 경로]" | sed 's/_/ /g'
@@ -1885,7 +1891,7 @@ function func_command_zip() {
         printf "  %-17s %s %s\n" "コマンド" ":" "${commandItem}"
         printf "  %-17s %s %s\n" "基本説明" ":" "${commandDescriptionJpParam}" | sed 's/_/ /g'
         printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}_[オプション]_[引数1]_[引数2]_[引数3]_..." | sed 's/_/ /g'
-        printf "  %-20s %s %s\n" "※オプション" ":" "[-d]" | sed 's/_/ /g'
+        printf "  %-20s %s %s\n" "※オプション" ":" "[-rjd]" | sed 's/_/ /g'
         printf "  %-17s %s %s\n" "※引数1" ":" "[圧縮対象ファイルパス]" | sed 's/_/ /g'
         printf "  %-17s %s %s\n" "※引数2" ":" "[圧縮ファイル出力パス]" | sed 's/_/ /g'
         printf "  %-17s %s %s\n" "※引数3" ":" "[圧縮ファイル出力パス]" | sed 's/_/ /g'
@@ -1893,7 +1899,7 @@ function func_command_zip() {
         printf "  %-13s %s %s\n" "Command" ":" "${commandItem}"
         printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g'
         printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_[option]_[argument1]_[argument2]_[argument3]_..." | sed 's/_/ /g'
-        printf "  %-15s %s %s\n" "※option" ":" "[-d]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※option" ":" "[-rjd]" | sed 's/_/ /g'
         printf "  %-15s %s %s\n" "※argument1" ":" "[compressed_file_path]" | sed 's/_/ /g'
         printf "  %-15s %s %s\n" "※argument2" ":" "[compressed_file_output_path]" | sed 's/_/ /g'
         printf "  %-15s %s %s\n" "※argument3" ":" "[compressed_file_output_path]" | sed 's/_/ /g'
@@ -2182,7 +2188,250 @@ function func_command_zip() {
     printf "##############################################################################################\n"
     
     ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
-    #rm -rf ${filePathParam%/}/tmp/${commandItem}/
+    rm -rf ${filePathParam%/}/tmp/${commandItem}/
+
+    func_basicSetting_LogFileName_Path ${PID} "1" ${commandItem}
+    echo 
+    
+}
+
+#--------------------------------------------#
+# Command : unzip                              #
+#--------------------------------------------#
+function func_command_unzip() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### English Command Description Parameter / 영어 명령어 설명 파라미터 / 英語コマンド説明パラメータ
+    local commandDescriptionEnParam=$3
+    ### Korean Command Description Parameter / 한국어 명령어 설명 파라미터 / 韓国語コマンド説明パラメータ
+    local commandDescriptionKrParam=$4
+    ### Japense Command Description Parameter / 일본어 명령어 설명 파라미터 / 日本語コマンド説明パラメータ
+    local commandDescriptionJpParam=$5
+    ### Command / 명령어 / コマンド
+    local commandItem="unzip"
+
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/test1/
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/test2/
+    echo "testFile1,Command,data" > ${filePathParam%/}/tmp/${commandItem}/test1/${commandItem}_TestFile1.txt
+    echo "testFile2,Command,data" > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt
+    echo "testFile3,Command,data" > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile3.txt
+    zip -jr ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_jr.zip ${filePathParam%/}/tmp/${commandItem}/
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${commandItem}
+    printf "##############################################################################################\n"
+    echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        printf "  %-16s %s %s\n" "명령어" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "기본설명" ":" "${commandDescriptionKrParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※사용법" ":" "${commandItem}_[옵션]_[인수1]_[인수2]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※옵션" ":" "[-ld]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※인수1" ":" "[압축 파일 파일 경로]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※인수2" ":" "[압축 해제 경로]" | sed 's/_/ /g'
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        printf "  %-17s %s %s\n" "コマンド" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "基本説明" ":" "${commandDescriptionJpParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}_[オプション]_[引数1]_[引数2]" | sed 's/_/ /g'
+        printf "  %-20s %s %s\n" "※オプション" ":" "[-ld]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数1" ":" "[圧縮ファイル出力パス]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数2" ":" "[ファイル解凍パス]" | sed 's/_/ /g'
+    else
+        printf "  %-13s %s %s\n" "Command" ":" "${commandItem}"
+        printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_[option]_[argument1]_[argument2]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※option" ":" "[-ld]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument1" ":" "[compressed_file_output_path]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument2" ":" "[decompression_path]" | sed 's/_/ /g'
+    fi
+        echo
+        printf "##############################################################################################\n"
+        echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플" ":" "unzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_jr.zip"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "현재 폴더에 압축 해제"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "extracting: ${commandItem}_TestFile2.txt"
+            echo "extracting: ${commandItem}_TestFile3.txt"
+            echo "extracting: ${commandItem}_TestFile1.txt"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "unzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_jr.zip"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            unzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_jr.zip
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플" ":" "unzip -l ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_jr.zip"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "압축 파일 내용 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "  Length      Date    Time    Name"
+            echo "---------  ---------- -----   ----"
+            echo "       23  MM-DD-YYYY hh:mm   unzip_TestFile2.txt"
+            echo "       23  MM-DD-YYYY hh:mm   unzip_TestFile3.txt"
+            echo "       23  MM-DD-YYYY hh:mm   unzip_TestFile1.txt"
+            echo "---------                     -------"
+            echo "       69                     n files"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "unzip -l ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_jr.zip"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            unzip -l ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_jr.zip
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플" ":" "unzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_jr.zip -d ${filePathParam%/}/tmp/${commandItem}/test2/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "지정된 폴더에 압축 해제"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "extracting: ${filePathParam%/}/tmp/${commandItem}/test2/${commandItem}_TestFile2.txt"
+            echo "extracting: ${filePathParam%/}/tmp/${commandItem}/test2/${commandItem}_TestFile3.txt"
+            echo "extracting: ${filePathParam%/}/tmp/${commandItem}/test2/${commandItem}_TestFile1.txt"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "unzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_jr.zip -d ${filePathParam%/}/tmp/${commandItem}/test2/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            unzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_jr.zip -d ${filePathParam%/}/tmp/${commandItem}/test2/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル" ":" "unzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_jr.zip"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "現在のフォルダへの解凍"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "extracting: ${commandItem}_TestFile2.txt"
+            echo "extracting: ${commandItem}_TestFile3.txt"
+            echo "extracting: ${commandItem}_TestFile1.txt"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "unzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_jr.zip"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            unzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_jr.zip
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル" ":" "unzip -l ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_jr.zip"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "圧縮ファイルの内容出力"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "  Length      Date    Time    Name"
+            echo "---------  ---------- -----   ----"
+            echo "       23  MM-DD-YYYY hh:mm   unzip_TestFile2.txt"
+            echo "       23  MM-DD-YYYY hh:mm   unzip_TestFile3.txt"
+            echo "       23  MM-DD-YYYY hh:mm   unzip_TestFile1.txt"
+            echo "---------                     -------"
+            echo "       69                     n files"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "unzip -l ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_jr.zip"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            unzip -l ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_jr.zip
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル" ":" "unzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_jr.zip -d ${filePathParam%/}/tmp/${commandItem}/test2/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "指定されたフォルダへの解凍"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "extracting: ${filePathParam%/}/tmp/${commandItem}/test2/${commandItem}_TestFile2.txt"
+            echo "extracting: ${filePathParam%/}/tmp/${commandItem}/test2/${commandItem}_TestFile3.txt"
+            echo "extracting: ${filePathParam%/}/tmp/${commandItem}/test2/${commandItem}_TestFile1.txt"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "unzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_jr.zip -d ${filePathParam%/}/tmp/${commandItem}/test2/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            unzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_jr.zip -d ${filePathParam%/}/tmp/${commandItem}/test2/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    else
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample" ":" "unzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_jr.zip"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Compressed File Content Output"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "extracting: ${commandItem}_TestFile2.txt"
+            echo "extracting: ${commandItem}_TestFile3.txt"
+            echo "extracting: ${commandItem}_TestFile1.txt"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "unzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_jr.zip"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            unzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_jr.zip
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample" ":" "unzip -l ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_jr.zip"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Unzip to the current folder"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "  Length      Date    Time    Name"
+            echo "---------  ---------- -----   ----"
+            echo "       23  MM-DD-YYYY hh:mm   unzip_TestFile2.txt"
+            echo "       23  MM-DD-YYYY hh:mm   unzip_TestFile3.txt"
+            echo "       23  MM-DD-YYYY hh:mm   unzip_TestFile1.txt"
+            echo "---------                     -------"
+            echo "       69                     n files"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "unzip -l ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_jr.zip"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            unzip -l ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_jr.zip
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample" ":" "unzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_jr.zip -d ${filePathParam%/}/tmp/${commandItem}/test2/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Unzip to the specified folder"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "extracting: ${filePathParam%/}/tmp/${commandItem}/test2/${commandItem}_TestFile2.txt"
+            echo "extracting: ${filePathParam%/}/tmp/${commandItem}/test2/${commandItem}_TestFile3.txt"
+            echo "extracting: ${filePathParam%/}/tmp/${commandItem}/test2/${commandItem}_TestFile1.txt"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "unzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_jr.zip -d ${filePathParam%/}/tmp/${commandItem}/test2/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            unzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_jr.zip -d ${filePathParam%/}/tmp/${commandItem}/test2/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    fi
+        echo
+    printf "##############################################################################################\n"
+    
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    rm -rf ${filePathParam%/}/tmp/${commandItem}/
+    rm -rf ./${commandItem}_TestFile2.txt
+    rm -rf ./${commandItem}_TestFile3.txt
+    rm -rf ./${commandItem}_TestFile1.txt
 
     func_basicSetting_LogFileName_Path ${PID} "1" ${commandItem}
     echo 
@@ -2196,26 +2445,29 @@ function func_command_zip() {
 #--------------------------------------------#
 readonly catEn="Reads_files_sequentially_and_records_them_as_standard_outputs.file_operands_are_handled_in_command_line_order"
 readonly catKr="파일을_순차적으로_읽고_표준_출력으로_기록하며_파일_피연산자는_명령줄_순서로_처리"
-readonly catJp="ファイルを順番に読み取って標準出力で記録し、ファイルの被演算子はコマンドライン順に処理します"
+readonly catJp="ファイルを順番に読み取って標準出力で記録し、ファイルの被演算子はコマンドライン順に処理"
 readonly exprEn="Evaluate_the_expression_and_record_the_results_in_the_standard_output"
 readonly exprKr="표현식을_평가하고_그_결과를_표준_출력에_기록"
 readonly exprJp="表現式を評価し、その結果を標準出力に記録"
-readonly sleepEn="Suspends_the_execution_for_a_set_number_of_seconds"
-readonly sleepKr="설정된_시간(초)_동안_실행을_중지"
-readonly sleepJp="設定された時間(秒)の間、実行を停止します"
 readonly gunzipEn="Decompress_or_compress_a_file"
 readonly gunzipKr="파일을_압축_해제하거나_압축"
-readonly gunzipJp="ファイルを解凍したり圧縮する"
+readonly gunzipJp="ファイルを解凍したり圧縮"
 readonly gzipEn="Compress_or_decompress_a_file"
 readonly gzipKr="파일을_압축하거나_압축_해제"
-readonly gzipJp="ファイルを圧縮したり解凍する"
+readonly gzipJp="ファイルを圧縮したり解凍"
+readonly sleepEn="Suspends_the_execution_for_a_set_number_of_seconds"
+readonly sleepKr="설정된_시간(초)_동안_실행을_중지"
+readonly sleepJp="設定された時間(秒)の間、実行を停止"
+readonly unzipEn="List,_test,_or_extract_files_from_a_ZIP_archive"
+readonly unzipKr="ZIP_아카이브에서_파일을_나열,_테스트_또는_추출"
+readonly unzipJp="ZIPアーカイブからファイルを一覧表示、テスト、または抽出"
 readonly zipEn="Compress_or_decompress_a_file_or_folder"
 readonly zipKr="파일_또는_폴더를_압축하거나_압축_해제"
-readonly zipJp="ファイルまたはフォルダーを圧縮または解凍します"
-declare -a commandList=("cat" "expr" "sleep" "gunzip" "gzip" "zip")
-declare -a commandDescriptionEn=("${catEn}" "${exprEn}" "${sleepEn}" "${gunzipEn}" "${gzipEn}" "${zipEn}")
-declare -a commandDescriptionKr=("${catKr}" "${exprKr}" "${sleepKr}" "${gunzipKr}" "${gzipKr}" "${zipKr}")
-declare -a commandDescriptionJp=("${catJp}" "${exprJp}" "${sleepJp}" "${gunzipJp}" "${gzipJp}" "${zipJp}")
+readonly zipJp="ファイルまたはフォルダーを圧縮または解凍"
+declare -a commandList=("cat" "expr" "gunzip" "gzip" "sleep" "unzip" "zip")
+declare -a commandDescriptionEn=("${catEn}" "${exprEn}" "${gunzipEn}" "${gzipEn}" "${sleepEn}" "${unzipEn}" "${zipEn}")
+declare -a commandDescriptionKr=("${catKr}" "${exprKr}" "${gunzipKr}" "${gzipKr}" "${sleepKr}" "${unzipKr}" "${zipKr}")
+declare -a commandDescriptionJp=("${catJp}" "${exprJp}" "${gunzipJp}" "${gzipJp}" "${sleepJp}" "${unzipJp}" "${zipJp}")
 
 #--------------------------------------------#
 # Script Basic Variable Setting              #
