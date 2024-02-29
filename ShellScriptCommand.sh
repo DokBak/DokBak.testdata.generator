@@ -1476,6 +1476,29 @@ function func_command_gzip() {
             ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile2.txt
             ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile3.txt
         printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플" ":" "gzip -r ${filePathParam%/}/tmp/${commandItem}/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "하위 폴더내 모든 파일 압축"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "폴더 내 파일 확인"
+            echo "대상 폴더 : ${filePathParam%/}/tmp/${commandItem}/"
+            echo
+            echo "${commandItem}_TestFile1.txt.gz"
+            echo "${commandItem}_TestFile2.txt.gz"
+            echo "${commandItem}_TestFile3.txt.gz"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "gzip -r ${filePathParam%/}/tmp/${commandItem}/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "폴더 내 파일 확인"
+            echo "대상 폴더 : ${filePathParam%/}/tmp/${commandItem}/"
+            echo
+            gzip -r ${filePathParam%/}/tmp/${commandItem}/
+            ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile1.txt.gz
+            ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile2.txt.gz
+            ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile3.txt.gz
+        printf "#--------------------------------------------------------------------------------------------#\n"
     elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
         printf "#============================================================================================#\n"
         printf "  %-14s %s %-15s\n" "サンプル" ":" "gzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
@@ -1522,6 +1545,29 @@ function func_command_gzip() {
             ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile2.txt
             ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile3.txt
         printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル" ":" "gzip -r ${filePathParam%/}/tmp/${commandItem}/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "サブフォルダー内のすべてのファイルを圧縮"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "フォルダ内ファイル確認"
+            echo "対象フォルダ : ${filePathParam%/}/tmp/${commandItem}/"
+            echo
+            echo "${commandItem}_TestFile1.txt.gz"
+            echo "${commandItem}_TestFile2.txt.gz"
+            echo "${commandItem}_TestFile3.txt.gz"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "gzip -r ${filePathParam%/}/tmp/${commandItem}/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "フォルダ内ファイル確認"
+            echo "対象フォルダ : ${filePathParam%/}/tmp/${commandItem}/"
+            echo
+            gzip -r ${filePathParam%/}/tmp/${commandItem}/
+            ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile1.txt.gz
+            ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile2.txt.gz
+            ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile3.txt.gz
+        printf "#--------------------------------------------------------------------------------------------#\n"
     else
         printf "#============================================================================================#\n"
         printf "  %-10s %s %-15s\n" "Sample" ":" "gzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
@@ -1567,6 +1613,29 @@ function func_command_gzip() {
             ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile1.txt
             ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile2.txt
             ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile3.txt
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample" ":" "gzip -r ${filePathParam%/}/tmp/${commandItem}/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Compress all files in subfolders"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "Checking files in folders"
+            echo "Target Folder : ${filePathParam%/}/tmp/${commandItem}/"
+            echo
+            echo "${commandItem}_TestFile1.txt.gz"
+            echo "${commandItem}_TestFile2.txt.gz"
+            echo "${commandItem}_TestFile3.txt.gz"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "gzip -r ${filePathParam%/}/tmp/${commandItem}/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "Checking files in folders"
+            echo "Target Folder : ${filePathParam%/}/tmp/${commandItem}/"
+            echo
+            gzip -r ${filePathParam%/}/tmp/${commandItem}/
+            ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile1.txt.gz
+            ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile2.txt.gz
+            ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile3.txt.gz
         printf "#--------------------------------------------------------------------------------------------#\n"
     fi
         echo
@@ -1650,6 +1719,29 @@ function func_command_gunzip() {
             ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile2.txt.gz
             ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile3.txt.gz
         printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플" ":" "gunzip -r ${filePathParam%/}/tmp/${commandItem}/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "하위 폴더내 모든 파일 압축해제"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "폴더 내 파일 확인"
+            echo "대상 폴더 : ${filePathParam%/}/tmp/${commandItem}/"
+            echo
+            echo "${commandItem}_TestFile1.txt"
+            echo "${commandItem}_TestFile2.txt"
+            echo "${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "gunzip -r ${filePathParam%/}/tmp/${commandItem}/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "폴더 내 파일 확인"
+            echo "대상 폴더 : ${filePathParam%/}/tmp/${commandItem}/"
+            echo
+            gunzip -r ${filePathParam%/}/tmp/${commandItem}/
+            ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile1.txt
+            ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile2.txt
+            ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile3.txt
+        printf "#--------------------------------------------------------------------------------------------#\n"
     elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
         printf "#============================================================================================#\n"
         printf "  %-14s %s %-15s\n" "サンプル" ":" "gunzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt.gz"
@@ -1673,6 +1765,29 @@ function func_command_gunzip() {
             ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile2.txt.gz
             ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile3.txt.gz
         printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル" ":" "gunzip -r ${filePathParam%/}/tmp/${commandItem}/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "サブフォルダー内のすべてのファイルの解凍"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "フォルダ内ファイル確認"
+            echo "対象フォルダ : ${filePathParam%/}/tmp/${commandItem}/"
+            echo
+            echo "${commandItem}_TestFile1.txt"
+            echo "${commandItem}_TestFile2.txt"
+            echo "${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "gunzip -r ${filePathParam%/}/tmp/${commandItem}/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "フォルダ内ファイル確認"
+            echo "対象フォルダ : ${filePathParam%/}/tmp/${commandItem}/"
+            echo
+            gunzip -r ${filePathParam%/}/tmp/${commandItem}/
+            ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile1.txt
+            ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile2.txt
+            ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile3.txt
+        printf "#--------------------------------------------------------------------------------------------#\n"
     else
         printf "#============================================================================================#\n"
         printf "  %-10s %s %-15s\n" "Sample" ":" "gunzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt.gz"
@@ -1695,6 +1810,29 @@ function func_command_gunzip() {
             ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile1.txt
             ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile2.txt.gz
             ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile3.txt.gz
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample" ":" "gunzip -r ${filePathParam%/}/tmp/${commandItem}/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Unzip all files in subfolders"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "Checking files in folders"
+            echo "Target Folder : ${filePathParam%/}/tmp/${commandItem}/"
+            echo
+            echo "${commandItem}_TestFile1.txt"
+            echo "${commandItem}_TestFile2.txt"
+            echo "${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "gunzip -r ${filePathParam%/}/tmp/${commandItem}/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo "Checking files in folders"
+            echo "Target Folder : ${filePathParam%/}/tmp/${commandItem}/"
+            echo
+            gunzip -r ${filePathParam%/}/tmp/${commandItem}/
+            ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile1.txt
+            ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile2.txt
+            ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile3.txt
         printf "#--------------------------------------------------------------------------------------------#\n"
     fi
         echo
