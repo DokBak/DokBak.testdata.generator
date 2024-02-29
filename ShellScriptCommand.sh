@@ -623,6 +623,9 @@ function func_linuxCommandExample() {
         gzip)
             func_command_gzip ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]}
             ;;
+        zip)
+            func_command_zip ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]}
+            ;;
         *) echo " DEFAULT OUTPUT : Commands Not Included " # default
     esac
     
@@ -1500,7 +1503,7 @@ function func_command_gzip() {
         printf "#============================================================================================#\n"
         printf "  %-14s %s %-15s\n" "サンプル" ":" "gzip -d ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt.gz"
         printf "#--------------------------------------------------------------------------------------------#\n"
-        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "ファイル単位で解除(gunzip)"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "ファイル単位で解凍(gunzip)"
         printf "#--------------------------------------------------------------------------------------------#\n"
             echo "フォルダ内ファイル確認"
             echo "対象フォルダ : ${filePathParam%/}/tmp/${commandItem}/"
@@ -1651,7 +1654,7 @@ function func_command_gunzip() {
         printf "#============================================================================================#\n"
         printf "  %-14s %s %-15s\n" "サンプル" ":" "gunzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt.gz"
         printf "#--------------------------------------------------------------------------------------------#\n"
-        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "ファイル単位で解除"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "ファイル単位で解凍"
         printf "#--------------------------------------------------------------------------------------------#\n"
             echo "フォルダ内ファイル確認"
             echo "対象フォルダ : ${filePathParam%/}/tmp/${commandItem}/"
@@ -1705,6 +1708,348 @@ function func_command_gunzip() {
     
 }
 
+#--------------------------------------------#
+# Command : zip                              #
+#--------------------------------------------#
+function func_command_zip() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### English Command Description Parameter / 영어 명령어 설명 파라미터 / 英語コマンド説明パラメータ
+    local commandDescriptionEnParam=$3
+    ### Korean Command Description Parameter / 한국어 명령어 설명 파라미터 / 韓国語コマンド説明パラメータ
+    local commandDescriptionKrParam=$4
+    ### Japense Command Description Parameter / 일본어 명령어 설명 파라미터 / 日本語コマンド説明パラメータ
+    local commandDescriptionJpParam=$5
+    ### Command / 명령어 / コマンド
+    local commandItem="zip"
+
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/test1/
+    echo "testFile1,Command,data" > ${filePathParam%/}/tmp/${commandItem}/test1/${commandItem}_TestFile1.txt
+    echo "testFile2,Command,data" > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt
+    echo "testFile3,Command,data" > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile3.txt
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${commandItem}
+    printf "##############################################################################################\n"
+    echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        printf "  %-16s %s %s\n" "명령어" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "기본설명" ":" "${commandDescriptionKrParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※사용법" ":" "${commandItem}_[옵션]_[인수1]_[인수2]_[인수3]_..." | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※옵션" ":" "[-d]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※인수1" ":" "[압축 대상 파일 경로]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※인수2" ":" "[압축 파일 출력 경로]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※인수3" ":" "[압축 파일 출력 경로]" | sed 's/_/ /g'
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        printf "  %-17s %s %s\n" "コマンド" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "基本説明" ":" "${commandDescriptionJpParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}_[オプション]_[引数1]_[引数2]_[引数3]_..." | sed 's/_/ /g'
+        printf "  %-20s %s %s\n" "※オプション" ":" "[-d]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数1" ":" "[圧縮対象ファイルパス]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数2" ":" "[圧縮ファイル出力パス]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数3" ":" "[圧縮ファイル出力パス]" | sed 's/_/ /g'
+    else
+        printf "  %-13s %s %s\n" "Command" ":" "${commandItem}"
+        printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_[option]_[argument1]_[argument2]_[argument3]_..." | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※option" ":" "[-d]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument1" ":" "[compressed_file_path]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument2" ":" "[compressed_file_output_path]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument3" ":" "[compressed_file_output_path]" | sed 's/_/ /g'
+    fi
+        echo
+        printf "##############################################################################################\n"
+        echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플" ":" "zip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.zip ${filePathParam%/}/tmp/${commandItem}/test1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "여러 파일 압축 (신규파일 adding)"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "  adding: ${filePathParam%/}/tmp/${commandItem}/test1/${commandItem}_TestFile1.txt"
+            echo "  adding: ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "zip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.zip ${filePathParam%/}/tmp/${commandItem}/test1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            zip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.zip ${filePathParam%/}/tmp/${commandItem}/test1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플" ":" "zip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.zip ${filePathParam%/}/tmp/${commandItem}/test1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "여러 파일 압축 (기존파일 updatng)"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "updating: ${filePathParam%/}/tmp/${commandItem}/test1/${commandItem}_TestFile1.txt"
+            echo "updating: ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt"
+            echo "  adding: ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile3.txt"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "zip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.zip ${filePathParam%/}/tmp/${commandItem}/test1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            zip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.zip ${filePathParam%/}/tmp/${commandItem}/test1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile3.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "샘플" ":" "zip -r ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_r.zip ${filePathParam%/}/tmp/${commandItem}/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "출력결과(예상)" ":" "지정된 폴더의 모든 하위 구조 압축"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "  adding: ${filePathParam%/}/tmp/${commandItem}/"
+            echo "  adding: ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.zip"
+            echo "  adding: ${filePathParam%/}/tmp/${commandItem}/test1/"
+            echo "  adding: ${filePathParam%/}/tmp/${commandItem}/test1/${commandItem}_TestFile1.txt"
+            echo "  adding: ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt"
+            echo "  adding: ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile3.txt"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "출력결과(실제)" ":" "zip -r ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_r.zip ${filePathParam%/}/tmp/${commandItem}/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            zip -r ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_r.zip ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "샘플" ":" "zip -j ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_j.zip ${filePathParam%/}/tmp/${commandItem}/*"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "출력결과(예상)" ":" "하위 폴더를 무시하고 파일만 압축"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "  adding: ${commandItem}_TestFile.zip"
+            echo "  adding: ${commandItem}_TestFile2.txt"
+            echo "  adding: ${commandItem}_TestFile3.txt"
+            echo "  adding: ${commandItem}_TestFile_r.zip"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "출력결과(실제)" ":" "zip -j ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_j.zip ${filePathParam%/}/tmp/${commandItem}/*"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            zip -j ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_j.zip ${filePathParam%/}/tmp/${commandItem}/*
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "샘플" ":" "zip -d ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_j.zip ${commandItem}_TestFile2.txt ${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "출력결과(예상)" ":" "zip파일 내부에서 지정 파일을 삭제"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "deleting: ${commandItem}_TestFile2.txt"
+            echo "deleting: ${commandItem}_TestFile3.txt"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "출력결과(실제)" ":" "zip -d ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_j.zip ${commandItem}_TestFile2.txt ${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            zip -d ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_j.zip ${commandItem}_TestFile2.txt ${commandItem}_TestFile3.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル" ":" "zip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.zip ${filePathParam%/}/tmp/${commandItem}/test1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "複数ファイル圧縮(新規ファイルadding)"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "  adding: ${filePathParam%/}/tmp/${commandItem}/test1/${commandItem}_TestFile1.txt"
+            echo "  adding: ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "zip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.zip ${filePathParam%/}/tmp/${commandItem}/test1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            zip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.zip ${filePathParam%/}/tmp/${commandItem}/test1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル" ":" "zip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.zip ${filePathParam%/}/tmp/${commandItem}/test1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "複数ファイル圧縮(既存ファイルupdatng)"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "updating: ${filePathParam%/}/tmp/${commandItem}/test1/${commandItem}_TestFile1.txt"
+            echo "updating: ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt"
+            echo "  adding: ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile3.txt"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "zip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.zip ${filePathParam%/}/tmp/${commandItem}/test1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            zip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.zip ${filePathParam%/}/tmp/${commandItem}/test1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile3.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "サンプル" ":" "zip -r ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_r.zip ${filePathParam%/}/tmp/${commandItem}/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "出力結果(予想)" ":" "指定されたフォルダー内のすべてのサブ構造圧"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "  adding: ${filePathParam%/}/tmp/${commandItem}/"
+            echo "  adding: ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.zip"
+            echo "  adding: ${filePathParam%/}/tmp/${commandItem}/test1/"
+            echo "  adding: ${filePathParam%/}/tmp/${commandItem}/test1/${commandItem}_TestFile1.txt"
+            echo "  adding: ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt"
+            echo "  adding: ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile3.txt"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "出力結果(実際)" ":" "zip -r ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_r.zip ${filePathParam%/}/tmp/${commandItem}/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            zip -r ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_r.zip ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "サンプル" ":" "zip -j ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_j.zip ${filePathParam%/}/tmp/${commandItem}/*"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "出力結果(予想)" ":" "サブフォルダーを無視してファイルのみを圧縮"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "  adding: ${commandItem}_TestFile.zip"
+            echo "  adding: ${commandItem}_TestFile2.txt"
+            echo "  adding: ${commandItem}_TestFile3.txt"
+            echo "  adding: ${commandItem}_TestFile_r.zip"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "出力結果(実際)" ":" "zip -j ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_j.zip ${filePathParam%/}/tmp/${commandItem}/*"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            zip -j ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_j.zip ${filePathParam%/}/tmp/${commandItem}/*
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "サンプル" ":" "zip -d ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_j.zip ${commandItem}_TestFile2.txt ${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "出力結果(予想)" ":" "zipファイルの内部から指定ファイルを削除"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "deleting: ${commandItem}_TestFile2.txt"
+            echo "deleting: ${commandItem}_TestFile3.txt"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "出力結果(実際)" ":" "zip -d ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_j.zip ${commandItem}_TestFile2.txt ${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            zip -d ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_j.zip ${commandItem}_TestFile2.txt ${commandItem}_TestFile3.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    else
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample" ":" "zip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.zip ${filePathParam%/}/tmp/${commandItem}/test1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Compress multiple files (new file adding)"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "  adding: ${filePathParam%/}/tmp/${commandItem}/test1/${commandItem}_TestFile1.txt"
+            echo "  adding: ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "zip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.zip ${filePathParam%/}/tmp/${commandItem}/test1/ ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            zip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.zip ${filePathParam%/}/tmp/${commandItem}/test1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample" ":" "zip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.zip ${filePathParam%/}/tmp/${commandItem}/test1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Compress multiple files (existing files updateng)"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "updating: ${filePathParam%/}/tmp/${commandItem}/test1/${commandItem}_TestFile1.txt"
+            echo "updating: ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt"
+            echo "  adding: ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile3.txt"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "zip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.zip ${filePathParam%/}/tmp/${commandItem}/test1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            zip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.zip ${filePathParam%/}/tmp/${commandItem}/test1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile3.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample" ":" "zip -r ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_r.zip ${filePathParam%/}/tmp/${commandItem}/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Compress all substructures in the specified folder"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "  adding: ${filePathParam%/}/tmp/${commandItem}/"
+            echo "  adding: ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.zip"
+            echo "  adding: ${filePathParam%/}/tmp/${commandItem}/test1/"
+            echo "  adding: ${filePathParam%/}/tmp/${commandItem}/test1/${commandItem}_TestFile1.txt"
+            echo "  adding: ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt"
+            echo "  adding: ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile3.txt"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "zip -r ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_r.zip ${filePathParam%/}/tmp/${commandItem}/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            zip -r ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_r.zip ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample" ":" "zip -j ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_j.zip ${filePathParam%/}/tmp/${commandItem}/*"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Ignore subfolders and compress only files"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "  adding: ${commandItem}_TestFile.zip"
+            echo "  adding: ${commandItem}_TestFile2.txt"
+            echo "  adding: ${commandItem}_TestFile3.txt"
+            echo "  adding: ${commandItem}_TestFile_r.zip"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "zip -j ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_j.zip ${filePathParam%/}/tmp/${commandItem}/*"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            zip -j ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_j.zip ${filePathParam%/}/tmp/${commandItem}/*
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample" ":" "zip -d ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_j.zip ${commandItem}_TestFile2.txt ${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Delete the specified file from inside the zip file"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "deleting: ${commandItem}_TestFile2.txt"
+            echo "deleting: ${commandItem}_TestFile3.txt"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "zip -d ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_j.zip ${commandItem}_TestFile2.txt ${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            zip -d ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_j.zip ${commandItem}_TestFile2.txt ${commandItem}_TestFile3.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    fi
+        echo
+    printf "##############################################################################################\n"
+    
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    #rm -rf ${filePathParam%/}/tmp/${commandItem}/
+
+    func_basicSetting_LogFileName_Path ${PID} "1" ${commandItem}
+    echo 
+    
+}
 
 #--------------------------------------------#
 # Command List                               #
@@ -1720,16 +2065,19 @@ readonly exprJp="表現式を評価し、その結果を標準出力に記録"
 readonly sleepEn="Suspends_the_execution_for_a_set_number_of_seconds"
 readonly sleepKr="설정된_시간(초)_동안_실행을_중지"
 readonly sleepJp="設定された時間(秒)の間、実行を停止します"
-readonly gzipEn="Compress_or_decompress_a_file"
-readonly gzipKr="파일을_압축하거나_압축_해제"
-readonly gzipJp="ファイルを圧縮したり解除する"
 readonly gunzipEn="Decompress_or_compress_a_file"
 readonly gunzipKr="파일을_압축_해제하거나_압축"
-readonly gunzipJp="ファイルを解除したり圧縮する"
-declare -a commandList=("cat" "expr" "sleep" "gzip" "gunzip")
-declare -a commandDescriptionEn=("${catEn}" "${exprEn}" "${sleepEn}" "${gzipEn}" "${gunzipEn}")
-declare -a commandDescriptionKr=("${catKr}" "${exprKr}" "${sleepKr}" "${gzipKr}" "${gunzipKr}")
-declare -a commandDescriptionJp=("${catJp}" "${exprJp}" "${sleepJp}" "${gzipJp}" "${gunzipJp}")
+readonly gunzipJp="ファイルを解凍したり圧縮する"
+readonly gzipEn="Compress_or_decompress_a_file"
+readonly gzipKr="파일을_압축하거나_압축_해제"
+readonly gzipJp="ファイルを圧縮したり解凍する"
+readonly zipEn="Compress_or_decompress_a_file_or_folder"
+readonly zipKr="파일_또는_폴더를_압축하거나_압축_해제"
+readonly zipJp="ファイルまたはフォルダーを圧縮または解凍します"
+declare -a commandList=("cat" "expr" "sleep" "gunzip" "gzip" "zip")
+declare -a commandDescriptionEn=("${catEn}" "${exprEn}" "${sleepEn}" "${gunzipEn}" "${gzipEn}" "${zipEn}")
+declare -a commandDescriptionKr=("${catKr}" "${exprKr}" "${sleepKr}" "${gunzipKr}" "${gzipKr}" "${zipKr}")
+declare -a commandDescriptionJp=("${catJp}" "${exprJp}" "${sleepJp}" "${gunzipJp}" "${gzipJp}" "${zipJp}")
 
 #--------------------------------------------#
 # Script Basic Variable Setting              #
@@ -1846,7 +2194,7 @@ func_basicSetting_LogFileName_Path ${PID} "1" ${searchCommand}
 ## コマンド追加時の作業内容 (例:gzip)
 #readonly gzipEn="Compress_or_decompress_a_file"
 #readonly gzipKr="파일을_압축하거나_압축_해제"
-#readonly gzipJp="ファイルを圧縮したり解除する"
+#readonly gzipJp="ファイルを圧縮したり解凍する"
 #declare -a commandList=("cat" "expr" "sleep" "gzip")
 #declare -a commandDescriptionEn=("${catEn}" "${exprEn}" "${sleepEn}" "${gzipEn}")
 #declare -a commandDescriptionKr=("${catKr}" "${exprKr}" "${sleepKr}" "${gzipKr}")
