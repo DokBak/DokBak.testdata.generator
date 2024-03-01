@@ -609,25 +609,31 @@ function func_linuxCommandExample() {
     echo
     case ${commandList[${commandItemIndex}]} in
         cat)
-            func_command_cat ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]}
+            func_command_cat ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
             ;;
         expr)
-            func_command_expr ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]}
+            func_command_expr ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
             ;;
         sleep)
-            func_command_sleep ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]}
+            func_command_sleep ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
             ;;
         gunzip)
-            func_command_gunzip ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]}
+            func_command_gunzip ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
             ;;
         gzip)
-            func_command_gzip ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]}
+            func_command_gzip ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
             ;;
         zip)
-            func_command_zip ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]}
+            func_command_zip ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
             ;;
         unzip)
-            func_command_unzip ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]}
+            func_command_unzip ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
+            ;;
+        date)
+            func_command_date ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
+            ;;
+        cal)
+            func_command_cal ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
             ;;
         *) echo " DEFAULT OUTPUT : Commands Not Included " # default
     esac
@@ -678,7 +684,9 @@ function func_command_cat() {
     ### Japense Command Description Parameter / 일본어 명령어 설명 파라미터 / 日本語コマンド説明パラメータ
     local commandDescriptionJpParam=$5
     ### Command / 명령어 / コマンド
-    local commandItem="cat"
+    local commandItem=$6
+    ### Count / 번호 / 番号 
+    local countNumber=0
 
     mkdir -p ${filePathParam%/}/tmp/${commandItem}/
     echo "testFile,Command,data" > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
@@ -716,8 +724,9 @@ function func_command_cat() {
         printf "##############################################################################################\n"
         echo
     if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-12s %s %-15s\n" "샘플" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
         printf "  %-12s %s %-15s\n" "옵션" ":" "없음"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-21s %s %s\n" "출력결과(예상)" ":"
@@ -735,8 +744,9 @@ function func_command_cat() {
             cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
         printf "#--------------------------------------------------------------------------------------------#\n"
         echo
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-12s %s %-15s\n" "샘플" ":" "cat -b ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "cat -b ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
         printf "  %-12s %s %-15s\n" "옵션" ":" "b"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-21s %s %s\n" "출력결과(예상)" ":" "공백이 아닌 라인의 라인 번호를 출력"
@@ -754,8 +764,9 @@ function func_command_cat() {
             cat -b ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
         printf "#--------------------------------------------------------------------------------------------#\n"
         echo
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-12s %s %-15s\n" "샘플" ":" "cat -n ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "cat -n ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
         printf "  %-12s %s %-15s\n" "옵션" ":" "n"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-21s %s %s\n" "출력결과(예상)" ":" "모든 라인을 라인 번호로 출력"
@@ -773,8 +784,9 @@ function func_command_cat() {
             cat -n ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
         printf "#--------------------------------------------------------------------------------------------#\n"
         echo
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-12s %s %-15s\n" "샘플" ":" "cat -e ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "cat -e ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
         printf "  %-12s %s %-15s\n" "옵션" ":" "e"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-21s %s %s\n" "출력결과(예상)" ":" "모든 행 끝에 [$] 출력"
@@ -792,8 +804,9 @@ function func_command_cat() {
             cat -e ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
         printf "#--------------------------------------------------------------------------------------------#\n"
         echo
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-12s %s %-15s\n" "샘플" ":" "cat -s ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "cat -s ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
         printf "  %-12s %s %-15s\n" "옵션" ":" "s"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-21s %s %s\n" "출력결과(예상)" ":" "연속된 빈 줄을 압축하여 한 줄로 출력"
@@ -809,8 +822,9 @@ function func_command_cat() {
             cat -s ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
         printf "#--------------------------------------------------------------------------------------------#\n"
         echo
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-12s %s %-15s\n" "샘플" ":" "cat -t ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "cat -t ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
         printf "  %-12s %s %-15s\n" "옵션" ":" "t"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-21s %s %s\n" "출력결과(예상)" ":" "탭 문자열 "^I"로 대체되어 출력"
@@ -828,8 +842,9 @@ function func_command_cat() {
             cat -t ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
         printf "#--------------------------------------------------------------------------------------------#\n"
     elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-14s %s %-15s\n" "サンプル" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
         printf "  %-12s %s %-15s\n" "オプション" ":" "無"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-21s %s %s\n" "出力結果(予想)" ":" 
@@ -847,8 +862,9 @@ function func_command_cat() {
             cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
         printf "#--------------------------------------------------------------------------------------------#\n"
         echo
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-14s %s %-15s\n" "サンプル" ":" "cat -b ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "cat -b ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
         printf "  %-12s %s %-15s\n" "オプション" ":" "b"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-21s %s %s\n" "出力結果(予想)" ":" "空白ではない行の前に行番号を出力します"
@@ -866,8 +882,9 @@ function func_command_cat() {
             cat -b ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
         printf "#--------------------------------------------------------------------------------------------#\n"
         echo
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-14s %s %-15s\n" "サンプル" ":" "cat -n ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "cat -n ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
         printf "  %-12s %s %-15s\n" "オプション" ":" "n"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-21s %s %s\n" "出力結果(予想)" ":" "すべての行を行番号を出力します"
@@ -885,8 +902,9 @@ function func_command_cat() {
             cat -n ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
         printf "#--------------------------------------------------------------------------------------------#\n"
         echo
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-14s %s %-15s\n" "サンプル" ":" "cat -e ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "cat -e ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
         printf "  %-12s %s %-15s\n" "オプション" ":" "e"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-21s %s %s\n" "出力結果(予想)" ":" "すべての行の末尾に[$]を出力します"
@@ -904,8 +922,9 @@ function func_command_cat() {
             cat -e ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
         printf "#--------------------------------------------------------------------------------------------#\n"
         echo
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-14s %s %-15s\n" "サンプル" ":" "cat -s ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "cat -s ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
         printf "  %-12s %s %-15s\n" "オプション" ":" "s"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-21s %s %s\n" "出力結果(予想)" ":" "連続する空白行を圧縮し、1行として出力します"
@@ -921,8 +940,9 @@ function func_command_cat() {
             cat -s ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
         printf "#--------------------------------------------------------------------------------------------#\n"
         echo
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-14s %s %-15s\n" "サンプル" ":" "cat -t ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "cat -t ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
         printf "  %-12s %s %-15s\n" "オプション" ":" "t"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-21s %s %s\n" "出力結果(予想)" ":" "タブ文字列を"^I"に置き換えられ、出力されます"
@@ -940,8 +960,9 @@ function func_command_cat() {
             cat -t ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
         printf "#--------------------------------------------------------------------------------------------#\n"
     else
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-10s %s %-15s\n" "Sample" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
         printf "  %-10s %s %-15s\n" "Option" ":" "Not"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-15s %s %s\n" "Output(expect)" ":"
@@ -959,8 +980,9 @@ function func_command_cat() {
             cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
         printf "#--------------------------------------------------------------------------------------------#\n"
         echo
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-10s %s %-15s\n" "Sample" ":" "cat -b ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "cat -b ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
         printf "  %-10s %s %-15s\n" "Option" ":" "b"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-15s %s %s\n" "Output(expect)" ":" "Outputs a line number in front of a line that is not blank"
@@ -978,8 +1000,9 @@ function func_command_cat() {
             cat -b ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
         printf "#--------------------------------------------------------------------------------------------#\n"
         echo
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-10s %s %-15s\n" "Sample" ":" "cat -n ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "cat -n ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
         printf "  %-10s %s %-15s\n" "Option" ":" "n"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-15s %s %s\n" "Output(expect)" ":" "Print out all lines with line numbers"
@@ -997,8 +1020,9 @@ function func_command_cat() {
             cat -n ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
         printf "#--------------------------------------------------------------------------------------------#\n"
         echo
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-10s %s %-15s\n" "Sample" ":" "cat -e ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "cat -e ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
         printf "  %-10s %s %-15s\n" "Option" ":" "e"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-15s %s %s\n" "Output(expect)" ":" "Print a [$] at the end of all lines"
@@ -1016,8 +1040,9 @@ function func_command_cat() {
             cat -e ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
         printf "#--------------------------------------------------------------------------------------------#\n"
         echo
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-10s %s %-15s\n" "Sample" ":" "cat -s ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "cat -s ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
         printf "  %-10s %s %-15s\n" "Option" ":" "s"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-15s %s %s\n" "Output(expect)" ":" "Compresses consecutive blank lines and outputs them as a single line"
@@ -1033,8 +1058,9 @@ function func_command_cat() {
             cat -s ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
         printf "#--------------------------------------------------------------------------------------------#\n"
         echo
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-10s %s %-15s\n" "Sample" ":" "cat -t ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "cat -t ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
         printf "  %-10s %s %-15s\n" "Option" ":" "t"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-15s %s %s\n" "Output(expect)" ":" "tab string is replaced with a string "^I" and outputted"
@@ -1079,7 +1105,9 @@ function func_command_expr() {
     ### Japense Command Description Parameter / 일본어 명령어 설명 파라미터 / 日本語コマンド説明パラメータ
     local commandDescriptionJpParam=$5
     ### Command / 명령어 / コマンド
-    local commandItem="expr"
+    local commandItem=$6
+    ### Count / 번호 / 番号 
+    local countNumber=0
 
     echo
     clear
@@ -1112,12 +1140,13 @@ function func_command_expr() {
         printf "##############################################################################################\n"
         echo
     if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-12s %s %-15s\n" "샘플" ":" "expr '5' '+' '2'"
-        printf "  %-12s %s %-15s\n" "샘플" ":" "expr '5' '-' '2'"
-        printf "  %-12s %s %-15s\n" "샘플" ":" "expr '5' '/' '2'"
-        printf "  %-12s %s %-15s\n" "샘플" ":" "expr '5' '*' '2'"
-        printf "  %-12s %s %-15s\n" "샘플" ":" "expr '5' '%' '2'"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "expr '5' '+' '2'"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "expr '5' '-' '2'"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "expr '5' '/' '2'"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "expr '5' '*' '2'"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "expr '5' '%' '2'"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-21s %s %s\n" "출력결과(예상)" ":" "산술연산"
         printf "#--------------------------------------------------------------------------------------------#\n"
@@ -1140,12 +1169,13 @@ function func_command_expr() {
             expr '5' '%' '2'
         printf "#--------------------------------------------------------------------------------------------#\n"
         echo
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-12s %s %-15s\n" "샘플" ":" "expr '5' '>' '2'"
-        printf "  %-12s %s %-15s\n" "샘플" ":" "expr '5' '>=' '2'"
-        printf "  %-12s %s %-15s\n" "샘플" ":" "expr '5' '=' '2'"
-        printf "  %-12s %s %-15s\n" "샘플" ":" "expr '5' '<=' '2'"
-        printf "  %-12s %s %-15s\n" "샘플" ":" "expr '5' '<' '2'"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "expr '5' '>' '2'"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "expr '5' '>=' '2'"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "expr '5' '=' '2'"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "expr '5' '<=' '2'"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "expr '5' '<' '2'"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-21s %s %s\n" "출력결과(예상)" ":" "관계연산"
         printf "#--------------------------------------------------------------------------------------------#\n"
@@ -1168,12 +1198,13 @@ function func_command_expr() {
             expr '5' '<' '2'
         printf "#--------------------------------------------------------------------------------------------#\n"
     elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-14s %s %-15s\n" "サンプル" ":" "expr '5' '+' '2'"
-        printf "  %-14s %s %-15s\n" "サンプル" ":" "expr '5' '-' '2'"
-        printf "  %-14s %s %-15s\n" "サンプル" ":" "expr '5' '/' '2'"
-        printf "  %-14s %s %-15s\n" "サンプル" ":" "expr '5' '*' '2'"
-        printf "  %-14s %s %-15s\n" "サンプル" ":" "expr '5' '%' '2'"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "expr '5' '+' '2'"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "expr '5' '-' '2'"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "expr '5' '/' '2'"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "expr '5' '*' '2'"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "expr '5' '%' '2'"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-21s %s %s\n" "出力結果(予想)" ":" "算術演算"
         printf "#--------------------------------------------------------------------------------------------#\n"
@@ -1196,12 +1227,13 @@ function func_command_expr() {
             expr '5' '%' '2'
         printf "#--------------------------------------------------------------------------------------------#\n"
         echo
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-14s %s %-15s\n" "サンプル" ":" "expr '5' '>' '2'"
-        printf "  %-14s %s %-15s\n" "サンプル" ":" "expr '5' '>=' '2'"
-        printf "  %-14s %s %-15s\n" "サンプル" ":" "expr '5' '=' '2'"
-        printf "  %-14s %s %-15s\n" "サンプル" ":" "expr '5' '<=' '2'"
-        printf "  %-14s %s %-15s\n" "サンプル" ":" "expr '5' '<' '2'"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "expr '5' '>' '2'"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "expr '5' '>=' '2'"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "expr '5' '=' '2'"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "expr '5' '<=' '2'"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "expr '5' '<' '2'"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-21s %s %s\n" "出力結果(予想)" ":" "算術演算"
         printf "#--------------------------------------------------------------------------------------------#\n"
@@ -1224,12 +1256,13 @@ function func_command_expr() {
             expr '5' '<' '2'
         printf "#--------------------------------------------------------------------------------------------#\n"
     else
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-10s %s %-15s\n" "Sample" ":" "expr '5' '+' '2'"
-        printf "  %-10s %s %-15s\n" "Sample" ":" "expr '5' '-' '2'"
-        printf "  %-10s %s %-15s\n" "Sample" ":" "expr '5' '/' '2'"
-        printf "  %-10s %s %-15s\n" "Sample" ":" "expr '5' '*' '2'"
-        printf "  %-10s %s %-15s\n" "Sample" ":" "expr '5' '%' '2'"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "expr '5' '+' '2'"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "expr '5' '-' '2'"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "expr '5' '/' '2'"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "expr '5' '*' '2'"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "expr '5' '%' '2'"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-15s %s %s\n" "Output(expect)" ":" "arithmetic operations"
         printf "#--------------------------------------------------------------------------------------------#\n"
@@ -1252,12 +1285,13 @@ function func_command_expr() {
             expr '5' '%' '2'
         printf "#--------------------------------------------------------------------------------------------#\n"
         echo
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-10s %s %-15s\n" "Sample" ":" "expr '5' '>' '2'"
-        printf "  %-10s %s %-15s\n" "Sample" ":" "expr '5' '>=' '2'"
-        printf "  %-10s %s %-15s\n" "Sample" ":" "expr '5' '=' '2'"
-        printf "  %-10s %s %-15s\n" "Sample" ":" "expr '5' '<=' '2'"
-        printf "  %-10s %s %-15s\n" "Sample" ":" "expr '5' '<' '2'"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "expr '5' '>' '2'"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "expr '5' '>=' '2'"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "expr '5' '=' '2'"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "expr '5' '<=' '2'"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "expr '5' '<' '2'"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-15s %s %s\n" "Output(expect)" ":" "arithmetic operations"
         printf "#--------------------------------------------------------------------------------------------#\n"
@@ -1304,7 +1338,9 @@ function func_command_sleep() {
     ### Japense Command Description Parameter / 일본어 명령어 설명 파라미터 / 日本語コマンド説明パラメータ
     local commandDescriptionJpParam=$5
     ### Command / 명령어 / コマンド
-    local commandItem="sleep"
+    local commandItem=$6
+    ### Count / 번호 / 番号 
+    local countNumber=0
 
     echo
     clear
@@ -1331,8 +1367,9 @@ function func_command_sleep() {
         printf "##############################################################################################\n"
         echo
     if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-12s %s %-15s\n" "샘플" ":" "sleep 3"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "sleep 3"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-21s %s %s\n" "출력결과(예상)" ":" "n초 후 다음 작업 실행"
         printf "#--------------------------------------------------------------------------------------------#\n"
@@ -1346,8 +1383,9 @@ function func_command_sleep() {
             echo "sleep 명령어 3초 후 출력"
         printf "#--------------------------------------------------------------------------------------------#\n"
     elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-14s %s %-15s\n" "サンプル" ":" "sleep 3"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "sleep 3"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-21s %s %s\n" "出力結果(予想)" ":" "n秒後に次の作業を実行"
         printf "#--------------------------------------------------------------------------------------------#\n"
@@ -1361,8 +1399,9 @@ function func_command_sleep() {
             echo "sleep コマンド3秒後出力"
         printf "#--------------------------------------------------------------------------------------------#\n"
     else
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-10s %s %-15s\n" "Sample" ":" "sleep 3"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "sleep 3"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-15s %s %s\n" "Output(expect)" ":" "After n seconds, perform the following actions"
         printf "#--------------------------------------------------------------------------------------------#\n"
@@ -1400,7 +1439,9 @@ function func_command_gzip() {
     ### Japense Command Description Parameter / 일본어 명령어 설명 파라미터 / 日本語コマンド説明パラメータ
     local commandDescriptionJpParam=$5
     ### Command / 명령어 / コマンド
-    local commandItem="gzip"
+    local commandItem=$6
+    ### Count / 번호 / 番号 
+    local countNumber=0
 
     mkdir -p ${filePathParam%/}/tmp/${commandItem}/
     echo "testFile1,Command,data" > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
@@ -1434,8 +1475,9 @@ function func_command_gzip() {
         printf "##############################################################################################\n"
         echo
     if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-12s %s %-15s\n" "샘플" ":" "gzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "gzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-21s %s %s\n" "출력결과(예상)" ":" "파일 단위로 압축"
         printf "#--------------------------------------------------------------------------------------------#\n"
@@ -1457,8 +1499,9 @@ function func_command_gzip() {
             ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile3.txt
         printf "#--------------------------------------------------------------------------------------------#\n"
         echo
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-12s %s %-15s\n" "샘플" ":" "gzip -d ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt.gz"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "gzip -d ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt.gz"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-21s %s %s\n" "출력결과(예상)" ":" "파일 단위로 압축 해제(gunzip)"
         printf "#--------------------------------------------------------------------------------------------#\n"
@@ -1480,8 +1523,9 @@ function func_command_gzip() {
             ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile3.txt
         printf "#--------------------------------------------------------------------------------------------#\n"
         echo
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-12s %s %-15s\n" "샘플" ":" "gzip -r ${filePathParam%/}/tmp/${commandItem}/"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "gzip -r ${filePathParam%/}/tmp/${commandItem}/"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-21s %s %s\n" "출력결과(예상)" ":" "하위 폴더내 모든 파일 압축"
         printf "#--------------------------------------------------------------------------------------------#\n"
@@ -1503,8 +1547,9 @@ function func_command_gzip() {
             ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile3.txt.gz
         printf "#--------------------------------------------------------------------------------------------#\n"
     elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-14s %s %-15s\n" "サンプル" ":" "gzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "gzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-21s %s %s\n" "出力結果(予想)" ":" "ファイル単位で圧縮"
         printf "#--------------------------------------------------------------------------------------------#\n"
@@ -1526,8 +1571,9 @@ function func_command_gzip() {
             ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile3.txt
         printf "#--------------------------------------------------------------------------------------------#\n"
         echo
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-14s %s %-15s\n" "サンプル" ":" "gzip -d ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt.gz"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "gzip -d ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt.gz"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-21s %s %s\n" "出力結果(予想)" ":" "ファイル単位で解凍(gunzip)"
         printf "#--------------------------------------------------------------------------------------------#\n"
@@ -1549,8 +1595,9 @@ function func_command_gzip() {
             ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile3.txt
         printf "#--------------------------------------------------------------------------------------------#\n"
         echo
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-14s %s %-15s\n" "サンプル" ":" "gzip -r ${filePathParam%/}/tmp/${commandItem}/"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "gzip -r ${filePathParam%/}/tmp/${commandItem}/"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-21s %s %s\n" "出力結果(予想)" ":" "サブフォルダー内のすべてのファイルを圧縮"
         printf "#--------------------------------------------------------------------------------------------#\n"
@@ -1572,8 +1619,9 @@ function func_command_gzip() {
             ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile3.txt.gz
         printf "#--------------------------------------------------------------------------------------------#\n"
     else
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-10s %s %-15s\n" "Sample" ":" "gzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "gzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-15s %s %s\n" "Output(expect)" ":" "Compress by file"
         printf "#--------------------------------------------------------------------------------------------#\n"
@@ -1595,8 +1643,9 @@ function func_command_gzip() {
             ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile3.txt
         printf "#--------------------------------------------------------------------------------------------#\n"
         echo
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-10s %s %-15s\n" "Sample" ":" "gzip -d ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt.gz"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "gzip -d ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt.gz"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-15s %s %s\n" "Output(expect)" ":" "Uncompress by file(gunzip)"
         printf "#--------------------------------------------------------------------------------------------#\n"
@@ -1618,8 +1667,9 @@ function func_command_gzip() {
             ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile3.txt
         printf "#--------------------------------------------------------------------------------------------#\n"
         echo
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-10s %s %-15s\n" "Sample" ":" "gzip -r ${filePathParam%/}/tmp/${commandItem}/"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "gzip -r ${filePathParam%/}/tmp/${commandItem}/"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-15s %s %s\n" "Output(expect)" ":" "Compress all files in subfolders"
         printf "#--------------------------------------------------------------------------------------------#\n"
@@ -1668,7 +1718,9 @@ function func_command_gunzip() {
     ### Japense Command Description Parameter / 일본어 명령어 설명 파라미터 / 日本語コマンド説明パラメータ
     local commandDescriptionJpParam=$5
     ### Command / 명령어 / コマンド
-    local commandItem="gunzip"
+    local commandItem=$6
+    ### Count / 번호 / 番号 
+    local countNumber=0
 
     mkdir -p ${filePathParam%/}/tmp/${commandItem}/
     echo "testFile1,Command,data" > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
@@ -1703,8 +1755,9 @@ function func_command_gunzip() {
         printf "##############################################################################################\n"
         echo
     if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-12s %s %-15s\n" "샘플" ":" "gunzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt.gz"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "gunzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt.gz"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-21s %s %s\n" "출력결과(예상)" ":" "파일 단위로 압축 해제"
         printf "#--------------------------------------------------------------------------------------------#\n"
@@ -1726,8 +1779,9 @@ function func_command_gunzip() {
             ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile3.txt.gz
         printf "#--------------------------------------------------------------------------------------------#\n"
         echo
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-12s %s %-15s\n" "샘플" ":" "gunzip -r ${filePathParam%/}/tmp/${commandItem}/"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "gunzip -r ${filePathParam%/}/tmp/${commandItem}/"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-21s %s %s\n" "출력결과(예상)" ":" "하위 폴더내 모든 파일 압축해제"
         printf "#--------------------------------------------------------------------------------------------#\n"
@@ -1749,8 +1803,9 @@ function func_command_gunzip() {
             ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile3.txt
         printf "#--------------------------------------------------------------------------------------------#\n"
     elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-14s %s %-15s\n" "サンプル" ":" "gunzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt.gz"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "gunzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt.gz"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-21s %s %s\n" "出力結果(予想)" ":" "ファイル単位で解凍"
         printf "#--------------------------------------------------------------------------------------------#\n"
@@ -1772,8 +1827,9 @@ function func_command_gunzip() {
             ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile3.txt.gz
         printf "#--------------------------------------------------------------------------------------------#\n"
         echo
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-14s %s %-15s\n" "サンプル" ":" "gunzip -r ${filePathParam%/}/tmp/${commandItem}/"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "gunzip -r ${filePathParam%/}/tmp/${commandItem}/"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-21s %s %s\n" "出力結果(予想)" ":" "サブフォルダー内のすべてのファイルの解凍"
         printf "#--------------------------------------------------------------------------------------------#\n"
@@ -1795,8 +1851,9 @@ function func_command_gunzip() {
             ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile3.txt
         printf "#--------------------------------------------------------------------------------------------#\n"
     else
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-10s %s %-15s\n" "Sample" ":" "gunzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt.gz"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "gunzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt.gz"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-15s %s %s\n" "Output(expect)" ":" "Uncompress by file"
         printf "#--------------------------------------------------------------------------------------------#\n"
@@ -1818,8 +1875,9 @@ function func_command_gunzip() {
             ls ${filePathParam%/}/tmp/${commandItem}/ | grep ${commandItem}_TestFile3.txt.gz
         printf "#--------------------------------------------------------------------------------------------#\n"
         echo
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-10s %s %-15s\n" "Sample" ":" "gunzip -r ${filePathParam%/}/tmp/${commandItem}/"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "gunzip -r ${filePathParam%/}/tmp/${commandItem}/"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-15s %s %s\n" "Output(expect)" ":" "Unzip all files in subfolders"
         printf "#--------------------------------------------------------------------------------------------#\n"
@@ -1868,7 +1926,9 @@ function func_command_zip() {
     ### Japense Command Description Parameter / 일본어 명령어 설명 파라미터 / 日本語コマンド説明パラメータ
     local commandDescriptionJpParam=$5
     ### Command / 명령어 / コマンド
-    local commandItem="zip"
+    local commandItem=$6
+    ### Count / 번호 / 番号 
+    local countNumber=0
 
     mkdir -p ${filePathParam%/}/tmp/${commandItem}/test1/
     echo "testFile1,Command,data" > ${filePathParam%/}/tmp/${commandItem}/test1/${commandItem}_TestFile1.txt
@@ -1908,8 +1968,9 @@ function func_command_zip() {
         printf "##############################################################################################\n"
         echo
     if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-12s %s %-15s\n" "샘플" ":" "zip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.zip ${filePathParam%/}/tmp/${commandItem}/test1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "zip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.zip ${filePathParam%/}/tmp/${commandItem}/test1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-21s %s %s\n" "출력결과(예상)" ":" "여러 파일 압축 (신규파일 adding)"
         printf "#--------------------------------------------------------------------------------------------#\n"
@@ -1925,8 +1986,9 @@ function func_command_zip() {
             echo
         printf "#--------------------------------------------------------------------------------------------#\n"
         echo
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-12s %s %-15s\n" "샘플" ":" "zip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.zip ${filePathParam%/}/tmp/${commandItem}/test1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile3.txt"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "zip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.zip ${filePathParam%/}/tmp/${commandItem}/test1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile3.txt"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-21s %s %s\n" "출력결과(예상)" ":" "여러 파일 압축 (기존파일 updatng)"
         printf "#--------------------------------------------------------------------------------------------#\n"
@@ -1943,8 +2005,9 @@ function func_command_zip() {
             echo
         printf "#--------------------------------------------------------------------------------------------#\n"
         echo
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-10s %s %-15s\n" "샘플" ":" "zip -r ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_r.zip ${filePathParam%/}/tmp/${commandItem}/"
+        printf "  %-10s %s %-15s\n" "샘플${countNumber}" ":" "zip -r ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_r.zip ${filePathParam%/}/tmp/${commandItem}/"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-15s %s %s\n" "출력결과(예상)" ":" "지정된 폴더의 모든 하위 구조 압축"
         printf "#--------------------------------------------------------------------------------------------#\n"
@@ -1964,8 +2027,9 @@ function func_command_zip() {
             echo
         printf "#--------------------------------------------------------------------------------------------#\n"
         echo
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-10s %s %-15s\n" "샘플" ":" "zip -j ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_j.zip ${filePathParam%/}/tmp/${commandItem}/*"
+        printf "  %-10s %s %-15s\n" "샘플${countNumber}" ":" "zip -j ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_j.zip ${filePathParam%/}/tmp/${commandItem}/*"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-15s %s %s\n" "출력결과(예상)" ":" "하위 폴더를 무시하고 파일만 압축"
         printf "#--------------------------------------------------------------------------------------------#\n"
@@ -1983,8 +2047,9 @@ function func_command_zip() {
             echo
         printf "#--------------------------------------------------------------------------------------------#\n"
         echo
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-10s %s %-15s\n" "샘플" ":" "zip -d ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_j.zip ${commandItem}_TestFile2.txt ${commandItem}_TestFile3.txt"
+        printf "  %-10s %s %-15s\n" "샘플${countNumber}" ":" "zip -d ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_j.zip ${commandItem}_TestFile2.txt ${commandItem}_TestFile3.txt"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-15s %s %s\n" "출력결과(예상)" ":" "zip파일 내부에서 지정 파일을 삭제"
         printf "#--------------------------------------------------------------------------------------------#\n"
@@ -2000,8 +2065,9 @@ function func_command_zip() {
             echo
         printf "#--------------------------------------------------------------------------------------------#\n"
     elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-14s %s %-15s\n" "サンプル" ":" "zip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.zip ${filePathParam%/}/tmp/${commandItem}/test1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "zip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.zip ${filePathParam%/}/tmp/${commandItem}/test1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-21s %s %s\n" "出力結果(予想)" ":" "複数ファイル圧縮(新規ファイルadding)"
         printf "#--------------------------------------------------------------------------------------------#\n"
@@ -2017,8 +2083,9 @@ function func_command_zip() {
             echo
         printf "#--------------------------------------------------------------------------------------------#\n"
         echo
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-14s %s %-15s\n" "サンプル" ":" "zip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.zip ${filePathParam%/}/tmp/${commandItem}/test1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile3.txt"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "zip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.zip ${filePathParam%/}/tmp/${commandItem}/test1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile3.txt"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-21s %s %s\n" "出力結果(予想)" ":" "複数ファイル圧縮(既存ファイルupdatng)"
         printf "#--------------------------------------------------------------------------------------------#\n"
@@ -2035,8 +2102,9 @@ function func_command_zip() {
             echo
         printf "#--------------------------------------------------------------------------------------------#\n"
         echo
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-10s %s %-15s\n" "サンプル" ":" "zip -r ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_r.zip ${filePathParam%/}/tmp/${commandItem}/"
+        printf "  %-10s %s %-15s\n" "サンプル${countNumber}" ":" "zip -r ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_r.zip ${filePathParam%/}/tmp/${commandItem}/"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-15s %s %s\n" "出力結果(予想)" ":" "指定されたフォルダー内のすべてのサブ構造圧"
         printf "#--------------------------------------------------------------------------------------------#\n"
@@ -2056,8 +2124,9 @@ function func_command_zip() {
             echo
         printf "#--------------------------------------------------------------------------------------------#\n"
         echo
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-10s %s %-15s\n" "サンプル" ":" "zip -j ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_j.zip ${filePathParam%/}/tmp/${commandItem}/*"
+        printf "  %-10s %s %-15s\n" "サンプル${countNumber}" ":" "zip -j ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_j.zip ${filePathParam%/}/tmp/${commandItem}/*"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-15s %s %s\n" "出力結果(予想)" ":" "サブフォルダーを無視してファイルのみを圧縮"
         printf "#--------------------------------------------------------------------------------------------#\n"
@@ -2075,8 +2144,9 @@ function func_command_zip() {
             echo
         printf "#--------------------------------------------------------------------------------------------#\n"
         echo
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-10s %s %-15s\n" "サンプル" ":" "zip -d ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_j.zip ${commandItem}_TestFile2.txt ${commandItem}_TestFile3.txt"
+        printf "  %-10s %s %-15s\n" "サンプル${countNumber}" ":" "zip -d ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_j.zip ${commandItem}_TestFile2.txt ${commandItem}_TestFile3.txt"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-15s %s %s\n" "出力結果(予想)" ":" "zipファイルの内部から指定ファイルを削除"
         printf "#--------------------------------------------------------------------------------------------#\n"
@@ -2092,8 +2162,9 @@ function func_command_zip() {
             echo
         printf "#--------------------------------------------------------------------------------------------#\n"
     else
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-10s %s %-15s\n" "Sample" ":" "zip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.zip ${filePathParam%/}/tmp/${commandItem}/test1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "zip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.zip ${filePathParam%/}/tmp/${commandItem}/test1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-15s %s %s\n" "Output(expect)" ":" "Compress multiple files (new file adding)"
         printf "#--------------------------------------------------------------------------------------------#\n"
@@ -2109,8 +2180,9 @@ function func_command_zip() {
             echo
         printf "#--------------------------------------------------------------------------------------------#\n"
         echo
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-10s %s %-15s\n" "Sample" ":" "zip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.zip ${filePathParam%/}/tmp/${commandItem}/test1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile3.txt"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "zip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.zip ${filePathParam%/}/tmp/${commandItem}/test1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile3.txt"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-15s %s %s\n" "Output(expect)" ":" "Compress multiple files (existing files updateng)"
         printf "#--------------------------------------------------------------------------------------------#\n"
@@ -2127,8 +2199,9 @@ function func_command_zip() {
             echo
         printf "#--------------------------------------------------------------------------------------------#\n"
         echo
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-10s %s %-15s\n" "Sample" ":" "zip -r ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_r.zip ${filePathParam%/}/tmp/${commandItem}/"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "zip -r ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_r.zip ${filePathParam%/}/tmp/${commandItem}/"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-15s %s %s\n" "Output(expect)" ":" "Compress all substructures in the specified folder"
         printf "#--------------------------------------------------------------------------------------------#\n"
@@ -2148,8 +2221,9 @@ function func_command_zip() {
             echo
         printf "#--------------------------------------------------------------------------------------------#\n"
         echo
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-10s %s %-15s\n" "Sample" ":" "zip -j ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_j.zip ${filePathParam%/}/tmp/${commandItem}/*"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "zip -j ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_j.zip ${filePathParam%/}/tmp/${commandItem}/*"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-15s %s %s\n" "Output(expect)" ":" "Ignore subfolders and compress only files"
         printf "#--------------------------------------------------------------------------------------------#\n"
@@ -2167,8 +2241,9 @@ function func_command_zip() {
             echo
         printf "#--------------------------------------------------------------------------------------------#\n"
         echo
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-10s %s %-15s\n" "Sample" ":" "zip -d ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_j.zip ${commandItem}_TestFile2.txt ${commandItem}_TestFile3.txt"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "zip -d ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_j.zip ${commandItem}_TestFile2.txt ${commandItem}_TestFile3.txt"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-15s %s %s\n" "Output(expect)" ":" "Delete the specified file from inside the zip file"
         printf "#--------------------------------------------------------------------------------------------#\n"
@@ -2211,7 +2286,9 @@ function func_command_unzip() {
     ### Japense Command Description Parameter / 일본어 명령어 설명 파라미터 / 日本語コマンド説明パラメータ
     local commandDescriptionJpParam=$5
     ### Command / 명령어 / コマンド
-    local commandItem="unzip"
+    local commandItem=$6
+    ### Count / 번호 / 番号 
+    local countNumber=0
 
     mkdir -p ${filePathParam%/}/tmp/${commandItem}/test1/
     mkdir -p ${filePathParam%/}/tmp/${commandItem}/test2/
@@ -2250,8 +2327,9 @@ function func_command_unzip() {
         printf "##############################################################################################\n"
         echo
     if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-12s %s %-15s\n" "샘플" ":" "unzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_jr.zip"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "unzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_jr.zip"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-21s %s %s\n" "출력결과(예상)" ":" "현재 폴더에 압축 해제"
         printf "#--------------------------------------------------------------------------------------------#\n"
@@ -2268,8 +2346,9 @@ function func_command_unzip() {
             echo
         printf "#--------------------------------------------------------------------------------------------#\n"
         echo
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-12s %s %-15s\n" "샘플" ":" "unzip -l ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_jr.zip"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "unzip -l ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_jr.zip"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-21s %s %s\n" "출력결과(예상)" ":" "압축 파일 내용 출력"
         printf "#--------------------------------------------------------------------------------------------#\n"
@@ -2290,8 +2369,9 @@ function func_command_unzip() {
             echo
         printf "#--------------------------------------------------------------------------------------------#\n"
         echo
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-12s %s %-15s\n" "샘플" ":" "unzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_jr.zip -d ${filePathParam%/}/tmp/${commandItem}/test2/"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "unzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_jr.zip -d ${filePathParam%/}/tmp/${commandItem}/test2/"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-21s %s %s\n" "출력결과(예상)" ":" "지정된 폴더에 압축 해제"
         printf "#--------------------------------------------------------------------------------------------#\n"
@@ -2308,8 +2388,9 @@ function func_command_unzip() {
             echo
         printf "#--------------------------------------------------------------------------------------------#\n"
     elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-14s %s %-15s\n" "サンプル" ":" "unzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_jr.zip"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "unzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_jr.zip"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-21s %s %s\n" "出力結果(予想)" ":" "現在のフォルダへの解凍"
         printf "#--------------------------------------------------------------------------------------------#\n"
@@ -2326,8 +2407,9 @@ function func_command_unzip() {
             echo
         printf "#--------------------------------------------------------------------------------------------#\n"
         echo
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-14s %s %-15s\n" "サンプル" ":" "unzip -l ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_jr.zip"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "unzip -l ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_jr.zip"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-21s %s %s\n" "出力結果(予想)" ":" "圧縮ファイルの内容出力"
         printf "#--------------------------------------------------------------------------------------------#\n"
@@ -2348,8 +2430,9 @@ function func_command_unzip() {
             echo
         printf "#--------------------------------------------------------------------------------------------#\n"
         echo
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-14s %s %-15s\n" "サンプル" ":" "unzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_jr.zip -d ${filePathParam%/}/tmp/${commandItem}/test2/"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "unzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_jr.zip -d ${filePathParam%/}/tmp/${commandItem}/test2/"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-21s %s %s\n" "出力結果(予想)" ":" "指定されたフォルダへの解凍"
         printf "#--------------------------------------------------------------------------------------------#\n"
@@ -2366,8 +2449,9 @@ function func_command_unzip() {
             echo
         printf "#--------------------------------------------------------------------------------------------#\n"
     else
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-10s %s %-15s\n" "Sample" ":" "unzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_jr.zip"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "unzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_jr.zip"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-15s %s %s\n" "Output(expect)" ":" "Compressed File Content Output"
         printf "#--------------------------------------------------------------------------------------------#\n"
@@ -2384,8 +2468,9 @@ function func_command_unzip() {
             echo
         printf "#--------------------------------------------------------------------------------------------#\n"
         echo
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-10s %s %-15s\n" "Sample" ":" "unzip -l ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_jr.zip"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "unzip -l ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_jr.zip"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-15s %s %s\n" "Output(expect)" ":" "Unzip to the current folder"
         printf "#--------------------------------------------------------------------------------------------#\n"
@@ -2406,8 +2491,9 @@ function func_command_unzip() {
             echo
         printf "#--------------------------------------------------------------------------------------------#\n"
         echo
+        countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
-        printf "  %-10s %s %-15s\n" "Sample" ":" "unzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_jr.zip -d ${filePathParam%/}/tmp/${commandItem}/test2/"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "unzip ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_jr.zip -d ${filePathParam%/}/tmp/${commandItem}/test2/"
         printf "#--------------------------------------------------------------------------------------------#\n"
         printf "    %-15s %s %s\n" "Output(expect)" ":" "Unzip to the specified folder"
         printf "#--------------------------------------------------------------------------------------------#\n"
@@ -2439,13 +2525,1351 @@ function func_command_unzip() {
 }
 
 #--------------------------------------------#
+# Command : date                              #
+#--------------------------------------------#
+function func_command_date() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### English Command Description Parameter / 영어 명령어 설명 파라미터 / 英語コマンド説明パラメータ
+    local commandDescriptionEnParam=$3
+    ### Korean Command Description Parameter / 한국어 명령어 설명 파라미터 / 韓国語コマンド説明パラメータ
+    local commandDescriptionKrParam=$4
+    ### Japense Command Description Parameter / 일본어 명령어 설명 파라미터 / 日本語コマンド説明パラメータ
+    local commandDescriptionJpParam=$5
+    ### Command / 명령어 / コマンド
+    local commandItem=$6
+    ### Count / 번호 / 番号 
+    local countNumber=0
+
+    old_LC_ALL=${LC_ALL}
+    echo "old_LC_ALL=${old_LC_ALL}"
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${commandItem}
+    printf "##############################################################################################\n"
+    echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        printf "  %-16s %s %s\n" "명령어" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "기본설명" ":" "${commandDescriptionKrParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※사용법" ":" "${commandItem}_[인수1]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※인수1" ":" "[출력 날짜 형식]" | sed 's/_/ /g'
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        printf "  %-17s %s %s\n" "コマンド" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "基本説明" ":" "${commandDescriptionJpParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}_[引数1]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数1" ":" "[出力日付形式]" | sed 's/_/ /g'
+    else
+        printf "  %-13s %s %s\n" "Command" ":" "${commandItem}"
+        printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_[argument1]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument1" ":" "[Output_Date_Format]" | sed 's/_/ /g'
+    fi
+        echo
+        printf "##############################################################################################\n"
+        echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "date"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "표준 형식 날짜 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo ' export LC_ALL="ko_KR.UTF-8" '
+            export LC_ALL="ko_KR.UTF-8"
+            echo "[YYYY]년 [M]월  [D]일 [X]요일 [hh]시 [mm]분 [ss]초 JST"
+            echo "2024년 3월  1일 금요일 21시 35분 28초 JST"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "date"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            date
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "date +%c"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "표준 형식 날짜 출력(간소화)"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "[X]  [M]/ [D] [hh]:[mm]:[ss] [YYYY]"
+            echo "금  3/ 1 21:35:28 2024"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "date '+%c'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            date '+%c'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "date +%F"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "date +%D"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "date +%x"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "날짜 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "YYYY-MM-DD : 2024-03-01"
+            echo "MM/DD/YY : 03/01/24"
+            echo "MM/DD/YYYY : 03/01/2024"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "date '+%F'"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "date '+%D'"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "date '+%x'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            date '+%F'
+            date '+%D'
+            date '+%x'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "date +%Y"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "date +%y"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "date +%C"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "연도 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "YYYY : 2024"
+            echo "  YY :   24"
+            echo "YY   : 20  "
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "date '+%Y'"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "date '+%y'"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "date '+%C'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            date '+%Y'
+            date '+%y'
+            date '+%C'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "date +%m"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "date +%B"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "date +%b"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "date +%h"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "월 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "03"
+            echo "3월"
+            echo "3"
+            echo "3"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "date '+%m'"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "date '+%B'"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "date '+%b'"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "date '+%h'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            date '+%m'
+            date '+%B'
+            date '+%b'
+            date '+%h'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "date +%d"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "date +%_d"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "date +%e"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "월 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "03"
+            echo "3"
+            echo "3"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "date '+%d'"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "date '+%_d'"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "date '+%e'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            date '+%d'
+            date '+%_d'
+            date '+%e'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "date +%A"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "date +%a"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "date +%u"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "date +%w"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "요일 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "일요일"
+            echo "일"
+            echo "7 : 1(Mon)~7(Sun)"
+            echo "0 : 0(Sun)~6(Mon)"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "date '+%A'"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "date '+%a'"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "date '+%u'"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "date '+%w'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            date '+%A'
+            date '+%a'
+            date '+%u'
+            date '+%w'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "date +%p"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "AM/PM 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "PM"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "date '+%p'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            date '+%p'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "date +%H"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "date +%I"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "date +%k"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "date +%l"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "시간 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "01 : (2桁 24時)"
+            echo "01 : (2桁 12時)"
+            echo " 1 : (1桁 24時)"
+            echo " 1 : (1桁 12時)"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "date '+%H'"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "date '+%I'"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "date '+%k'"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "date '+%l'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            date '+%H'
+            date '+%I'
+            date '+%k'
+            date '+%l'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "date +%M"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "date +%_M"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "분출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "01 : (2분)"
+            echo " 1 : (1분)"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "date '+%M'"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "date '+%_M'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            date '+%M'
+            date '+%_M'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "date +%S"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "date +%_S"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "초출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "01 : (2자리수)"
+            echo " 1 : (1자리수)"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "date '+%S'"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "date '+%_S'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            date '+%S'
+            date '+%_S'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "date +%z"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "date +%Z"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "타임존출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "+0900"
+            echo "JST"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "date '+%z'"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "date '+%Z'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            date '+%z'
+            date '+%Z'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "date"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "標準形式日付出力"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo ' export LC_ALL="ja_JP.UTF-8" '
+            export LC_ALL="ja_JP.UTF-8"
+            echo "[YYYY]年 [M]月 [D]日 [X]曜日 [hh]時[mm]分[ss]秒 JST"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "date"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            date
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "date '+%c'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "標準形式日付出力(簡略)"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "[X]  [M]/ [D] [hh]:[mm]:[ss] [YYYY]"
+            echo "金  3/ 1 21:35:28 2024"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "date '+%c'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            date '+%c'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "date '+%F'"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "date '+%D'"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "date '+%x'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "日付出力"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "YYYY-MM-DD : 2024-03-01"
+            echo "MM/DD/YY : 03/01/24"
+            echo "MM/DD/YYYY : 03/01/2024"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "date '+%F'"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "date '+%D'"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "date '+%x'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            date '+%F'
+            date '+%D'
+            date '+%x'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "date '+%Y'"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "date '+%y'"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "date '+%C'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "年度出力"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "YYYY : 2024"
+            echo "  YY : 24"
+            echo "YY   : 20"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "date '+%Y'"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "date '+%y'"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "date '+%C'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            date '+%Y'
+            date '+%y'
+            date '+%C'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "date '+%m'"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "date '+%B'"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "date '+%b'"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "date '+%h'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "月出力"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "03"
+            echo "3月"
+            echo "3"
+            echo "3"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "date '+%m'"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "date '+%B'"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "date '+%b'"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "date '+%h'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            date '+%m'
+            date '+%B'
+            date '+%b'
+            date '+%h'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "date '+%d'"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "date '+%_d'"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "date '+%e'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "日出力"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "03"
+            echo " 3"
+            echo " 3"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "date '+%d'"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "date '+%_d'"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "date '+%e'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            date '+%d'
+            date '+%_d'
+            date '+%e'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "date '+%A'"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "date '+%a'"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "date '+%u'"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "date '+%w'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "曜日出力"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "日曜日"
+            echo "日"
+            echo "7 : 1(Mon)~7(Sun)"
+            echo "0 : 0(Sun)~6(Mon)"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "date '+%A'"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "date '+%a'"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "date '+%u'"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "date '+%w'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            date '+%A'
+            date '+%a'
+            date '+%u'
+            date '+%w'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "date '+%p'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "AM/PM出力"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "PM"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "date '+%p'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            date '+%p'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "date '+%H'"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "date '+%I'"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "date '+%k'"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "date '+%l'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "時出力"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "01 : (2桁 24時)"
+            echo "01 : (2桁 12時)"
+            echo " 1 : (1桁 24時)"
+            echo " 1 : (1桁 12時)"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "date '+%H'"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "date '+%I'"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "date '+%k'"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "date '+%l'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            date '+%H'
+            date '+%I'
+            date '+%k'
+            date '+%l'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "date '+%M'"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "date '+%_M'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "分出力"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "01 : (2桁 分)"
+            echo " 1 : (1桁 分)"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "date '+%M'"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "date '+%_M'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            date '+%M'
+            date '+%_M'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "date '+%S'"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "date '+%_S'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "秒出力"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "01 : (2桁)"
+            echo " 1 : (1桁)"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "date '+%S'"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "date '+%_S'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            date '+%S'
+            date '+%_S'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "date '+%z'"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "date '+%Z'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "タイムゾーン出力"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "+0900"
+            echo "JST"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "date '+%z'"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "date '+%Z'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            date '+%z'
+            date '+%Z'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    else
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "date"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Standard Format Date Output"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo ' export LC_ALL="en_US.UTF-8" '
+            export LC_ALL="en_US.UTF-8"
+            echo "[the week] [Months] [Days] [hh]:[mm]:[ss] JST [YYYY]"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "date"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            date
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "date '+%c'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Standard Format Date Output(simplify)"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "[X]  [M] [D] [hh]:[mm]:[ss] [YYYY]"
+            echo "Fri Mar 1 21:35:28 2024"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "date '+%c'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            date '+%c'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "date '+%F'"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "date '+%D'"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "date '+%x'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Date Output"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "YYYY-MM-DD : 2024-03-01"
+            echo "MM/DD/YY : 03/01/24"
+            echo "MM/DD/YYYY : 03/01/2024"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "date '+%F'"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "date '+%D'"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "date '+%x'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            date '+%F'
+            date '+%D'
+            date '+%x'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "date '+%Y'"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "date '+%y'"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "date '+%C'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Year Output"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "YYYY : 2024"
+            echo "  YY :   24"
+            echo "YY   : 20  "
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "date '+%Y'"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "date '+%y'"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "date '+%C'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            date '+%Y'
+            date '+%y'
+            date '+%C'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "date '+%m'"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "date '+%B'"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "date '+%b'"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "date '+%h'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Months Output"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "03"
+            echo "March"
+            echo "Mar"
+            echo "Mar"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "date '+%m'"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "date '+%B'"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "date '+%b'"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "date '+%h'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            date '+%m'
+            date '+%B'
+            date '+%b'
+            date '+%h'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "date '+%d'"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "date '+%_d'"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "date '+%e'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Days Output"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "03"
+            echo " 3"
+            echo " 3"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "date '+%d'"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "date '+%_d'"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "date '+%e'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            date '+%d'
+            date '+%_d'
+            date '+%e'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "date '+%A'"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "date '+%a'"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "date '+%u'"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "date '+%w'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Weeks Output"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Sunday"
+            echo "Sun"
+            echo "7 : 1(Mon)~7(Sun)"
+            echo "0 : 0(Sun)~6(Mon)"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "date '+%A'"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "date '+%a'"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "date '+%u'"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "date '+%w'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            date '+%A'
+            date '+%a'
+            date '+%u'
+            date '+%w'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "date '+%p'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "AM/PM Output"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "PM"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "date '+%p'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            date '+%p'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "date '+%H'"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "date '+%I'"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "date '+%k'"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "date '+%l'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "hours Output"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "01 : (2 words 24hours)"
+            echo "01 : (2 words 12hours)"
+            echo " 1 : (1 words 24hours)"
+            echo " 1 : (1 words 12hours)"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "date '+%H'"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "date '+%I'"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "date '+%k'"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "date '+%l'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            date '+%H'
+            date '+%I'
+            date '+%k'
+            date '+%l'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "date '+%M'"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "date '+%_M'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Minutes Output"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "01 : (2 words)"
+            echo " 1 : (1 words)"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "date '+%M'"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "date '+%_M'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            date '+%M'
+            date '+%_M'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "date '+%S'"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "date '+%_S'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Seconds Output"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "01 : (2 words)"
+            echo " 1 : (1 words)"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "date '+%S'"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "date '+%_S'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            date '+%S'
+            date '+%_S'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "date '+%z'"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "date '+%Z'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Timezone Output"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "+0900"
+            echo "JST"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "date '+%z'"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "date '+%Z'"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            date '+%z'
+            date '+%Z'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    fi
+        echo
+    printf "##############################################################################################\n"
+    
+    export LC_ALL=${old_LC_ALL}
+
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    #rm -rf ${filePathParam%/}/tmp/${commandItem}/
+
+    func_basicSetting_LogFileName_Path ${PID} "1" ${commandItem}
+    echo 
+    
+}
+
+#--------------------------------------------#
+# Command : cal                              #
+#--------------------------------------------#
+function func_command_cal() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### English Command Description Parameter / 영어 명령어 설명 파라미터 / 英語コマンド説明パラメータ
+    local commandDescriptionEnParam=$3
+    ### Korean Command Description Parameter / 한국어 명령어 설명 파라미터 / 韓国語コマンド説明パラメータ
+    local commandDescriptionKrParam=$4
+    ### Japense Command Description Parameter / 일본어 명령어 설명 파라미터 / 日本語コマンド説明パラメータ
+    local commandDescriptionJpParam=$5
+    ### Command / 명령어 / コマンド
+    local commandItem=$6
+    ### Count / 번호 / 番号 
+    local countNumber=0
+
+    old_LC_ALL=${LC_ALL}
+    echo "old_LC_ALL=${old_LC_ALL}"
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${commandItem}
+    printf "##############################################################################################\n"
+    echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        printf "  %-16s %s %s\n" "명령어" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "기본설명" ":" "${commandDescriptionKrParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※사용법" ":" "${commandItem}_[옵션]_[인수]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※옵션" ":" "[-r]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※인수" ":" "[대상날짜]" | sed 's/_/ /g'
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        printf "  %-17s %s %s\n" "コマンド" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "基本説明" ":" "${commandDescriptionJpParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}_[オプション]_[引数]" | sed 's/_/ /g'
+        printf "  %-20s %s %s\n" "※オプション" ":" "[-r]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数" ":" "[対象日付]" | sed 's/_/ /g'
+    else
+        printf "  %-13s %s %s\n" "Command" ":" "${commandItem}"
+        printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_[argument]_[argument]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※option" ":" "[-r]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument" ":" "[target_Date]" | sed 's/_/ /g'
+    fi
+        echo
+        printf "##############################################################################################\n"
+        echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        export LC_ALL="ko_KR.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "cal"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "명령어 실행 월의 달력을 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "     M월 YYYY    "
+            echo "일 월 화 수 목 금 토"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　●　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "cal"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            cal
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "cal -h"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "명령어 실행 월의 달력을 출력(오늘 강조 표시)"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "     M월 YYYY    "
+            echo "일 월 화 수 목 금 토"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "cal -h"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            cal -h
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "cal -j"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "줄리안 달력으로 출력(1월 1일을 기준으로 1씩 더해진 날짜를 출력)"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "     M월 YYYY    "
+            echo "일 월 화 수 목 금 토"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　●　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "cal -j"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            cal -j
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "cal -y"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "올해의 모든 날짜를 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "     M월 YYYY    "
+            echo "일 월 화 수 목 금 토"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　●　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "cal -y"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            cal -y
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "cal -d 2022-6"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "cal -d 2022-6-1"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "지정된 날짜를 달력을 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "     6월 2022    "
+            echo "일 월 화 수 목 금 토"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "cal -d 2022-6"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "cal -d 2022-6-1"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            cal -d 2022-6
+            cal -d 2022-6-1
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        export LC_ALL="ja_JP.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "cal"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "コマンド実行月のカレンダーを出力"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "     M月 YYYY    "
+            echo "日 月 火 水 木 金 土"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　●　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "cal"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            cal
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "cal -h"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "コマンド実行月のカレンダーを出力(今日は強調表示しない)"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "     M月 YYYY    "
+            echo "日 月 火 水 木 金 土"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "cal -h"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            cal -h
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "cal -j"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "ジュリアンカレンダーへの出力（1月1日から1日ずつ足す日付を出力）"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "     M月 YYYY    "
+            echo "日 月 火 水 木 金 土"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　●　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "cal -j"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            cal -j
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "cal -y"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "今年のすべての日付を出力"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "     M月 YYYY    "
+            echo "日 月 火 水 木 金 土"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　●　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "cal -y"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            cal -y
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "cal -d 2022-6"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "cal -d 2022-6-1"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "指定された日付をカレンダーを出力"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "     6月 2022    "
+            echo "日 月 火 水 木 金 土"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "cal -d 2022-6"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "cal -d 2022-6-1"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            cal -d 2022-6
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    else
+        export LC_ALL="en_US.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "cal"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Outputs the calendar for the month of command execution"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "   March YYYY    "
+            echo "Su Mo Tu We Th Fr Sa"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　●　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "cal"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            cal
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "cal -h"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Outputs the calendar for the month of command execution(Not highlight today)"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "   March YYYY    "
+            echo "Su Mo Tu We Th Fr Sa"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "cal -h"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            cal -h 
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "cal -j"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Output to Julian Calendar (outputs the date added by 1 as of January 1st)"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "   March YYYY    "
+            echo "Su Mo Tu We Th Fr Sa"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　●　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "cal -j"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            cal -j
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "cal -y"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Output all dates for this year"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "   March YYYY    "
+            echo "Su Mo Tu We Th Fr Sa"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　●　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "cal -y"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            cal -y
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "cal -d 2022-6"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "cal -d 2022-6-1"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Output calendar for the specified date"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "   June 2022    "
+            echo "Su Mo Tu We Th Fr Sa"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo "◯　◯　◯　◯　◯　◯　◯"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "cal -d 2022-6"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "cal -d 2022-6-1"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            cal -d 2022-6
+            cal -d 2022-6-1
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    fi
+        echo
+    printf "##############################################################################################\n"
+    
+    export LC_ALL=${old_LC_ALL}
+
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    #rm -rf ${filePathParam%/}/tmp/${commandItem}/
+
+    func_basicSetting_LogFileName_Path ${PID} "1" ${commandItem}
+    echo 
+    
+}
+
+#--------------------------------------------#
 # Command List                               #
 #  : 명령어 리스트                               #
 #  : コマンドリスト                              #
 #--------------------------------------------#
+readonly calEn="Calendar_in_traditional_format"
+readonly calKr="전통적인_형식의_달력"
+readonly calJp="伝統的な形式のカレンダー"
 readonly catEn="Reads_files_sequentially_and_records_them_as_standard_outputs.file_operands_are_handled_in_command_line_order"
 readonly catKr="파일을_순차적으로_읽고_표준_출력으로_기록하며_파일_피연산자는_명령줄_순서로_처리"
 readonly catJp="ファイルを順番に読み取って標準出力で記録し、ファイルの被演算子はコマンドライン順に処理"
+readonly dateEn="Formatting_dates,_calculating_dates"
+readonly dateKr="날짜_형식_지정,_날짜_계산"
+readonly dateJp="日付形式指定、日付計算"
 readonly exprEn="Evaluate_the_expression_and_record_the_results_in_the_standard_output"
 readonly exprKr="표현식을_평가하고_그_결과를_표준_출력에_기록"
 readonly exprJp="表現式を評価し、その結果を標準出力に記録"
@@ -2464,10 +3888,10 @@ readonly unzipJp="ZIPアーカイブからファイルを一覧表示、テス�
 readonly zipEn="Compress_or_decompress_a_file_or_folder"
 readonly zipKr="파일_또는_폴더를_압축하거나_압축_해제"
 readonly zipJp="ファイルまたはフォルダーを圧縮または解凍"
-declare -a commandList=("cat" "expr" "gunzip" "gzip" "sleep" "unzip" "zip")
-declare -a commandDescriptionEn=("${catEn}" "${exprEn}" "${gunzipEn}" "${gzipEn}" "${sleepEn}" "${unzipEn}" "${zipEn}")
-declare -a commandDescriptionKr=("${catKr}" "${exprKr}" "${gunzipKr}" "${gzipKr}" "${sleepKr}" "${unzipKr}" "${zipKr}")
-declare -a commandDescriptionJp=("${catJp}" "${exprJp}" "${gunzipJp}" "${gzipJp}" "${sleepJp}" "${unzipJp}" "${zipJp}")
+declare -a commandList=("cal" "cat" "date" "expr" "gunzip" "gzip" "sleep" "unzip" "zip")
+declare -a commandDescriptionEn=("${calEn}" "${catEn}" "${dateEn}" "${exprEn}" "${gunzipEn}" "${gzipEn}" "${sleepEn}" "${unzipEn}" "${zipEn}")
+declare -a commandDescriptionKr=("${calKr}" "${catKr}" "${dateKr}" "${exprEn}" "${gunzipKr}" "${gzipKr}" "${sleepKr}" "${unzipKr}" "${zipKr}")
+declare -a commandDescriptionJp=("${calJp}" "${catJp}" "${dateJp}" "${exprEn}" "${gunzipJp}" "${gzipJp}" "${sleepJp}" "${unzipJp}" "${zipJp}")
 
 #--------------------------------------------#
 # Script Basic Variable Setting              #
