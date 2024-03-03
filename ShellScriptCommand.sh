@@ -650,6 +650,18 @@ function func_linuxCommandExample() {
         tail)
             func_command_tail ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
             ;;
+        cd)
+            func_command_cd ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
+            ;;
+        chgrp)
+            func_command_chgrp ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
+            ;;
+        chmod)
+            func_command_chmod ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
+            ;;
+        chown)
+            func_command_chown ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
+            ;;
         *)  echo ; 
             if [[ ${ouputLanguageParam} == [kK][rR] ]];then
                 echo " 에러 : 명령어 함수 미포함 (func_command_${commandList[${commandItemIndex}]})"; 
@@ -5290,6 +5302,895 @@ function func_command_tail() {
 }
 
 #--------------------------------------------#
+# Command : cd                               #
+#--------------------------------------------#
+function func_command_cd() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### English Command Description Parameter / 영어 명령어 설명 파라미터 / 英語コマンド説明パラメータ
+    local commandDescriptionEnParam=$3
+    ### Korean Command Description Parameter / 한국어 명령어 설명 파라미터 / 韓国語コマンド説明パラメータ
+    local commandDescriptionKrParam=$4
+    ### Japense Command Description Parameter / 일본어 명령어 설명 파라미터 / 日本語コマンド説明パラメータ
+    local commandDescriptionJpParam=$5
+    ### Command / 명령어 / コマンド
+    local commandItem=$6
+    ### Count / 번호 / 番号 
+    local countNumber=0
+
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/Directory1/
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/Directory2/
+    echo 'TestFile1' > ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile.txt
+    old_LC_ALL=${LC_ALL}
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${commandItem}
+    printf "##############################################################################################\n"
+    echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        printf "  %-16s %s %s\n" "명령어" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "기본설명" ":" "${commandDescriptionKrParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※사용법" ":" "${commandItem}_[인수]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※인수" ":" "[대상_폴더]" | sed 's/_/ /g'
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        printf "  %-17s %s %s\n" "コマンド" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "基本説明" ":" "${commandDescriptionJpParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}_[引数]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数" ":" "[対象フォルダ]" | sed 's/_/ /g'
+    else
+        printf "  %-13s %s %s\n" "Command" ":" "${commandItem}"
+        printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_[argument]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument" ":" "[Target_Folders]" | sed 's/_/ /g'
+    fi
+        echo
+        printf "##############################################################################################\n"
+        echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        export LC_ALL="ko_KR.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "cd ${filePathParam%/}/tmp/${commandItem}/Directory1/"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "cd ${filePathParam%/}/tmp/${commandItem}/Directory2/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "작업 디렉토리 변경"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "pwd : 작업 디렉토리"
+            echo "pwd : Directory1"
+            echo "pwd : Directory2"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "cd ${filePathParam%/}/tmp/${commandItem}/Directory1/"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "cd ${filePathParam%/}/tmp/${commandItem}/Directory2/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            pwd
+            cd ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            pwd
+            cd ${filePathParam%/}/tmp/${commandItem}/Directory2/
+            pwd
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        export LC_ALL="ja_JP.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "cd ${filePathParam%/}/tmp/${commandItem}/Directory1/"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "cd ${filePathParam%/}/tmp/${commandItem}/Directory2/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "作業ディレクトリの変更"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "pwd : 作業ディレクトリ"
+            echo "pwd : Directory1"
+            echo "pwd : Directory2"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "cd ${filePathParam%/}/tmp/${commandItem}/Directory1/"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "cd ${filePathParam%/}/tmp/${commandItem}/Directory2/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            pwd
+            cd ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            pwd
+            cd ${filePathParam%/}/tmp/${commandItem}/Directory2/
+            pwd            
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    else
+        export LC_ALL="en_US.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "cd ${filePathParam%/}/tmp/${commandItem}/Directory1/"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "cd ${filePathParam%/}/tmp/${commandItem}/Directory2/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Changing the Working Directory"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "pwd : Working Directory"
+            echo "pwd : Directory1"
+            echo "pwd : Directory2"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "cd ${filePathParam%/}/tmp/${commandItem}/Directory1/"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "cd ${filePathParam%/}/tmp/${commandItem}/Directory2/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            pwd
+            cd ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            pwd
+            cd ${filePathParam%/}/tmp/${commandItem}/Directory2/
+            pwd
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    fi
+        echo
+    printf "##############################################################################################\n"
+
+    export LC_ALL=${old_LC_ALL}
+
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    rm -rf ${filePathParam%/}/tmp/${commandItem}/
+
+    func_basicSetting_LogFileName_Path ${PID} "1" ${commandItem}
+    echo 
+    
+}
+
+#--------------------------------------------#
+# Command : chgrp                            #
+#--------------------------------------------#
+function func_command_chgrp() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### English Command Description Parameter / 영어 명령어 설명 파라미터 / 英語コマンド説明パラメータ
+    local commandDescriptionEnParam=$3
+    ### Korean Command Description Parameter / 한국어 명령어 설명 파라미터 / 韓国語コマンド説明パラメータ
+    local commandDescriptionKrParam=$4
+    ### Japense Command Description Parameter / 일본어 명령어 설명 파라미터 / 日本語コマンド説明パラメータ
+    local commandDescriptionJpParam=$5
+    ### Command / 명령어 / コマンド
+    local commandItem=$6
+    ### Count / 번호 / 番号 
+    local countNumber=0
+
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/Directory1/
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/Directory2/
+    echo 'TestFile1' > ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt
+    echo 'TestFile1' > ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt
+    old_LC_ALL=${LC_ALL}
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${commandItem}
+    printf "##############################################################################################\n"
+    echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        printf "  %-16s %s %s\n" "명령어" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "기본설명" ":" "${commandDescriptionKrParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※사용법" ":" "${commandItem}_[옵션]_[인수]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※옵션" ":" "[-R]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※인수" ":" "[대상_파일_또는_폴더]" | sed 's/_/ /g'
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        printf "  %-17s %s %s\n" "コマンド" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "基本説明" ":" "${commandDescriptionJpParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}_[オプション]_[引数]" | sed 's/_/ /g'
+        printf "  %-20s %s %s\n" "※オプション" ":" "[-R]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数" ":" "[対象ファイル又はフォルダ]" | sed 's/_/ /g'
+    else
+        printf "  %-13s %s %s\n" "Command" ":" "${commandItem}"
+        printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_[option]_[argument]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※option" ":" "[-R]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument" ":" "[Target_Files_or_Folders]" | sed 's/_/ /g'
+    fi
+        echo
+        printf "##############################################################################################\n"
+        echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        export LC_ALL="ko_KR.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "chgrp admin ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "chgrp admin ${filePathParam%/}/tmp/${commandItem}/Directory1/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "파일 그룹 소유권 변경"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "폴더 그룹 소유권 변경"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "/etc/group : 파일에서 확인 가능"
+            echo "${commandItem}_TestFile1.txt : 파일 그룹 소유권이 admin으로 변경"
+            echo
+            echo "Directory1 : 폴더 그룹 소유권이 admin으로 변경"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "chgrp admin ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "chgrp admin ${filePathParam%/}/tmp/${commandItem}/Directory1/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "파일 그룹 소유권 변경 전 : (${commandItem}_TestFile1.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            chgrp admin ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt
+            echo
+            echo "파일 그룹 소유권 변경 후 : (${commandItem}_TestFile1.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            echo
+            echo
+            echo "폴더 그룹 소유권 변경 전 : (Directory1)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            chgrp admin ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            echo
+            echo "폴더 그룹 소유권 변경 후 : (Directory1)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "chgrp -R admin ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "파일/폴더 그룹 소유권 변경"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "${commandItem}_TestFile2.txt : 파일 그룹 소유권이 admin으로 변경"
+            echo
+            echo "Directory2 : 폴더 그룹 소유권이 admin으로 변경"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "chgrp -R admin ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "파일/폴더 그룹 소유권 변경 전 : (${commandItem}_TestFile2.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/Directory2/
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            chgrp -R admin ${filePathParam%/}/tmp/${commandItem}/Directory2/
+            echo
+            echo "파일/폴더 그룹 소유권 변경 후 : (${commandItem}_TestFile2.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/Directory2/
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        export LC_ALL="ja_JP.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "chgrp admin ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "chgrp admin ${filePathParam%/}/tmp/${commandItem}/Directory1/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "ファイルグループの所有権変更"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "フォルダグループの所有権変更"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "/etc/group : ファイルから確認可能"
+            echo "${commandItem}_TestFile1.txt : ファイルグループの所有権がadminに変更"
+            echo
+            echo "Directory1 : フォルダグループ所有権がadminに変更"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "chgrp admin ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "chgrp admin ${filePathParam%/}/tmp/${commandItem}/Directory1/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "ファイルグループの所有権変更前 : (${commandItem}_TestFile1.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            chgrp admin ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt
+            echo
+            echo "ファイルグループの所有権変更後 : (${commandItem}_TestFile1.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            echo
+            echo
+            echo "フォルダグループの所有権変更前 : (Directory1)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            chgrp admin ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            echo
+            echo "フォルダグループの所有権変更後 : (Directory1)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "chgrp -R admin ${filePathParam%/}/tmp/${commandItem}/Directory2/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "ファイル・フォルダグループの所有権変更"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "${commandItem}_TestFile2.txt : ファイルグループの所有権がadminに変更"
+            echo
+            echo "Directory2 : フォルダグループの所有権がadminに変更"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "chgrp -R admin ${filePathParam%/}/tmp/${commandItem}/Directory2/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "ファイル・フォルダグループの所有権変更前 : (${commandItem}_TestFile2.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/Directory2/
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            chgrp -R admin ${filePathParam%/}/tmp/${commandItem}/Directory2/
+            echo
+            echo "ファイル・フォルダグループの所有権変更後 : (${commandItem}_TestFile2.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/Directory2/
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    else
+        export LC_ALL="en_US.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "chgrp admin ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "chgrp admin ${filePathParam%/}/tmp/${commandItem}/Directory1/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Change File group Ownership"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Change folder group ownership"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "/etc/group : Check from the File"
+            echo "${commandItem}_TestFile1.txt : Change file group ownership to admin"
+            echo
+            echo "Directory1 : Change folder group ownership to admin"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "chgrp admin ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "chgrp admin ${filePathParam%/}/tmp/${commandItem}/Directory1/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Before changing ownership of file groups : (${commandItem}_TestFile1.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            chgrp admin ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt
+            echo
+            echo "After changing ownership of file groups : (${commandItem}_TestFile1.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            echo
+            echo
+            echo "Before changing ownership of folder groups : (Directory1)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            chgrp admin ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            echo
+            echo "After changing ownership of folder groups : (Directory1)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "chgrp -R admin ${filePathParam%/}/tmp/${commandItem}/Directory2/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Change file/folder group ownership"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "${commandItem}_TestFile2.txt : Change file group ownership to admin"
+            echo
+            echo "Directory2 : Change folder group ownership to admin"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "chgrp -R admin ${filePathParam%/}/tmp/${commandItem}/Directory2/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Before changing ownership of file/folder groups :(${commandItem}_TestFile2.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/Directory2/
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            chgrp -R admin ${filePathParam%/}/tmp/${commandItem}/Directory2/
+            echo
+            echo "After changing ownership of file/folder groups : (${commandItem}_TestFile2.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/Directory2/
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    fi
+        echo
+    printf "##############################################################################################\n"
+
+    export LC_ALL=${old_LC_ALL}
+
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    rm -rf ${filePathParam%/}/tmp/${commandItem}/
+
+    func_basicSetting_LogFileName_Path ${PID} "1" ${commandItem}
+    echo 
+    
+}
+
+#--------------------------------------------#
+# Command : chmod                            #
+#--------------------------------------------#
+function func_command_chmod() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### English Command Description Parameter / 영어 명령어 설명 파라미터 / 英語コマンド説明パラメータ
+    local commandDescriptionEnParam=$3
+    ### Korean Command Description Parameter / 한국어 명령어 설명 파라미터 / 韓国語コマンド説明パラメータ
+    local commandDescriptionKrParam=$4
+    ### Japense Command Description Parameter / 일본어 명령어 설명 파라미터 / 日本語コマンド説明パラメータ
+    local commandDescriptionJpParam=$5
+    ### Command / 명령어 / コマンド
+    local commandItem=$6
+    ### Count / 번호 / 番号 
+    local countNumber=0
+
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/Directory1/
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/Directory2/
+    echo 'TestFile1' > ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt
+    echo 'TestFile1' > ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt
+    old_LC_ALL=${LC_ALL}
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${commandItem}
+    printf "##############################################################################################\n"
+    echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        printf "  %-16s %s %s\n" "명령어" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "기본설명" ":" "${commandDescriptionKrParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※사용법" ":" "${commandItem}_[옵션]_[인수]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※옵션" ":" "[-R]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※인수" ":" "[대상_파일_또는_폴더]" | sed 's/_/ /g'
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        printf "  %-17s %s %s\n" "コマンド" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "基本説明" ":" "${commandDescriptionJpParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}_[オプション]_[引数]" | sed 's/_/ /g'
+        printf "  %-20s %s %s\n" "※オプション" ":" "[-R]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数" ":" "[対象ファイル又はフォルダ]" | sed 's/_/ /g'
+    else
+        printf "  %-13s %s %s\n" "Command" ":" "${commandItem}"
+        printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_[option]_[argument]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※option" ":" "[-R]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument" ":" "[Target_Files_or_Folders]" | sed 's/_/ /g'
+    fi
+        echo
+        printf "##############################################################################################\n"
+        echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        export LC_ALL="ko_KR.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "chmod 777 ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "chmod 777 ${filePathParam%/}/tmp/${commandItem}/Directory1/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "파일 그룹 소유권 변경"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "폴더 그룹 소유권 변경"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "${commandItem}_TestFile1.txt : 파일 그룹 소유권이 777으로 변경"
+            echo
+            echo "Directory1 : 폴더 그룹 소유권이 777으로 변경"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "chmod 777 ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "chmod 777 ${filePathParam%/}/tmp/${commandItem}/Directory1/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "파일 그룹 소유권 변경 전 : (${commandItem}_TestFile1.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            chmod 777 ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt
+            echo
+            echo "파일 그룹 소유권 변경 후 : (${commandItem}_TestFile1.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            echo
+            echo
+            echo "폴더 그룹 소유권 변경 전 : (Directory1)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            chmod 777 ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            echo
+            echo "폴더 그룹 소유권 변경 후 : (Directory1)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "chmod -R 777 ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "파일/폴더 그룹 소유권 변경"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "${commandItem}_TestFile2.txt : 파일 그룹 소유권이 777으로 변경"
+            echo
+            echo "Directory2 : 폴더 그룹 소유권이 777으로 변경"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "chmod -R 777 ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "파일/폴더 그룹 소유권 변경 전 : (${commandItem}_TestFile2.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/Directory2/
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            chmod -R 777 ${filePathParam%/}/tmp/${commandItem}/Directory2/
+            echo
+            echo "파일/폴더 그룹 소유권 변경 후 : (${commandItem}_TestFile2.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/Directory2/
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        export LC_ALL="ja_JP.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "chmod 777 ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "chmod 777 ${filePathParam%/}/tmp/${commandItem}/Directory1/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "ファイルグループの所有権変更"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "フォルダグループの所有権変更"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "${commandItem}_TestFile1.txt : ファイルグループの所有権が777に変更"
+            echo
+            echo "Directory1 : フォルダグループ所有権が777に変更"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "chmod 777 ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "chmod 777 ${filePathParam%/}/tmp/${commandItem}/Directory1/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "ファイルグループの所有権変更前 : (${commandItem}_TestFile1.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            chmod 777 ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt
+            echo
+            echo "ファイルグループの所有権変更後 : (${commandItem}_TestFile1.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            echo
+            echo
+            echo "フォルダグループの所有権変更前 : (Directory1)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            chmod 777 ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            echo
+            echo "フォルダグループの所有権変更後 : (Directory1)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "chmod -R 777 ${filePathParam%/}/tmp/${commandItem}/Directory2/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "ファイル・フォルダグループの所有権変更"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "${commandItem}_TestFile2.txt : ファイルグループの所有権が777に変更"
+            echo
+            echo "Directory2 : フォルダグループの所有権が777に変更"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "chmod -R 777 ${filePathParam%/}/tmp/${commandItem}/Directory2/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "ファイル・フォルダグループの所有権変更前 : (${commandItem}_TestFile2.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/Directory2/
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            chmod -R 777 ${filePathParam%/}/tmp/${commandItem}/Directory2/
+            echo
+            echo "ファイル・フォルダグループの所有権変更後 : (${commandItem}_TestFile2.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/Directory2/
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    else
+        export LC_ALL="en_US.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "chmod 777 ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "chmod 777 ${filePathParam%/}/tmp/${commandItem}/Directory1/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Change File group Ownership"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Change folder group ownership"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "${commandItem}_TestFile1.txt : Change file group ownership to 777"
+            echo
+            echo "Directory1 : Change folder group ownership to 777"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "chmod 777 ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "chmod 777 ${filePathParam%/}/tmp/${commandItem}/Directory1/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Before changing ownership of file groups : (${commandItem}_TestFile1.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            chmod 777 ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt
+            echo
+            echo "After changing ownership of file groups : (${commandItem}_TestFile1.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            echo
+            echo
+            echo "Before changing ownership of folder groups : (Directory1)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            chmod 777 ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            echo
+            echo "After changing ownership of folder groups : (Directory1)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "chmod -R 777 ${filePathParam%/}/tmp/${commandItem}/Directory2/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Change file/folder group ownership"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "${commandItem}_TestFile2.txt : Change file group ownership to 777"
+            echo
+            echo "Directory2 : Change folder group ownership to 777"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "chmod -R 777 ${filePathParam%/}/tmp/${commandItem}/Directory2/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Before changing ownership of file/folder groups :(${commandItem}_TestFile2.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/Directory2/
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            chmod -R 777 ${filePathParam%/}/tmp/${commandItem}/Directory2/
+            echo
+            echo "After changing ownership of file/folder groups : (${commandItem}_TestFile2.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/Directory2/
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    fi
+        echo
+    printf "##############################################################################################\n"
+
+    export LC_ALL=${old_LC_ALL}
+
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    rm -rf ${filePathParam%/}/tmp/${commandItem}/
+
+    func_basicSetting_LogFileName_Path ${PID} "1" ${commandItem}
+    echo 
+    
+}
+
+#--------------------------------------------#
+# Command : chown                            #
+#--------------------------------------------#
+function func_command_chown() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### English Command Description Parameter / 영어 명령어 설명 파라미터 / 英語コマンド説明パラメータ
+    local commandDescriptionEnParam=$3
+    ### Korean Command Description Parameter / 한국어 명령어 설명 파라미터 / 韓国語コマンド説明パラメータ
+    local commandDescriptionKrParam=$4
+    ### Japense Command Description Parameter / 일본어 명령어 설명 파라미터 / 日本語コマンド説明パラメータ
+    local commandDescriptionJpParam=$5
+    ### Command / 명령어 / コマンド
+    local commandItem=$6
+    ### Count / 번호 / 番号 
+    local countNumber=0
+
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/Directory1/
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/Directory2/
+    echo 'TestFile1' > ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt
+    echo 'TestFile1' > ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt
+    old_LC_ALL=${LC_ALL}
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${commandItem}
+    printf "##############################################################################################\n"
+    echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        printf "  %-16s %s %s\n" "명령어" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "기본설명" ":" "${commandDescriptionKrParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※사용법" ":" "${commandItem}_[옵션]_[인수]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※옵션" ":" "[-R]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※인수" ":" "[대상_파일_또는_폴더]" | sed 's/_/ /g'
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        printf "  %-17s %s %s\n" "コマンド" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "基本説明" ":" "${commandDescriptionJpParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}_[オプション]_[引数]" | sed 's/_/ /g'
+        printf "  %-20s %s %s\n" "※オプション" ":" "[-R]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数" ":" "[対象ファイル又はフォルダ]" | sed 's/_/ /g'
+    else
+        printf "  %-13s %s %s\n" "Command" ":" "${commandItem}"
+        printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_[option]_[argument]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※option" ":" "[-R]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument" ":" "[Target_Files_or_Folders]" | sed 's/_/ /g'
+    fi
+        echo
+        printf "##############################################################################################\n"
+        echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        export LC_ALL="ko_KR.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "chown ownchange ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "chown ownchange ${filePathParam%/}/tmp/${commandItem}/Directory1/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "파일 소유자 변경"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "폴더 소유자 변경"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "/etc/passwd : 파일에서 확인 가능"
+            echo "${commandItem}_TestFile1.txt : 파일 소유자가 ownchange으로 변경"
+            echo
+            echo "Directory1 : 폴더 소유자가 ownchange으로 변경"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "chown ownchange ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "chown ownchange ${filePathParam%/}/tmp/${commandItem}/Directory1/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "파일 소유자 변경 전 : (${commandItem}_TestFile1.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            chown ownchange ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt
+            echo "파일 소유자 변경 후 : (${commandItem}_TestFile1.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            echo
+            echo "폴더 소유자 변경 전 : (Directory1)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            chown ownchange ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            echo "폴더 소유자 변경 후 : (Directory1)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "chown -R ownchange ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "파일/폴더 소유자 변경"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "${commandItem}_TestFile2.txt : 파일 소유자가 ownchange으로 변경"
+            echo
+            echo "Directory2 : 폴더 소유자가 ownchange으로 변경"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "chown -R ownchange ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "파일/폴더 소유자 변경 전 : (${commandItem}_TestFile2.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/Directory2/
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            chown -R ownchange ${filePathParam%/}/tmp/${commandItem}/Directory2/
+            echo
+            echo "파일/폴더 소유자 변경 후 : (${commandItem}_TestFile2.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/Directory2/
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        export LC_ALL="ja_JP.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "chown ownchange ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "chown ownchange ${filePathParam%/}/tmp/${commandItem}/Directory1/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "ファイル所有権変更"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "フォルダ所有権変更"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "/etc/passwd : ファイルから確認可能"
+            echo "${commandItem}_TestFile1.txt : ファイル所有権がownchangeに変更"
+            echo
+            echo "Directory1 : フォルダ所有権がownchangeに変更"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "chown ownchange ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "chown ownchange ${filePathParam%/}/tmp/${commandItem}/Directory1/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "ファイルの所有権変更前 : (${commandItem}_TestFile1.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            chown ownchange ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt
+            echo "ファイルの所有権変更後 : (${commandItem}_TestFile1.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            echo
+            echo "フォルダの所有権変更前 : (Directory1)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            chown ownchange ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            echo "フォルダの所有権変更後 : (Directory1)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "chown -R ownchange ${filePathParam%/}/tmp/${commandItem}/Directory2/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "ファイル・フォルダ所有権変更"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "${commandItem}_TestFile2.txt : ファイル所有権がownchangeに変更"
+            echo
+            echo "Directory2 : フォルダ所有権がownchangeに変更"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "chown -R ownchange ${filePathParam%/}/tmp/${commandItem}/Directory2/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "ファイル・フォルダ所有権変更前 : (${commandItem}_TestFile2.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/Directory2/
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            chown -R ownchange ${filePathParam%/}/tmp/${commandItem}/Directory2/
+            echo
+            echo "ファイル・フォルダ所有権変更後 : (${commandItem}_TestFile2.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/Directory2/
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    else
+        export LC_ALL="en_US.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "chown ownchange ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "chown ownchange ${filePathParam%/}/tmp/${commandItem}/Directory1/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Change File Ownership"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Change folder ownership"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "/etc/passwd : Check from the File"
+            echo "${commandItem}_TestFile1.txt : Change file ownership to ownchange"
+            echo
+            echo "Directory1 : Change folder ownership to ownchange"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "chown ownchange ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "chown ownchange ${filePathParam%/}/tmp/${commandItem}/Directory1/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Before changing ownership of file groups : (${commandItem}_TestFile1.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            chown ownchange ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt
+            echo "After changing ownership of file groups : (${commandItem}_TestFile1.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            echo
+            echo "Before changing ownership of folder groups : (Directory1)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            chown ownchange ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            echo "After changing ownership of folder groups : (Directory1)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "chown -R ownchange ${filePathParam%/}/tmp/${commandItem}/Directory2/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Change file/folder ownership"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "${commandItem}_TestFile2.txt : Change file ownership to ownchange"
+            echo
+            echo "Directory2 : Change folder ownership to ownchange"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "chown -R ownchange ${filePathParam%/}/tmp/${commandItem}/Directory2/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Before changing ownership of file/folder groups :(${commandItem}_TestFile2.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/Directory2/
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            chown -R ownchange ${filePathParam%/}/tmp/${commandItem}/Directory2/
+            echo
+            echo "After changing ownership of file/folder groups : (${commandItem}_TestFile2.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/Directory2/
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    fi
+        echo
+    printf "##############################################################################################\n"
+
+    export LC_ALL=${old_LC_ALL}
+
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    rm -rf ${filePathParam%/}/tmp/${commandItem}/
+
+    func_basicSetting_LogFileName_Path ${PID} "1" ${commandItem}
+    echo 
+    
+}
+#--------------------------------------------#
 # Command List                               #
 #  : 명령어 리스트                               #
 #  : コマンドリスト                              #
@@ -5298,48 +6199,60 @@ readonly calEn="It_allows_you_to_view_the_calendar_based_on_the_date_and_month_a
 readonly calKr="날짜와_월에_따라_달력을_확인할_수_있으며_특정_월이나_연도를_지정하여_출력"
 readonly calJp="日付と月によってカレンダーを確認でき、特定の月や年を指定して表示"
 readonly catEn="It_is_primarily_used_to_read_and_display_text_files_on_the_screen_and_can_be_used_to_communicate_the_contents_of_files_to_other_commands"
-readonly catKr="주로_텍스트_파일을_읽어_화면에_표시할_때_사용되며_여러_파일을_순서대로_결합하거나_파일의_내용을_다른_명령어로_전달하는_데에도_활용"
+readonly catKr="주로_텍스트_파일을_읽어_화면에_표시할_때_사용되며_여러_파일을_순서대로_결합하거나_파일의_내용을_다른_명령어로_전달하는데에도_활용"
 readonly catJp="主にテキストファイルを読み込んで画面に表示するために使用され、ファイルの内容を他のコマンドに渡すためにも利用"
+readonly cdEn="Command_is_used_to_change_the_current_working_directory_in_a_command-line_interface"
+readonly cdKr="명령줄_인터페이스에서_현재_작업_디렉토리를_변경하는데_사용"
+readonly cdJp="コマンドラインインターフェイスの現在の作業ディレクトリを変更するために使用"
+readonly chgrpEn="Use_commands_to_change_group_ownership_of_files_or_directories"
+readonly chgrpKr="명령어는_파일이나_디렉토리의_그룹_소유권을_변경하는데_사용"
+readonly chgrpJp="ファイルやディレクトリのグループ所有権を変更するために使用"
+readonly chmodEn="Use_to_change_permissions_for_files_or_directories"
+readonly chmodKr="파일이나_디렉토리의_권한을_변경하는데_사용"
+readonly chmodJp="ファイルやディレクトリのパーミッションを変更するために使用"
+readonly chownEn="Used_to_change_the_owner_of_a_file_or_directory"
+readonly chownKr="파일이나_디렉토리의_소유자를_변경하는데_사용"
+readonly chownJp="ファイルやディレクトリの所有者を変更するために使用"
 readonly dateEn="Displays_the_date_and_time_of_the_current_system_and_formats_the_output._Also_used_to_calculate_or_manipulate_dates_and_times"
-readonly dateKr="현재_시스템의_날짜와_시간이_표시되며_포맷을_지정하여_출력.날짜_및_시간을_계산하거나_조작하는_데에도_사용"
+readonly dateKr="현재_시스템의_날짜와_시간이_표시되며_포맷을_지정하여_출력.날짜_및_시간을_계산하거나_조작하는데에도_사용"
 readonly dateJp="現在のシステムの日付と時刻が表示され、フォーマットを指定して表示することもできます。また、日付や時刻の計算や操作にも使用"
 readonly exprEn="It_is_employed_in_tasks_such_as_evaluating_expressions_entered_by_users_in_the_terminal_or_finding_patterns_in_strings"
 readonly exprKr="사용자가_입력한_표현식을_계산하거나_문자열에서_패턴을_찾아내는_등의_작업에_사용"
 readonly exprJp="ユーザーが入力した式を計算したり、文字列からパターンを検出するなどの作業に使用"
-readonly gunzipEn="command_is_used_to_decompress_files_compressed_with_gzip.This_command_is_employed_to_extract_and_restore_the_original_file"
-readonly gunzipKr="gzip으로_압축된_파일을_해제하는_데_사용됩니다.이_명령어는_파일을_압축_해제하고_원래_파일을_복원하는_데_활용"
+readonly gunzipEn="Command_is_used_to_decompress_files_compressed_with_gzip.This_command_is_employed_to_extract_and_restore_the_original_file"
+readonly gunzipKr="gzip으로_압축된_파일을_해제하는데_사용됩니다.이_명령어는_파일을_압축_해제하고_원래_파일을_복원하는데_활용"
 readonly gunzipJp="gzipで圧縮されたファイルを解凍するために使用されます。このコマンドはファイルを解凍し、元のファイルを復元するのに利用"
-readonly gzipEn="command_is_used_to_compress_files_primarily_useful_for_large_files_or_when_archiving_multiple_files"
-readonly gzipKr="파일을_압축하는_데_사용됩니다.주로_대용량_파일이나_여러_파일을_아카이브할_때_활용"
+readonly gzipEn="Command_is_used_to_compress_files_primarily_useful_for_large_files_or_when_archiving_multiple_files"
+readonly gzipKr="파일을_압축하는데_사용됩니다.주로_대용량_파일이나_여러_파일을_아카이브할_때_활용"
 readonly gzipJp="ファイルを圧縮するために使用されます。主に大容量ファイルや複数のファイルをアーカイブする際に利用"
-readonly headEn="command_is_used_to_display_the_beginning(head)_of_a_file"
+readonly headEn="Command_is_used_to_display_the_beginning(head)_of_a_file"
 readonly headKr="파일의_처음_부분을_표시하는데_사용"
 readonly headJp="ファイルの先頭部分を表示するために使用"
 readonly sleepEn="It_is_commonly_used_in_scripts_or_programs_when_you_want_to_pause_execution_for_a_certain_duration"
-readonly sleepKr="지정된_시간_동안_실행을_지연시키는_데_사용됩니다.주로_스크립트나_프로그램에서_일정한_시간_동안_대기하고자_할_때_활용"
+readonly sleepKr="지정된_시간_동안_실행을_지연시키는데_사용됩니다.주로_스크립트나_프로그램에서_일정한_시간_동안_대기하고자_할_때_활용"
 readonly sleepJp="指定された時間の間、実行を遅延させるために使用されます。主にスクリプトやプログラムで一定の時間待機させたい場合に利用"
-readonly tailEn="command_is_used_to_display_the_last_part_of_a_file"
+readonly tailEn="Command_is_used_to_display_the_last_part_of_a_file"
 readonly tailKr="파일의_마지막_부분을_표시하는데_사용"
 readonly tailJp="ファイルの最後の部分を表示するために使用"
 readonly touchEn="Used_to_create_empty_files_or_update_access_and_modification_times_for_existing_files"
-readonly touchKr="빈_파일을_생성하거나_기존_파일의_액세스_및_수정_시간을_업데이트하는_데_사용"
+readonly touchKr="빈_파일을_생성하거나_기존_파일의_액세스_및_수정_시간을_업데이트하는데_사용"
 readonly touchJp="空のファイルを作成したり、既存ファイルのアクセスおよび修正のタイムスタンプを更新するために使用"
 readonly uniqEn="Used_to_remove_duplicate_rows_or_to_output_only_one_of_successively_repeated_rows"
-readonly uniqKr="중복된_행을_제거하거나_연속적으로_반복된_행_중_하나만을_출력하는_데_사용"
+readonly uniqKr="중복된_행을_제거하거나_연속적으로_반복된_행_중_하나만을_출력하는데_사용"
 readonly uniqJp="重複する行を削除するか、連続して繰り返される行の1つのみを出力するために使用"
-readonly unzipEn="command_is_used_to_extract_files_from_a_ZIP_archive.It's_commonly_used_to_unzip_compressed_files_or_directories"
-readonly unzipKr="ZIP_파일을_해제하는_데_사용됩니다.주로_압축된_파일이나_디렉토리를_푸는_데_활용"
+readonly unzipEn="Command_is_used_to_extract_files_from_a_ZIP_archive.It's_commonly_used_to_unzip_compressed_files_or_directories"
+readonly unzipKr="ZIP_파일을_해제하는데_사용됩니다.주로_압축된_파일이나_디렉토리를_푸는데_활용"
 readonly unzipJp="ZIPファイルを解凍するために使用されます。主に圧縮されたファイルやディレクトリを解凍するのに利用"
-readonly wcEn="command_is_used_to_count_the_number_of_lines_words_and_bytes_in_a_file.It's_often_used_to_report_statistics_on_text_files_or_as_part_of_data_processing"
-readonly wcKr="파일의_행_단어_바이트_수를_세는_데_사용됩니다.텍스트_파일의_통계_정보를_보고하거나_데이터_처리에서_활용"
+readonly wcEn="Command_is_used_to_count_the_number_of_lines_words_and_bytes_in_a_file.It's_often_used_to_report_statistics_on_text_files_or_as_part_of_data_processing"
+readonly wcKr="파일의_행_단어_바이트_수를_세는데_사용됩니다.텍스트_파일의_통계_정보를_보고하거나_데이터_처리에서_활용"
 readonly wcJp="ファイルの行数、単語数、バイト数を数えるのに使用されます。テキストファイルの統計情報を報告するか、データ処理で利用"
-readonly zipEn="command_is_used_to_compress_files_and_directories_creating_a_compressed_archive.It's_primarily_used_to_save_space_by_compressing_files_or_when_transferring_files"
-readonly zipKr="파일_및_디렉터리를_압축하고_압축_파일을_만드는_데_사용됩니다.주로_파일을_압축하여_용량을_절약하거나_파일을_전송할_때_활용"
+readonly zipEn="Command_is_used_to_compress_files_and_directories_creating_a_compressed_archive.It's_primarily_used_to_save_space_by_compressing_files_or_when_transferring_files"
+readonly zipKr="파일_및_디렉터리를_압축하고_압축_파일을_만드는데_사용됩니다.주로_파일을_압축하여_용량을_절약하거나_파일을_전송할_때_활용"
 readonly zipJp="ファイルやディレクトリを圧縮し、圧縮ファイルを作成するのに使用されます。主にファイルを圧縮して容量を節約しファイルを転送する際に利用"
-declare -a commandList=("cal" "cat" "date" "expr" "gunzip" "gzip" "head" "sleep" "tail" "touch" "uniq" "unzip" "wc" "zip")
-declare -a commandDescriptionEn=("${calEn}" "${catEn}" "${dateEn}" "${exprEn}" "${gunzipEn}" "${gzipEn}" "${headEn}" "${sleepEn}" "${tailEn}" "${touchEn}" "${uniqEn}" "${unzipEn}" "${wcEn}" "${zipEn}")
-declare -a commandDescriptionKr=("${calKr}" "${catKr}" "${dateKr}" "${exprKr}" "${gunzipKr}" "${gzipKr}" "${headKr}" "${sleepKr}" "${tailKr}" "${touchKr}" "${uniqKr}" "${unzipKr}" "${wcKr}" "${zipKr}")
-declare -a commandDescriptionJp=("${calJp}" "${catJp}" "${dateJp}" "${exprJp}" "${gunzipJp}" "${gzipJp}" "${headJp}" "${sleepJp}" "${tailJp}" "${touchJp}" "${uniqJp}" "${unzipJp}" "${wcJp}" "${zipJp}")
+declare -a commandList=("cal" "cat" "cd" "chgrp" "chmod" "chown" "date" "expr" "gunzip" "gzip" "head" "sleep" "tail" "touch" "uniq" "unzip" "wc" "zip")
+declare -a commandDescriptionEn=("${calEn}" "${catEn}" "${cdEn}" "${chgrpEn}" "${chmodEn}" "${chownEn}" "${dateEn}" "${exprEn}" "${gunzipEn}" "${gzipEn}" "${headEn}" "${sleepEn}" "${tailEn}" "${touchEn}" "${uniqEn}" "${unzipEn}" "${wcEn}" "${zipEn}")
+declare -a commandDescriptionKr=("${calKr}" "${catKr}" "${cdKr}" "${chgrpKr}" "${chmodKr}" "${chownKr}" "${dateKr}" "${exprKr}" "${gunzipKr}" "${gzipKr}" "${headKr}" "${sleepKr}" "${tailKr}" "${touchKr}" "${uniqKr}" "${unzipKr}" "${wcKr}" "${zipKr}")
+declare -a commandDescriptionJp=("${calJp}" "${catJp}" "${cdJp}" "${chgrpJp}" "${chmodJp}" "${chownJp}" "${dateJp}" "${exprJp}" "${gunzipJp}" "${gzipJp}" "${headJp}" "${sleepJp}" "${tailJp}" "${touchJp}" "${uniqJp}" "${unzipJp}" "${wcJp}" "${zipJp}")
 
 #--------------------------------------------#
 # Script Basic Variable Setting              #
