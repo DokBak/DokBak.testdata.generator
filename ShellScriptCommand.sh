@@ -662,6 +662,21 @@ function func_linuxCommandExample() {
         chown)
             func_command_chown ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
             ;;
+        pwd)
+            func_command_pwd ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
+            ;;
+        mkdir)
+            func_command_mkdir ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
+            ;;
+        rmdir)
+            func_command_rmdir ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
+            ;;
+        rm)
+            func_command_rm ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
+            ;;
+        mv)
+            func_command_mv ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
+            ;;
         *)  echo ; 
             if [[ ${ouputLanguageParam} == [kK][rR] ]];then
                 echo " 에러 : 명령어 함수 미포함 (func_command_${commandList[${commandItemIndex}]})"; 
@@ -6022,12 +6037,15 @@ function func_command_chown() {
             echo "파일 소유자 변경 전 : (${commandItem}_TestFile1.txt)"
             ls -l ${filePathParam%/}/tmp/${commandItem}/Directory1/
             chown ownchange ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt
+            echo
             echo "파일 소유자 변경 후 : (${commandItem}_TestFile1.txt)"
             ls -l ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            echo
             echo
             echo "폴더 소유자 변경 전 : (Directory1)"
             ls -l ${filePathParam%/}/tmp/${commandItem}/
             chown ownchange ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            echo
             echo "폴더 소유자 변경 후 : (Directory1)"
             ls -l ${filePathParam%/}/tmp/${commandItem}/
             echo
@@ -6081,12 +6099,15 @@ function func_command_chown() {
             echo "ファイルの所有権変更前 : (${commandItem}_TestFile1.txt)"
             ls -l ${filePathParam%/}/tmp/${commandItem}/Directory1/
             chown ownchange ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt
+            echo
             echo "ファイルの所有権変更後 : (${commandItem}_TestFile1.txt)"
             ls -l ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            echo
             echo
             echo "フォルダの所有権変更前 : (Directory1)"
             ls -l ${filePathParam%/}/tmp/${commandItem}/
             chown ownchange ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            echo
             echo "フォルダの所有権変更後 : (Directory1)"
             ls -l ${filePathParam%/}/tmp/${commandItem}/
             echo
@@ -6141,12 +6162,15 @@ function func_command_chown() {
             echo "Before changing ownership of file groups : (${commandItem}_TestFile1.txt)"
             ls -l ${filePathParam%/}/tmp/${commandItem}/Directory1/
             chown ownchange ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt
+            echo
             echo "After changing ownership of file groups : (${commandItem}_TestFile1.txt)"
             ls -l ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            echo
             echo
             echo "Before changing ownership of folder groups : (Directory1)"
             ls -l ${filePathParam%/}/tmp/${commandItem}/
             chown ownchange ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            echo
             echo "After changing ownership of folder groups : (Directory1)"
             ls -l ${filePathParam%/}/tmp/${commandItem}/
             echo
@@ -6190,6 +6214,1389 @@ function func_command_chown() {
     echo 
     
 }
+
+#--------------------------------------------#
+# Command : pwd                              #
+#--------------------------------------------#
+function func_command_pwd() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### English Command Description Parameter / 영어 명령어 설명 파라미터 / 英語コマンド説明パラメータ
+    local commandDescriptionEnParam=$3
+    ### Korean Command Description Parameter / 한국어 명령어 설명 파라미터 / 韓国語コマンド説明パラメータ
+    local commandDescriptionKrParam=$4
+    ### Japense Command Description Parameter / 일본어 명령어 설명 파라미터 / 日本語コマンド説明パラメータ
+    local commandDescriptionJpParam=$5
+    ### Command / 명령어 / コマンド
+    local commandItem=$6
+    ### Count / 번호 / 番号 
+    local countNumber=0
+
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/
+    old_LC_ALL=${LC_ALL}
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${commandItem}
+    printf "##############################################################################################\n"
+    echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        printf "  %-16s %s %s\n" "명령어" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "기본설명" ":" "${commandDescriptionKrParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※사용법" ":" "${commandItem}" | sed 's/_/ /g'
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        printf "  %-17s %s %s\n" "コマンド" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "基本説明" ":" "${commandDescriptionJpParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}" | sed 's/_/ /g'
+    else
+        printf "  %-13s %s %s\n" "Command" ":" "${commandItem}"
+        printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}" | sed 's/_/ /g'
+    fi
+        echo
+        printf "##############################################################################################\n"
+        echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        export LC_ALL="ko_KR.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "pwd"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "작업 디렉토리 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "작업 디렉토리 출력"
+            cd ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "pwd"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            pwd
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        export LC_ALL="ja_JP.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "pwd"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "作業ディレクトリ出力"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "作業ディレクトリ出力"
+            cd ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "pwd"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            pwd
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    else
+        export LC_ALL="en_US.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "pwd"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Output Working Directory"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Output Working Directory"
+            cd ${filePathParam%/}/tmp/${commandItem}/
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "pwd"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            pwd
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    fi
+        echo
+    printf "##############################################################################################\n"
+
+    export LC_ALL=${old_LC_ALL}
+
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    rm -rf ${filePathParam%/}/tmp/${commandItem}/
+
+    func_basicSetting_LogFileName_Path ${PID} "1" ${commandItem}
+    echo 
+    
+}
+
+#--------------------------------------------#
+# Command : mkdir                            #
+#--------------------------------------------#
+function func_command_mkdir() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### English Command Description Parameter / 영어 명령어 설명 파라미터 / 英語コマンド説明パラメータ
+    local commandDescriptionEnParam=$3
+    ### Korean Command Description Parameter / 한국어 명령어 설명 파라미터 / 韓国語コマンド説明パラメータ
+    local commandDescriptionKrParam=$4
+    ### Japense Command Description Parameter / 일본어 명령어 설명 파라미터 / 日本語コマンド説明パラメータ
+    local commandDescriptionJpParam=$5
+    ### Command / 명령어 / コマンド
+    local commandItem=$6
+    ### Count / 번호 / 番号 
+    local countNumber=0
+
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/
+    old_LC_ALL=${LC_ALL}
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${commandItem}
+    printf "##############################################################################################\n"
+    echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        printf "  %-16s %s %s\n" "명령어" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "기본설명" ":" "${commandDescriptionKrParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※사용법" ":" "${commandItem}_[옵션]_[인수]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※옵션" ":" "[-pm]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※인수" ":" "[대상_폴더]" | sed 's/_/ /g'
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        printf "  %-17s %s %s\n" "コマンド" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "基本説明" ":" "${commandDescriptionJpParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}_[オプション]_[引数]" | sed 's/_/ /g'
+        printf "  %-20s %s %s\n" "※オプション" ":" "[-pm]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数" ":" "[対象フォルダ]" | sed 's/_/ /g'
+    else
+        printf "  %-13s %s %s\n" "Command" ":" "${commandItem}"
+        printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_[option]_[argument]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※option" ":" "[-pm]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument" ":" "[Target_Folders]" | sed 's/_/ /g'
+    fi
+        echo
+        printf "##############################################################################################\n"
+        echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        export LC_ALL="ko_KR.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "mkdir ${filePathParam%/}/tmp/${commandItem}/Directory1/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "폴더를 생성"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Directory1 : 폴더를 생성"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "mkdir ${filePathParam%/}/tmp/${commandItem}/Directory1/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "폴더를 생성 전 : (Directory1)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            mkdir ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            echo
+            echo "폴더를 생성 후 : (Directory1)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "mkdir -m 710 ${filePathParam%/}/tmp/${commandItem}/Directory2/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "권한을 설정하면서 폴더 생성"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Directory2 : 폴더를 생성(권한 : 710)"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "mkdir -m 710 ${filePathParam%/}/tmp/${commandItem}/Directory2/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "폴더를 생성 전 : (Directory2)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            mkdir -m 710 ${filePathParam%/}/tmp/${commandItem}/Directory2/
+            echo
+            echo "폴더를 생성 후 : (Directory2)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "mkdir -p ${filePathParam%/}/tmp/${commandItem}/Directory3/SubDirectory4/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "하위 디렉토리까지 모두 생성"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Directory3/SubDirectory4 : 폴더를 생성"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "mkdir -p ${filePathParam%/}/tmp/${commandItem}/Directory3/SubDirectory4/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "폴더를 생성 전 : (Directory3/SubDirectory4)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            mkdir -p ${filePathParam%/}/tmp/${commandItem}/Directory3/SubDirectory4/
+            echo
+            echo "폴더를 생성 후 : (Directory3/SubDirectory4)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        export LC_ALL="ja_JP.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "mkdir ${filePathParam%/}/tmp/${commandItem}/Directory1/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "フォルダ作成"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Directory1 : フォルダ作成"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "mkdir ${filePathParam%/}/tmp/${commandItem}/Directory1/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "フォルダ作成前 : (Directory1)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            mkdir ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            echo
+            echo "フォルダ作成後 : (Directory1)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "mkdir -m 710 ${filePathParam%/}/tmp/${commandItem}/Directory2/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "権限を設定しながらフォルダを作成"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Directory2 : フォルダ作成(権限 : 710)"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "mkdir -m 710 ${filePathParam%/}/tmp/${commandItem}/Directory2/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "フォルダ作成前 : (Directory2)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            mkdir -m 710 ${filePathParam%/}/tmp/${commandItem}/Directory2/
+            echo
+            echo "フォルダ作成後 : (Directory2)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "mkdir -p ${filePathParam%/}/tmp/${commandItem}/Directory3/SubDirectory4/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "下位ディレクトリまですべて作成"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Directory3/SubDirectory4 : フォルダ作成"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "mkdir -p ${filePathParam%/}/tmp/${commandItem}/Directory3/SubDirectory4/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "フォルダ作成前 : (Directory3/SubDirectory4)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            mkdir -p ${filePathParam%/}/tmp/${commandItem}/Directory3/SubDirectory4/
+            echo
+            echo "フォルダ作成後 : (Directory3/SubDirectory4)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    else
+        export LC_ALL="en_US.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "mkdir ${filePathParam%/}/tmp/${commandItem}/Directory1/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Folder Create"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Directory1 : Folder Create"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "mkdir ${filePathParam%/}/tmp/${commandItem}/Directory1/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Before creating a folder : (Directory1)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            mkdir ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            echo
+            echo "After creating a folder : (Directory1)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "mkdir -m 710 ${filePathParam%/}/tmp/${commandItem}/Directory2/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Create folder while setting permissions"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Directory2 : フォルダ作成(権限 : 710)"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "mkdir -m 710 ${filePathParam%/}/tmp/${commandItem}/Directory2/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Before creating a folder : (Directory2)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            mkdir -m 710 ${filePathParam%/}/tmp/${commandItem}/Directory2/
+            echo
+            echo "After creating a folder : (Directory2)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "mkdir -p ${filePathParam%/}/tmp/${commandItem}/Directory3/SubDirectory4/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Create all down to subdirectories"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Directory3/SubDirectory4 : Folder Create"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "mkdir -p ${filePathParam%/}/tmp/${commandItem}/Directory3/SubDirectory4/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Before creating a folder : (Directory3/SubDirectory4)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            mkdir -p ${filePathParam%/}/tmp/${commandItem}/Directory3/SubDirectory4/
+            echo
+            echo "After creating a folder : (Directory3/SubDirectory4)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    fi
+        echo
+    printf "##############################################################################################\n"
+
+    export LC_ALL=${old_LC_ALL}
+
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    rm -rf ${filePathParam%/}/tmp/${commandItem}/
+
+    func_basicSetting_LogFileName_Path ${PID} "1" ${commandItem}
+    echo 
+    
+}
+
+#--------------------------------------------#
+# Command : rmdir                            #
+#--------------------------------------------#
+function func_command_rmdir() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### English Command Description Parameter / 영어 명령어 설명 파라미터 / 英語コマンド説明パラメータ
+    local commandDescriptionEnParam=$3
+    ### Korean Command Description Parameter / 한국어 명령어 설명 파라미터 / 韓国語コマンド説明パラメータ
+    local commandDescriptionKrParam=$4
+    ### Japense Command Description Parameter / 일본어 명령어 설명 파라미터 / 日本語コマンド説明パラメータ
+    local commandDescriptionJpParam=$5
+    ### Command / 명령어 / コマンド
+    local commandItem=$6
+    ### Count / 번호 / 番号 
+    local countNumber=0
+
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/Directory1/
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/Directory2/SubDirectory3/
+
+    old_LC_ALL=${LC_ALL}
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${commandItem}
+    printf "##############################################################################################\n"
+    echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        printf "  %-16s %s %s\n" "명령어" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "기본설명" ":" "${commandDescriptionKrParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※사용법" ":" "${commandItem}_[옵션]_[인수]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※옵션" ":" "[-p]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※인수" ":" "[대상_폴더]" | sed 's/_/ /g'
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        printf "  %-17s %s %s\n" "コマンド" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "基本説明" ":" "${commandDescriptionJpParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}_[オプション]_[引数]" | sed 's/_/ /g'
+        printf "  %-20s %s %s\n" "※オプション" ":" "[-p]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数" ":" "[対象フォルダ]" | sed 's/_/ /g'
+    else
+        printf "  %-13s %s %s\n" "Command" ":" "${commandItem}"
+        printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_[option]_[argument]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※option" ":" "[-p]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument" ":" "[Target_Folders]" | sed 's/_/ /g'
+    fi
+        echo
+        printf "##############################################################################################\n"
+        echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        export LC_ALL="ko_KR.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "rmdir ${filePathParam%/}/tmp/${commandItem}/Directory1/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "폴더를 삭제"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Directory1 : 폴더를 삭제"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "rmdir ${filePathParam%/}/tmp/${commandItem}/Directory1/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "폴더를 삭제 전 : (Directory1)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            rmdir ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            echo
+            echo "폴더를 삭제 후 : (Directory1)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "rmdir -p ${filePathParam%/}/tmp/${commandItem}/Directory2/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "하위 디렉토리까지 모두 삭제"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Directory2/SubDirectory3 : 폴더를 삭제"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "rmdir -p ${filePathParam%/}/tmp/${commandItem}/Directory2/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "폴더를 삭제 전 : (Directory2/SubDirectory3)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            rmdir -p ${filePathParam%/}/tmp/${commandItem}/Directory2/
+            echo
+            echo "폴더를 삭제 후 : (Directory2/SubDirectory3)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        export LC_ALL="ja_JP.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "rmdir ${filePathParam%/}/tmp/${commandItem}/Directory1/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "フォルダ削除"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Directory1 : フォルダ削除"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "rmdir ${filePathParam%/}/tmp/${commandItem}/Directory1/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "フォルダ削除前 : (Directory1)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            rmdir ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            echo
+            echo "フォルダ削除後 : (Directory1)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "rmdir -p ${filePathParam%/}/tmp/${commandItem}/Directory2/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "下位ディレクトリまですべて削除"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Directory2/SubDirectory3 : フォルダ削除"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "rmdir -p ${filePathParam%/}/tmp/${commandItem}/Directory2/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "フォルダ削除前 : (Directory2/SubDirectory3)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            rmdir -p ${filePathParam%/}/tmp/${commandItem}/Directory2/
+            echo
+            echo "フォルダ削除後 : (Directory2/SubDirectory3)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    else
+        export LC_ALL="en_US.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "rmdir ${filePathParam%/}/tmp/${commandItem}/Directory1/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Folder Delete"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Directory1 : Folder Delete"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "rmdir ${filePathParam%/}/tmp/${commandItem}/Directory1/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Before deleting a folder : (Directory1)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            rmdir ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            echo
+            echo "After deleting a folder : (Directory1)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "rmdir -p ${filePathParam%/}/tmp/${commandItem}/Directory2/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Delete all down to subdirectories"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Directory2/SubDirectory3 : Folder Delete"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "rmdir -p ${filePathParam%/}/tmp/${commandItem}/Directory2/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Before deleting a folder : (Directory2/SubDirectory3)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            rmdir -p ${filePathParam%/}/tmp/${commandItem}/Directory2/
+            echo
+            echo "After deleting a folder : (Directory2/SubDirectory3)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    fi
+        echo
+    printf "##############################################################################################\n"
+
+    export LC_ALL=${old_LC_ALL}
+
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    rm -rf ${filePathParam%/}/tmp/${commandItem}/
+
+    func_basicSetting_LogFileName_Path ${PID} "1" ${commandItem}
+    echo 
+    
+}
+
+#--------------------------------------------#
+# Command : rm                               #
+#--------------------------------------------#
+function func_command_rm() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### English Command Description Parameter / 영어 명령어 설명 파라미터 / 英語コマンド説明パラメータ
+    local commandDescriptionEnParam=$3
+    ### Korean Command Description Parameter / 한국어 명령어 설명 파라미터 / 韓国語コマンド説明パラメータ
+    local commandDescriptionKrParam=$4
+    ### Japense Command Description Parameter / 일본어 명령어 설명 파라미터 / 日本語コマンド説明パラメータ
+    local commandDescriptionJpParam=$5
+    ### Command / 명령어 / コマンド
+    local commandItem=$6
+    ### Count / 번호 / 番号 
+    local countNumber=0
+
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/Directory1/
+    echo 'TestData' > ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt
+    echo 'TestData' > ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile2.txt
+    echo 'TestData' > ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile3.txt
+    echo 'TestData' > ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile4.txt
+    old_LC_ALL=${LC_ALL}
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${commandItem}
+    printf "##############################################################################################\n"
+    echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        printf "  %-16s %s %s\n" "명령어" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "기본설명" ":" "${commandDescriptionKrParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※사용법" ":" "${commandItem}_[옵션]_[인수]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※옵션" ":" "[-ifr]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※인수" ":" "[대상_파일_또는_폴더]" | sed 's/_/ /g'
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        printf "  %-17s %s %s\n" "コマンド" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "基本説明" ":" "${commandDescriptionJpParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}_[オプション]_[引数]" | sed 's/_/ /g'
+        printf "  %-20s %s %s\n" "※オプション" ":" "[-ifr]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数" ":" "[対象ファイル又はフォルダ]" | sed 's/_/ /g'
+    else
+        printf "  %-13s %s %s\n" "Command" ":" "${commandItem}"
+        printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_[option]_[argument]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※option" ":" "[-ifr]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument" ":" "[Target_Files_or_Folders]" | sed 's/_/ /g'
+    fi
+        echo
+        printf "##############################################################################################\n"
+        echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        export LC_ALL="ko_KR.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "rm ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "파일을 삭제"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "${commandItem}_TestFile1.txt : 파일를 삭제"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "rm ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "파일를 삭제 전 : (${commandItem}_TestFile1.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            rm ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt
+            echo
+            echo "파일를 삭제 후 : (${commandItem}_TestFile1.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "rm -i ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "파일을 삭제시 질문"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "${commandItem}_TestFile2.txt : 파일를 삭제시 질문"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "rm -i ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "파일를 삭제 전 : (${commandItem}_TestFile2.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            rm -i ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile2.txt
+            echo
+            echo "파일를 삭제 후 : (${commandItem}_TestFile2.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "rm -f ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "파일을 강제 삭제"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "${commandItem}_TestFile3.txt : 파일를 강제 삭제"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "rm -f ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "파일를 삭제 전 : (${commandItem}_TestFile3.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            rm -f ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile3.txt
+            echo
+            echo "파일를 삭제 후 : (${commandItem}_TestFile3.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "rm -r ${filePathParam%/}/tmp/${commandItem}/Directory1/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "하위 디렉토리까지 모두 삭제"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Directory1/${commandItem}_TestFile4.txt : 하위 디렉토리까지 모두 삭제"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "rm -r ${filePathParam%/}/tmp/${commandItem}/Directory1/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "파일를 삭제 전 : (Directory1/${commandItem}_TestFile4.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            rm -r ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            echo
+            echo "파일를 삭제 후 : (Directory1/${commandItem}_TestFile4.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        export LC_ALL="ja_JP.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "rm ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "ファイル削除"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "${commandItem}_TestFile1.txt : ファイル削除"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "rm ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "ファイル削除前 : (${commandItem}_TestFile1.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            rm ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt
+            echo
+            echo "ファイル削除後 : (${commandItem}_TestFile1.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "rm -i ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "ファイルを削除する際の質問"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "${commandItem}_TestFile2.txt : ファイルを削除する際の質問"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "rm -i ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "ファイル削除前 : (${commandItem}_TestFile2.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            rm -i ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile2.txt
+            echo
+            echo "ファイル削除後 : (${commandItem}_TestFile2.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "rm -f ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "ファイルを強制削除"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "${commandItem}_TestFile3.txt : ファイルを強制削除"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "rm -f ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "ファイル削除前 : (${commandItem}_TestFile3.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            rm -f ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile3.txt
+            echo
+            echo "ファイル削除後 : (${commandItem}_TestFile3.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "rm -r ${filePathParam%/}/tmp/${commandItem}/Directory1/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "下位ディレクトリまですべて削除"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Directory1/${commandItem}_TestFile4.txt : 下位ディレクトリまですべて削除"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "rm -r ${filePathParam%/}/tmp/${commandItem}/Directory1/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "ファイル削除前 : (Directory1/${commandItem}_TestFile4.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            rm -r ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            echo
+            echo "ファイル削除後 : (Directory1/${commandItem}_TestFile4.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    else
+        export LC_ALL="en_US.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "rm ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "File Delete"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "${commandItem}_TestFile1.txt : File Delete"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "rm ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Before deleting a File : (${commandItem}_TestFile1.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            rm ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt
+            echo
+            echo "After deleting a File : (${commandItem}_TestFile1.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "rm -i ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Questions when deleting file"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "${commandItem}_TestFile2.txt : Questions when deleting file"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "rm -i ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Before deleting a file : (${commandItem}_TestFile2.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            rm -i ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile2.txt
+            echo
+            echo "After deleting a file : (Direct${commandItem}_TestFile2.txtory1)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "rm -f ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Force file deletion"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Directory1 : Force file deletion"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "rm -f ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Before deleting a file : (${commandItem}_TestFile3.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            rm -f ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile3.txt
+            echo
+            echo "After deleting a file : (${commandItem}_TestFile3.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "rm -r ${filePathParam%/}/tmp/${commandItem}/Directory1/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Delete all down to subdirectories"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Directory1/${commandItem}_TestFile4.txt : Delete all down to subdirectories"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "rm -r ${filePathParam%/}/tmp/${commandItem}/Directory1/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Before deleting a File : (Directory1/${commandItem}_TestFile4.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            rm -r ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            echo
+            echo "After deleting a File : (Directory1/${commandItem}_TestFile4.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    fi
+        echo
+    printf "##############################################################################################\n"
+
+    export LC_ALL=${old_LC_ALL}
+
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    rm -rf ${filePathParam%/}/tmp/${commandItem}/
+
+    func_basicSetting_LogFileName_Path ${PID} "1" ${commandItem}
+    echo 
+    
+}
+
+#--------------------------------------------#
+# Command : mv                               #
+#--------------------------------------------#
+function func_command_mv() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### English Command Description Parameter / 영어 명령어 설명 파라미터 / 英語コマンド説明パラメータ
+    local commandDescriptionEnParam=$3
+    ### Korean Command Description Parameter / 한국어 명령어 설명 파라미터 / 韓国語コマンド説明パラメータ
+    local commandDescriptionKrParam=$4
+    ### Japense Command Description Parameter / 일본어 명령어 설명 파라미터 / 日本語コマンド説明パラメータ
+    local commandDescriptionJpParam=$5
+    ### Command / 명령어 / コマンド
+    local commandItem=$6
+    ### Count / 번호 / 番号 
+    local countNumber=0
+
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/Directory1/
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/Directory2/
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/Directory3/
+    echo 'TestData' > ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt
+    echo 'TestData' > ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt
+    echo 'TestData' > ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt
+    old_LC_ALL=${LC_ALL}
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${commandItem}
+    printf "##############################################################################################\n"
+    echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        printf "  %-16s %s %s\n" "명령어" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "기본설명" ":" "${commandDescriptionKrParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※사용법" ":" "${commandItem}_[옵션]_[인수1]_[인수2]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※옵션" ":" "[-ifn]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※인수1" ":" "[대상_파일_또는_폴더]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※인수2" ":" "[대상_파일_또는_폴더]" | sed 's/_/ /g'
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        printf "  %-17s %s %s\n" "コマンド" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "基本説明" ":" "${commandDescriptionJpParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}_[オプション]_[引数1]_[引数2]" | sed 's/_/ /g'
+        printf "  %-20s %s %s\n" "※オプション" ":" "[-ifn]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数1" ":" "[対象ファイル又はフォルダ]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数2" ":" "[対象ファイル又はフォルダ]" | sed 's/_/ /g'
+    else
+        printf "  %-13s %s %s\n" "Command" ":" "${commandItem}"
+        printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_[option]_[argument1]_[argument2]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※option" ":" "[-ifn]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument1" ":" "[Target_Files_or_Folders]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument2" ":" "[Target_Files_or_Folders]" | sed 's/_/ /g'
+    fi
+        echo
+        printf "##############################################################################################\n"
+        echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        export LC_ALL="ko_KR.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "mv ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "파일 이동"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Directory2/${commandItem}_TestFile1.txt : 파일 이동"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "mv ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "파일 이동 전 : (${commandItem}_TestFile1.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            mv ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/
+            echo
+            echo "파일 이동 후 : (${commandItem}_TestFile1.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "mv ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile11.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "파일 이름 변경"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Directory2/${commandItem}_TestFile11.txt : 파일 이름 변경"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "mv ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile11.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "파일 이름 변경 전 : (수정전 : ${commandItem}_TestFile1.txt, 수정후 : ${commandItem}_TestFile11.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            mv ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile11.txt
+            echo
+            echo "파일 이름 변경 후 : (수정전 : ${commandItem}_TestFile1.txt, 수정후 : ${commandItem}_TestFile11.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "mv ${filePathParam%/}/tmp/${commandItem}/Directory3/ ${filePathParam%/}/tmp/${commandItem}/Directory4/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "폴더 이름 변경"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Directory4/ : 폴더 이름 변경"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "mv ${filePathParam%/}/tmp/${commandItem}/Directory3/ ${filePathParam%/}/tmp/${commandItem}/Directory4/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "폴더 이름 변경 전 : (수정전 : Directory3, 수정후 : Directory4)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            mv ${filePathParam%/}/tmp/${commandItem}/Directory3/ ${filePathParam%/}/tmp/${commandItem}/Directory4/
+            echo
+            echo "폴더 이름 변경 후 : (수정전 : Directory3, 수정후 : Directory4)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "mv -i ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile11.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "파일/폴더 이동 또는 이름 변경시 기존 파일/폴더가 존재한다면 질문"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "${commandItem}_TestFile2.txt : 파일/폴더 이동 또는 이름 변경시 기존 파일/폴더가 존재한다면 질문"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "mv -i ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile11.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "파일/폴더 이동 또는 이름 변경시 기존 파일/폴더가 존재한다면 질문 전 : (수정전 : ${commandItem}_TestFile11.txt, 수정후 : ${commandItem}_TestFile2.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            mv -i ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile11.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt
+            echo
+            echo "파일/폴더 이동 또는 이름 변경시 기존 파일/폴더가 존재한다면 질문 후 : (수정전 : ${commandItem}_TestFile11.txt, 수정후 : ${commandItem}_TestFile2.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "mv -f ${filePathParam%/}/tmp/${commandItem}/Directory4/${commandItem}_TestFile3.txt ${filePathParam%/}/tmp/${commandItem}/Directory4/${commandItem}_TestFile5.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "파일 및 폴더 강제이동 또는 강제 이름 변경"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "${commandItem}_TestFile5.txt : 파일 및 폴더 강제 이동 또는 강제 이름 변경"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "mv -f ${filePathParam%/}/tmp/${commandItem}/Directory4/${commandItem}_TestFile3.txt ${filePathParam%/}/tmp/${commandItem}/Directory4/${commandItem}_TestFile5.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "파일 및 폴더 강제 이동 또는 강제 이름 변경 전 : (수정전 : ${commandItem}_TestFile3.txt, 수정후 : ${commandItem}_TestFile5.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/Directory4/
+            mv -f ${filePathParam%/}/tmp/${commandItem}/Directory4/${commandItem}_TestFile3.txt ${filePathParam%/}/tmp/${commandItem}/Directory4/${commandItem}_TestFile5.txt
+            echo
+            echo "파일 및 폴더 강제 이동 또는 강제 이름 변경 후 : (수정전 : ${commandItem}_TestFile3.txt, 수정후 : ${commandItem}_TestFile5.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/Directory4/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "mv -n ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt ${filePathParam%/}/tmp/${commandItem}/Directory4/${commandItem}_TestFile5.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "파일/폴더 이동 또는 이름 변경시 기존 파일/폴더가 존재한다면 명령이 실행되지 않음"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "${commandItem}_TestFile2.txt : 파일/폴더 이동 또는 이름 변경시 기존 파일/폴더가 존재한다면 명령이 실행되지 않음"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "mv -n ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt ${filePathParam%/}/tmp/${commandItem}/Directory4/${commandItem}_TestFile5.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "파일/폴더 이동 또는 이름 변경시 기존 파일/폴더가 존재한다면 명령이 실행되지 않음 전 : (수정전 : ${commandItem}_TestFile2.txt, 수정후 : ${commandItem}_TestFile5.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            mv -n ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt ${filePathParam%/}/tmp/${commandItem}/Directory4/${commandItem}_TestFile5.txt
+            echo
+            echo "파일/폴더 이동 또는 이름 변경시 기존 파일/폴더가 존재한다면 명령이 실행되지 않음 후 : (수정전 : ${commandItem}_TestFile2.txt, 수정후 : ${commandItem}_TestFile5.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        export LC_ALL="ja_JP.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "mv ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "ファイル移動"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Directory2/${commandItem}_TestFile1.txt : ファイル移動"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "mv ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "ファイル移動前 : (${commandItem}_TestFile1.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            mv ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/
+            echo
+            echo "ファイル移動後 : (${commandItem}_TestFile1.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "mv ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile11.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "ファイル名変更"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Directory2/${commandItem}_TestFile1.txt : ファイル名変更"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "mv ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile11.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "ファイル名変更前 : (変更前 : ${commandItem}_TestFile1.txt, 変更後 : ${commandItem}_TestFile11.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            mv ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile11.txt
+            echo
+            echo "ファイル名変更前 : (変更前 : ${commandItem}_TestFile1.txt, 変更後 : ${commandItem}_TestFile11.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "mv ${filePathParam%/}/tmp/${commandItem}/Directory3/ ${filePathParam%/}/tmp/${commandItem}/Directory4/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "フォルダ名変更"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Directory2/${commandItem}_TestFile1.txt : フォルダ名変更"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "mv ${filePathParam%/}/tmp/${commandItem}/Directory3/ ${filePathParam%/}/tmp/${commandItem}/Directory4/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "フォルダ名変更前 : (変更前 : Directory3, 変更後 : Directory4)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            mv ${filePathParam%/}/tmp/${commandItem}/Directory3/ ${filePathParam%/}/tmp/${commandItem}/Directory4/
+            echo
+            echo "フォルダ名変更後 : (変更前 : Directory3, 変更後 : Directory4)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "mv -i ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile11.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "ファイルを移動する際の質問"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "${commandItem}_TestFile2.txt : ファイルを移動する際の質問"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "mv -i ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile11.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "ファイル/フォルダの移動または名前変更時に既存のファイル/フォルダが存在する場合は質問 前 : (変更前 : ${commandItem}_TestFile11.txt, 変更後 : ${commandItem}_TestFile2.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            mv -i ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile11.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt
+            echo
+            echo "ファイル/フォルダの移動または名前変更時に既存のファイル/フォルダが存在する場合は質問 後 : (変更前 : ${commandItem}_TestFile11.txt, 変更後 : ${commandItem}_TestFile2.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "mv -f ${filePathParam%/}/tmp/${commandItem}/Directory4/${commandItem}_TestFile3.txt ${filePathParam%/}/tmp/${commandItem}/Directory4/${commandItem}_TestFile5.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "ファイルを強制移動,強制名前変更"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "${commandItem}_TestFile5.txt : ファイルを強制移動,強制名前変更"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "mv -f ${filePathParam%/}/tmp/${commandItem}/Directory4/${commandItem}_TestFile3.txt ${filePathParam%/}/tmp/${commandItem}/Directory4/${commandItem}_TestFile5.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "ファイルを強制移動,強制名前変更 前 : (変更前 : ${commandItem}_TestFile3.txt, 変更後 : ${commandItem}_TestFile5.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/Directory4/
+            mv -f ${filePathParam%/}/tmp/${commandItem}/Directory4/${commandItem}_TestFile3.txt ${filePathParam%/}/tmp/${commandItem}/Directory4/${commandItem}_TestFile5.txt
+            echo
+            echo "ファイルを強制移動,強制名前変更 後 : (変更前 : ${commandItem}_TestFile3.txt, 変更後 : ${commandItem}_TestFile5.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/Directory4/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "mv -n ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt ${filePathParam%/}/tmp/${commandItem}/Directory4/${commandItem}_TestFile5.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "ファイル/フォルダ移動または名前変更時に既存のファイル/フォルダが存在する場合、命令が実行されない"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "${commandItem}_TestFile2.txt : ファイル/フォルダ移動または名前変更時に既存のファイル/フォルダが存在する場合、命令が実行されない"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "mv -n ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt ${filePathParam%/}/tmp/${commandItem}/Directory4/${commandItem}_TestFile5.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "ファイル/フォルダ移動または名前変更時に既存のファイル/フォルダが存在する場合、命令が実行されない 前 : (変更前 : ${commandItem}_TestFile11.txt, 変更後 : ${commandItem}_TestFile2.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            mv -n ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt ${filePathParam%/}/tmp/${commandItem}/Directory4/${commandItem}_TestFile5.txt
+            echo
+            echo "ファイル/フォルダ移動または名前変更時に既存のファイル/フォルダが存在する場合、命令が実行されない 後 : (変更前 : ${commandItem}_TestFile11.txt, 変更後 : ${commandItem}_TestFile2.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    else
+        export LC_ALL="en_US.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "mv ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "File Moving"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "${commandItem}_TestFile1.txt : File Moving"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "mv ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Before Moving a File : (${commandItem}_TestFile1.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            mv ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/
+            echo
+            echo "After Moving a File : (${commandItem}_TestFile1.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "mv ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile11.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Changing the File Name"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Directory2/${commandItem}_TestFile1.txt : Changing the File Name"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "mv ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile11.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Before changing the File Name : (Before : ${commandItem}_TestFile1.txt, After : ${commandItem}_TestFile11.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            mv ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile11.txt
+            echo
+            echo "After changing the File Name : (Before : ${commandItem}_TestFile1.txt, After : ${commandItem}_TestFile11.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "mv ${filePathParam%/}/tmp/${commandItem}/Directory3/ ${filePathParam%/}/tmp/${commandItem}/Directory4/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Folder Rename"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Directory4/ : Folder Rename"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "mv ${filePathParam%/}/tmp/${commandItem}/Directory3/ ${filePathParam%/}/tmp/${commandItem}/Directory4/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Before Folder Rename : (Before : Directory3, After : Directory4)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            mv ${filePathParam%/}/tmp/${commandItem}/Directory3/ ${filePathParam%/}/tmp/${commandItem}/Directory4/
+            echo
+            echo "After Folder Rename : (Before : Directory3, After : Directory4)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "mv -i ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile11.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Questions if existing files/folders exist when moving or renaming files/folders"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "${commandItem}_TestFile2.txt : Questions if existing files/folders exist when moving or renaming files/folders"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "mv -i ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile11.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Questions if existing files/folders exist when moving or renaming files/folders Before : (Before : ${commandItem}_TestFile11.txt, After : ${commandItem}_TestFile2.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            mv -i ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile11.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt
+            echo
+            echo "Questions if existing files/folders exist when moving or renaming files/folders After : (Before : ${commandItem}_TestFile11.txt, After : ${commandItem}_TestFile2.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "mv -f ${filePathParam%/}/tmp/${commandItem}/Directory4/${commandItem}_TestFile3.txt ${filePathParam%/}/tmp/${commandItem}/Directory4/${commandItem}_TestFile5.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Forced move or rename files and folders"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Directory1 : Forced move or rename files and folders"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "mv -f ${filePathParam%/}/tmp/${commandItem}/Directory4/${commandItem}_TestFile3.txt ${filePathParam%/}/tmp/${commandItem}/Directory4/${commandItem}_TestFile5.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Forced move or rename files and folders Before : (Before : ${commandItem}_TestFile3.txt, After : ${commandItem}_TestFile5.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/Directory4/
+            mv -f ${filePathParam%/}/tmp/${commandItem}/Directory4/${commandItem}_TestFile3.txt ${filePathParam%/}/tmp/${commandItem}/Directory4/${commandItem}_TestFile5.txt
+            echo
+            echo "Forced move or rename files and folders After : (Before : ${commandItem}_TestFile3.txt, After : ${commandItem}_TestFile5.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/Directory4/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "Sample${countNumber}" ":" "mv -n ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt ${filePathParam%/}/tmp/${commandItem}/Directory4/${commandItem}_TestFile5.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "Output(expect)" ":" "If an existing file/folder exists when you move or rename a file/folder, the command does not run"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "${commandItem}_TestFile2.txt : If an existing file/folder exists when you move or rename a file/folder, the command does not run"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "Output(Real)" ":" "mv -n ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt ${filePathParam%/}/tmp/${commandItem}/Directory4/${commandItem}_TestFile5.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "If an existing file/folder exists when you move or rename a file/folder, the command does not run Before : (Before : ${commandItem}_TestFile2.txt, After : ${commandItem}_TestFile5.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            mv -n ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt ${filePathParam%/}/tmp/${commandItem}/Directory4/${commandItem}_TestFile5.txt
+            echo
+            echo "If an existing file/folder exists when you move or rename a file/folder, the command does not run After : (Before : ${commandItem}_TestFile2.txt, After : ${commandItem}_TestFile5.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    fi
+        echo
+    printf "##############################################################################################\n"
+
+    export LC_ALL=${old_LC_ALL}
+
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    rm -rf ${filePathParam%/}/tmp/${commandItem}/
+
+    func_basicSetting_LogFileName_Path ${PID} "1" ${commandItem}
+    echo 
+    
+}
+
 #--------------------------------------------#
 # Command List                               #
 #  : 명령어 리스트                               #
@@ -6228,6 +7635,21 @@ readonly gzipJp="ファイルを圧縮するために使用されます。主に
 readonly headEn="Command_is_used_to_display_the_beginning(head)_of_a_file"
 readonly headKr="파일의_처음_부분을_표시하는데_사용"
 readonly headJp="ファイルの先頭部分を表示するために使用"
+readonly mkdirEn="Used_to_create_a_directory"
+readonly mkdirKr="디렉터리를_생성하는데_사용"
+readonly mkdirJp="ディレクトリを作成するために使用"
+readonly mvEn="Used_to_move_or_rename_files_or_directories"
+readonly mvKr="파일이나_디렉터리를_이동하거나_이름을_변경하는데_사용"
+readonly mvJp="ファイルやディレクトリを移動または名前を変更するために使用"
+readonly pwdEn="Outputs_the_directory_you_are_currently_working_on"
+readonly pwdKr="현재_작업_중인_디렉터리를_출력"
+readonly pwdJp="現在の作業ディレクトリを表示"
+readonly rmEn="Use_to_delete_files_or_directories_from_Linux"
+readonly rmKr="리눅스에서_파일이나_디렉터리를_삭제하기_위해_사용"
+readonly rmJp="Linuxでファイルやディレクトリを削除するために使用"
+readonly rmdirEn="Use_Linux_to_delete_empty_directories"
+readonly rmdirKr="리눅스에서_비어있는_디렉터리를_삭제하는_데_사용"
+readonly rmdirJp="Linuxで空のディレクトリを削除するために使用"
 readonly sleepEn="It_is_commonly_used_in_scripts_or_programs_when_you_want_to_pause_execution_for_a_certain_duration"
 readonly sleepKr="지정된_시간_동안_실행을_지연시키는데_사용됩니다.주로_스크립트나_프로그램에서_일정한_시간_동안_대기하고자_할_때_활용"
 readonly sleepJp="指定された時間の間、実行を遅延させるために使用されます。主にスクリプトやプログラムで一定の時間待機させたい場合に利用"
@@ -6249,10 +7671,10 @@ readonly wcJp="ファイルの行数、単語数、バイト数を数えるの�
 readonly zipEn="Command_is_used_to_compress_files_and_directories_creating_a_compressed_archive.It's_primarily_used_to_save_space_by_compressing_files_or_when_transferring_files"
 readonly zipKr="파일_및_디렉터리를_압축하고_압축_파일을_만드는데_사용됩니다.주로_파일을_압축하여_용량을_절약하거나_파일을_전송할_때_활용"
 readonly zipJp="ファイルやディレクトリを圧縮し、圧縮ファイルを作成するのに使用されます。主にファイルを圧縮して容量を節約しファイルを転送する際に利用"
-declare -a commandList=("cal" "cat" "cd" "chgrp" "chmod" "chown" "date" "expr" "gunzip" "gzip" "head" "sleep" "tail" "touch" "uniq" "unzip" "wc" "zip")
-declare -a commandDescriptionEn=("${calEn}" "${catEn}" "${cdEn}" "${chgrpEn}" "${chmodEn}" "${chownEn}" "${dateEn}" "${exprEn}" "${gunzipEn}" "${gzipEn}" "${headEn}" "${sleepEn}" "${tailEn}" "${touchEn}" "${uniqEn}" "${unzipEn}" "${wcEn}" "${zipEn}")
-declare -a commandDescriptionKr=("${calKr}" "${catKr}" "${cdKr}" "${chgrpKr}" "${chmodKr}" "${chownKr}" "${dateKr}" "${exprKr}" "${gunzipKr}" "${gzipKr}" "${headKr}" "${sleepKr}" "${tailKr}" "${touchKr}" "${uniqKr}" "${unzipKr}" "${wcKr}" "${zipKr}")
-declare -a commandDescriptionJp=("${calJp}" "${catJp}" "${cdJp}" "${chgrpJp}" "${chmodJp}" "${chownJp}" "${dateJp}" "${exprJp}" "${gunzipJp}" "${gzipJp}" "${headJp}" "${sleepJp}" "${tailJp}" "${touchJp}" "${uniqJp}" "${unzipJp}" "${wcJp}" "${zipJp}")
+declare -a commandList=("cal" "cat" "cd" "chgrp" "chmod" "chown" "date" "expr" "gunzip" "gzip" "head" "mkdir" "mv" "pwd" "rm" "rmdir" "sleep" "tail" "touch" "uniq" "unzip" "wc" "zip")
+declare -a commandDescriptionEn=("${calEn}" "${catEn}" "${cdEn}" "${chgrpEn}" "${chmodEn}" "${chownEn}" "${dateEn}" "${exprEn}" "${gunzipEn}" "${gzipEn}" "${headEn}" "${sleepEn}" "${rmEn}" "${rmdirEn}" "${mkdirEn}" "${mvEn}" "${pwdEn}" "${tailEn}" "${touchEn}" "${uniqEn}" "${unzipEn}" "${wcEn}" "${zipEn}")
+declare -a commandDescriptionKr=("${calKr}" "${catKr}" "${cdKr}" "${chgrpKr}" "${chmodKr}" "${chownKr}" "${dateKr}" "${exprKr}" "${gunzipKr}" "${gzipKr}" "${headKr}" "${sleepKr}" "${rmKr}" "${rmdirKr}" "${mkdirKr}" "${mvKr}" "${pwdKr}" "${tailKr}" "${touchKr}" "${uniqKr}" "${unzipKr}" "${wcKr}" "${zipKr}")
+declare -a commandDescriptionJp=("${calJp}" "${catJp}" "${cdJp}" "${chgrpJp}" "${chmodJp}" "${chownJp}" "${dateJp}" "${exprJp}" "${gunzipJp}" "${gzipJp}" "${headJp}" "${sleepJp}" "${rmJp}" "${rmdirJp}" "${mkdirJp}" "${mvJp}" "${pwdJp}" "${tailJp}" "${touchJp}" "${uniqJp}" "${unzipJp}" "${wcJp}" "${zipJp}")
 
 #--------------------------------------------#
 # Script Basic Variable Setting              #
