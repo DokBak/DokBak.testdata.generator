@@ -677,6 +677,21 @@ function func_linuxCommandExample() {
         mv)
             func_command_mv ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
             ;;
+        cp)
+            func_command_cp ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
+            ;;
+        cut)
+            func_command_cut ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
+            ;;
+        dd)
+            func_command_dd ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
+            ;;
+        diff)
+            func_command_diff ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
+            ;;
+        find)
+            func_command_find ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
+            ;;
         *)  echo ; 
             if [[ ${ouputLanguageParam} == [kK][rR] ]];then
                 echo " 에러 : 명령어 함수 미포함 (func_command_${commandList[${commandItemIndex}]})"; 
@@ -6615,7 +6630,6 @@ function func_command_rmdir() {
 
     mkdir -p ${filePathParam%/}/tmp/${commandItem}/Directory1/
     mkdir -p ${filePathParam%/}/tmp/${commandItem}/Directory2/SubDirectory3/
-
     old_LC_ALL=${LC_ALL}
     echo
     clear
@@ -7598,6 +7612,2281 @@ function func_command_mv() {
 }
 
 #--------------------------------------------#
+# Command : cp                               #
+#--------------------------------------------#
+function func_command_cp() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### English Command Description Parameter / 영어 명령어 설명 파라미터 / 英語コマンド説明パラメータ
+    local commandDescriptionEnParam=$3
+    ### Korean Command Description Parameter / 한국어 명령어 설명 파라미터 / 韓国語コマンド説明パラメータ
+    local commandDescriptionKrParam=$4
+    ### Japense Command Description Parameter / 일본어 명령어 설명 파라미터 / 日本語コマンド説明パラメータ
+    local commandDescriptionJpParam=$5
+    ### Command / 명령어 / コマンド
+    local commandItem=$6
+    ### Count / 번호 / 番号 
+    local countNumber=0
+
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/Directory1/
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/Directory2/Test/
+    echo 'TestData' > ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt
+    echo 'TestData' > ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt
+    echo 'TestData' > ${filePathParam%/}/tmp/${commandItem}/Directory2/Test/Test.txt
+    old_LC_ALL=${LC_ALL}
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${commandItem}
+    printf "##############################################################################################\n"
+    echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        printf "  %-16s %s %s\n" "명령어" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "기본설명" ":" "${commandDescriptionKrParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※사용법" ":" "${commandItem}_[옵션]_[인수1]_[인수2]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※옵션" ":" "[-irpa]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※인수1" ":" "[대상_파일_또는_폴더]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※인수2" ":" "[대상_파일_또는_폴더]" | sed 's/_/ /g'
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        printf "  %-17s %s %s\n" "コマンド" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "基本説明" ":" "${commandDescriptionJpParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}_[オプション]_[引数1]_[引数2]" | sed 's/_/ /g'
+        printf "  %-20s %s %s\n" "※オプション" ":" "[-irpa]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数1" ":" "[対象ファイル又はフォルダ]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数2" ":" "[対象ファイル又はフォルダ]" | sed 's/_/ /g'
+    else
+        printf "  %-13s %s %s\n" "Command" ":" "${commandItem}"
+        printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_[option]_[argument1]_[argument2]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※option" ":" "[-irpa]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument1" ":" "[Target_Files_or_Folders]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument2" ":" "[Target_Files_or_Folders]" | sed 's/_/ /g'
+    fi
+        echo
+        printf "##############################################################################################\n"
+        echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        export LC_ALL="ko_KR.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "cp ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "파일 복사"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Directory2/${commandItem}_TestFile1.txt : 파일 복사"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "cp ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "파일 복사 전 : (Directory2/${commandItem}_TestFile1.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            cp ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/
+            echo
+            echo "파일 복사 후 : (Directory2/${commandItem}_TestFile1.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "cp ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "파일 복사(이름 재정의)"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Directory2/${commandItem}_TestFile3.txt : 파일 복사(이름 재정의)"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "cp ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "파일 복사(이름 재정의) 전 : (Directory2/${commandItem}_TestFile3.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            cp ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile3.txt
+            echo
+            echo "파일 복사(이름 재정의) 후 : (Directory2/${commandItem}_TestFile3.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "cp -i ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "출력 경로에 같은 이름의 파일이 존재하는경우 질문"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Directory2/${commandItem}_TestFile3.txt : 출력 경로에 같은 이름의 파일이 존재하는경우 질문"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "cp -i ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "출력 경로에 같은 이름의 파일이 존재하는경우 질문 전 : (Directory2/${commandItem}_TestFile3.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            cp -i ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile3.txt
+            echo
+            echo "출력 경로에 같은 이름의 파일이 존재하는경우 질문 후 : (Directory2/${commandItem}_TestFile3.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "cp -r ${filePathParam%/}/tmp/${commandItem}/Directory2/ ${filePathParam%/}/tmp/${commandItem}/Directory1/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "하위 디렉토리 모두 복사"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Directory1/${commandItem}_TestFile1.txt"
+            echo "Directory1/${commandItem}_TestFile2.txt"
+            echo "Directory1/${commandItem}_TestFile3.txt"
+            echo "Directory1/Test/Test.txt                : 하위 디렉토리 모두 복사"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "cp -r ${filePathParam%/}/tmp/${commandItem}/Directory2/ ${filePathParam%/}/tmp/${commandItem}/Directory1/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "하위 디렉토리 모두 복사 전 : (Directory1/Test/Test.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            cp -r ${filePathParam%/}/tmp/${commandItem}/Directory2/ ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            echo
+            echo "하위 디렉토리 모두 복사 후 : (Directory1/Test/Test.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "cp -p ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/Test/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "파일 소유자, 그룹, 권한, 타임스탬프 등을 원본 그대로 복사"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Directory2/Test/${commandItem}_TestFile1.txt : 파일 소유자, 그룹, 권한, 타임스탬프 등을 원본 그대로 복사"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "cp -p ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/Test/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "일 소유자, 그룹, 권한, 타임스탬프 등을 원본 그대로 복사 전 : (Directory2/Test/${commandItem}_TestFile1.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            cp -p ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/Test/
+            echo
+            echo "일 소유자, 그룹, 권한, 타임스탬프 등을 원본 그대로 복사 후 : (Directory2/Test/${commandItem}_TestFile1.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "cp -a ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile2.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/Test/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "파일 소유자, 그룹, 권한, 타임스탬프 등을 원본 그대로 복사(-p) & 심볼릭 링크 제체를 복사하고 원본 참조도 유지"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Directory2/Test/${commandItem}_TestFile2.txt : 파일 소유자, 그룹, 권한, 타임스탬프 등을 원본 그대로 복사(-p) & 심볼릭 링크 제체를 복사하고 원본 참조도 유지"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "cp -p ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile2.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/Test/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "파일 소유자, 그룹, 권한, 타임스탬프 등을 원본 그대로 복사(-p) & 심볼릭 링크 제체를 복사하고 원본 참조도 유지 전 : (Directory2/Test/${commandItem}_TestFile2.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            cp -p ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile2.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/Test/
+            echo
+            echo "파일 소유자, 그룹, 권한, 타임스탬프 등을 원본 그대로 복사(-p) & 심볼릭 링크 제체를 복사하고 원본 참조도 유지 후 : (Directory2/Test/${commandItem}_TestFile2.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        export LC_ALL="ja_JP.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "cp ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "フォルダ削除"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Directory2/${commandItem}_TestFile1.txt : ファイルコピー"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "cp ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "ファイルコピー前 : (Directory2/${commandItem}_TestFile1.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            cp ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/
+            echo
+            echo "ファイルコピー後 : (Directory2/${commandItem}_TestFile1.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "cp ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "ファイルコピー（名前再定義）"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Directory2/${commandItem}_TestFile3.txt : ファイルコピー（名前再定義）"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "cp ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "ファイルコピー（名前再定義）前 : (Directory2/${commandItem}_TestFile3.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            cp ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile3.txt
+            echo
+            echo "ファイルコピー（名前再定義）後 : (Directory2/${commandItem}_TestFile3.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "cp -i ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "出力パスに同名のファイルが存在する場合の質問"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Directory2/${commandItem}_TestFile3.txt : 出力パスに同名のファイルが存在する場合の質問"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "cp -i ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "出力パスに同名のファイルが存在する場合の質問前 : (Directory2/${commandItem}_TestFile3.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            cp -i ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile3.txt
+            echo
+            echo "出力パスに同名のファイルが存在する場合の質問後 : (Directory2/${commandItem}_TestFile3.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "cp -r ${filePathParam%/}/tmp/${commandItem}/Directory2/ ${filePathParam%/}/tmp/${commandItem}/Directory1/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "サブディレクトリすべてコピー"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Directory1/${commandItem}_TestFile1.txt"
+            echo "Directory1/${commandItem}_TestFile2.txt"
+            echo "Directory1/${commandItem}_TestFile3.txt"
+            echo "Directory1/Test/Test.txt                : サブディレクトリすべてコピー"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "cp -r ${filePathParam%/}/tmp/${commandItem}/Directory2/ ${filePathParam%/}/tmp/${commandItem}/Directory1/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "サブディレクトリすべてコピー前 : (Directory1/Test/Test.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            cp -r ${filePathParam%/}/tmp/${commandItem}/Directory2/ ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            echo
+            echo "サブディレクトリすべてコピー後 : (Directory1/Test/Test.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "cp -p ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/Test/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "ファイルの所有者、グループ、権限、タイムスタンプなどを元のままコピー"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Directory2/Test/${commandItem}_TestFile1.txt : ファイルの所有者、グループ、権限、タイムスタンプなどを元のままコピー"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "cp -p ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/Test/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "ファイルの所有者、グループ、権限、タイムスタンプなどを元のままコピー前 : (Directory2/Test/${commandItem}_TestFile1.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            cp -p ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/Test/
+            echo
+            echo "ファイルの所有者、グループ、権限、タイムスタンプなどを元のままコピー後 : (Directory2/Test/${commandItem}_TestFile1.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "cp -a ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile2.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/Test/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "ファイルの所有者、グループ、権限、タイムスタンプなどを元のままコピー(-p)&シンボリックリンクの堤体をコピーし、原本参照も保持"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Directory2/Test/${commandItem}_TestFile2.txt : ファイルの所有者、グループ、権限、タイムスタンプなどを元のままコピー(-p)&シンボリックリンクの堤体をコピーし、原本参照も保持"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "cp -a ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile2.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/Test/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "ファイルの所有者、グループ、権限、タイムスタンプなどを元のままコピー(-p)&シンボリックリンクの堤体をコピーし、原本参照も保持前 : (Directory2/Test/${commandItem}_TestFile2.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            cp -a ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile2.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/Test/
+            echo
+            echo "ファイルの所有者、グループ、権限、タイムスタンプなどを元のままコピー(-p)&シンボリックリンクの堤体をコピーし、原本参照も保持後 : (Directory2/Test/${commandItem}_TestFile2.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        
+    else
+        export LC_ALL="en_US.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "cp ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "File copy"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Directory2/${commandItem}_TestFile1.txt : File copy"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "cp ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Before File copy : (Directory2/${commandItem}_TestFile1.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            cp ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/
+            echo
+            echo "After File copy : (Directory2/${commandItem}_TestFile1.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "cp ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Copy File (Rename)"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Directory2/${commandItem}_TestFile3.txt : Copy File (Rename)"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "cp ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Before Copy File (Rename) : (Directory2/${commandItem}_TestFile3.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            cp ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile3.txt
+            echo
+            echo "After Copy File (Rename) : (Directory2/${commandItem}_TestFile3.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "cp -i ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Questions if a file of the same name exists in the output path"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Directory2/${commandItem}_TestFile3.txt : Questions if a file of the same name exists in the output path"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "cp -i ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Before Questions if a file of the same name exists in the output path : (Directory2/${commandItem}_TestFile3.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            cp -i ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile3.txt
+            echo
+            echo "After Questions if a file of the same name exists in the output path : (Directory2/${commandItem}_TestFile3.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "cp -r ${filePathParam%/}/tmp/${commandItem}/Directory2/ ${filePathParam%/}/tmp/${commandItem}/Directory1/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Copy all subdirectories"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Directory1/${commandItem}_TestFile1.txt"
+            echo "Directory1/${commandItem}_TestFile2.txt"
+            echo "Directory1/${commandItem}_TestFile3.txt"
+            echo "Directory1/Test/Test.txt                : Copy all subdirectories"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "cp -r ${filePathParam%/}/tmp/${commandItem}/Directory2/ ${filePathParam%/}/tmp/${commandItem}/Directory1/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Before Copy all subdirectories : (Directory1/Test/Test.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            cp -r ${filePathParam%/}/tmp/${commandItem}/Directory2/ ${filePathParam%/}/tmp/${commandItem}/Directory1/
+            echo
+            echo "After Copy all subdirectories : (Directory1/Test/Test.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "cp -p ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/Test/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Copy file owners, groups, privileges, timestamps, and so on"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Directory2/Test/${commandItem}_TestFile1.txt : Copy file owners, groups, privileges, timestamps, and so on"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "cp -p ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/Test/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Before Copy file owners, groups, privileges, timestamps, and so on : (Directory2/Test/${commandItem}_TestFile1.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            cp -p ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/Test/
+            echo
+            echo "After Copy file owners, groups, privileges, timestamps, and so on : (Directory2/Test/${commandItem}_TestFile1.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "cp -a ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile2.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/Test/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Copy file owners, groups, privileges, timestamps, and so on(-p) & copy the symbolic link system and maintain the original reference"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Directory2/Test/${commandItem}_TestFile2.txt : Copy file owners, groups, privileges, timestamps, and so on(-p) & copy the symbolic link system and maintain the original reference"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "cp -a ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile2.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/Test/"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Before Copy file owners, groups, privileges, timestamps, and so on (-p) & copy the symbolic link system and maintain the original reference: (Directory2/Test/${commandItem}_TestFile2.txt)"
+            ls -l ${filePathParam%/}/tmp/${commandItem}/
+            cp -a ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile2.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/Test/
+            echo
+            echo "After Copy file owners, groups, privileges, timestamps, and so on (-p) & copy the symbolic link system and maintain the original reference: (Directory2/Test/${commandItem}_TestFile2.txt)"
+            ls -lR ${filePathParam%/}/tmp/${commandItem}/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    fi
+        echo
+    printf "##############################################################################################\n"
+
+    export LC_ALL=${old_LC_ALL}
+
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    rm -rf ${filePathParam%/}/tmp/${commandItem}/
+
+    func_basicSetting_LogFileName_Path ${PID} "1" ${commandItem}
+    echo 
+    
+}
+
+#--------------------------------------------#
+# Command : cut                              #
+#--------------------------------------------#
+function func_command_cut() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### English Command Description Parameter / 영어 명령어 설명 파라미터 / 英語コマンド説明パラメータ
+    local commandDescriptionEnParam=$3
+    ### Korean Command Description Parameter / 한국어 명령어 설명 파라미터 / 韓国語コマンド説明パラメータ
+    local commandDescriptionKrParam=$4
+    ### Japense Command Description Parameter / 일본어 명령어 설명 파라미터 / 日本語コマンド説明パラメータ
+    local commandDescriptionJpParam=$5
+    ### Command / 명령어 / コマンド
+    local commandItem=$6
+    ### Count / 번호 / 番号 
+    local countNumber=0
+
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/
+    echo '1234567890' > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+    echo 'ABCDEFGHIJKL' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+    echo '2b yteString1 2byteS,tring2,2byteString3' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+    echo '2byteString12byteString2,2byteString3' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+    echo 'ＡTestFile1,3Testing2,3Testing3' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+    echo 'あTestFile14Testing2,4Testing3' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+    old_LC_ALL=${LC_ALL}
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${commandItem}
+    printf "##############################################################################################\n"
+    echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        printf "  %-16s %s %s\n" "명령어" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "기본설명" ":" "${commandDescriptionKrParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※사용법" ":" "${commandItem}_[옵션]_[인수1]_[인수2]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※옵션" ":" "[-bcfdw]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※인수1" ":" "[출력_자릿수]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※인수2" ":" "[대상_파일]" | sed 's/_/ /g'
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        printf "  %-17s %s %s\n" "コマンド" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "基本説明" ":" "${commandDescriptionJpParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}_[オプション]_[引数1]_[引数2]" | sed 's/_/ /g'
+        printf "  %-20s %s %s\n" "※オプション" ":" "[-bcfdw]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数1" ":" "[出力桁数]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数2" ":" "[対象ファイル]" | sed 's/_/ /g'
+    else
+        printf "  %-13s %s %s\n" "Command" ":" "${commandItem}"
+        printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_[option]_[argument1]_[argument2]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※option" ":" "[-bcfdw]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument1" ":" "[Output_digits]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument2" ":" "[Target_File]" | sed 's/_/ /g'
+    fi
+        echo
+        printf "##############################################################################################\n"
+        echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        export LC_ALL="ko_KR.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "cut -b 1 ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "각 라인 선두에서부터 n바이트 위치의 문자 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "1 : 선두에서부터 n바이트 위치의 문자 출력"
+            echo "A "
+            echo "2 "
+            echo "2 "
+            echo "  : 멀티바이트 문자는 정상적으로 출력되지 않을 가능성이 있다."
+            echo "  "
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "cut -b 1 ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            cut -b 1 ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "cut -b 1-5 ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "각 라인 선두에서부터 n바이트 위치부터 m바이트 위치까지의 문자 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "12345 : 선두에서부터 n바이트 위치부터 m바이트 위치까지의 문자 출력"
+            echo "ABCDE "
+            echo "2b yt "
+            echo "2byte "
+            echo "ＡTes : 멀티바이트 문자는 정상적으로 출력되지 않을 가능성이 있다."
+            echo "あTes "
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "cut -b 1-5 ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            cut -b 1-5 ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "cut -c 1 ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "각 라인 선두에서부터 n번째 위치의 문자 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "1 : 선두에서부터 n번째 위치의 문자 출력"
+            echo "A "
+            echo "2 "
+            echo "2 "
+            echo "Ａ "
+            echo "あ "
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "cut -c 1 ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            cut -c 1 ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "cut -c 1-5 ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "각 라인 선두에서부터 n번째 위치부터 m번째 위치까지의 문자 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "12345 : 선두에서부터 n번째 위치부터 m번째 위치까지의 문자 출력"
+            echo "ABCDE "
+            echo "2b yt "
+            echo "2byte "
+            echo "ＡTest "
+            echo "あTest "
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "cut -c 1-5 ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            cut -c 1-5 ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "cut -f1 -w ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "스페이스로 구분지어서 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "1234567890"
+            echo "ABCDEFGHIJKL"
+            echo "2b"
+            echo "2byteString12byteString2,2byteString3"
+            echo "ＡTestFile1,3Testing2,3Testing3"
+            echo "あTestFile14Testing2,4Testing3"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "cut -f1 -w ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            cut -f1 -w ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "cut -f1 -d ,  ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "cut -f1 -d ',' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "cut -f1 -d "," ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "cut -f1 -d, ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "-d옵션뒤의 기호로 구분하며 -f뒤의 n번째 항목 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "1234567890"
+            echo "ABCDEFGHIJKL"
+            echo "2b yteString1 2byteS"
+            echo "2byteString12byteString2"
+            echo "ＡTestFile1"
+            echo "あTestFile14Testing2"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "cut -f1 -d , ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "cut -f1 -d ',' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "cut -f1 -d "," ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "cut -f1 -d, ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            cut -f1 -d ,  ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+            echo
+            cut -f1 -d ',' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+            echo
+            cut -f1 -d "," ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+            echo
+            cut -f1 -d, ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        export LC_ALL="ja_JP.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "cut -b 1 ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "各行先頭からnバイト位置の文字を出力"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "1 : 各行先頭からnバイト位置の文字を出力"
+            echo "A "
+            echo "2 "
+            echo "2 "
+            echo "  : マルチバイト文字は正常に出力されない可能性がある"
+            echo "  "
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "cut -b 1 ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            cut -b 1 ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "cut -b 1-5 ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "先頭からnバイト位置からmバイト位置までの文字出力"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "12345 : 各行先頭からnバイト位置からmバイト位置までの文字出力"
+            echo "ABCDE "
+            echo "2b yt "
+            echo "2byte "
+            echo "ＡTes : マルチバイト文字は正常に出力されない可能性がある"
+            echo "あTes "
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "cut -b 1-5 ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            cut -b 1-5 ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "cut -c 1 ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "先頭先頭からn番目の位置の文字出"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "1 : 先頭先頭からn番目の位置の文字出"
+            echo "A "
+            echo "2 "
+            echo "2 "
+            echo "Ａ "
+            echo "あ "
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "cut -c 1 ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            cut -c 1 ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "cut -c 1-5 ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "先頭からn番目の位置からm番目の位置までの文字出力"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "12345 : 先頭からn番目の位置からm番目の位置までの文字出力"
+            echo "ABCDE "
+            echo "2b yt "
+            echo "2byte "
+            echo "ＡTest "
+            echo "あTest "
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "cut -c 1-5 ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            cut -c 1-5 ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "cut -f1 -w ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "先頭からn番目の位置からm番目の位置までの文字出力"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "1234567890"
+            echo "ABCDEFGHIJKL"
+            echo "2b"
+            echo "2byteString12byteString2,2byteString3"
+            echo "ＡTestFile1,3Testing2,3Testing3"
+            echo "あTestFile14Testing2,4Testing3"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "cut -f1 -w ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            cut -f1 -w ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "cut -f1 -d ,  ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "cut -f1 -d ','  ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "cut -f1 -d ","  ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "cut -f1 -d,  ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "-dオプションの後ろの記号で区分し-fの後ろのn番目の項目を出力"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "1234567890"
+            echo "ABCDEFGHIJKL"
+            echo "2b"
+            echo "2byteString12byteString2,2byteString3"
+            echo "ＡTestFile1,3Testing2,3Testing3"
+            echo "あTestFile14Testing2,4Testing3"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "cut -f1 -d , ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "cut -f1 -d ',' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "cut -f1 -d "," ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "cut -f1 -d, ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            cut -f1 -d ,  ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+            echo
+            cut -f1 -d ',' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+            echo
+            cut -f1 -d "," ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+            echo
+            cut -f1 -d, ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    else
+        export LC_ALL="en_US.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "cut -b 1 ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Text output from each line lead to [n]bit position"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "1 : Text output from each line lead to [n]bit position"
+            echo "A "
+            echo "2 "
+            echo "2 "
+            echo "  : There is a possibility that the multi-byte character may not be output normally"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "cut -b 1 ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            cut -b 1 ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "cut -b 1-5 ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Delete all down to subdirectories"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "12345 : Character output from the beginning to the [n]byte position to the [m]byte position"
+            echo "ABCDE "
+            echo "2b yt "
+            echo "2byte "
+            echo "ＡTes : There is a possibility that the multi-byte character may not be output normally"
+            echo "あTes "
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "cut -b 1-5 ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            cut -b 1-5 ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "cut -c 1 ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Character output from the beginning to the [n]th position"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "1 : Character output from the beginning to the [n]th position"
+            echo "A "
+            echo "2 "
+            echo "2 "
+            echo "Ａ "
+            echo "あ "
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "cut -c 1 ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            cut -c 1 ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "cut -c 1-5 ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Character output from head to [n]th position to [m]th position"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "12345 : Character output from head to [n]th position to [m]th position"
+            echo "ABCDE "
+            echo "2b yt "
+            echo "2byte "
+            echo "ＡTest "
+            echo "あTest "
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "cut -c 1-5 ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            cut -c 1-5 ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "cut -f1 -w ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Output separated by space"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "1234567890"
+            echo "ABCDEFGHIJKL"
+            echo "2b"
+            echo "2byteString12byteString2,2byteString3"
+            echo "ＡTestFile1,3Testing2,3Testing3"
+            echo "あTestFile14Testing2,4Testing3"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "cut -f1 -w ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            cut -f1 -w ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "cut -f1 -d ,  ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "cut -f1 -d ','  ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "cut -f1 -d ","  ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "cut -f1 -d,  ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "The -d option is symbol-separated and the nth item is displayed after the -f option"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "1234567890"
+            echo "ABCDEFGHIJKL"
+            echo "2b yteString1 2byteS"
+            echo "2byteString12byteString2"
+            echo "ＡTestFile1"
+            echo "あTestFile14Testing2"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "cut -f1 -d ,  ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "cut -f1 -d ','  ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "cut -f1 -d ","  ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "cut -f1 -d,  ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            cut -f1 -d ,  ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+            echo
+            cut -f1 -d ',' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+            echo
+            cut -f1 -d "," ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+            echo
+            cut -f1 -d, ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    fi
+        echo
+    printf "##############################################################################################\n"
+
+    export LC_ALL=${old_LC_ALL}
+
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    rm -rf ${filePathParam%/}/tmp/${commandItem}/
+
+    func_basicSetting_LogFileName_Path ${PID} "1" ${commandItem}
+    echo 
+    
+}
+
+#--------------------------------------------#
+# Command : dd                               #
+#--------------------------------------------#
+function func_command_dd() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### English Command Description Parameter / 영어 명령어 설명 파라미터 / 英語コマンド説明パラメータ
+    local commandDescriptionEnParam=$3
+    ### Korean Command Description Parameter / 한국어 명령어 설명 파라미터 / 韓国語コマンド説明パラメータ
+    local commandDescriptionKrParam=$4
+    ### Japense Command Description Parameter / 일본어 명령어 설명 파라미터 / 日本語コマンド説明パラメータ
+    local commandDescriptionJpParam=$5
+    ### Command / 명령어 / コマンド
+    local commandItem=$6
+    ### Count / 번호 / 番号 
+    local countNumber=0
+
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/
+    echo "TestFile01TestFile02TestFile03TestFile04TestFile05TestFile06TestFile07TestFile08TestFile09TestFile10" > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+    old_LC_ALL=${LC_ALL}
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${commandItem}
+    printf "##############################################################################################\n"
+    echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        printf "  %-16s %s %s\n" "명령어" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "기본설명" ":" "${commandDescriptionKrParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※사용법" ":" "${commandItem}_[옵션]_[인수1]_[인수2]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※인수1" ":" "[대상_입력파일]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※인수2" ":" "[대상_출력파일]" | sed 's/_/ /g'
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        printf "  %-17s %s %s\n" "コマンド" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "基本説明" ":" "${commandDescriptionJpParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}_[オプション]_[引数1]_[引数2]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数1" ":" "[対象入力ファイル]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数2" ":" "[対象出力ファイル]" | sed 's/_/ /g'
+    else
+        printf "  %-13s %s %s\n" "Command" ":" "${commandItem}"
+        printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_[option]_[argument1]_[argument2]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument1" ":" "[Target_InputFile]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument2" ":" "[Target_OutputFile]" | sed 's/_/ /g'
+    fi
+        echo
+        printf "##############################################################################################\n"
+        echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        export LC_ALL="ko_KR.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" 'dd if="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" of="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt"'
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "블록 단위로 복사해서 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo " 블록 단위로 복사해서 출력"
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" 'dd if="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" of="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt"'
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            dd if="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" of="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt"
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" 'dd if="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" of="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile3.txt" bs=32'
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "32byte 블록 단위로 복사해서 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo " 32byte 블록 단위로 복사해서 출력"
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" 'dd if="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" of="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile3.txt" bs=32'
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            dd if="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" of="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile3.txt" bs=32
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile3.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" 'dd if="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" of="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile4.txt" bs=32 count=2'
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "32byte 블록 단위로 2블록 만큼 복사해서 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo " 32byte 블록 단위로 2블록 만큼 복사해서 출력"
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" 'dd if="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" of="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile4.txt" bs=32 count=2'
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            dd if="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" of="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile4.txt" bs=32 count=2
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile4.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" 'dd if="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" of="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile5.txt" bs=32 skip=2'
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "32byte 블록 단위로 2블록 만큼 스킵후 나머지 복사해서 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo " 32byte 블록 단위로 2블록 만큼 스킵후 나머지 복사해서 출력"
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" 'dd if="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" of="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile5.txt" bs=32 skip=2'
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            dd if="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" of="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile5.txt" bs=32 skip=2
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile5.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        export LC_ALL="ja_JP.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" 'dd if="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" of="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt"'
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "ブロック単位でコピーして出力"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo " ブロック単位でコピーして出力"
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" 'dd if="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" of="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt"'
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            dd if="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" of="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt"
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" 'dd if="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" of="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile3.txt" bs=32'
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "32byteブロック単位でコピーして出力"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo " 32byteブロック単位でコピーして出力"
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" 'dd if="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" of="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile3.txt" bs=32'
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            dd if="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" of="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile3.txt" bs=32
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile3.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" 'dd if="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" of="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile4.txt" bs=32 count=2'
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "32byteブロック単位で2ブロック分コピーして出力"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo " 32byteブロック単位で2ブロック分コピーして出力"
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" 'dd if="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" of="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile4.txt" bs=32 count=2'
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            dd if="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" of="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile4.txt" bs=32 count=2
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile4.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" 'dd if="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" of="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile5.txt" bs=32 skip=2'
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "32byteブロック単位で2ブロック分スキップした後、残りをコピーして出力"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo " 32byteブロック単位で2ブロック分スキップした後、残りをコピーして出力"
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" 'dd if="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" of="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile5.txt" bs=32 skip=2'
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            dd if="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" of="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile5.txt" bs=32 skip=2
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile5.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    else
+        export LC_ALL="en_US.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" 'dd if="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" of="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt"'
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Copy in blocks and print out"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Copy in blocks and print out"
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" 'dd if="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" of="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt"'
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            dd if="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" of="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt"
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" 'dd if="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" of="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile3.txt" bs=32'
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Copy and print in 32-byte blocks"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo " Copy and print in 32-byte blocks"
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" 'dd if="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" of="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile3.txt" bs=32'
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            dd if="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" of="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile3.txt" bs=32
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile3.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" 'dd if="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" of="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile4.txt" bs=32 count=2'
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Copy and output 2 blocks per 32 byte block"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo " Copy and output 2 blocks per 32 byte block"
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" 'dd if="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" of="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile4.txt" bs=32 count=2'
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            dd if="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" of="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile4.txt" bs=32 count=2
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile4.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" 'dd if="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" of="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile5.txt" bs=32 skip=2'
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Skip by 2 blocks per 32-byte block and copy the rest and output it"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo " Skip by 2 blocks per 32-byte block and copy the rest and output it"
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" 'dd if="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" of="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile5.txt" bs=32 skip=2'
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            dd if="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" of="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile5.txt" bs=32 skip=2
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile5.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    fi
+        echo
+    printf "##############################################################################################\n"
+
+    export LC_ALL=${old_LC_ALL}
+
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    rm -rf ${filePathParam%/}/tmp/${commandItem}/
+
+    func_basicSetting_LogFileName_Path ${PID} "1" ${commandItem}
+    echo 
+    
+}
+
+#--------------------------------------------#
+# Command : diff                             #
+#--------------------------------------------#
+function func_command_diff() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### English Command Description Parameter / 영어 명령어 설명 파라미터 / 英語コマンド説明パラメータ
+    local commandDescriptionEnParam=$3
+    ### Korean Command Description Parameter / 한국어 명령어 설명 파라미터 / 韓国語コマンド説明パラメータ
+    local commandDescriptionKrParam=$4
+    ### Japense Command Description Parameter / 일본어 명령어 설명 파라미터 / 日本語コマンド説明パラメータ
+    local commandDescriptionJpParam=$5
+    ### Command / 명령어 / コマンド
+    local commandItem=$6
+    ### Count / 번호 / 番号 
+    local countNumber=0
+
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/Directory1/
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/Directory2/
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/Directory3/
+    echo "Test File01" > ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt
+    echo "Test File02" >> ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt
+    echo "Test File03" >> ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt
+    echo "Test File04" >> ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt
+    echo "Test File05" >> ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt
+    echo "Test File01" > ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt
+    echo "Test File02" >> ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt
+    echo "Test File03" >> ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt
+    echo "Test File04" >> ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt
+    echo "Test File05" >> ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt
+    echo "Test   File01" > ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt
+    echo "Test File02" >> ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt
+    echo "test File03" >> ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt
+    echo "test File04" >> ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt
+    echo "test File05" >> ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt
+    old_LC_ALL=${LC_ALL}
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${commandItem}
+    printf "##############################################################################################\n"
+    echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        printf "  %-16s %s %s\n" "명령어" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "기본설명" ":" "${commandDescriptionKrParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※사용법" ":" "${commandItem}_[옵션]_[인수1]_[인수2]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※옵션" ":" "[-irap]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※인수1" ":" "[대상_파일]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※인수2" ":" "[대상_파일]" | sed 's/_/ /g'
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        printf "  %-17s %s %s\n" "コマンド" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "基本説明" ":" "${commandDescriptionJpParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}_[オプション]_[引数1]_[引数2]" | sed 's/_/ /g'
+        printf "  %-20s %s %s\n" "※オプション" ":" "[-irap]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数1" ":" "[対象ファイル]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数2" ":" "[対象ファイル]" | sed 's/_/ /g'
+    else
+        printf "  %-13s %s %s\n" "Command" ":" "${commandItem}"
+        printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_[option]_[argument1]_[argument2]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※option" ":" "[-irap]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument1" ":" "[Target_File]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument2" ":" "[Target_File]" | sed 's/_/ /g'
+    fi
+        echo
+        printf "##############################################################################################\n"
+        echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        export LC_ALL="ko_KR.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "diff ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "diff ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "두 파일을 비교"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo " 차이가 없는 파일 비교 : 출력 없음"
+            echo
+            echo " 차이가 있는 파일 비교"
+            echo " 1c1"
+            echo " < Test File01"
+            echo " ---"
+            echo " > Test   File01"
+            echo " 3,5c3,5"
+            echo " < Test File03"
+            echo " < Test File04"
+            echo " < Test File05"
+            echo " ---"
+            echo " > test File03"
+            echo " > test File04"
+            echo " > test File05"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "diff ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "diff ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo " 차이가 없는 파일 비교"
+            diff ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt
+            echo
+            echo " 차이가 있는 파일 비교"
+            diff ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "diff -q ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "diff -q ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "차이가 있는 파일의 경우 differ 라고 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo " 차이가 없는 파일 비교 : 출력 없음"
+            echo
+            echo " 차이가 있는 파일 비교 : [인수1] and [인수2] differ 출력"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "diff -q ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "diff -q ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo " 차이가 없는 파일 비교"
+            diff -q ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt
+            echo
+            echo " 차이가 있는 파일 비교"
+            diff -q ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "diff -s ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "diff -s ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "차이가 없는 파일의 경우 identical 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo " 차이가 없는 파일 비교 : [인수1] and [인수2] identical 출력"
+            echo
+            echo " 차이가 있는 파일 비교"
+            echo " 3,5c3,5"
+            echo " < TestFile03"
+            echo " < TestFile04"
+            echo " < TestFile05"
+            echo " ---"
+            echo " > testFile03"
+            echo " > testFile04"
+            echo " > testFile05"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "diff -s ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "diff -s ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo " 차이가 없는 파일 비교"
+            diff -s ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt
+            echo
+            echo " 차이가 있는 파일 비교"
+            diff -s ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "diff -i ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "diff -i ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "대소문자 구분없이 파일 비교"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo " 차이가 없는 파일 비교 : 출력 없음"
+            echo
+            echo " 차이가 있는 파일 비교"
+            echo " 1c1"
+            echo " < Test File01"
+            echo " ---"
+            echo " > Test   File01"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "diff -i ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "diff -i ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo " 차이가 없는 파일 비교"
+            diff -i ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt
+            echo
+            echo " 차이가 있는 파일 비교"
+            diff -i ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "diff -b ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "diff -b ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "연속된 스페이스는 하나로 인식하여 파일 비교"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo " 차이가 없는 파일 비교 : 출력 없음"
+            echo
+            echo " 차이가 있는 파일 비교"
+            echo " 3,5c3,5"
+            echo " < TestFile03"
+            echo " < TestFile04"
+            echo " < TestFile05"
+            echo " ---"
+            echo " > testFile03"
+            echo " > testFile04"
+            echo " > testFile05"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "diff -b ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "diff -b ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo " 차이가 없는 파일 비교"
+            diff -b ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt
+            echo
+            echo " 차이가 있는 파일 비교"
+            diff -b ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        export LC_ALL="ja_JP.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "diff ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "diff ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "ファイルの比較"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo " 差のないファイル比較 : 出力なし"
+            echo
+            echo " 異なるファイルを比較"
+            echo " 1c1"
+            echo " < Test File01"
+            echo " ---"
+            echo " > Test   File01"
+            echo " 3,5c3,5"
+            echo " < Test File03"
+            echo " < Test File04"
+            echo " < Test File05"
+            echo " ---"
+            echo " > test File03"
+            echo " > test File04"
+            echo " > test File05"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "diff ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "diff ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo " 差のないファイル比較"
+            diff ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt
+            echo
+            echo " 異なるファイルを比較"
+            diff ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "diff -q ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "diff -q ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "差のあるファイルの場合、differと出力"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo " 差のないファイル比較 : 出力なし"
+            echo
+            echo " 異なるファイルを比較 : [引数1] and [引数2] differ 出力"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "diff -q ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "diff -q ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo " 差のないファイル比較"
+            diff -q ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt
+            echo
+            echo " 異なるファイルを比較"
+            diff -q ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "diff -s ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "diff -s ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "差のないファイルの場合、identical出力"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo " 差のないファイル比較 : [引数1] and [引数2] identical 出力"
+            echo
+            echo " 異なるファイルを比較"
+            echo " 3,5c3,5"
+            echo " < TestFile03"
+            echo " < TestFile04"
+            echo " < TestFile05"
+            echo " ---"
+            echo " > testFile03"
+            echo " > testFile04"
+            echo " > testFile05"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "diff -s ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "diff -s ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo " 差のないファイル比較"
+            diff -s ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt
+            echo
+            echo " 異なるファイルを比較"
+            diff -s ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "diff -i ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "diff -i ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "大文字と小文字の区別なくファイルを比較"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo " 差のないファイル比較 : 出力なし"
+            echo
+            echo " 異なるファイルを比較"
+            echo " 1c1"
+            echo " < Test File01"
+            echo " ---"
+            echo " > Test   File01"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "diff -i ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "diff -i ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo " 差のないファイル比較"
+            diff -i ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt
+            echo
+            echo " 異なるファイルを比較"
+            diff -i ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "diff -b ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "diff -b ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "連続したスペースは一つとして認識し、ファイルを比較"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo " 差のないファイル比較 : 出力なし"
+            echo
+            echo " 異なるファイルを比較"
+            echo " 3,5c3,5"
+            echo " < TestFile03"
+            echo " < TestFile04"
+            echo " < TestFile05"
+            echo " ---"
+            echo " > testFile03"
+            echo " > testFile04"
+            echo " > testFile05"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "diff -b ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "diff -b ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo " 差のないファイル比較"
+            diff -b ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt
+            echo
+            echo " 異なるファイルを比較"
+            diff -b ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    else
+        export LC_ALL="en_US.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "diff ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "diff ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Compare two files"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo " File comparison without difference : no output"
+            echo
+            echo " Compare files with differences"
+            echo " 1c1"
+            echo " < Test File01"
+            echo " ---"
+            echo " > Test   File01"
+            echo " 3,5c3,5"
+            echo " < Test File03"
+            echo " < Test File04"
+            echo " < Test File05"
+            echo " ---"
+            echo " > test File03"
+            echo " > test File04"
+            echo " > test File05"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "diff ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "diff ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo " Comparison of files without difference"
+            diff ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt
+            echo
+            echo " Compare files with differences"
+            diff ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "diff -q ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "diff -q ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Output as differ for files with differences"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo " File comparison without difference : no output"
+            echo
+            echo " Compare files with differences : [argument1] and [argument2] differ print"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "diff -q ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "diff -q ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo " Comparison of files without difference"
+            diff -q ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt
+            echo
+            echo " Compare files with differences"
+            diff -q ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "diff -s ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "diff -s ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "identical output for files with no difference"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo " File comparison without difference : [argument1] and [argument2] identical print"
+            echo
+            echo " Compare files with differences"
+            echo " 3,5c3,5"
+            echo " < TestFile03"
+            echo " < TestFile04"
+            echo " < TestFile05"
+            echo " ---"
+            echo " > testFile03"
+            echo " > testFile04"
+            echo " > testFile05"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "diff -s ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "diff -s ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo " Comparison of files without difference"
+            diff -s ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt
+            echo
+            echo " Compare files with differences"
+            diff -s ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "diff -i ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "diff -i ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "case sensitive file comparison"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo " File comparison without difference : no output"
+            echo
+            echo " Compare files with differences"
+            echo " 1c1"
+            echo " < Test File01"
+            echo " ---"
+            echo " > Test   File01"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "diff -i ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "diff -i ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo " Comparison of files without difference"
+            diff -i ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt
+            echo
+            echo " Compare files with differences"
+            diff -i ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "diff -b ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "diff -b ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Recognize consecutive spaces as one and compare files"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo " File comparison without difference : no output"
+            echo
+            echo " Compare files with differences"
+            echo " 3,5c3,5"
+            echo " < TestFile03"
+            echo " < TestFile04"
+            echo " < TestFile05"
+            echo " ---"
+            echo " > testFile03"
+            echo " > testFile04"
+            echo " > testFile05"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "diff -b ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "diff -b ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo " Comparison of files without difference"
+            diff -b ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt
+            echo
+            echo " Compare files with differences"
+            diff -b ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    fi
+        echo
+    printf "##############################################################################################\n"
+
+    export LC_ALL=${old_LC_ALL}
+
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    rm -rf ${filePathParam%/}/tmp/${commandItem}/
+
+    func_basicSetting_LogFileName_Path ${PID} "1" ${commandItem}
+    echo 
+    
+}
+
+#--------------------------------------------#
+# Command : find                             #
+#--------------------------------------------#
+function func_command_find() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### English Command Description Parameter / 영어 명령어 설명 파라미터 / 英語コマンド説明パラメータ
+    local commandDescriptionEnParam=$3
+    ### Korean Command Description Parameter / 한국어 명령어 설명 파라미터 / 韓国語コマンド説明パラメータ
+    local commandDescriptionKrParam=$4
+    ### Japense Command Description Parameter / 일본어 명령어 설명 파라미터 / 日本語コマンド説明パラメータ
+    local commandDescriptionJpParam=$5
+    ### Command / 명령어 / コマンド
+    local commandItem=$6
+    ### Count / 번호 / 番号 
+    local countNumber=0
+
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/Directory1/Directory2/
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/Directory1/Directory3/Directory4/Directory5/
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/Directory1/Directory4/
+    echo "Test File01" > ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt
+    echo "Test File02" > ${filePathParam%/}/tmp/${commandItem}/Directory1/Directory3/Directory4/Directory5/${commandItem}_TestFile2.txt
+    old_LC_ALL=${LC_ALL}
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${commandItem}
+    printf "##############################################################################################\n"
+    echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        printf "  %-16s %s %s\n" "명령어" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "기본설명" ":" "${commandDescriptionKrParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※사용법" ":" "${commandItem}_[옵션]_[인수1]_[인수2]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※옵션" ":" "[-irap]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※인수1" ":" "[대상_폴더]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※인수2" ":" "[대상_폴더]" | sed 's/_/ /g'
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        printf "  %-17s %s %s\n" "コマンド" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "基本説明" ":" "${commandDescriptionJpParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}_[オプション]_[引数1]_[引数2]" | sed 's/_/ /g'
+        printf "  %-20s %s %s\n" "※オプション" ":" "[-irap]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数1" ":" "[対象フォルダ]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数2" ":" "[対象フォルダ]" | sed 's/_/ /g'
+    else
+        printf "  %-13s %s %s\n" "Command" ":" "${commandItem}"
+        printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_[option]_[argument1]_[argument2]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※option" ":" "[-irap]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument1" ":" "[Target_Folders]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument2" ":" "[Target_Folders]" | sed 's/_/ /g'
+    fi
+        echo
+        printf "##############################################################################################\n"
+        echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        export LC_ALL="ko_KR.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "find ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "find ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "파일이 존재 하는지 체크"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "파일이 존재하면 해당 경로 출력, 없다면 No such file or directory"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "find ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "find ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            find ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt
+            echo
+            find ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile2.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "find ${filePathParam%/}/tmp/${commandItem}/Directory1"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "하위 디렉토리까지 파일/폴더들을 모두 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "하위 디렉토리까지 파일/폴더들을 모두 출력"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "find ${filePathParam%/}/tmp/${commandItem}/Directory1"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            find ${filePathParam%/}/tmp/${commandItem}/Directory1
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" 'find ${filePathParam%/}/tmp/${commandItem}/Directory1 -name "*TestF*" '
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" 'find ${filePathParam%/}/tmp/${commandItem}/Directory1 -name "*Directory2*" '
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "지정된 패턴으로 파일/폴더를 검색"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "지정된 패턴으로 파일/폴더를 검색하여 결과값이 있다면 파일/폴더 경로 출력"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" 'find ${filePathParam%/}/tmp/${commandItem}/Directory1 -name "*TestF*" '
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" 'find ${filePathParam%/}/tmp/${commandItem}/Directory1 -name "*Directory2*" '
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            find ${filePathParam%/}/tmp/${commandItem}/Directory1 -name "*TestF*"
+            find ${filePathParam%/}/tmp/${commandItem}/Directory1 -name "*Directory2*"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" 'find ${filePathParam%/}/tmp/${commandItem}/Directory1 -name '*find*' -print '
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" 'find ${filePathParam%/}/tmp/${commandItem}/Directory1 -name '*find*' -print0 '
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "하위 폴더의 모든 파일을 출력(-print : 개행있음, -print0 : 개행없음)"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "하위 폴더의 모든 파일을 출력(-print : 개행있음, -print0 : 개행없음)"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" 'find ${filePathParam%/}/tmp/${commandItem}/Directory1 -name '*find*' -print '
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" 'find ${filePathParam%/}/tmp/${commandItem}/Directory1/Directory2 -name '*find*' -print0 '
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "-print"
+            find ${filePathParam%/}/tmp/${commandItem}/Directory1 -name '*find*' -print
+            echo
+            echo "-print0"
+            find ${filePathParam%/}/tmp/${commandItem}/Directory1 -name '*find*' -print0
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" 'find ${filePathParam%/}/tmp/${commandItem}/Directory1/Directory3 -maxdepth 2 -name "*File2*" '
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "깊이 n만큼의 상위 경로까지만 검색"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "깊이 n만큼의 상위 경로까지만 검색"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" 'find ${filePathParam%/}/tmp/${commandItem}/Directory1/Directory3 -maxdepth 2 -name "*File2*" '
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "깊이 3의 파일은 검색이 안됨"
+            find ${filePathParam%/}/tmp/${commandItem}/Directory1/Directory3 -maxdepth 2 -name "*File2*" 
+            echo
+            echo "깊이 2의 파일이 검색"
+            find ${filePathParam%/}/tmp/${commandItem}/Directory1/Directory3/Directory4 -maxdepth 2 -name "*File2*" 
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" 'find ${filePathParam%/}/tmp/${commandItem}/Directory1/Directory3/Directory4/Directory5/find_TestFile2.txt -name "*File2*" -delete '
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "검색된 패턴의 파일 삭제"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "검색된 패턴의 파일 삭제"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" 'find ${filePathParam%/}/tmp/${commandItem}/Directory1/Directory3/Directory4/Directory5/find_TestFile2.txt -name "*File2*" -delete '
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            ls ${filePathParam%/}/tmp/${commandItem}/Directory1/Directory3/Directory4/Directory5/
+            echo "검색된 패턴의 파일 삭제"
+            find ${filePathParam%/}/tmp/${commandItem}/Directory1/Directory3/Directory4/Directory5/find_TestFile2.txt -name "*File2*" -delete
+            ls ${filePathParam%/}/tmp/${commandItem}/Directory1/Directory3/Directory4/Directory5/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        export LC_ALL="ja_JP.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "find ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "find ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "ファイルが存在するかどうかをチェック"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "ファイルが存在する場合はそのパスを出力、存在しない場合は[No such file or directory]"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "find ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "find ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            find ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt
+            echo
+            find ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile2.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "find ${filePathParam%/}/tmp/${commandItem}/Directory1"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "下位ディレクトリまでファイル/フォルダをすべて出力"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "下位ディレクトリまでファイル/フォルダをすべて出力"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "find ${filePathParam%/}/tmp/${commandItem}/Directory1"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            find ${filePathParam%/}/tmp/${commandItem}/Directory1
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" 'find ${filePathParam%/}/tmp/${commandItem}/Directory1 -name "*TestF*" '
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" 'find ${filePathParam%/}/tmp/${commandItem}/Directory1 -name "*Directory2*" '
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "指定されたパターンでファイル/フォルダを検索"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "指定されたパターンでファイル/フォルダを検索し、結果値がある場合はファイル/フォルダ経路を出力"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" 'find ${filePathParam%/}/tmp/${commandItem}/Directory1 -name "*TestF*" '
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" 'find ${filePathParam%/}/tmp/${commandItem}/Directory1 -name "*Directory2*" '
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            find ${filePathParam%/}/tmp/${commandItem}/Directory1 -name "*TestF*"
+            find ${filePathParam%/}/tmp/${commandItem}/Directory1 -name "*Directory2*"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" 'find ${filePathParam%/}/tmp/${commandItem}/Directory1 -name '*find*' -print '
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" 'find ${filePathParam%/}/tmp/${commandItem}/Directory1 -name '*find*' -print0 '
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "下位フォルダのすべてのファイルを出力(-print:改行あり、-print0:改行なし)"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "下位フォルダのすべてのファイルを出力(-print:改行あり、-print0:改行なし)"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" 'find ${filePathParam%/}/tmp/${commandItem}/Directory1 -name '*find*' -print '
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" 'find ${filePathParam%/}/tmp/${commandItem}/Directory1 -name '*find*' -print0 '
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "-print"
+            find ${filePathParam%/}/tmp/${commandItem}/Directory1 -name '*find*' -print
+            echo
+            echo "-print0"
+            find ${filePathParam%/}/tmp/${commandItem}/Directory1 -name '*find*' -print0
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" 'find ${filePathParam%/}/tmp/${commandItem}/Directory1/Directory3 -maxdepth 2 -name "*File2*" '
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "深さ2の上位経路まで検索"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "深さ2の上位経路まで検索"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" 'find ${filePathParam%/}/tmp/${commandItem}/Directory1/Directory3 -maxdepth 2 -name "*File2*" '
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "深さ3のファイルは検索できない"
+            find ${filePathParam%/}/tmp/${commandItem}/Directory1/Directory3 -maxdepth 2 -name "*File2*" 
+            echo
+            echo "深さ2のファイルが検索"
+            find ${filePathParam%/}/tmp/${commandItem}/Directory1/Directory3/Directory4 -maxdepth 2 -name "*File2*" 
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" 'find ${filePathParam%/}/tmp/${commandItem}/Directory1/Directory3/Directory4/Directory5/find_TestFile2.txt -name "*File2*" -delete '
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "検索されたパターンのファイルを削除"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "検索されたパターンのファイルを削除"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" 'find ${filePathParam%/}/tmp/${commandItem}/Directory1/Directory3/Directory4/Directory5/find_TestFile2.txt -name "*File2*" -delete '
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            ls ${filePathParam%/}/tmp/${commandItem}/Directory1/Directory3/Directory4/Directory5/
+            echo "検索されたパターンのファイルを削除"
+            find ${filePathParam%/}/tmp/${commandItem}/Directory1/Directory3/Directory4/Directory5/find_TestFile2.txt -name "*File2*" -delete
+            ls ${filePathParam%/}/tmp/${commandItem}/Directory1/Directory3/Directory4/Directory5/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    else
+        export LC_ALL="en_US.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "find ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "find ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Check if a file exists"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Check if a file exists, Not exist : No such file or directory"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "find ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "find ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            find ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt
+            echo
+            find ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile2.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "find ${filePathParam%/}/tmp/${commandItem}/Directory1"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Outputs all files/folders in the subdirectory"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Outputs all files/folders in the subdirectory"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "find ${filePathParam%/}/tmp/${commandItem}/Directory1"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            find ${filePathParam%/}/tmp/${commandItem}/Directory1
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" 'find ${filePathParam%/}/tmp/${commandItem}/Directory1 -name "*TestF*" '
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" 'find ${filePathParam%/}/tmp/${commandItem}/Directory1 -name "*Directory2*" '
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Search for files/folders in a specified pattern"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Search for files/folders in a specified pattern and output the file/folder path if there is a result"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "find ${filePathParam%/}/tmp/${commandItem}/Directory1"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            find ${filePathParam%/}/tmp/${commandItem}/Directory1 -name "*TestF*"
+            find ${filePathParam%/}/tmp/${commandItem}/Directory1 -name "*Directory2*"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" 'find ${filePathParam%/}/tmp/${commandItem}/Directory1 -name '*find*' -print '
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" 'find ${filePathParam%/}/tmp/${commandItem}/Directory1 -name '*find*' -print0 '
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Outputs all files in subfolders (-print: New Line, -print0: )"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Outputs all files in subfolders (-print: New Line, -print0: )"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" 'find ${filePathParam%/}/tmp/${commandItem}/Directory1 -name '*find*' -print '
+        printf "    %-15s %s %s\n" "Output(Real)" ":" 'find ${filePathParam%/}/tmp/${commandItem}/Directory1 -name '*find*' -print0 '
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "-print"
+            find ${filePathParam%/}/tmp/${commandItem}/Directory1 -name '*find*' -print
+            echo
+            echo "-print0"
+            find ${filePathParam%/}/tmp/${commandItem}/Directory1 -name '*find*' -print0
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" 'find ${filePathParam%/}/tmp/${commandItem}/Directory1/Directory3 -maxdepth 2 -name "*File2*" '
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Search only up to upper path by depth n"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Search only up to upper path by depth n"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" 'find ${filePathParam%/}/tmp/${commandItem}/Directory1/Directory3 -maxdepth 2 -name "*File2*" '
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Files with depth 3 are not retrieved"
+            find ${filePathParam%/}/tmp/${commandItem}/Directory1/Directory3 -maxdepth 2 -name "*File2*" 
+            echo
+            echo "File at depth 2 is detected"
+            find ${filePathParam%/}/tmp/${commandItem}/Directory1/Directory3/Directory4 -maxdepth 2 -name "*File2*" 
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" 'find ${filePathParam%/}/tmp/${commandItem}/Directory1/Directory3/Directory4/Directory5/find_TestFile2.txt -name "*File2*" -delete '
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Delete files in retrieved patterns"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Delete files in retrieved patterns"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" 'find ${filePathParam%/}/tmp/${commandItem}/Directory1/Directory3/Directory4/Directory5/find_TestFile2.txt -name "*File2*" -delete '
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            ls ${filePathParam%/}/tmp/${commandItem}/Directory1/Directory3/Directory4/Directory5/
+            echo "Delete files in retrieved patterns"
+            find ${filePathParam%/}/tmp/${commandItem}/Directory1/Directory3/Directory4/Directory5/find_TestFile2.txt -name "*File2*" -delete
+            ls ${filePathParam%/}/tmp/${commandItem}/Directory1/Directory3/Directory4/Directory5/
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    fi
+        echo
+    printf "##############################################################################################\n"
+
+    export LC_ALL=${old_LC_ALL}
+
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    rm -rf ${filePathParam%/}/tmp/${commandItem}/
+
+    func_basicSetting_LogFileName_Path ${PID} "1" ${commandItem}
+    echo 
+    
+}
+
+#--------------------------------------------#
 # Command List                               #
 #  : 명령어 리스트                               #
 #  : コマンドリスト                              #
@@ -7620,12 +9909,27 @@ readonly chmodJp="ファイルやディレクトリのパーミッションを�
 readonly chownEn="Used_to_change_the_owner_of_a_file_or_directory"
 readonly chownKr="파일이나_디렉토리의_소유자를_변경하는데_사용"
 readonly chownJp="ファイルやディレクトリの所有者を変更するために使用"
+readonly cpEn="The command in Unix/Linux is used to copy files or directories"
+readonly cpKr="파일 또는 디렉토리를 복사하는 데 사용"
+readonly cpJp="ファイルやディレクトリをコピーするため使用"
+readonly cutEn="Used to extract a specific portion of text from a file or stream"
+readonly cutKr="파일이나 스트림에서 특정 텍스트 부분을 추출하는 데 사용"
+readonly cutJp="ファイルやストリームから特定のテキスト部分を抽出するために使用"
 readonly dateEn="Displays_the_date_and_time_of_the_current_system_and_formats_the_output._Also_used_to_calculate_or_manipulate_dates_and_times"
 readonly dateKr="현재_시스템의_날짜와_시간이_표시되며_포맷을_지정하여_출력.날짜_및_시간을_계산하거나_조작하는데에도_사용"
 readonly dateJp="現在のシステムの日付と時刻が表示され、フォーマットを指定して表示することもできます。また、日付や時刻の計算や操作にも使用"
+readonly ddEn="Used_primarily_for_tasks_such_as_creating_disk_images,copying_data_between_devices,_and_converting_file_formats"
+readonly ddKr="디스크_이미지_생성,_장치_간_데이터_복사,파일_형식_변환_등과_같은_작업에_사용"
+readonly ddJp="ディスクイメージの作成、デバイス間のデータ複製、ファイルフォーマットの変換などのタスクによく使われます"
+readonly diffEn="Use_to_compare_the_contents_of_two_files_or_directories"
+readonly diffKr="두_파일_또는_디렉토리의_내용을_비교하는_데_사용"
+readonly diffJp="2つのファイルまたはディレクトリの内容を比較するために使われます"
 readonly exprEn="It_is_employed_in_tasks_such_as_evaluating_expressions_entered_by_users_in_the_terminal_or_finding_patterns_in_strings"
 readonly exprKr="사용자가_입력한_표현식을_계산하거나_문자열에서_패턴을_찾아내는_등의_작업에_사용"
 readonly exprJp="ユーザーが入力した式を計算したり、文字列からパターンを検出するなどの作業に使用"
+readonly findEn="Used_to_search_for_files_and_directories_in_a_directory_hierarchy_based_on_a_variety_of_conditions"
+readonly findKr="다양한_조건을_기반으로_디렉토리_계층에서_파일_및_디렉토리를_검색하는_데_사용"
+readonly findJp="さまざまな条件に基づいてディレクトリツリー内のファイルやディレクトリを検索するために使用"
 readonly gunzipEn="Command_is_used_to_decompress_files_compressed_with_gzip.This_command_is_employed_to_extract_and_restore_the_original_file"
 readonly gunzipKr="gzip으로_압축된_파일을_해제하는데_사용됩니다.이_명령어는_파일을_압축_해제하고_원래_파일을_복원하는데_활용"
 readonly gunzipJp="gzipで圧縮されたファイルを解凍するために使用されます。このコマンドはファイルを解凍し、元のファイルを復元するのに利用"
@@ -7671,10 +9975,10 @@ readonly wcJp="ファイルの行数、単語数、バイト数を数えるの�
 readonly zipEn="Command_is_used_to_compress_files_and_directories_creating_a_compressed_archive.It's_primarily_used_to_save_space_by_compressing_files_or_when_transferring_files"
 readonly zipKr="파일_및_디렉터리를_압축하고_압축_파일을_만드는데_사용됩니다.주로_파일을_압축하여_용량을_절약하거나_파일을_전송할_때_활용"
 readonly zipJp="ファイルやディレクトリを圧縮し、圧縮ファイルを作成するのに使用されます。主にファイルを圧縮して容量を節約しファイルを転送する際に利用"
-declare -a commandList=("cal" "cat" "cd" "chgrp" "chmod" "chown" "date" "expr" "gunzip" "gzip" "head" "mkdir" "mv" "pwd" "rm" "rmdir" "sleep" "tail" "touch" "uniq" "unzip" "wc" "zip")
-declare -a commandDescriptionEn=("${calEn}" "${catEn}" "${cdEn}" "${chgrpEn}" "${chmodEn}" "${chownEn}" "${dateEn}" "${exprEn}" "${gunzipEn}" "${gzipEn}" "${headEn}" "${sleepEn}" "${rmEn}" "${rmdirEn}" "${mkdirEn}" "${mvEn}" "${pwdEn}" "${tailEn}" "${touchEn}" "${uniqEn}" "${unzipEn}" "${wcEn}" "${zipEn}")
-declare -a commandDescriptionKr=("${calKr}" "${catKr}" "${cdKr}" "${chgrpKr}" "${chmodKr}" "${chownKr}" "${dateKr}" "${exprKr}" "${gunzipKr}" "${gzipKr}" "${headKr}" "${sleepKr}" "${rmKr}" "${rmdirKr}" "${mkdirKr}" "${mvKr}" "${pwdKr}" "${tailKr}" "${touchKr}" "${uniqKr}" "${unzipKr}" "${wcKr}" "${zipKr}")
-declare -a commandDescriptionJp=("${calJp}" "${catJp}" "${cdJp}" "${chgrpJp}" "${chmodJp}" "${chownJp}" "${dateJp}" "${exprJp}" "${gunzipJp}" "${gzipJp}" "${headJp}" "${sleepJp}" "${rmJp}" "${rmdirJp}" "${mkdirJp}" "${mvJp}" "${pwdJp}" "${tailJp}" "${touchJp}" "${uniqJp}" "${unzipJp}" "${wcJp}" "${zipJp}")
+declare -a commandList=("cal" "cat" "cd" "chgrp" "chmod" "chown" "cp" "cut" "date" "dd" "diff" "expr" "find" "gunzip" "gzip" "head" "mkdir" "mv" "pwd" "rm" "rmdir" "sleep" "tail" "touch" "uniq" "unzip" "wc" "zip")
+declare -a commandDescriptionEn=("${calEn}" "${catEn}" "${cdEn}" "${chgrpEn}" "${chmodEn}" "${chownEn}" "${cpEn}" "${cutEn}" "${dateEn}" "${ddEn}" "${diffEn}" "${exprEn}" "${findEn}" "${gunzipEn}" "${gzipEn}" "${headEn}" "${sleepEn}" "${rmEn}" "${rmdirEn}" "${mkdirEn}" "${mvEn}" "${pwdEn}" "${tailEn}" "${touchEn}" "${uniqEn}" "${unzipEn}" "${wcEn}" "${zipEn}")
+declare -a commandDescriptionKr=("${calKr}" "${catKr}" "${cdKr}" "${chgrpKr}" "${chmodKr}" "${chownKr}" "${cpKr}" "${cutKr}" "${dateKr}" "${ddKr}" "${diffKr}" "${exprKr}" "${findKr}" "${gunzipKr}" "${gzipKr}" "${headKr}" "${sleepKr}" "${rmKr}" "${rmdirKr}" "${mkdirKr}" "${mvKr}" "${pwdKr}" "${tailKr}" "${touchKr}" "${uniqKr}" "${unzipKr}" "${wcKr}" "${zipKr}")
+declare -a commandDescriptionJp=("${calJp}" "${catJp}" "${cdJp}" "${chgrpJp}" "${chmodJp}" "${chownJp}" "${cpJp}" "${cutJp}" "${dateJp}" "${ddJp}" "${diffJp}" "${exprJp}" "${findJp}" "${gunzipJp}" "${gzipJp}" "${headJp}" "${sleepJp}" "${rmJp}" "${rmdirJp}" "${mkdirJp}" "${mvJp}" "${pwdJp}" "${tailJp}" "${touchJp}" "${uniqJp}" "${unzipJp}" "${wcJp}" "${zipJp}")
 
 #--------------------------------------------#
 # Script Basic Variable Setting              #
@@ -7785,6 +10089,8 @@ done
 
 ### Function Run / 함수 실행 / 関数実行
 func_basicSetting_LogFileName_Path ${PID} "1" ${searchCommand}
+
+rm -rf ${filePathParam%/}/tmp/
 
 ## What to do when adding a command (ex:gzip)
 ## 명령어 추가시 작업 내용 (예:gzip)
