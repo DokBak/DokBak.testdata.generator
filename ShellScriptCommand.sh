@@ -692,6 +692,21 @@ function func_linuxCommandExample() {
         find)
             func_command_find ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
             ;;
+        clear)
+            func_command_clear ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
+            ;;
+        man)
+            func_command_man ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
+            ;;
+        df)
+            func_command_df ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
+            ;;
+        du)
+            func_command_du ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
+            ;;
+        history)
+            func_command_history ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
+            ;;
         *)  echo ; 
             if [[ ${ouputLanguageParam} == [kK][rR] ]];then
                 echo " 에러 : 명령어 함수 미포함 (func_command_${commandList[${commandItemIndex}]})"; 
@@ -8939,21 +8954,21 @@ function func_command_diff() {
         printf "  %-16s %s %s\n" "명령어" ":" "${commandItem}"
         printf "  %-17s %s %s\n" "기본설명" ":" "${commandDescriptionKrParam}" | sed 's/_/ /g'
         printf "  %-18s %s %s\n" "※사용법" ":" "${commandItem}_[옵션]_[인수1]_[인수2]" | sed 's/_/ /g'
-        printf "  %-17s %s %s\n" "※옵션" ":" "[-irap]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※옵션" ":" "[-qsib]" | sed 's/_/ /g'
         printf "  %-17s %s %s\n" "※인수1" ":" "[대상_파일]" | sed 's/_/ /g'
         printf "  %-17s %s %s\n" "※인수2" ":" "[대상_파일]" | sed 's/_/ /g'
     elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
         printf "  %-17s %s %s\n" "コマンド" ":" "${commandItem}"
         printf "  %-17s %s %s\n" "基本説明" ":" "${commandDescriptionJpParam}" | sed 's/_/ /g'
         printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}_[オプション]_[引数1]_[引数2]" | sed 's/_/ /g'
-        printf "  %-20s %s %s\n" "※オプション" ":" "[-irap]" | sed 's/_/ /g'
+        printf "  %-20s %s %s\n" "※オプション" ":" "[-qsib]" | sed 's/_/ /g'
         printf "  %-17s %s %s\n" "※引数1" ":" "[対象ファイル]" | sed 's/_/ /g'
         printf "  %-17s %s %s\n" "※引数2" ":" "[対象ファイル]" | sed 's/_/ /g'
     else
         printf "  %-13s %s %s\n" "Command" ":" "${commandItem}"
         printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g'
         printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_[option]_[argument1]_[argument2]" | sed 's/_/ /g'
-        printf "  %-15s %s %s\n" "※option" ":" "[-irap]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※option" ":" "[-qsib]" | sed 's/_/ /g'
         printf "  %-15s %s %s\n" "※argument1" ":" "[Target_File]" | sed 's/_/ /g'
         printf "  %-15s %s %s\n" "※argument2" ":" "[Target_File]" | sed 's/_/ /g'
     fi
@@ -9482,24 +9497,24 @@ function func_command_find() {
     if [[ ${ouputLanguageParam} == [kK][rR] ]];then
         printf "  %-16s %s %s\n" "명령어" ":" "${commandItem}"
         printf "  %-17s %s %s\n" "기본설명" ":" "${commandDescriptionKrParam}" | sed 's/_/ /g'
-        printf "  %-18s %s %s\n" "※사용법" ":" "${commandItem}_[옵션]_[인수1]_[인수2]" | sed 's/_/ /g'
-        printf "  %-17s %s %s\n" "※옵션" ":" "[-irap]" | sed 's/_/ /g'
-        printf "  %-17s %s %s\n" "※인수1" ":" "[대상_폴더]" | sed 's/_/ /g'
-        printf "  %-17s %s %s\n" "※인수2" ":" "[대상_폴더]" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※사용법" ":" "${commandItem}_[인수1]_[옵션]_[인수2]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※인수1" ":" "[대상_파일_또는_폴더]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※옵션" ":" "[-name | -maxdepth | -print | -delete]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※인수2" ":" "[검색패턴]" | sed 's/_/ /g'
     elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
         printf "  %-17s %s %s\n" "コマンド" ":" "${commandItem}"
         printf "  %-17s %s %s\n" "基本説明" ":" "${commandDescriptionJpParam}" | sed 's/_/ /g'
-        printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}_[オプション]_[引数1]_[引数2]" | sed 's/_/ /g'
-        printf "  %-20s %s %s\n" "※オプション" ":" "[-irap]" | sed 's/_/ /g'
-        printf "  %-17s %s %s\n" "※引数1" ":" "[対象フォルダ]" | sed 's/_/ /g'
-        printf "  %-17s %s %s\n" "※引数2" ":" "[対象フォルダ]" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}_[引数1]_[オプション]_[引数2]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数1" ":" "[対象ファイル又はフォルダ]" | sed 's/_/ /g'
+        printf "  %-20s %s %s\n" "※オプション" ":" "[-name | -maxdepth | -print | -delete]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数2" ":" "[検索パタン]" | sed 's/_/ /g'
     else
         printf "  %-13s %s %s\n" "Command" ":" "${commandItem}"
         printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g'
-        printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_[option]_[argument1]_[argument2]" | sed 's/_/ /g'
-        printf "  %-15s %s %s\n" "※option" ":" "[-irap]" | sed 's/_/ /g'
-        printf "  %-15s %s %s\n" "※argument1" ":" "[Target_Folders]" | sed 's/_/ /g'
-        printf "  %-15s %s %s\n" "※argument2" ":" "[Target_Folders]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_[argument1]_[option]_[argument2]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument1" ":" "[Target_Files_or_Folders]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※option" ":" "[-name | -maxdepth | -print | -delete]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument2" ":" "[Target_Pattern]" | sed 's/_/ /g'
     fi
         echo
         printf "##############################################################################################\n"
@@ -9887,6 +9902,773 @@ function func_command_find() {
 }
 
 #--------------------------------------------#
+# Command : clear                            #
+#--------------------------------------------#
+function func_command_clear() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### English Command Description Parameter / 영어 명령어 설명 파라미터 / 英語コマンド説明パラメータ
+    local commandDescriptionEnParam=$3
+    ### Korean Command Description Parameter / 한국어 명령어 설명 파라미터 / 韓国語コマンド説明パラメータ
+    local commandDescriptionKrParam=$4
+    ### Japense Command Description Parameter / 일본어 명령어 설명 파라미터 / 日本語コマンド説明パラメータ
+    local commandDescriptionJpParam=$5
+    ### Command / 명령어 / コマンド
+    local commandItem=$6
+    ### Count / 번호 / 番号 
+    local countNumber=0
+
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/
+    old_LC_ALL=${LC_ALL}
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${commandItem}
+    printf "##############################################################################################\n"
+    echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        printf "  %-16s %s %s\n" "명령어" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "기본설명" ":" "${commandDescriptionKrParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※사용법" ":" "${commandItem}" | sed 's/_/ /g'
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        printf "  %-17s %s %s\n" "コマンド" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "基本説明" ":" "${commandDescriptionJpParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}" | sed 's/_/ /g'
+    else
+        printf "  %-13s %s %s\n" "Command" ":" "${commandItem}"
+        printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}" | sed 's/_/ /g'
+    fi
+        echo
+        printf "##############################################################################################\n"
+        echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        export LC_ALL="ko_KR.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "clear"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "작업중인 터미널 화면을 정리"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "작업중인 터미널 화면을 정리"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "clear"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            clear
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        export LC_ALL="ja_JP.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "clear"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "作業中のターミナル画面を整理"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "作業中のターミナル画面を整理"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "clear"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            clear
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    else
+        export LC_ALL="en_US.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "clear"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Clean up the terminal screen you're working on"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Clean up the terminal screen you're working on"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "clear"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            clear
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    fi
+        echo
+    printf "##############################################################################################\n"
+
+    export LC_ALL=${old_LC_ALL}
+
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    rm -rf ${filePathParam%/}/tmp/${commandItem}/
+
+    func_basicSetting_LogFileName_Path ${PID} "1" ${commandItem}
+    echo 
+    
+}
+
+#--------------------------------------------#
+# Command : man                              #
+#--------------------------------------------#
+function func_command_man() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### English Command Description Parameter / 영어 명령어 설명 파라미터 / 英語コマンド説明パラメータ
+    local commandDescriptionEnParam=$3
+    ### Korean Command Description Parameter / 한국어 명령어 설명 파라미터 / 韓国語コマンド説明パラメータ
+    local commandDescriptionKrParam=$4
+    ### Japense Command Description Parameter / 일본어 명령어 설명 파라미터 / 日本語コマンド説明パラメータ
+    local commandDescriptionJpParam=$5
+    ### Command / 명령어 / コマンド
+    local commandItem=$6
+    ### Count / 번호 / 番号 
+    local countNumber=0
+
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/
+    old_LC_ALL=${LC_ALL}
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${commandItem}
+    printf "##############################################################################################\n"
+    echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        printf "  %-16s %s %s\n" "명령어" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "기본설명" ":" "${commandDescriptionKrParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※사용법" ":" "${commandItem}_[인수1]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※인수1" ":" "[명령어]" | sed 's/_/ /g'
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        printf "  %-17s %s %s\n" "コマンド" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "基本説明" ":" "${commandDescriptionJpParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}_[引数1]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数1" ":" "[コマンド]" | sed 's/_/ /g'
+    else
+        printf "  %-13s %s %s\n" "Command" ":" "${commandItem}"
+        printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_[argument1]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument1" ":" "[Command]" | sed 's/_/ /g'
+    fi
+        echo
+        printf "##############################################################################################\n"
+        echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        export LC_ALL="ko_KR.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "man cat"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "다른 명령어에 대한 매뉴얼 페이지를 표시하는 데 사용"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "다른 명령어에 대한 매뉴얼 페이지를 표시하는 데 사용"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "man cat"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            man cat
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        export LC_ALL="ja_JP.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "man cat"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "他のコマンドのマニュアルページを表示するために使います"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "他のコマンドのマニュアルページを表示するために使います"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "man cat"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            man cat
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    else
+        export LC_ALL="en_US.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "man cat"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Used to display manual pages for other commands"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Used to display manual pages for other commands"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "man cat"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            man cat
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    fi
+        echo
+    printf "##############################################################################################\n"
+
+    export LC_ALL=${old_LC_ALL}
+
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    rm -rf ${filePathParam%/}/tmp/${commandItem}/
+
+    func_basicSetting_LogFileName_Path ${PID} "1" ${commandItem}
+    echo 
+    
+}
+
+#--------------------------------------------#
+# Command : df                               #
+#--------------------------------------------#
+function func_command_df() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### English Command Description Parameter / 영어 명령어 설명 파라미터 / 英語コマンド説明パラメータ
+    local commandDescriptionEnParam=$3
+    ### Korean Command Description Parameter / 한국어 명령어 설명 파라미터 / 韓国語コマンド説明パラメータ
+    local commandDescriptionKrParam=$4
+    ### Japense Command Description Parameter / 일본어 명령어 설명 파라미터 / 日本語コマンド説明パラメータ
+    local commandDescriptionJpParam=$5
+    ### Command / 명령어 / コマンド
+    local commandItem=$6
+    ### Count / 번호 / 番号 
+    local countNumber=0
+
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/
+    old_LC_ALL=${LC_ALL}
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${commandItem}
+    printf "##############################################################################################\n"
+    echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        printf "  %-16s %s %s\n" "명령어" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "기본설명" ":" "${commandDescriptionKrParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※사용법" ":" "${commandItem}_[옵션]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※옵션" ":" "[-hHl]" | sed 's/_/ /g'
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        printf "  %-17s %s %s\n" "コマンド" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "基本説明" ":" "${commandDescriptionJpParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}_[オプション]" | sed 's/_/ /g'
+        printf "  %-20s %s %s\n" "※オプション" ":" "[-hHl]" | sed 's/_/ /g'
+    else
+        printf "  %-13s %s %s\n" "Command" ":" "${commandItem}"
+        printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_[option]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※option" ":" "[-hHl]" | sed 's/_/ /g'
+    fi
+        echo
+        printf "##############################################################################################\n"
+        echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        export LC_ALL="ko_KR.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "df -h"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "단위가 1024로 계산되어 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "단위가 1024로 계산되어 출력"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "df -h"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            df -h
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "df -H"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "단위가 1000로 계산되어 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "단위가 1000로 계산되어 출력"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "df -H"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            df -H
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "df -l"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "로컬 마운트 디스크 정보만을 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "로컬 마운트 디스크 정보만을 출력"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "df -l"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            df -l
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        export LC_ALL="ja_JP.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "df -h"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "単位が1024で計算され出力"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "単位が1024で計算され出力"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "df -h"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            df -h
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "df -H"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "単位が1000で計算され出力"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "単位が1000で計算され出力"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "df -H"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            df -H
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "df -l"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "ローカルマウントディスク情報のみを出力"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "ローカルマウントディスク情報のみを出力"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "df -l"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            df -l
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    else
+        export LC_ALL="en_US.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "df -h"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Unit calculated as 1024 and output"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Unit calculated as 1024 and output"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "df -h"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            df -h
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "df -H"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Unit calculated as 1000 and output"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Unit calculated as 1000 and output"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "df -H"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            df -H
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "df -l"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Output local mount disk information only"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Output local mount disk information only"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "df -l"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            df -l
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    fi
+        echo
+    printf "##############################################################################################\n"
+
+    export LC_ALL=${old_LC_ALL}
+
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    rm -rf ${filePathParam%/}/tmp/${commandItem}/
+
+    func_basicSetting_LogFileName_Path ${PID} "1" ${commandItem}
+    echo 
+    
+}
+
+#--------------------------------------------#
+# Command : du                               #
+#--------------------------------------------#
+function func_command_du() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### English Command Description Parameter / 영어 명령어 설명 파라미터 / 英語コマンド説明パラメータ
+    local commandDescriptionEnParam=$3
+    ### Korean Command Description Parameter / 한국어 명령어 설명 파라미터 / 韓国語コマンド説明パラメータ
+    local commandDescriptionKrParam=$4
+    ### Japense Command Description Parameter / 일본어 명령어 설명 파라미터 / 日本語コマンド説明パラメータ
+    local commandDescriptionJpParam=$5
+    ### Command / 명령어 / コマンド
+    local commandItem=$6
+    ### Count / 번호 / 番号 
+    local countNumber=0
+
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/
+    old_LC_ALL=${LC_ALL}
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${commandItem}
+    printf "##############################################################################################\n"
+    echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        printf "  %-16s %s %s\n" "명령어" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "기본설명" ":" "${commandDescriptionKrParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※사용법" ":" "${commandItem}_[옵션]_[인수1]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※옵션" ":" "[-ahs]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※인수1" ":" "[대상_파일_또는_폴더]" | sed 's/_/ /g'
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        printf "  %-17s %s %s\n" "コマンド" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "基本説明" ":" "${commandDescriptionJpParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}_[オプション]_[引数1]" | sed 's/_/ /g'
+        printf "  %-20s %s %s\n" "※オプション" ":" "[-ahs]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数1" ":" "[対象ファイル又はフォルダ]" | sed 's/_/ /g'
+    else
+        printf "  %-13s %s %s\n" "Command" ":" "${commandItem}"
+        printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_[option]_[argument1]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※option" ":" "[-ahs]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument1" ":" "[Target_Files_or_Folders]" | sed 's/_/ /g'
+    fi
+        echo
+        printf "##############################################################################################\n"
+        echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        export LC_ALL="ko_KR.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "du -a ${filePathParam%/}"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "하위 디렉토리내의 모든 파일/폴더의 용량을 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "하위 디렉토리내의 모든 파일/폴더의 용량을 출력"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "du -a ${filePathParam%/}"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            du -a ${filePathParam%/}
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "du -h ${filePathParam%/}"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "단위가 1024로 계산되어 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "단위가 1024로 계산되어 출력"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "du -h ${filePathParam%/}"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            du -h ${filePathParam%/}
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "du -s ${filePathParam%/}"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "지정 폴더의 사용 용량의 합계 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "지정 폴더의 사용 용량의 합계 출력"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "du -s ${filePathParam%/}"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            du -s ${filePathParam%/}
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        export LC_ALL="ja_JP.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "du -a ${filePathParam%/}"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "下位ディレクトリ内のすべてのファイル/フォルダの容量を出力"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "下位ディレクトリ内のすべてのファイル/フォルダの容量を出力"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "du -a ${filePathParam%/}"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            du -a ${filePathParam%/}
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "du -h"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "単位が1024で計算され出力"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "単位が1024で計算され出力"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "du -h"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            du -h
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "du -s ${filePathParam%/}"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "指定フォルダの使用容量の合計出力"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "指定フォルダの使用容量の合計出力"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "du -s ${filePathParam%/}"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            du -s ${filePathParam%/}
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    else
+        export LC_ALL="en_US.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "du -a ${filePathParam%/}"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Outputs the capacity of all files/folders in a subdirectory"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Outputs the capacity of all files/folders in a subdirectory"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "du -a ${filePathParam%/}"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            du -a ${filePathParam%/}
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "du -h ${filePathParam%/}"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Unit calculated as 1024 and output"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Unit calculated as 1024 and output"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "du -h ${filePathParam%/}"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            du -h ${filePathParam%/}
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "du -s ${filePathParam%/}"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Total Output of Capacity Used for a Specified Folder"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Total Output of Capacity Used for a Specified Folder"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "du -s ${filePathParam%/}"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            du -s ${filePathParam%/}
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    fi
+        echo
+    printf "##############################################################################################\n"
+
+    export LC_ALL=${old_LC_ALL}
+
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    rm -rf ${filePathParam%/}/tmp/${commandItem}/
+
+    func_basicSetting_LogFileName_Path ${PID} "1" ${commandItem}
+    echo 
+    
+}
+
+#--------------------------------------------#
+# Command : history                          #
+#--------------------------------------------#
+function func_command_history() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### English Command Description Parameter / 영어 명령어 설명 파라미터 / 英語コマンド説明パラメータ
+    local commandDescriptionEnParam=$3
+    ### Korean Command Description Parameter / 한국어 명령어 설명 파라미터 / 韓国語コマンド説明パラメータ
+    local commandDescriptionKrParam=$4
+    ### Japense Command Description Parameter / 일본어 명령어 설명 파라미터 / 日本語コマンド説明パラメータ
+    local commandDescriptionJpParam=$5
+    ### Command / 명령어 / コマンド
+    local commandItem=$6
+    ### Count / 번호 / 番号 
+    local countNumber=0
+
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/
+    old_LC_ALL=${LC_ALL}
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${commandItem}
+    printf "##############################################################################################\n"
+    echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        printf "  %-16s %s %s\n" "명령어" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "기본설명" ":" "${commandDescriptionKrParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※사용법" ":" "${commandItem}" | sed 's/_/ /g'
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        printf "  %-17s %s %s\n" "コマンド" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "基本説明" ":" "${commandDescriptionJpParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}" | sed 's/_/ /g'
+    else
+        printf "  %-13s %s %s\n" "Command" ":" "${commandItem}"
+        printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}" | sed 's/_/ /g'
+    fi
+        echo
+        printf "##############################################################################################\n"
+        echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        export LC_ALL="ko_KR.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "history"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "터미널에서 최근에 실행된 명령어 목록을 표시"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "터미널에서 최근에 실행된 명령어 목록을 표시"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "history"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            history
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        export LC_ALL="ja_JP.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "history"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "ターミナルで最近実行されたコマンドのリストを表示"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "ターミナルで最近実行されたコマンドのリストを表示"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "history"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            history
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    else
+        export LC_ALL="en_US.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "history"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Displays a list of recently executed commands from the terminal"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Displays a list of recently executed commands from the terminal"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "history"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            history
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    fi
+        echo
+    printf "##############################################################################################\n"
+
+    export LC_ALL=${old_LC_ALL}
+
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    rm -rf ${filePathParam%/}/tmp/${commandItem}/
+
+    func_basicSetting_LogFileName_Path ${PID} "1" ${commandItem}
+    echo 
+    
+}
+
+#--------------------------------------------#
 # Command List                               #
 #  : 명령어 리스트                               #
 #  : コマンドリスト                              #
@@ -9909,11 +10691,14 @@ readonly chmodJp="ファイルやディレクトリのパーミッションを�
 readonly chownEn="Used_to_change_the_owner_of_a_file_or_directory"
 readonly chownKr="파일이나_디렉토리의_소유자를_변경하는데_사용"
 readonly chownJp="ファイルやディレクトリの所有者を変更するために使用"
-readonly cpEn="The command in Unix/Linux is used to copy files or directories"
-readonly cpKr="파일 또는 디렉토리를 복사하는 데 사용"
+readonly clearEn="Clear_the_terminal_screen_to_provide_a_clean_workspace"
+readonly clearKr="터미널_화면을_지워_깨끗한_작업_공간을_제공"
+readonly clearJp="ターミナル画面を消してきれいな作業スペースを提供"
+readonly cpEn="The_command_in_Unix/Linux_is_used_to_copy_files_or_directories"
+readonly cpKr="파일_또는_디렉토리를_복사하는데_사용"
 readonly cpJp="ファイルやディレクトリをコピーするため使用"
-readonly cutEn="Used to extract a specific portion of text from a file or stream"
-readonly cutKr="파일이나 스트림에서 특정 텍스트 부분을 추출하는 데 사용"
+readonly cutEn="Used_to_extract_a_specific_portion_of_text_from_a_file_or_stream"
+readonly cutKr="파일이나_스트림에서_특정_텍스트_부분을_추출하는데_사용"
 readonly cutJp="ファイルやストリームから特定のテキスト部分を抽出するために使用"
 readonly dateEn="Displays_the_date_and_time_of_the_current_system_and_formats_the_output._Also_used_to_calculate_or_manipulate_dates_and_times"
 readonly dateKr="현재_시스템의_날짜와_시간이_표시되며_포맷을_지정하여_출력.날짜_및_시간을_계산하거나_조작하는데에도_사용"
@@ -9921,9 +10706,15 @@ readonly dateJp="現在のシステムの日付と時刻が表示され、フォ
 readonly ddEn="Used_primarily_for_tasks_such_as_creating_disk_images,copying_data_between_devices,_and_converting_file_formats"
 readonly ddKr="디스크_이미지_생성,_장치_간_데이터_복사,파일_형식_변환_등과_같은_작업에_사용"
 readonly ddJp="ディスクイメージの作成、デバイス間のデータ複製、ファイルフォーマットの変換などのタスクによく使われます"
+readonly dfEn="Use_to_display_information_about_disk_space_usage"
+readonly dfKr="디스크_공간_사용에_관한_정보를_표시하는_데_사용"
+readonly dfJp="ディスク領域の使用に関する情報を表示するために使用"
 readonly diffEn="Use_to_compare_the_contents_of_two_files_or_directories"
 readonly diffKr="두_파일_또는_디렉토리의_내용을_비교하는_데_사용"
 readonly diffJp="2つのファイルまたはディレクトリの内容を比較するために使われます"
+readonly duEn="Used_to_estimate_disk_space_usage_for_files_and_directories"
+readonly duKr="파일과_디렉토리의_디스크_공간_사용량을_추정하는_데_사용"
+readonly duJp="ファイルとディレクトリのディスク領域の使用量を推定するために使用"
 readonly exprEn="It_is_employed_in_tasks_such_as_evaluating_expressions_entered_by_users_in_the_terminal_or_finding_patterns_in_strings"
 readonly exprKr="사용자가_입력한_표현식을_계산하거나_문자열에서_패턴을_찾아내는_등의_작업에_사용"
 readonly exprJp="ユーザーが入力した式を計算したり、文字列からパターンを検出するなどの作業に使用"
@@ -9939,6 +10730,12 @@ readonly gzipJp="ファイルを圧縮するために使用されます。主に
 readonly headEn="Command_is_used_to_display_the_beginning(head)_of_a_file"
 readonly headKr="파일의_처음_부분을_표시하는데_사용"
 readonly headJp="ファイルの先頭部分を表示するために使用"
+readonly historyEn="Displays_a_list_of_recently_executed_commands_from_the_terminal"
+readonly historyKr="터미널에서_최근에_실행된_명령어_목록을_표시"
+readonly historyJp="ターミナルで最近実行されたコマンドのリストを表示"
+readonly manEn="Used_to_display_manual_pages_for_other_commands"
+readonly manKr="다른_명령어에_대한_매뉴얼_페이지를_표시하는데_사용"
+readonly manJp="他のコマンドのマニュアルページを表示するために使用"
 readonly mkdirEn="Used_to_create_a_directory"
 readonly mkdirKr="디렉터리를_생성하는데_사용"
 readonly mkdirJp="ディレクトリを作成するために使用"
@@ -9975,10 +10772,10 @@ readonly wcJp="ファイルの行数、単語数、バイト数を数えるの�
 readonly zipEn="Command_is_used_to_compress_files_and_directories_creating_a_compressed_archive.It's_primarily_used_to_save_space_by_compressing_files_or_when_transferring_files"
 readonly zipKr="파일_및_디렉터리를_압축하고_압축_파일을_만드는데_사용됩니다.주로_파일을_압축하여_용량을_절약하거나_파일을_전송할_때_활용"
 readonly zipJp="ファイルやディレクトリを圧縮し、圧縮ファイルを作成するのに使用されます。主にファイルを圧縮して容量を節約しファイルを転送する際に利用"
-declare -a commandList=("cal" "cat" "cd" "chgrp" "chmod" "chown" "cp" "cut" "date" "dd" "diff" "expr" "find" "gunzip" "gzip" "head" "mkdir" "mv" "pwd" "rm" "rmdir" "sleep" "tail" "touch" "uniq" "unzip" "wc" "zip")
-declare -a commandDescriptionEn=("${calEn}" "${catEn}" "${cdEn}" "${chgrpEn}" "${chmodEn}" "${chownEn}" "${cpEn}" "${cutEn}" "${dateEn}" "${ddEn}" "${diffEn}" "${exprEn}" "${findEn}" "${gunzipEn}" "${gzipEn}" "${headEn}" "${sleepEn}" "${rmEn}" "${rmdirEn}" "${mkdirEn}" "${mvEn}" "${pwdEn}" "${tailEn}" "${touchEn}" "${uniqEn}" "${unzipEn}" "${wcEn}" "${zipEn}")
-declare -a commandDescriptionKr=("${calKr}" "${catKr}" "${cdKr}" "${chgrpKr}" "${chmodKr}" "${chownKr}" "${cpKr}" "${cutKr}" "${dateKr}" "${ddKr}" "${diffKr}" "${exprKr}" "${findKr}" "${gunzipKr}" "${gzipKr}" "${headKr}" "${sleepKr}" "${rmKr}" "${rmdirKr}" "${mkdirKr}" "${mvKr}" "${pwdKr}" "${tailKr}" "${touchKr}" "${uniqKr}" "${unzipKr}" "${wcKr}" "${zipKr}")
-declare -a commandDescriptionJp=("${calJp}" "${catJp}" "${cdJp}" "${chgrpJp}" "${chmodJp}" "${chownJp}" "${cpJp}" "${cutJp}" "${dateJp}" "${ddJp}" "${diffJp}" "${exprJp}" "${findJp}" "${gunzipJp}" "${gzipJp}" "${headJp}" "${sleepJp}" "${rmJp}" "${rmdirJp}" "${mkdirJp}" "${mvJp}" "${pwdJp}" "${tailJp}" "${touchJp}" "${uniqJp}" "${unzipJp}" "${wcJp}" "${zipJp}")
+declare -a commandList=("cal" "cat" "cd" "chgrp" "chmod" "chown" "clear" "cp" "cut" "date" "dd" "df" "diff" "du" "expr" "find" "gunzip" "gzip" "head" "man" "mkdir" "mv" "pwd" "rm" "rmdir" "sleep" "tail" "touch" "uniq" "unzip" "wc" "zip")
+declare -a commandDescriptionEn=("${calEn}" "${catEn}" "${cdEn}" "${chgrpEn}" "${chmodEn}" "${chownEn}" "${clearEn}" "${cpEn}" "${cutEn}" "${dateEn}" "${ddEn}" "${dfEn}" "${diffEn}" "${duEn}" "${exprEn}" "${findEn}" "${gunzipEn}" "${gzipEn}" "${headEn}" "${manEn}" "${mkdirEn}" "${mvEn}" "${pwdEn}" "${rmEn}" "${rmdirEn}" "${sleepEn}" "${tailEn}" "${touchEn}" "${uniqEn}" "${unzipEn}" "${wcEn}" "${zipEn}")
+declare -a commandDescriptionKr=("${calKr}" "${catKr}" "${cdKr}" "${chgrpKr}" "${chmodKr}" "${chownKr}" "${clearKr}" "${cpKr}" "${cutKr}" "${dateKr}" "${ddKr}" "${dfKr}" "${diffKr}" "${duKr}" "${exprKr}" "${findKr}" "${gunzipKr}" "${gzipKr}" "${headKr}" "${manKr}" "${mkdirKr}" "${mvKr}" "${pwdKr}" "${rmKr}" "${rmdirKr}" "${sleepKr}" "${tailKr}" "${touchKr}" "${uniqKr}" "${unzipKr}" "${wcKr}" "${zipKr}")
+declare -a commandDescriptionJp=("${calJp}" "${catJp}" "${cdJp}" "${chgrpJp}" "${chmodJp}" "${chownJp}" "${clearJp}" "${cpJp}" "${cutJp}" "${dateJp}" "${ddJp}" "${dfJp}" "${diffJp}" "${duJp}" "${exprJp}" "${findJp}" "${gunzipJp}" "${gzipJp}" "${headJp}" "${manJp}" "${mkdirJp}" "${mvJp}" "${pwdJp}" "${rmJp}" "${rmdirJp}" "${sleepJp}" "${tailJp}" "${touchJp}" "${uniqJp}" "${unzipJp}" "${wcJp}" "${zipJp}")
 
 #--------------------------------------------#
 # Script Basic Variable Setting              #
@@ -10089,8 +10886,6 @@ done
 
 ### Function Run / 함수 실행 / 関数実行
 func_basicSetting_LogFileName_Path ${PID} "1" ${searchCommand}
-
-rm -rf ${filePathParam%/}/tmp/
 
 ## What to do when adding a command (ex:gzip)
 ## 명령어 추가시 작업 내용 (예:gzip)
