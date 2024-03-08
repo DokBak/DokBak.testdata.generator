@@ -728,6 +728,15 @@ function func_linuxCommandExample() {
         uptime)
             func_command_uptime ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
             ;;
+        env)
+            func_command_env ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
+            ;;
+        export)
+            func_command_export ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
+            ;;
+        exit)
+            func_command_exit ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
+            ;;
         *)  echo ; 
             if [[ ${ouputLanguageParam} == [kK][rR] ]];then
                 echo " 에러 : 명령어 함수 미포함 (func_command_${commandList[${commandItemIndex}]})"; 
@@ -12040,6 +12049,510 @@ function func_command_uptime() {
 }
 
 #--------------------------------------------#
+# Command : env                              #
+#--------------------------------------------#
+function func_command_env() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### English Command Description Parameter / 영어 명령어 설명 파라미터 / 英語コマンド説明パラメータ
+    local commandDescriptionEnParam=$3
+    ### Korean Command Description Parameter / 한국어 명령어 설명 파라미터 / 韓国語コマンド説明パラメータ
+    local commandDescriptionKrParam=$4
+    ### Japense Command Description Parameter / 일본어 명령어 설명 파라미터 / 日本語コマンド説明パラメータ
+    local commandDescriptionJpParam=$5
+    ### Command / 명령어 / コマンド
+    local commandItem=$6
+    ### Count / 번호 / 番号 
+    local countNumber=0
+
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/
+    old_LC_ALL=${LC_ALL}
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${commandItem}
+    printf "##############################################################################################\n"
+    echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        printf "  %-16s %s %s\n" "명령어" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "기본설명" ":" "${commandDescriptionKrParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※사용법" ":" "${commandItem}_[옵션]_[인수1]_[인수2]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※옵션" ":" "[-0u]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※인수1" ":" "[환경변수선언]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※인수2" ":" "[일시적명령어]" | sed 's/_/ /g'
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        printf "  %-17s %s %s\n" "コマンド" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "基本説明" ":" "${commandDescriptionJpParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}_[オプション]_[引数1]_[引数2]" | sed 's/_/ /g'
+        printf "  %-20s %s %s\n" "※オプション" ":" "[-0u]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数1" ":" "[環境変数宣言]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数2" ":" "[一時的命令語]" | sed 's/_/ /g'
+    else
+        printf "  %-13s %s %s\n" "Command" ":" "${commandItem}"
+        printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_[option]_[argument1]_[argument2]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※option" ":" "[-0u]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument1" ":" "[Declaration_of_Environmental_Variables]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument2" ":" "[a_temporary_command]" | sed 's/_/ /g'
+    fi
+        echo
+        printf "##############################################################################################\n"
+        echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        export LC_ALL="ko_KR.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "env"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "등록되어있는 환경변수를 모두 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "등록되어있는 환경변수를 모두 출력"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "env"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            env
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "env -0"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "등록되어있는 환경변수를 모두 출력(개행코드 없음)"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "등록되어있는 환경변수를 모두 출력(개행코드 없음)"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "env -0"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            env -0
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "env TESTVariables=TESTenv"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "일시적으로 설정되는 환경변수 설정"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "일시적으로 설정되는 환경변수 설정"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "env TESTVariables=TESTenv"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            env TESTVariables=TESTenv
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "env -u PATH"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "지정된 환경변수를 제외하고 나머지 환경변수를 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "지정된 환경변수를 제외하고 나머지 환경변수를 출력"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "env -u PATH"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            env -u PATH
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        export LC_ALL="ja_JP.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "env"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "登録されている環境変数をすべて出力"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "登録されている環境変数をすべて出力"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "env"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            env
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "env -0"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "登録されている環境変数をすべて出力（改行コードなし）"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "登録されている環境変数をすべて出力（改行コードなし）"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "env -0"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            env -0
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "env TESTVariables=TESTenv"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "一時的に設定される環境変数設定"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "一時的に設定される環境変数設定"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "env TESTVariables=TESTenv"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            env TESTVariables=TESTenv
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "env -u PATH"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "指定された環境変数を除いて残りの環境変数を出力"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "指定された環境変数を除いて残りの環境変数を出力"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "env -u PATH"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            env -u PATH
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    else
+        export LC_ALL="en_US.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "env"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Output all registered environmental variables"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Output all registered environmental variables"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "env"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            env
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "env -0"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Output all registered environmental variables(no opening code)"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Output all registered environmental variables(no opening code)"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "env -0"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            env -0
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "env TESTVariables=TESTenv"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Setting environment variables that are temporarily set"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Setting environment variables that are temporarily set"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "env TESTVariables=TESTenv"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            env TESTVariables=TESTenv
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "env -u PATH"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Output the remaining environmental variables except for the specified environmental variables"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Output the remaining environmental variables except for the specified environmental variables"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "env -u PATH"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            envenv -u PATH
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    fi
+        echo
+    printf "##############################################################################################\n"
+
+    export LC_ALL=${old_LC_ALL}
+
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    rm -rf ${filePathParam%/}/tmp/${commandItem}/
+
+    func_basicSetting_LogFileName_Path ${PID} "1" ${commandItem}
+    echo 
+    
+}
+
+#--------------------------------------------#
+# Command : export                           #
+#--------------------------------------------#
+function func_command_export() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### English Command Description Parameter / 영어 명령어 설명 파라미터 / 英語コマンド説明パラメータ
+    local commandDescriptionEnParam=$3
+    ### Korean Command Description Parameter / 한국어 명령어 설명 파라미터 / 韓国語コマンド説明パラメータ
+    local commandDescriptionKrParam=$4
+    ### Japense Command Description Parameter / 일본어 명령어 설명 파라미터 / 日本語コマンド説明パラメータ
+    local commandDescriptionJpParam=$5
+    ### Command / 명령어 / コマンド
+    local commandItem=$6
+    ### Count / 번호 / 番号 
+    local countNumber=0
+
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/
+    old_LC_ALL=${LC_ALL}
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${commandItem}
+    printf "##############################################################################################\n"
+    echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        printf "  %-16s %s %s\n" "명령어" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "기본설명" ":" "${commandDescriptionKrParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※사용법" ":" "${commandItem}_[인수1]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※인수1" ":" "[선언환경변수]" | sed 's/_/ /g'
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        printf "  %-17s %s %s\n" "コマンド" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "基本説明" ":" "${commandDescriptionJpParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}_[引数1]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数1" ":" "[宣言環境変数]" | sed 's/_/ /g'
+    else
+        printf "  %-13s %s %s\n" "Command" ":" "${commandItem}"
+        printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_[argument1]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument1" ":" "[Declaration_Environmental_Variables]" | sed 's/_/ /g'
+    fi
+        echo
+        printf "##############################################################################################\n"
+        echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        export LC_ALL="ko_KR.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "export GLOBALVAR=GLOBALDATA"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "셸/터미널 세션에서 생성된 변수를 자식 프로세스에 전달하여 환경 전체에서 접근 가능하게 합니다"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "셸/터미널 세션에서 생성된 변수를 자식 프로세스에 전달하여 환경 전체에서 접근 가능하게 합니다"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "export GLOBALVAR=GLOBALDATA"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            env | grep GLOBALVAR
+            export GLOBALVAR=GLOBALDATA
+            env | grep GLOBALVAR
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        export LC_ALL="ja_JP.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "export GLOBALVAR=GLOBALDATA"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "シェル/ターミナルセッションで生成された変数を子プロセスに伝達し、環境全体でアクセス可能にします"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "シェル/ターミナルセッションで生成された変数を子プロセスに伝達し、環境全体でアクセス可能にします"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "export GLOBALVAR=GLOBALDATA"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            env | grep GLOBALVAR
+            export GLOBALVAR=GLOBALDATA
+            env | grep GLOBALVAR
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    else
+        export LC_ALL="en_US.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "export GLOBALVAR=GLOBALDATA"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Deliver variables created in shell/terminal sessions to child processes to make them accessible throughout the environment"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Deliver variables created in shell/terminal sessions to child processes to make them accessible throughout the environment"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "export GLOBALVAR=GLOBALDATA"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            env | grep GLOBALVAR
+            export GLOBALVAR=GLOBALDATA
+            env | grep GLOBALVAR
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    fi
+        echo
+    printf "##############################################################################################\n"
+
+    export LC_ALL=${old_LC_ALL}
+
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    rm -rf ${filePathParam%/}/tmp/${commandItem}/
+
+    func_basicSetting_LogFileName_Path ${PID} "1" ${commandItem}
+    echo 
+    
+}
+
+#--------------------------------------------#
+# Command : exit                             #
+#--------------------------------------------#
+function func_command_exit() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### English Command Description Parameter / 영어 명령어 설명 파라미터 / 英語コマンド説明パラメータ
+    local commandDescriptionEnParam=$3
+    ### Korean Command Description Parameter / 한국어 명령어 설명 파라미터 / 韓国語コマンド説明パラメータ
+    local commandDescriptionKrParam=$4
+    ### Japense Command Description Parameter / 일본어 명령어 설명 파라미터 / 日本語コマンド説明パラメータ
+    local commandDescriptionJpParam=$5
+    ### Command / 명령어 / コマンド
+    local commandItem=$6
+    ### Count / 번호 / 番号 
+    local countNumber=0
+
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/
+    old_LC_ALL=${LC_ALL}
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${commandItem}
+    printf "##############################################################################################\n"
+    echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        printf "  %-16s %s %s\n" "명령어" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "기본설명" ":" "${commandDescriptionKrParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※사용법" ":" "${commandItem}" | sed 's/_/ /g'
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        printf "  %-17s %s %s\n" "コマンド" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "基本説明" ":" "${commandDescriptionJpParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}" | sed 's/_/ /g'
+    else
+        printf "  %-13s %s %s\n" "Command" ":" "${commandItem}"
+        printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_" | sed 's/_/ /g'
+    fi
+        echo
+        printf "##############################################################################################\n"
+        echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        export LC_ALL="ko_KR.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "exit"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "셸/터미널 세션에서 생성된 변수를 자식 프로세스에 전달하여 환경 전체에서 접근 가능하게 합니다"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "셸/터미널 세션에서 생성된 변수를 자식 프로세스에 전달하여 환경 전체에서 접근 가능하게 합니다"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "exit"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            exit
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        export LC_ALL="ja_JP.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "exit"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "シェル/ターミナルセッションで生成された変数を子プロセスに伝達し、環境全体でアクセス可能にします"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "シェル/ターミナルセッションで生成された変数を子プロセスに伝達し、環境全体でアクセス可能にします"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "exit"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            exit
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    else
+        export LC_ALL="en_US.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "exit"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Deliver variables created in shell/terminal sessions to child processes to make them accessible throughout the environment"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Deliver variables created in shell/terminal sessions to child processes to make them accessible throughout the environment"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "exit"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            exit
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    fi
+        echo
+    printf "##############################################################################################\n"
+
+    export LC_ALL=${old_LC_ALL}
+
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    rm -rf ${filePathParam%/}/tmp/${commandItem}/
+
+    func_basicSetting_LogFileName_Path ${PID} "1" ${commandItem}
+    echo 
+    
+}
+
+#--------------------------------------------#
 # Command List                               #
 #  : 명령어 리스트                               #
 #  : コマンドリスト                              #
@@ -12089,6 +12602,15 @@ readonly duJp="ファイルとディレクトリのディスク領域の使用�
 readonly echoEn="Used_to_display_the_value_of_a_text_line_or_variable_in_a_terminal"
 readonly echoKr="터미널에_텍스트_라인이나_변수의_값을_표시하는데_사용"
 readonly echoJp="ターミナルにテキストラインまたは変数の値を表示するために使用"
+readonly envEn="Used_to_display_or_modify_environment_variables_in_commands"
+readonly envKr="명령어의_환경_변수를_표시하거나_수정하는데에_사용"
+readonly envJp="コマンドの環境変数の表示または修正に使用"
+readonly exitEn="Used_to_end_shell_sessions_or_close_terminal_windows.Exit_the_current_process_to_log_out_the_user_or_close_the_terminal"
+readonly exitKr="셸_세션을_종료하거나_터미널_창을_닫는_데_사용.현재_프로세스를_종료하여_사용자를_로그아웃하거나_터미널을_닫습니다"
+readonly exitJp="シェルセッションを終了したり、ターミナルウィンドウを閉じるために使用します。現在のプロセスを終了して、ユーザーをログアウトするか、ターミナルを閉じます"
+readonly exportEn="Deliver_variables_created_in_shell/terminal_sessions_to_child_processes_to_make_them_accessible_throughout_the_environment"
+readonly exportKr="셸/터미널_세션에서_생성된_변수를_자식_프로세스에_전달하여_환경_전체에서_접근_가능하게_합니다"
+readonly exportJp="シェル/ターミナルセッションで生成された変数を子プロセスに伝達し、環境全体でアクセス可能にします"
 readonly exprEn="It_is_employed_in_tasks_such_as_evaluating_expressions_entered_by_users_in_the_terminal_or_finding_patterns_in_strings"
 readonly exprKr="사용자가_입력한_표현식을_계산하거나_문자열에서_패턴을_찾아내는_등의_작업에_사용"
 readonly exprJp="ユーザーが入力した式を計算したり、文字列からパターンを検出するなどの作業に使用"
@@ -12164,10 +12686,10 @@ readonly whoamiJp="現在ログインしているユーザーの名前を表示"
 readonly zipEn="Command_is_used_to_compress_files_and_directories_creating_a_compressed_archive.It's_primarily_used_to_save_space_by_compressing_files_or_when_transferring_files"
 readonly zipKr="파일_및_디렉터리를_압축하고_압축_파일을_만드는데_사용됩니다.주로_파일을_압축하여_용량을_절약하거나_파일을_전송할_때_활용"
 readonly zipJp="ファイルやディレクトリを圧縮し、圧縮ファイルを作成するのに使用されます。主にファイルを圧縮して容量を節約しファイルを転送する際に利用"
-declare -a commandList=("cal" "cat" "cd" "chgrp" "chmod" "chown" "clear" "cp" "cut" "date" "dd" "df" "diff" "du" "echo" "expr" "find" "gunzip" "gzip" "head" "history" "id" "less" "man" "mkdir" "more" "mv" "pwd" "rm" "rmdir" "sleep" "tail" "touch" "uname" "uniq" "unzip" "uptime" "wc" "whoami" "zip")
-declare -a commandDescriptionEn=("${calEn}" "${catEn}" "${cdEn}" "${chgrpEn}" "${chmodEn}" "${chownEn}" "${clearEn}" "${cpEn}" "${cutEn}" "${dateEn}" "${ddEn}" "${dfEn}" "${diffEn}" "${duEn}" "${echoEn}" "${exprEn}" "${findEn}" "${gunzipEn}" "${gzipEn}" "${headEn}" "${historyEn}" "${idEn}" "${lessEn}" "${manEn}" "${mkdirEn}" "${moreEn}" "${mvEn}" "${pwdEn}" "${rmEn}" "${rmdirEn}" "${sleepEn}" "${tailEn}" "${touchEn}" "${unameEn}" "${uniqEn}" "${unzipEn}" "${uptimeEn}" "${wcEn}" "${whoamiEn}" "${zipEn}")
-declare -a commandDescriptionKr=("${calKr}" "${catKr}" "${cdKr}" "${chgrpKr}" "${chmodKr}" "${chownKr}" "${clearKr}" "${cpKr}" "${cutKr}" "${dateKr}" "${ddKr}" "${dfKr}" "${diffKr}" "${duKr}" "${echoKr}" "${exprKr}" "${findKr}" "${gunzipKr}" "${gzipKr}" "${headKr}" "${historyKr}" "${idKr}" "${lessKr}" "${manKr}" "${mkdirKr}" "${moreKr}" "${mvKr}" "${pwdKr}" "${rmKr}" "${rmdirKr}" "${sleepKr}" "${tailKr}" "${touchKr}" "${unameKr}" "${uniqKr}" "${unzipKr}" "${uptimeKr}" "${wcKr}" "${whoamiKr}" "${zipKr}")
-declare -a commandDescriptionJp=("${calJp}" "${catJp}" "${cdJp}" "${chgrpJp}" "${chmodJp}" "${chownJp}" "${clearJp}" "${cpJp}" "${cutJp}" "${dateJp}" "${ddJp}" "${dfJp}" "${diffJp}" "${duJp}" "${echoJp}" "${exprJp}" "${findJp}" "${gunzipJp}" "${gzipJp}" "${headJp}" "${historyJp}" "${idJp}" "${lessJp}" "${manJp}" "${mkdirJp}" "${moreJp}" "${mvJp}" "${pwdJp}" "${rmJp}" "${rmdirJp}" "${sleepJp}" "${tailJp}" "${touchJp}" "${unameJp}" "${uniqJp}" "${unzipJp}" "${uptimeJp}" "${wcJp}" "${whoamiJp}" "${zipJp}")
+declare -a commandList=("cal" "cat" "cd" "chgrp" "chmod" "chown" "clear" "cp" "cut" "date" "dd" "df" "diff" "du" "echo" "env" "exit" "export" "expr" "find" "gunzip" "gzip" "head" "history" "id" "less" "man" "mkdir" "more" "mv" "pwd" "rm" "rmdir" "sleep" "tail" "touch" "uname" "uniq" "unzip" "uptime" "wc" "whoami" "zip")
+declare -a commandDescriptionEn=("${calEn}" "${catEn}" "${cdEn}" "${chgrpEn}" "${chmodEn}" "${chownEn}" "${clearEn}" "${cpEn}" "${cutEn}" "${dateEn}" "${ddEn}" "${dfEn}" "${diffEn}" "${duEn}" "${echoEn}" "${envEn}" "${exitEn}" "${exportEn}" "${exprEn}" "${findEn}" "${gunzipEn}" "${gzipEn}" "${headEn}" "${historyEn}" "${idEn}" "${lessEn}" "${manEn}" "${mkdirEn}" "${moreEn}" "${mvEn}" "${pwdEn}" "${rmEn}" "${rmdirEn}" "${sleepEn}" "${tailEn}" "${touchEn}" "${unameEn}" "${uniqEn}" "${unzipEn}" "${uptimeEn}" "${wcEn}" "${whoamiEn}" "${zipEn}")
+declare -a commandDescriptionKr=("${calKr}" "${catKr}" "${cdKr}" "${chgrpKr}" "${chmodKr}" "${chownKr}" "${clearKr}" "${cpKr}" "${cutKr}" "${dateKr}" "${ddKr}" "${dfKr}" "${diffKr}" "${duKr}" "${echoKr}" "${envKr}" "${exitKr}" "${exportKr}" "${exprKr}" "${findKr}" "${gunzipKr}" "${gzipKr}" "${headKr}" "${historyKr}" "${idKr}" "${lessKr}" "${manKr}" "${mkdirKr}" "${moreKr}" "${mvKr}" "${pwdKr}" "${rmKr}" "${rmdirKr}" "${sleepKr}" "${tailKr}" "${touchKr}" "${unameKr}" "${uniqKr}" "${unzipKr}" "${uptimeKr}" "${wcKr}" "${whoamiKr}" "${zipKr}")
+declare -a commandDescriptionJp=("${calJp}" "${catJp}" "${cdJp}" "${chgrpJp}" "${chmodJp}" "${chownJp}" "${clearJp}" "${cpJp}" "${cutJp}" "${dateJp}" "${ddJp}" "${dfJp}" "${diffJp}" "${duJp}" "${echoJp}" "${envJp}" "${exitJp}" "${exportJp}" "${exprJp}" "${findJp}" "${gunzipJp}" "${gzipJp}" "${headJp}" "${historyJp}" "${idJp}" "${lessJp}" "${manJp}" "${mkdirJp}" "${moreJp}" "${mvJp}" "${pwdJp}" "${rmJp}" "${rmdirJp}" "${sleepJp}" "${tailJp}" "${touchJp}" "${unameJp}" "${uniqJp}" "${unzipJp}" "${uptimeJp}" "${wcJp}" "${whoamiJp}" "${zipJp}")
 
 #--------------------------------------------#
 # Script Basic Variable Setting              #
@@ -12222,7 +12744,7 @@ echo
 ### Function Run / 함수 실행 / 関数実行
 func_basicSetting_StartingRunTime ${ouputLanguage} 
 ### Function Run / 함수 실행 / 関数実行
-func_basicSetting_LogFileName_Path ${PID} "0" ${searchCommand}
+func_basicSetting_LogFileName_Path ${PID} "0" 
 
 while true
 do
@@ -12277,7 +12799,7 @@ do
 done
 
 ### Function Run / 함수 실행 / 関数実行
-func_basicSetting_LogFileName_Path ${PID} "1" ${searchCommand}
+func_basicSetting_LogFileName_Path ${PID} "1" 
 
 ## What to do when adding a command (ex:gzip)
 ## 명령어 추가시 작업 내용 (예:gzip)
