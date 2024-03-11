@@ -767,6 +767,15 @@ function func_linuxCommandExample() {
         tar)
             func_command_tar ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
             ;;
+        tr)
+            func_command_tr ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
+            ;;
+        printf)
+            func_command_printf ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
+            ;;
+        paste)
+            func_command_paste ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
+            ;;
         *)  echo ; 
             if [[ ${ouputLanguageParam} == [kK][rR] ]];then
                 echo " 에러 : 명령어 함수 미포함 (func_command_${commandList[${commandItemIndex}]})"; 
@@ -16019,6 +16028,756 @@ function func_command_tar() {
 }
 
 #--------------------------------------------#
+# Command : tr                               #
+#--------------------------------------------#
+function func_command_tr() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### English Command Description Parameter / 영어 명령어 설명 파라미터 / 英語コマンド説明パラメータ
+    local commandDescriptionEnParam=$3
+    ### Korean Command Description Parameter / 한국어 명령어 설명 파라미터 / 韓国語コマンド説明パラメータ
+    local commandDescriptionKrParam=$4
+    ### Japense Command Description Parameter / 일본어 명령어 설명 파라미터 / 日本語コマンド説明パラメータ
+    local commandDescriptionJpParam=$5
+    ### Command / 명령어 / コマンド
+    local commandItem=$6
+    ### Count / 번호 / 番号 
+    local countNumber=0
+
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/
+    echo 'test  peach' > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+    echo 'testapple' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+    echo 'test banana' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+    echo 'teST           peach' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+    old_LC_ALL=${LC_ALL}
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${commandItem}
+    printf "##############################################################################################\n"
+    echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        printf "  %-16s %s %s\n" "명령어" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "기본설명" ":" "${commandDescriptionKrParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※사용법" ":" "${commandItem}_[옵션]_[인수1]_[인수2]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※옵션" ":" "[-ds]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※인수1" ":" "[변경_대상_문자열]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※인수2" ":" "[변경_문자열]" | sed 's/_/ /g'
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        printf "  %-17s %s %s\n" "コマンド" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "基本説明" ":" "${commandDescriptionJpParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}_[オプション]_[引数1]_[引数2]" | sed 's/_/ /g'
+        printf "  %-20s %s %s\n" "※オプション" ":" "[-ds]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数1" ":" "[変更_対象_文字列]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数1" ":" "[変更_文字列]" | sed 's/_/ /g'
+    else
+        printf "  %-13s %s %s\n" "Command" ":" "${commandItem}"
+        printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_[option]_[argument1]_[argument2]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※option" ":" "[-ds]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument1" ":" "[Change_Target_String]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument1" ":" "[Change_String]" | sed 's/_/ /g'
+    fi
+        echo
+        printf "##############################################################################################\n"
+        echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        export LC_ALL="ko_KR.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "tr [a-z] [A-Z] < ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "모든 문자열을 대문자로 치환 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "모든 문자열을 대문자로 치환 출력"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "tr [a-z] [A-Z] < ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            tr [a-z] [A-Z] < ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "tr 't' 'x' < ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "단일문자를 단일문자로 치환 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "단일문자를 단일문자로 치환 출력"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "tr 't' 'x' < ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            tr 't' 'x' < ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "tr -d 'te' < ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "지정된 단일문자을 삭제"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "지정된 단일문자을 삭제"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "tr -d 'te' < ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            tr -d 'te' < ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "tr -s ' ' < ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "지정된 단일문자의 중복제거"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "지정된 단일문자의 중복제거"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "tr -s ' ' < ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            tr -s ' ' < ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        export LC_ALL="ja_JP.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "tr [a-z] [A-Z] < ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "指定ファイルを利用してtarアーカイブ圧縮ファイルを作成"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "指定ファイルを利用してtarアーカイブ圧縮ファイルを作成"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "tr [a-z] [A-Z] < ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            tr [a-z] [A-Z] < ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "tr 't' 'x' < ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "単一文字を単一文字に置換出力"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "単一文字を単一文字に置換出力"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "tr 't' 'x' < ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            tr 't' 'x' < ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "tr -d 'te' < ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "指定された単一文字を削除"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "指定された単一文字を削除"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "tr -d 'te' < ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            tr -d 'te' < ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "tr -s ' ' < ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "指定された単一文字の重複排除"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "指定された単一文字の重複排除"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "tr -s ' ' < ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            tr -s ' ' < ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    else
+        export LC_ALL="en_US.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "tr [a-z] [A-Z] < ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Create a tar archive compressed file using specified files"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Create a tar archive compressed file using specified files"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "tr [a-z] [A-Z] < ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            tr [a-z] [A-Z] < ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "tr 't' 'x' < ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Replace single characters with single characters"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Replace single characters with single characters"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "tr 't' 'x' < ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            tr 't' 'x' < ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "tr -d 'te' < ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Delete the specified single character"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Delete the specified single character"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "tr -d 'te' < ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            tr -d 'te' < ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "tr -s ' ' < ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Deduplication of a given single character"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Deduplication of a given single character"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "tr -s ' ' < ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            tr -s ' ' < ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    fi
+        echo
+    printf "##############################################################################################\n"
+
+    export LC_ALL=${old_LC_ALL}
+
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    rm -rf ${filePathParam%/}/tmp/${commandItem}/
+
+    func_basicSetting_LogFileName_Path ${PID} "1" ${commandItem}
+    echo 
+    
+}
+
+#--------------------------------------------#
+# Command : printf                           #
+#--------------------------------------------#
+function func_command_printf() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### English Command Description Parameter / 영어 명령어 설명 파라미터 / 英語コマンド説明パラメータ
+    local commandDescriptionEnParam=$3
+    ### Korean Command Description Parameter / 한국어 명령어 설명 파라미터 / 韓国語コマンド説明パラメータ
+    local commandDescriptionKrParam=$4
+    ### Japense Command Description Parameter / 일본어 명령어 설명 파라미터 / 日本語コマンド説明パラメータ
+    local commandDescriptionJpParam=$5
+    ### Command / 명령어 / コマンド
+    local commandItem=$6
+    ### Count / 번호 / 番号 
+    local countNumber=0
+
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/
+    old_LC_ALL=${LC_ALL}
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${commandItem}
+    printf "##############################################################################################\n"
+    echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        printf "  %-16s %s %s\n" "명령어" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "기본설명" ":" "${commandDescriptionKrParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※사용법" ":" "${commandItem}_[옵션]_[인수1]_[인수2]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※인수1" ":" "[출력_형식]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※인수2" ":" "[출력_문자]" | sed 's/_/ /g'
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        printf "  %-17s %s %s\n" "コマンド" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "基本説明" ":" "${commandDescriptionJpParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}_[オプション]_[引数1]_[引数2]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数1" ":" "[出力形式]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数1" ":" "[出力文字]" | sed 's/_/ /g'
+    else
+        printf "  %-13s %s %s\n" "Command" ":" "${commandItem}"
+        printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_[option]_[argument1]_[argument2]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument1" ":" "[Output_Format]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument1" ":" "[Output_String]" | sed 's/_/ /g'
+    fi
+        echo
+        printf "##############################################################################################\n"
+        echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        export LC_ALL="ko_KR.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "printf '%s\n' 'test data'"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "printf '%f\n' 15.0123456"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "printf '%d\n' 15"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "기본 형식 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "기본 형식 출력"
+            echo "%s : test data"
+            echo "%f : 15.0123456"
+            echo "%d : 15"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "printf '%s\n' 'test data'"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "printf '%f\n' 15.0123456"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "printf '%d\n' 15"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            printf '%s\n' 'test data'
+            printf '%f\n' 15.0123456
+            printf '%d\n' 15
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "printf '%-15s\n' 'test_data'"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "printf '%15s\n' 'test_data'"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "printf '%.f\n' 15.0123456"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "printf '%6.f\n' 15.0123456"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "printf '%6.2f\n' 15.0123456"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "printf '%3d\n' 15"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "printf '%03d\n' 15"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "기본 형식 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "기출변형 출력"
+            echo "%-15s : _test_data      _"
+            echo "%15s : _      test_data_"
+            echo "%d : _15_"
+            echo "%d : _    15_"
+            echo "%d : _ 15.01_"
+            echo "%f : _ 15_"
+            echo "%f : _015_"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "printf '%-15s\n' 'test_data'"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "printf '%15s\n' 'test_data'"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "printf '%.f\n' 15.0123456"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "printf '%6.f\n' 15.0123456"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "printf '%6.2f\n' 15.0123456"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "printf '%3d\n' 15"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "printf '%03d\n' 15"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            printf '%-15s\n' 'test_data'
+            printf '%15s\n' 'test_data'
+            printf '%.f\n' 15.0123456
+            printf '%6.f\n' 15.0123456
+            printf '%6.2f\n' 15.0123456
+            printf '%3d\n' 15
+            printf '%03d\n' 15
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        export LC_ALL="ja_JP.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "tar cvf ${filePathParam%/}/tmp/${commandItem}/Test_tarFile1.tar ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/directory2/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "基本形式出力"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "基本形式出力"
+            echo "%s : test data"
+            echo "%f : 15.0123456"
+            echo "%d : 15"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "tar cvf ${filePathParam%/}/tmp/${commandItem}/Test_tarFile1.tar ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/directory2/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            printf '%s\n' 'test data'
+            printf '%f\n' 15.0123456
+            printf '%d\n' 15
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "tar cvf ${filePathParam%/}/tmp/${commandItem}/Test_tarFile1.tar ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/directory2/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "既出変形出力"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "既出変形出力"
+            echo "%-15s : _test_data      _"
+            echo "%15s : _      test_data_"
+            echo "%d : _15_"
+            echo "%d : _    15_"
+            echo "%d : _ 15.01_"
+            echo "%f : _ 15_"
+            echo "%f : _015_"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "tar cvf ${filePathParam%/}/tmp/${commandItem}/Test_tarFile1.tar ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/directory2/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            printf '%-15s\n' 'test_data'
+            printf '%15s\n' 'test_data'
+            printf '%.f\n' 15.0123456
+            printf '%6.f\n' 15.0123456
+            printf '%6.2f\n' 15.0123456
+            printf '%3d\n' 15
+            printf '%03d\n' 15
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    else
+        export LC_ALL="en_US.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "tar cvf ${filePathParam%/}/tmp/${commandItem}/Test_tarFile1.tar ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/directory2/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Default Type Output"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Default Type Output"
+            echo "%s : test data"
+            echo "%f : 15.0123456"
+            echo "%d : 15"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "tar cvf ${filePathParam%/}/tmp/${commandItem}/Test_tarFile1.tar ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/directory2/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Default Type Output"
+            printf '%s\n' 'test data'
+            printf '%f\n' 15.0123456
+            printf '%d\n' 15
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "tar cvf ${filePathParam%/}/tmp/${commandItem}/Test_tarFile1.tar ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/directory2/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Previously Deformed Output"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Previously Deformed Output"
+            echo "%-15s : _test_data      _"
+            echo "%15s : _      test_data_"
+            echo "%d : _15_"
+            echo "%d : _    15_"
+            echo "%d : _ 15.01_"
+            echo "%f : _ 15_"
+            echo "%f : _015_"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "tar cvf ${filePathParam%/}/tmp/${commandItem}/Test_tarFile1.tar ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/directory2/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            printf '%-15s\n' 'test_data'
+            printf '%15s\n' 'test_data'
+            printf '%.f\n' 15.0123456
+            printf '%6.f\n' 15.0123456
+            printf '%6.2f\n' 15.0123456
+            printf '%3d\n' 15
+            printf '%03d\n' 15
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    fi
+        echo
+    printf "##############################################################################################\n"
+
+    export LC_ALL=${old_LC_ALL}
+
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    rm -rf ${filePathParam%/}/tmp/${commandItem}/
+
+    func_basicSetting_LogFileName_Path ${PID} "1" ${commandItem}
+    echo 
+    
+}
+
+#--------------------------------------------#
+# Command : paste                            #
+#--------------------------------------------#
+function func_command_paste() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### English Command Description Parameter / 영어 명령어 설명 파라미터 / 英語コマンド説明パラメータ
+    local commandDescriptionEnParam=$3
+    ### Korean Command Description Parameter / 한국어 명령어 설명 파라미터 / 韓国語コマンド説明パラメータ
+    local commandDescriptionKrParam=$4
+    ### Japense Command Description Parameter / 일본어 명령어 설명 파라미터 / 日本語コマンド説明パラメータ
+    local commandDescriptionJpParam=$5
+    ### Command / 명령어 / コマンド
+    local commandItem=$6
+    ### Count / 번호 / 番号 
+    local countNumber=0
+
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/directory1/
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/directory2/
+    echo 'test apple' > ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt
+    echo 'test banana' >> ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt
+    echo 'test melon' >> ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt
+    echo 'test pear' >> ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt
+    echo 'test peach' >> ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt
+    echo 'test 300' > ${filePathParam%/}/tmp/${commandItem}/directory2/${commandItem}_TestFile2.txt
+    echo 'test 350' >> ${filePathParam%/}/tmp/${commandItem}/directory2/${commandItem}_TestFile2.txt
+    echo 'test 120' >> ${filePathParam%/}/tmp/${commandItem}/directory2/${commandItem}_TestFile2.txt
+    echo 'test 270' >> ${filePathParam%/}/tmp/${commandItem}/directory2/${commandItem}_TestFile2.txt
+    echo 'test 410' >> ${filePathParam%/}/tmp/${commandItem}/directory2/${commandItem}_TestFile2.txt
+    echo 'test 910' >> ${filePathParam%/}/tmp/${commandItem}/directory2/${commandItem}_TestFile2.txt
+    old_LC_ALL=${LC_ALL}
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${commandItem}
+    printf "##############################################################################################\n"
+    echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        printf "  %-16s %s %s\n" "명령어" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "기본설명" ":" "${commandDescriptionKrParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※사용법" ":" "${commandItem}_[옵션]_[인수1]_[인수2]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※옵션" ":" "[-ds]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※인수1" ":" "[대상_파일1]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※인수2" ":" "[대상_파일2]" | sed 's/_/ /g'
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        printf "  %-17s %s %s\n" "コマンド" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "基本説明" ":" "${commandDescriptionJpParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}_[オプション]_[引数1]_[引数2]" | sed 's/_/ /g'
+        printf "  %-20s %s %s\n" "※オプション" ":" "[-ds]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数1" ":" "[対象ファイル1]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数1" ":" "[対象ファイル2]" | sed 's/_/ /g'
+    else
+        printf "  %-13s %s %s\n" "Command" ":" "${commandItem}"
+        printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_[option]_[argument1]_[argument2]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※option" ":" "[-ds]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument1" ":" "[Target_File1]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument1" ":" "[Target_File2]" | sed 's/_/ /g'
+    fi
+        echo
+        printf "##############################################################################################\n"
+        echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        export LC_ALL="ko_KR.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "paste ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/directory2/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "두 파일을 가로로 병합"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "두 파일을 가로로 병합"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "paste ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/directory2/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            paste ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/directory2/${commandItem}_TestFile2.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "paste -d ',' ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/directory2/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "구분 기호를 이용해서 병합"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "구분 기호를 이용해서 병합"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "paste -d ',' ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/directory2/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            paste -d ',' ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/directory2/${commandItem}_TestFile2.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "paste -s ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/directory2/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "행렬 전환 후 병합"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "행렬 전환 후 병합"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "paste -s ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/directory2/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            paste -s ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/directory2/${commandItem}_TestFile2.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        export LC_ALL="ja_JP.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "paste ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/directory2/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "両方のファイルを横にマージ"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "両方のファイルを横にマージ"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "paste ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/directory2/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            paste ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/directory2/${commandItem}_TestFile2.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "paste -d ',' ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/directory2/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "区分記号を利用して併合"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "区分記号を利用して併合"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "paste -d ',' ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/directory2/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            paste -d ',' ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/directory2/${commandItem}_TestFile2.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "paste -s ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/directory2/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "行列の切り替え後に併合"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "行列の切り替え後に併合"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "paste -s ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/directory2/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            paste -s ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/directory2/${commandItem}_TestFile2.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    else
+        export LC_ALL="en_US.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "paste ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/directory2/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Merge two files horizontally"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Merge two files horizontally"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "paste ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/directory2/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            paste ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/directory2/${commandItem}_TestFile2.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "paste -d ',' ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/directory2/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Merge using delimiter"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Merge using delimiter"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "paste -d ',' ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/directory2/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            paste -d ',' ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/directory2/${commandItem}_TestFile2.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "paste -s ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/directory2/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Merge after matrix transition"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "Merge after matrix transition"
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "paste -s ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/directory2/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            paste -s ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/directory2/${commandItem}_TestFile2.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    fi
+        echo
+    printf "##############################################################################################\n"
+
+    export LC_ALL=${old_LC_ALL}
+
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    rm -rf ${filePathParam%/}/tmp/${commandItem}/
+
+    func_basicSetting_LogFileName_Path ${PID} "1" ${commandItem}
+    echo 
+    
+}
+
+#--------------------------------------------#
 # Command List                               #
 #  : 명령어 리스트                               #
 #  : コマンドリスト                              #
@@ -16125,9 +16884,15 @@ readonly moreJp="ユーザーがテキストファイルの内容をインタラ
 readonly mvEn="Used_to_move_or_rename_files_or_directories"
 readonly mvKr="파일이나_디렉터리를_이동하거나_이름을_변경하는데_사용"
 readonly mvJp="ファイルやディレクトリを移動または名前を変更するために使用"
+readonly pasteEn="Used_to_merge_rows_of_multiple_files"
+readonly pasteKr="여러_파일의_행을_병합하는데_사용"
+readonly pasteJp="複数のファイルの行をマージするために使用"
 readonly pingEn="Measure_the_round_trip_time_of_messages_sent_from_the_source_host_to_the_target_computer.test_the_accessibility_of_the_host"
 readonly pingKr="원본_호스트에서_대상_컴퓨터로_전송된_메시지의_왕복_시간을_측정.호스트의_접근_가능성을_테스트"
 readonly pingJp="元のホストからターゲットコンピューターに送信されたメッセージの往復時間を測定。ホストのアクセス可能性をテスト"
+readonly printfEn="Precisely_control_the_format_of_the_output.specify_the_shape_of_text,numbers,other_data."
+readonly printfKr="출력물의_형식을_정밀하게_제어.텍스트,숫자_및_기타_데이터의_모양을_지정."
+readonly printfJp="出力物の形式を精密に制御。テキスト、数字、その他のデータの外観を指定する。"
 readonly psEn="Displays_details_such_as_the_process_ID(PID)_of_the_currently_running_process,terminals_associated_with_that_process_and_CPU_and_memory_usage"
 readonly psKr="현재_실행_중인_프로세스의_프로세스_ID(PID),해당_프로세스와_연결된_터미널,CPU_및_메모리_사용량_등의_세부_정보를_표시"
 readonly psJp="現在実行中のプロセスID(PID)、当該プロセスに接続されたターミナル、CPUおよびメモリ使用量などの詳細情報を表示"
@@ -16158,6 +16923,9 @@ readonly topJp="システムプロセスをリアルタイムで監視するツ�
 readonly touchEn="Used_to_create_empty_files_or_update_access_and_modification_times_for_existing_files"
 readonly touchKr="빈_파일을_생성하거나_기존_파일의_액세스_및_수정_시간을_업데이트하는데_사용"
 readonly touchJp="空のファイルを作成したり、既存ファイルのアクセスおよび修正のタイムスタンプを更新するために使用"
+readonly trEn="Used_for_character_conversion_or_deletion_in_Unix_and_Linux"
+readonly trKr="유닉스_및_리눅스에서_문자_변환_또는_삭제에_사용"
+readonly trJp="UnixおよびLinuxで文字の変換や削除に使用"
 readonly umaskEn="Used_to_set_the_default_file_permission_mask_for_newly_created_files.Specify_permissions_that_should_be_rejected_by_default_when_files_are_created"
 readonly umaskKr="새로_생성되는_파일의_기본_파일_권한_마스크를_설정하는데_사용.파일이_생성될_때_기본적으로_거부되어야_하는_권한을_지정"
 readonly umaskJp="新しく生成されるファイルのデフォルトファイル権限マスクの設定に使用。ファイルの生成時に基本的に拒否されるべき権限を指定"
@@ -16182,10 +16950,10 @@ readonly whoamiJp="現在ログインしているユーザーの名前を表示"
 readonly zipEn="Command_is_used_to_compress_files_and_directories_creating_a_compressed_archive.It_is_primarily_used_to_save_space_by_compressing_files_or_when_transferring_files"
 readonly zipKr="파일_및_디렉터리를_압축하고_압축_파일을_만드는데_사용됩니다.주로_파일을_압축하여_용량을_절약하거나_파일을_전송할_때_활용"
 readonly zipJp="ファイルやディレクトリを圧縮し、圧縮ファイルを作成するのに使用されます。主にファイルを圧縮して容量を節約しファイルを転送する際に利用"
-declare -a commandList=("cal" "cat" "cd" "chgrp" "chmod" "chown" "clear" "cp" "cut" "date" "dd" "df" "diff" "du" "echo" "env" "exit" "export" "expr" "fc" "find" "grep" "gunzip" "gzip" "head" "history" "id" "less" "ln" "ls" "man" "mkdir" "more" "mv" "ping" "ps" "pwd" "rm" "rmdir" "sleep" "sort" "tail" "tar" "top" "touch" "umask" "uname" "uniq" "unzip" "uptime" "wc" "whoami" "zip")
-declare -a commandDescriptionEn=("${calEn}" "${catEn}" "${cdEn}" "${chgrpEn}" "${chmodEn}" "${chownEn}" "${clearEn}" "${cpEn}" "${cutEn}" "${dateEn}" "${ddEn}" "${dfEn}" "${diffEn}" "${duEn}" "${echoEn}" "${envEn}" "${exitEn}" "${exportEn}" "${exprEn}" "${fcEn}" "${findEn}" "${grepEn}" "${gunzipEn}" "${gzipEn}" "${headEn}" "${historyEn}" "${idEn}" "${lessEn}" "${lnEn}" "${lsEn}" "${manEn}" "${mkdirEn}" "${moreEn}" "${mvEn}" "${pingEn}" "${psEn}" "${pwdEn}" "${rmEn}" "${rmdirEn}" "${sleepEn}" "${sortEn}" "${tailEn}" "${tarEn}" "${topEn}" "${touchEn}" "${umaskEn}" "${unameEn}" "${uniqEn}" "${unzipEn}" "${uptimeEn}" "${wcEn}" "${whoamiEn}" "${zipEn}")
-declare -a commandDescriptionKr=("${calKr}" "${catKr}" "${cdKr}" "${chgrpKr}" "${chmodKr}" "${chownKr}" "${clearKr}" "${cpKr}" "${cutKr}" "${dateKr}" "${ddKr}" "${dfKr}" "${diffKr}" "${duKr}" "${echoKr}" "${envKr}" "${exitKr}" "${exportKr}" "${exprKr}" "${fcKr}" "${findKr}" "${grepKr}" "${gunzipKr}" "${gzipKr}" "${headKr}" "${historyKr}" "${idKr}" "${lessKr}" "${lnKr}" "${lsKr}" "${manKr}" "${mkdirKr}" "${moreKr}" "${mvKr}" "${pingKr}" "${psKr}" "${pwdKr}" "${rmKr}" "${rmdirKr}" "${sleepKr}" "${sortKr}" "${tailKr}" "${tarKr}" "${topKr}" "${touchKr}" "${umaskKr}" "${unameKr}" "${uniqKr}" "${unzipKr}" "${uptimeKr}" "${wcKr}" "${whoamiKr}" "${zipKr}")
-declare -a commandDescriptionJp=("${calJp}" "${catJp}" "${cdJp}" "${chgrpJp}" "${chmodJp}" "${chownJp}" "${clearJp}" "${cpJp}" "${cutJp}" "${dateJp}" "${ddJp}" "${dfJp}" "${diffJp}" "${duJp}" "${echoJp}" "${envJp}" "${exitJp}" "${exportJp}" "${exprJp}" "${fcJp}" "${findJp}" "${grepJp}" "${gunzipJp}" "${gzipJp}" "${headJp}" "${historyJp}" "${idJp}" "${lessJp}" "${lnJp}" "${lsJp}" "${manJp}" "${mkdirJp}" "${moreJp}" "${mvJp}" "${pingJp}" "${psJp}" "${pwdJp}" "${rmJp}" "${rmdirJp}" "${sleepJp}" "${sortJp}" "${tailJp}" "${tarJp}" "${topJp}" "${touchJp}" "${umaskJp}" "${unameJp}" "${uniqJp}" "${unzipJp}" "${uptimeJp}" "${wcJp}" "${whoamiJp}" "${zipJp}")
+declare -a commandList=("cal" "cat" "cd" "chgrp" "chmod" "chown" "clear" "cp" "cut" "date" "dd" "df" "diff" "du" "echo" "env" "exit" "export" "expr" "fc" "find" "grep" "gunzip" "gzip" "head" "history" "id" "less" "ln" "ls" "man" "mkdir" "more" "mv" "paste" "ping" "printf" "ps" "pwd" "rm" "rmdir" "sleep" "sort" "tail" "tar" "top" "touch" "tr" "umask" "uname" "uniq" "unzip" "uptime" "wc" "whoami" "zip")
+declare -a commandDescriptionEn=("${calEn}" "${catEn}" "${cdEn}" "${chgrpEn}" "${chmodEn}" "${chownEn}" "${clearEn}" "${cpEn}" "${cutEn}" "${dateEn}" "${ddEn}" "${dfEn}" "${diffEn}" "${duEn}" "${echoEn}" "${envEn}" "${exitEn}" "${exportEn}" "${exprEn}" "${fcEn}" "${findEn}" "${grepEn}" "${gunzipEn}" "${gzipEn}" "${headEn}" "${historyEn}" "${idEn}" "${lessEn}" "${lnEn}" "${lsEn}" "${manEn}" "${mkdirEn}" "${moreEn}" "${mvEn}" "${pasteEn}" "${pingEn}" "${printfEn}" "${psEn}" "${pwdEn}" "${rmEn}" "${rmdirEn}" "${sleepEn}" "${sortEn}" "${tailEn}" "${tarEn}" "${topEn}" "${touchEn}" "${trEn}" "${umaskEn}" "${unameEn}" "${uniqEn}" "${unzipEn}" "${uptimeEn}" "${wcEn}" "${whoamiEn}" "${zipEn}")
+declare -a commandDescriptionKr=("${calKr}" "${catKr}" "${cdKr}" "${chgrpKr}" "${chmodKr}" "${chownKr}" "${clearKr}" "${cpKr}" "${cutKr}" "${dateKr}" "${ddKr}" "${dfKr}" "${diffKr}" "${duKr}" "${echoKr}" "${envKr}" "${exitKr}" "${exportKr}" "${exprKr}" "${fcKr}" "${findKr}" "${grepKr}" "${gunzipKr}" "${gzipKr}" "${headKr}" "${historyKr}" "${idKr}" "${lessKr}" "${lnKr}" "${lsKr}" "${manKr}" "${mkdirKr}" "${moreKr}" "${mvKr}" "${pasteKr}" "${pingKr}" "${printfKr}" "${psKr}" "${pwdKr}" "${rmKr}" "${rmdirKr}" "${sleepKr}" "${sortKr}" "${tailKr}" "${tarKr}" "${topKr}" "${touchKr}" "${trKr}" "${umaskKr}" "${unameKr}" "${uniqKr}" "${unzipKr}" "${uptimeKr}" "${wcKr}" "${whoamiKr}" "${zipKr}")
+declare -a commandDescriptionJp=("${calJp}" "${catJp}" "${cdJp}" "${chgrpJp}" "${chmodJp}" "${chownJp}" "${clearJp}" "${cpJp}" "${cutJp}" "${dateJp}" "${ddJp}" "${dfJp}" "${diffJp}" "${duJp}" "${echoJp}" "${envJp}" "${exitJp}" "${exportJp}" "${exprJp}" "${fcJp}" "${findJp}" "${grepJp}" "${gunzipJp}" "${gzipJp}" "${headJp}" "${historyJp}" "${idJp}" "${lessJp}" "${lnJp}" "${lsJp}" "${manJp}" "${mkdirJp}" "${moreJp}" "${mvJp}" "${pasteJp}" "${pingJp}" "${printfJp}" "${psJp}" "${pwdJp}" "${rmJp}" "${rmdirJp}" "${sleepJp}" "${sortJp}" "${tailJp}" "${tarJp}" "${topJp}" "${touchJp}" "${trJp}" "${umaskJp}" "${unameJp}" "${uniqJp}" "${unzipJp}" "${uptimeJp}" "${wcJp}" "${whoamiJp}" "${zipJp}")
 
 #--------------------------------------------#
 # Script Basic Variable Setting              #
