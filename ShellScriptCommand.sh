@@ -120,16 +120,17 @@ function func_basicSetting_LogFileName_Path() {
 
     ### log Print / 로그 출력 / ログファイル出力
     if [ ${startEndflg} -eq 0 ]; then
-        echo "### `date +%Y/%m/%d-%H:%M:%S` [${PID}] ${scriptName} >>> START "
-        echo "### `date +%Y/%m/%d-%H:%M:%S` [${PID}] ${scriptName} >>> START " >> ${logFilePath}
         if [ ! -z ${searchCommandParam} ];then
-            echo "### `date +%Y/%m/%d-%H:%M:%S` [${PID}] ${scriptName} >>> ${searchCommandParam} START " >> ${commandLogFilePath}
+            echo "### `date +%Y/%m/%d-%H:%M:%S` [${PID}] ${scriptName} COMMAND : ${searchCommandParam} >>> ${searchCommandParam} START " >> ${commandLogFilePath}
+        else
+            echo "### `date +%Y/%m/%d-%H:%M:%S` [${PID}] ${scriptName} >>> START " >> ${logFilePath}
         fi
     else
         echo "### `date +%Y/%m/%d-%H:%M:%S` [${PID}] ${scriptName} >>> END "
-        echo "### `date +%Y/%m/%d-%H:%M:%S` [${PID}] ${scriptName} >>> END " >> ${logFilePath}
         if [ ! -z ${searchCommandParam} ];then
-            echo "### `date +%Y/%m/%d-%H:%M:%S` [${PID}] ${scriptName} >>> ${searchCommandParam} END " >> ${commandLogFilePath}
+            echo "### `date +%Y/%m/%d-%H:%M:%S` [${PID}] ${scriptName} COMMAND : ${searchCommandParam} >>> ${searchCommandParam} END " >> ${commandLogFilePath}
+        else
+            echo "### `date +%Y/%m/%d-%H:%M:%S` [${PID}] ${scriptName} >>> END " >> ${logFilePath}
         fi
     fi
 
@@ -231,6 +232,7 @@ function func_mainMenu() {
             printf "  * %-36s*\n"                       "2. 리눅스 명령어 리스트"
             printf "  * %-36s*\n"                       "3. 스크립트 작성 도움말"
             printf "  *                            *\n"
+            printf "  * %-33s*\n"                       "8. 편집기 리스트"
             printf "  * %-29s*\n"                       "9. 종료"
             printf "  ******************************\n"
             echo 
@@ -245,6 +247,7 @@ function func_mainMenu() {
             printf "  * %-39s*\n"                       "2. リナックスコマンドリスト"
             printf "  * %-36s*\n"                       "3. スクリプトのヘルプ"
             printf "  *                            *\n"
+            printf "  * %-35s*\n"                       "8. エディターリスト"
             printf "  * %-29s*\n"                       "9. 終了"
             printf "  ******************************\n"
             echo 
@@ -259,6 +262,7 @@ function func_mainMenu() {
             printf "  * %-27s*\n"                       "2. List of Linux Commands"
             printf "  * %-27s*\n"                       "3. Helping For Script"
             printf "  *                            *\n"
+            printf "  * %-27s*\n"                       "8. List of Editor"
             printf "  * %-27s*\n"                       "9. End"
             printf "  ******************************\n"
             echo 
@@ -273,19 +277,21 @@ function func_mainMenu() {
             break
         elif [[ ${selectMenu} == 3 ]]; then
             break
+        elif [[ ${selectMenu} == 8 ]]; then
+            break
         elif [[ ${selectMenu} == 9 ]]; then
             break
         else
             clear
             if [[ ${languageParam} == [kK][rR] ]]; then
                 echo
-                printf "%s\n" "### 선택 가능한 메뉴(번호) : 1, 2, 3, 9 ###"
+                printf "%s\n" "### 선택 가능한 메뉴(번호) : 1, 2, 3, 8, 9 ###"
             elif [[ ${languageParam} == [jJ][pP] ]]; then
                 echo
-                printf "%s\n" "### 選択可能なメニュー(番号) : 1, 2, 3, 9 ###"
+                printf "%s\n" "### 選択可能なメニュー(番号) : 1, 2, 3, 8, 9 ###"
             else
                 echo
-                printf "%s\n" "### Selectable menu (number): 1, 2, 3, 9 ###"
+                printf "%s\n" "### Selectable menu (number): 1, 2, 3, 8, 9 ###"
             fi
         fi
     done
@@ -414,6 +420,9 @@ function func_selectLanguage() {
             languageParam="jp"
             ouputLanguage="jp"
             break
+        elif [[ ${selectLanguage} == 9 ]]; then
+            clear
+            break
         else
             clear
             if [[ ${languageParam} == [kK][rR] ]]; then
@@ -430,13 +439,396 @@ function func_selectLanguage() {
                 printf "%s%35s\n" "### Please check the Number.   (" "1,  2,  3 ) ###"
             fi
         fi
-
-        if [ ${selectLanguage} = 9 ]; then
-            clear
-            break
-        fi
     done
 
+}
+
+#--------------------------------------------#
+# Select Editor                              #
+#  : List of Editor                          #
+#  : 편집기 리스트                             　#
+#  : エディターリスト                             #
+#--------------------------------------------#
+function func_selectEditor() {
+
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local languageParam=$1
+
+    ### Function Main Logic / 함수 메인 로직 / 関数メインロジック
+    while true
+    do
+        if [[ ${languageParam} == [kK][rR] ]];then
+            echo
+            printf "  ******************************\n"
+            printf "  * %25s%7s*\n"                     "편집기 선택"
+            printf "  ******************************\n"
+            printf "  * %-27s*\n"                       "1. Vim"
+            printf "  * %-27s*\n"                       "2. Nano"
+            printf "  *                            *\n"
+            printf "  * %-31s*\n"                       "9. 이전메뉴"
+            printf "  ******************************\n"
+            echo 
+            read -p " 편집기를 선택해주세요. : " selectEditor
+            echo
+        elif [[ ${languageParam} == [jJ][pP] ]]; then
+            echo
+            printf "  ******************************\n"
+            printf "  * %28s%6s*\n"                     "エディター選択"
+            printf "  ******************************\n"
+            printf "  * %-27s*\n"                       "1. Vim"
+            printf "  * %-27s*\n"                       "2. Nano"
+            printf "  *                            *\n"
+            printf "  * %-33s*\n"                       "9. 前のメニュー"
+            printf "  ******************************\n"
+            echo 
+            read -p " 編集機を選択ください。 : " selectEditor
+            echo
+        else
+            echo
+            printf "  ******************************\n"
+            printf "  * %20s%7s*\n"                     "Select Editor"
+            printf "  ******************************\n"
+            printf "  * %-27s*\n"                       "1. Vim"
+            printf "  * %-27s*\n"                       "2. Nano"
+            printf "  *                            *\n"
+            printf "  * %-27s*\n"                       "9. Previous Menu"
+            printf "  ******************************\n"
+            echo 
+            read -p " Select Editor. : " selectEditor
+            echo
+        fi
+
+        ### Parameter exist / 파라미터가 존재 / パラメータが存在
+        if [[ ${selectEditor} == 1 || ${selectEditor} == [vV][iI][mM] ]]; then
+            func_editor_vim ${languageParam} ${filePath} "vim"
+            clear
+        elif [[ ${selectEditor} == 2 || ${selectEditor} == [nN][aA][nN][oO] ]]; then
+            func_editor_nano ${languageParam} ${filePath} "nano"
+            clear
+        elif [[ ${selectEditor} == 9 ]]; then
+            clear
+            break
+        else
+            clear
+            if [[ ${languageParam} == [kK][rR] ]]; then
+                echo
+                printf "%s%s\n" "### 편집기를 선택해주세요. (대소문자 구분없음 : " "vim, nano ) ###"
+                printf "%s%35s\n" "### 번호를 선택해주세요.   (" "1,    2 ) ###"
+            elif [[ ${languageParam} == [jJ][pP] ]]; then
+                echo
+                printf "%s%s\n" "### エディターを選択してください. (大小文字区別無し : " "vim, nano ) ###"
+                printf "%s%34s\n" "### 番号を選択してください.       (" "1,    2 ) ###"
+            else
+                echo
+                printf "%s%s\n" "### Please check the Editor. (case-insensitive : " "vim, nano ) ###"
+                printf "%s%34s\n" "### Please check the Number. (" "1,    2 ) ###"
+            fi
+        fi
+
+    done
+
+}
+
+#--------------------------------------------#
+# Command : vim                              #
+#--------------------------------------------#
+function func_editor_vim() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### Editor / 편집기 / エディター
+    local editorItem=$3
+
+    mkdir -p ${filePathParam%/}/tmp/${editorItem}/
+    old_LC_ALL=${LC_ALL}
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${editorItem}
+    echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        echo '###vim Text Mod Command###' > ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '   Normal Mode : 처음 실행한 상태' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> h(왼쪽 방향키) : 커서 위치부터 왼쪽으로 한 칸 이동' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> j(아래 방향키) : 커서 위치부터 아래쪽으로 한 칸 이동' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> k(위쪽 방향키) : 커서 위치부터 위쪽으로 한 칸 이동' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> l(오른쪽 방향키) : 커서 위치부터 오른쪽으로 한 칸 이동' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> x : 커서 위치의 문자 하나를 삭제' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> u : 편집 내용 하나 취소' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '   Insert Mode : i, a, o, I, A, O를 눌른후 텍스트를 입력할수 있는 상태' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> Normal 모드에서 Insert Mode로 이동' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> i : 커서 위치부터 Insert Mode 진입' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> I : 커서가 있는 줄의 맨 앞에서부터 Insert Mode 진입' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> a : 커서 위치의 다음 칸부터 Insert Mode 진입' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> A : 커서가 있는 줄의 끝에서부터 Insert Mode 진입' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> o : 커서 바로 아래에 줄을 만들고 Insert Mode 진입' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> O : 커서 바로 위에 줄을 만들고 Insert Mode 진입' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> Insert Mode에서 조작(삭제)' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> x(dl) : 커서 위치의 문자 삭제' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> X(dh) : 커서 위치의 바로 앞 문자 삭제' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> dw : 커서 위치의 한 단어를 삭제' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> d0 : 커서 위치부터 행의 처음까지 삭제' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> D(d$) : 커서 위치부터 행의 맨끝까지 삭제' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> dd : 커서 위치의 행 전체를 삭제' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> dj : 커서 위치의 행과 그 다음 행을 삭제' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> dk : 커서 위치의 행과 그 앞 행을 삭제' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> Insert Mode에서 조작(복사/붙여넣기)' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> yw : 커서 위치부터 단어의 끝까지 복사' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> y2w : 커서 위치부터 두 단어 복사' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> y0 : 커서 위치부터 줄의 처음까지 복사' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> y$ : 커서 위치부터 줄의 끝까지 복사' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> yy : 커서가 있는 줄을 복사' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> 2yy : 커서가 있는 줄 아래로 두줄을 복사' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> yj : 커서가 있는 줄과 그 다음줄을 복사' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> yk : 커서가 있는 줄과 그 앞줄을 복사' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> yG : 현재 위치에서 파일의 끝까지 복사' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> p : 커서의 다음 위치에 붙여넣기' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> PP : 커서가 있는 위치에 붙여넣기' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '   Command Mode : Normal Mode에서 [ ESC ]를 누르고 [ : ]을 입력한 상태' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> :w : 저장하기' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> :w test.txt : test.txt 파일로 저장' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> :w >> test.txt : test.txt 파일에 이어서 저장' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> :q : vi 편집기를 종료' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> ZZ : 저장 후 종료' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> :wq! : 강제 저장 후 종료' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> :e test.txt : test.txt 파일을 불러온다.' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> :e test.txt : 현재 파일을 불러온다.' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '   Visual Mode : 블록 선택을 위해서 v 또는 [ Ctrl + V ] 키를 누른 상태' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '   ETC' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> "." : .는 이전에 사용하였던 명령을 재실행한다.' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> /[검색어] : [검색어]가 출력되는 행을 제일 위에 출력(현재 페이지에 없는 경우 다음페이지에서 검색)'  >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> ?[검색어] : [검색어]가 출력되는 행을 제일 위에 출력(현재 페이지에 없는 경우 이전페이지에서 검색)'  >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> :[범위]/[매칭문자열]/[치환문자열]/[라인범위] : 기존 문자열을 한 번에 치환할때 사용한다.(:%s/AA/BB/g -> 처음부터끝까지 AA를 BB로 치환)' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    ->> (:%s/AA/BB/g -> 처음부터끝까지 AA를 BB로 치환)' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    ->> (:%s/AA/BB/gc -> 처음부터끝까지 AA를 BB로 치환할때 사용자에게 물어보며 하나씩 치환한다.)' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        LINENUM=1
+        echo "vim start $LINENUM" >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        for n in {1..100} 
+        do 
+            LINENUM=$(( LINENUM + 1 ))
+            echo "vim start $LINENUM" >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        done
+        vi ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        echo '###vim Text Mod Command###' > ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '   Normal モード : 初めて実行した状態' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> h(左方向キー):カーソル位置から左方向に1文字移動' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> j(下方向キー):カーソル位置から下方向に1文字移動' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> k(上方向キー):カーソル位置から上方向に1文字移動' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> l(右方向キー):カーソル位置から右方向に1文字移動' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> x : カーソル位置の文字一つを削除' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> u : 編集内容一つ取り消し' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '   Insert モード : i、 a、o、I、A、Oを押してからテキストを入力できる状態' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> ノーマルモードからInsertモードに移動' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> i : カーソル位置からInsertモードに進入' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> I : カーソルがある列の一番前からInsertモードに進入' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> a : カーソル位置の次の文字からInsertモードに進入' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> A : カーソルがある列の端からInsertモードに進入' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> o : カーソルのすぐ下に線を作り、Insertモードに進入' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> O : カーソルの真上に線を作り、Insertモードに進入' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> Insertモードで操作（削除）' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> x(dl) : カーソル位置の文字削除' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> X(dh) : カーソル位置のすぐ前の文字を削除' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> dw : カーソル位置の単語を削除' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> d0 : カーソル位置から行の最初まで削除' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> D(d$) : カーソル位置から行の最後まで削除' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> dd : カーソル位置の行全体を削除' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> dj : カーソル位置の行とその次の行を削除' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> dk : カーソル位置の行とその前の行を削除' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> Insert モードで操作(コピー/貼り付け)' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> yw : カーソル位置から単語の最後までコピー' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> y2w : カーソル位置から二つの単語をコピー' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> y0 : カーソル位置から線の最初までコピー' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> y$ : カーソル位置から線の端までコピー' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> yy : カーソルのある行のコピー' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> 2yy : カーソルのある行の下に2行をコピー' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> yj : カーソルのある行とその次の行をコピー' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> yk : カーソルのある行とその前の行をコピー' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> yG : 現在地からファイルの最後までコピー' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> p : カーソルの次の位置に貼り付ける' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> PP : カーソルのある位置に貼り付ける' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '   Command モード : Normal モードで[ESC]を押して[ : ]を入力した状態' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> :w : 保存' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> :w test.txt : test.txt ファイルとして保存' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> :w >> test.txt : test.txt ファイルに続いて保存' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> :q : vi エディターを終了' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> ZZ : 保存後終了' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> :wq! : 強制保存後に終了' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> :e test.txt : test.txt ファイルを読み込む。' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> :e test.txt : 現在ファイルを読み込む。' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '   Visual モード : ブロック選択のためにvまたは[Ctrl+V]キーを押した状態' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '   ETC' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> "." : .は、以前に使用した命令を再実行.' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> /[検索語] : [検索語]が出力される行を一番上に出力(現在のページにない場合は、次のページで検索)'  >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> ?[検索語] : [検索語]が出力される行を一番上に出力(現在のページにない場合は、前のページで検索)'  >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> :[範囲]/[マッチング文字列]/[置換文字列]/[ライン範囲] : 既存文字列を一度に置換する際に使用する。(:%s/AA/BB/g -> 最初から最後までAAをBBに置換)' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    ->> （:%s/AA/BB/g -> 最初から最後までAAをBBに置換）' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    ->> （:%s/AA/BB/gc -> 最初から最後までAAをBBに置き換える際に、ユーザに聞いて一つずつ置き換える。）' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        LINENUM=1
+        echo "vim start $LINENUM" >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        for n in {1..100} 
+        do 
+            LINENUM=$(( LINENUM + 1 ))
+            echo "vim start $LINENUM" >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        done
+        vi ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+    else
+        echo '###vim Text Mod Command###' > ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '   Normal mode : the state of being executed for the first time' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> h(left key): Move one character to the left from the cursor position' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> j(Down key): Move one character downward from cursor position' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> k(Up key): Move one character upward from cursor position' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> l(Right key): Move one character to the right from the cursor position' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> x : Delete one character in cursor position' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> u : Undo one edit' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '   Insert mode : i, a, o, I, A, O, and then text can be entered' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> Go from Normal Mode to Insert Mode' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> i : Enter Insert mode from cursor position' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> I : cursor enters Insert mode from the front of column' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> a : Enter Insert mode from the next character in the cursor' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> A : US>Cursor enters Insert mode at the end of column' >>${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> o —Create a line just below the cursor and enter Insert mode' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> O : Create a line directly above the cursor and enter Insert mode' >>${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> Operation in Insert Mode (Delete)' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> x(dl) : Delete cursor position character' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> X(dh) : Delete the character immediately before the cursor' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> dw : Delete cursor position word' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> d0 : Delete from cursor position to beginning of row' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> D(d$) : Delete from cursor position to end of row' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> dd : Delete the entire row at the cursor' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> dj : Delete cursor position line and next line' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> dk : Delete cursor position row and previous row' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    ->Operate in Insert mode (copy/paste)'>>${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> yw : Copy from cursor to end of word' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> y2w : Copy two words from cursor position' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> y0 : Copy from cursor to line beginning' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> y$ : Copy from cursor to line edge' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> yy : Copy row with cursor' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> 2yy : Copy two lines under the row with the cursor' >>${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> yj : Copy the line with the cursor and the next line'>>${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> yk : Copy the row with the cursor and the previous row' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> yG : Copy from current location to end of file' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> p : Paste to the next position of the cursor' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> PP : Paste in cursor' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '   Command Mode : In Normal mode, press [ESC], [:]' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> :w : save' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> :w test.txt : test.txt Save as File' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> :w >> test.txt : test.txt Save file after file' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> :q : vi Exit Editor' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> ZZ : Save and Exit' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> :wq! : Forced Save and Exit' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> :e test.txt : test.txt load a file' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> :e test.txt : Load the current file' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '   Visual Mode : Pressing the v or Ctrl-V key to select a block' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '   ETC' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> "." : .reruns previously used instructions.' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> /[Search Item] : Top of page with [Search Item] output (if not on the current page, search on the next page)'  >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> ?[Search Item] : Top of the line where [Search Item] is printed (if not on the current page, search on the previous page)'  >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    -> :Range/Matching String/Replacement String/Line Range : Used to replace existing strings at once.(:%s/AA/BB/g -> Replace AA with BB from start to finish)' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    ->> （:%s/AA/BB/g -> Replace AA with BB from start to finish）' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '    ->> （:%s/AA/BB/gc -> When replacing AA with BB from start to finish, ask the user and replace them one by one）' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        echo '' >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        LINENUM=1
+        echo "vim start $LINENUM" >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        for n in {1..100} 
+        do 
+            LINENUM=$(( LINENUM + 1 ))
+            echo "vim start $LINENUM" >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        done
+        vi ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+    fi
+    echo
+
+    export LC_ALL=${old_LC_ALL}
+
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    rm -rf ${filePathParam%/}/tmp/${editorItem}/
+    
+    func_basicSetting_LogFileName_Path ${PID} "1" ${editorItem}
+    echo 
+    
+}
+
+#--------------------------------------------#
+# Command : nano                             #
+#--------------------------------------------#
+function func_editor_nano() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### Editor / 편집기 / エディター
+    local editorItem=$3
+
+    mkdir -p ${filePathParam%/}/tmp/${editorItem}/
+    old_LC_ALL=${LC_ALL}
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${editorItem}
+    echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        echo '###nano Editor###' > ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        LINENUM=1
+        echo "nano start $LINENUM" >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        for n in {1..100} 
+        do 
+            LINENUM=$(( LINENUM + 1 ))
+            echo "nano start $LINENUM" >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        done
+        nano ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        echo '###nano Editor###' > ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        LINENUM=1
+        echo "nano start $LINENUM" >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        for n in {1..100} 
+        do 
+            LINENUM=$(( LINENUM + 1 ))
+            echo "nano start $LINENUM" >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        done
+        nano ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+    else
+        echo '###nano Editor###' > ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        LINENUM=1
+        echo "nano start $LINENUM" >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        for n in {1..100} 
+        do 
+            LINENUM=$(( LINENUM + 1 ))
+            echo "nano start $LINENUM" >> ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+        done
+        nano ${filePathParam%/}/tmp/${editorItem}/${editorItem}_TestFile.txt
+    fi
+    echo
+
+    export LC_ALL=${old_LC_ALL}
+
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    rm -rf ${filePathParam%/}/tmp/${editorItem}/
+    
+    func_basicSetting_LogFileName_Path ${PID} "1" ${editorItem}
+    echo 
+    
 }
 
 #--------------------------------------------#
@@ -498,13 +890,62 @@ function func_linuxCommandsList() {
         break
     fi
 
-    #Debug Check Code
-    #"#echo "func_linuxCommandsList Check"
-    #"#echo "existCheckParam=${existCheckParam}"
-    #"#echo "languageParam=${languageParam}"
-    #"#echo "languageParam=${languageParam}"
+}
+
+#--------------------------------------------#
+# Linux Script Tip List                      #
+#  : Linux Script Tip List                   #
+#  : 리눅스 스크립트 팁 리스트                     #
+#  : Linuxスクリプトヒントリスト                   #
+#--------------------------------------------#
+function func_linuxScriptTipList() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local languageParam=$1
+
+    ### Function Main Logic / 함수 메인 로직 / 関数メインロジック
+    Index=0
+    echo
+    printf "##############################################################################################\n"
+    if [[ ${languageParam} == [kK][rR] ]]; then
+        printf "  %-8s %s  %-18s %s  %-102s\n" "번호" "#" "설명"
+        printf "##############################################################################################\n"
+        for scriptTipIndex in ${scriptTipList[@]}; do
+            printf "  %03d    %s  %-15s %s  %-100s\n" $((${Index}+1)) "#" ${scriptTipList[${Index}]} | sed 's/_/ /g'
+            Index=$(( ${Index} + 1 ))
+        done
+    elif [[ ${languageParam} == [jJ][pP] ]]; then
+        printf "  %-8s %s  %-19s %s  %-102s\n" "番号" "#" "説明"
+        printf "##############################################################################################\n"
+        for scriptTipIndex in ${scriptTipList[@]}; do
+            printf "  %03d    %s  %-15s %s  %-100s\n" $((${Index}+1)) "#" ${scriptTipList[${Index}]} | sed 's/_/ /g'
+            Index=$(( ${Index} + 1 ))
+        done
+    else
+        printf "  %-6s %s  %-15s %s  %-100s\n" "Number" "#" "Description"
+        printf "##############################################################################################\n"
+        for scriptTipIndex in ${scriptTipList[@]}; do
+            printf "  %03d    %s  %-15s %s  %-100s\n" $((${Index}+1)) "#" ${scriptTipList[${Index}]} | sed 's/_/ /g'
+            Index=$(( ${Index} + 1 ))
+        done
+    fi
+    printf "##############################################################################################\n"
+    echo
+    if [[ ${languageParam} == [kK][rR] ]];then
+        read -p " 스크립트 팁 (취소:C) : " searchScriptTip
+    elif [[ ${languageParam} == [jJ][pP] ]];then
+        read -p " スクリプトヒント (取り消し:C) : " searchScriptTip
+    else
+        read -p " Script Tip (Cancel:C) : " searchScriptTip
+    fi
+
+    if [[ ${searchScriptTip} == [cC] || ${searchScriptTip} == [cC][aA][nN][cC][eE][lL] ]];then
+        searchScriptTip=""
+        break
+    fi
 
 }
+
 
 #--------------------------------------------#
 # Linux Commands Exist Check                 #
@@ -535,12 +976,6 @@ function func_linuxCommandsExistCheck() {
         fi
         commandItemIndex=$(( ${commandItemIndex} + 1 ))
     done
-
-    #Debug Check Code
-    #"#echo "func_linuxCommandsExistCheck Check"
-    #"#echo "commandListParam=${commandListParam[@]}"
-    #"#echo "commandListArrayLength=${commandListArrayLength}"
-    #"#echo "searchCommandParam=${searchCommandParam}"
 
 }
 
@@ -581,12 +1016,6 @@ function func_notExistCommand() {
         echo "    ( Parameter1 )  "
         func_linuxCommandsList ${existCheckParam} ${ouputLanguageParam}
     fi
-
-    #Debug Check Code
-    #"#echo "func_notExistCommand Check"
-    #"#echo "searchCommandParam=${searchCommandParam}"
-    #"#echo "ouputLanguageParam=${ouputLanguageParam}"
-    #"#echo "existCheckParam=${existCheckParam}"
 
 }
 
@@ -819,13 +1248,6 @@ function func_linuxCommandExample() {
             break
         fi
     done
-
-    #Debug Check Code
-    #"#echo "func_linuxCommandExample Check"
-    #"#echo "ouputLanguageParam=${ouputLanguageParam}"
-    #"#echo "filePathParam=${filePathParam}"
-    #"#echo "commandItemIndex=${commandItemIndex}"
-    #"#echo "commandList[${commandItemIndex}]=${commandList[${commandItemIndex}]}"
 
 }
 
@@ -18534,6 +18956,7 @@ function func_command_lsof() {
         printf "#--------------------------------------------------------------------------------------------#\n"
     else
         export LC_ALL="en_US.UTF-8"
+        export LC_ALL="en_US.UTF-8"
         countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n"
         printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "lsof"
@@ -18770,6 +19193,8 @@ declare -a commandList=("alias" "cal" "cat" "cd" "chgrp" "chmod" "chown" "clear"
 declare -a commandDescriptionEn=("${aliasEn}" "${calEn}" "${catEn}" "${cdEn}" "${chgrpEn}" "${chmodEn}" "${chownEn}" "${clearEn}" "${cpEn}" "${cutEn}" "${dateEn}" "${ddEn}" "${dfEn}" "${diffEn}" "${duEn}" "${echoEn}" "${envEn}" "${exitEn}" "${exportEn}" "${exprEn}" "${fcEn}" "${findEn}" "${grepEn}" "${gunzipEn}" "${gzipEn}" "${headEn}" "${historyEn}" "${idEn}" "${lessEn}" "${lnEn}" "${lsEn}" "${lsofEn}" "${manEn}" "${mkdirEn}" "${moreEn}" "${mvEn}" "${nkfEn}" "${pasteEn}" "${pingEn}" "${printfEn}" "${psEn}" "${pwdEn}" "${rmEn}" "${rmdirEn}" "${sedEn}" "${sleepEn}" "${sortEn}" "${tailEn}" "${tarEn}" "${topEn}" "${touchEn}" "${trEn}" "${umaskEn}" "${unameEn}" "${uniqEn}" "${unzipEn}" "${uptimeEn}" "${wcEn}" "${whoamiEn}" "${zipEn}")
 declare -a commandDescriptionKr=("${aliasKr}" "${calKr}" "${catKr}" "${cdKr}" "${chgrpKr}" "${chmodKr}" "${chownKr}" "${clearKr}" "${cpKr}" "${cutKr}" "${dateKr}" "${ddKr}" "${dfKr}" "${diffKr}" "${duKr}" "${echoKr}" "${envKr}" "${exitKr}" "${exportKr}" "${exprKr}" "${fcKr}" "${findKr}" "${grepKr}" "${gunzipKr}" "${gzipKr}" "${headKr}" "${historyKr}" "${idKr}" "${lessKr}" "${lnKr}" "${lsKr}" "${lsofKr}" "${manKr}" "${mkdirKr}" "${moreKr}" "${mvKr}" "${nkfKr}" "${pasteKr}" "${pingKr}" "${printfKr}" "${psKr}" "${pwdKr}" "${rmKr}" "${rmdirKr}" "${sedKr}" "${sleepKr}" "${sortKr}" "${tailKr}" "${tarKr}" "${topKr}" "${touchKr}" "${trKr}" "${umaskKr}" "${unameKr}" "${uniqKr}" "${unzipKr}" "${uptimeKr}" "${wcKr}" "${whoamiKr}" "${zipKr}")
 declare -a commandDescriptionJp=("${aliasJp}" "${calJp}" "${catJp}" "${cdJp}" "${chgrpJp}" "${chmodJp}" "${chownJp}" "${clearJp}" "${cpJp}" "${cutJp}" "${dateJp}" "${ddJp}" "${dfJp}" "${diffJp}" "${duJp}" "${echoJp}" "${envJp}" "${exitJp}" "${exportJp}" "${exprJp}" "${fcJp}" "${findJp}" "${grepJp}" "${gunzipJp}" "${gzipJp}" "${headJp}" "${historyJp}" "${idJp}" "${lessJp}" "${lnJp}" "${lsJp}" "${lsofJp}" "${manJp}" "${mkdirJp}" "${moreJp}" "${mvJp}" "${nkfJp}" "${pasteJp}" "${pingJp}" "${printfJp}" "${psJp}" "${pwdJp}" "${rmJp}" "${rmdirJp}" "${sedJp}" "${sleepJp}" "${sortJp}" "${tailJp}" "${tarJp}" "${topJp}" "${touchJp}" "${trJp}" "${umaskJp}" "${unameJp}" "${uniqJp}" "${unzipJp}" "${uptimeJp}" "${wcJp}" "${whoamiJp}" "${zipJp}")
+scriptTipList=()
+scriptTipList+=(Loop_for,반복문_for,繰り返し文_for)
 
 #--------------------------------------------#
 # Script Basic Variable Setting              #
@@ -18793,25 +19218,27 @@ startedFlg=0
 #  : メイン処理                                 #
 #--------------------------------------------#
 ### Parameter Check / 파라미터 체크 / パラメータチェック
-#"# echo "CHECK TREE 1"
 if [[ ! -z ${searchCommand} ]] || [[ ${startedFlg} == 0 ]];then 
     func_linuxCommandsExistCheck ${searchCommand}
 fi
 
-#"# echo "CHECK TREE 2"
 if [[ ! -z ${searchCommand} && ${existCheck} == 0 ]];then
     clear
     echo
     func_notExistCommand ${searchCommand} ${ouputLanguage} ${existCheck}
     exit
 fi
-#"# echo "CHECK TREE 3"
 if [[ -z ${ouputLanguage} ]];then
     clear
-    ouputLanguage="en"
+    if [[ ${LC_ALL} == "ko_KR.UTF-8" ]];then    #export LC_ALL="ko_KR.UTF-8"
+        ouputLanguage="kr"
+    elif  [[ ${LC_ALL} == "ja_JP.UTF-8" ]];then #export LC_ALL="ja_JP.UTF-8"
+        ouputLanguage="jp"
+    else                                        #export LC_ALL="en_US.UTF-8"
+        ouputLanguage="en" 
+    fi
     func_howToUse
 fi
-#"# echo "CHECK TREE 4"
 if ! [[ ${ouputLanguage} == [eE][nN] || ${ouputLanguage} == [kK][rR] || ${ouputLanguage} == [jJ][pP] ]];then
     func_supportLanguage
     exit
@@ -18820,7 +19247,6 @@ else
 fi
 
 echo
-#"# echo "CHECK TREE 5"
 ### Function Run / 함수 실행 / 関数実行
 func_basicSetting_StartingRunTime ${ouputLanguage} 
 ### Function Run / 함수 실행 / 関数実行
@@ -18836,14 +19262,12 @@ do
         selectMenu=2
     else
         ### Function Run / 함수 실행 / 関数実行
-        #"# echo "CHECK TREE 6"
         func_mainMenu ${ouputLanguage}
     fi
 
     if [[ ${selectMenu} == 1 ]];then
         clear
         ### Function Run / 함수 실행 / 関数実行
-        #"# echo "CHECK TREE 7"
         func_selectLanguage ${ouputLanguage}
     elif [[ ${selectMenu} == 2 ]];then
         clear
@@ -18852,24 +19276,25 @@ do
             clear
             if [[ ${startedFlg} -gt 0 && ! -z ${searchCommand} ]] || [[ -z ${searchCommand} ]];then
                 ### Function Run / 함수 실행 / 関数実行
-                #"# echo "CHECK TREE 8"
                 func_linuxCommandsList 1 ${ouputLanguage} 
             fi
             existCheck=0
             ### Function Run / 함수 실행 / 関数実行
-            #"# echo "CHECK TREE 9"
             func_linuxCommandsExistCheck ${searchCommand}
             if [[ ${existCheck} == 1 ]];then
-                #"# echo "CHECK TREE 10"
                 func_linuxCommandExample ${ouputLanguage} ${filePath} ${commandItemIndex} 
             fi
         done
     elif [[ ${selectMenu} == 3 ]];then
         clear
-
+        ### Function Run / 함수 실행 / 関数実行
+        func_linuxScriptTipList ${ouputLanguage} 
+    elif [[ ${selectMenu} == 8 ]];then
+        clear
+        ### Function Run / 함수 실행 / 関数実行
+        func_selectEditor ${ouputLanguage}
     elif [[ ${selectMenu} == "終了" || ${selectMenu} == "종료" || ${selectMenu} == [eE][nN][dD] || ${selectMenu} == [eE][xX][iI][tT] ||  ${selectMenu} == 9 ]];then
         ### Function Run / 함수 실행 / 関数実行
-        #"# echo "CHECK TREE 11"
         func_scriptEnd ${ouputLanguage}
     else
         continue
