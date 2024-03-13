@@ -776,6 +776,12 @@ function func_linuxCommandExample() {
         paste)
             func_command_paste ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
             ;;
+        sed)
+            func_command_sed ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
+            ;;
+        nkf)
+            func_command_nkf ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
+            ;;
         *)  echo ; 
             if [[ ${ouputLanguageParam} == [kK][rR] ]];then
                 echo " 에러 : 명령어 함수 미포함 (func_command_${commandList[${commandItemIndex}]})"; 
@@ -15680,14 +15686,14 @@ function func_command_tar() {
         printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}_[オプション]_[引数1]_[引数2]" | sed 's/_/ /g'
         printf "  %-20s %s %s\n" "※オプション" ":" "[-ctxruvfC]" | sed 's/_/ /g'
         printf "  %-17s %s %s\n" "※引数1" ":" "[出力ファイル]" | sed 's/_/ /g'
-        printf "  %-17s %s %s\n" "※引数1" ":" "[対象ファイル]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数2" ":" "[対象ファイル]" | sed 's/_/ /g'
     else
         printf "  %-13s %s %s\n" "Command" ":" "${commandItem}"
         printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g'
         printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_[option]_[argument1]_[argument2]" | sed 's/_/ /g'
         printf "  %-15s %s %s\n" "※option" ":" "[-ctxruvfC]" | sed 's/_/ /g'
         printf "  %-15s %s %s\n" "※argument1" ":" "[Output_File]" | sed 's/_/ /g'
-        printf "  %-15s %s %s\n" "※argument1" ":" "[Target_File]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument2" ":" "[Target_File]" | sed 's/_/ /g'
     fi
         echo
         printf "##############################################################################################\n"
@@ -16071,14 +16077,14 @@ function func_command_tr() {
         printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}_[オプション]_[引数1]_[引数2]" | sed 's/_/ /g'
         printf "  %-20s %s %s\n" "※オプション" ":" "[-ds]" | sed 's/_/ /g'
         printf "  %-17s %s %s\n" "※引数1" ":" "[変更_対象_文字列]" | sed 's/_/ /g'
-        printf "  %-17s %s %s\n" "※引数1" ":" "[変更_文字列]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数2" ":" "[変更_文字列]" | sed 's/_/ /g'
     else
         printf "  %-13s %s %s\n" "Command" ":" "${commandItem}"
         printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g'
         printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_[option]_[argument1]_[argument2]" | sed 's/_/ /g'
         printf "  %-15s %s %s\n" "※option" ":" "[-ds]" | sed 's/_/ /g'
         printf "  %-15s %s %s\n" "※argument1" ":" "[Change_Target_String]" | sed 's/_/ /g'
-        printf "  %-15s %s %s\n" "※argument1" ":" "[Change_String]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument2" ":" "[Change_String]" | sed 's/_/ /g'
     fi
         echo
         printf "##############################################################################################\n"
@@ -16342,13 +16348,13 @@ function func_command_printf() {
         printf "  %-17s %s %s\n" "基本説明" ":" "${commandDescriptionJpParam}" | sed 's/_/ /g'
         printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}_[オプション]_[引数1]_[引数2]" | sed 's/_/ /g'
         printf "  %-17s %s %s\n" "※引数1" ":" "[出力形式]" | sed 's/_/ /g'
-        printf "  %-17s %s %s\n" "※引数1" ":" "[出力文字]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数2" ":" "[出力文字]" | sed 's/_/ /g'
     else
         printf "  %-13s %s %s\n" "Command" ":" "${commandItem}"
         printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g'
         printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_[option]_[argument1]_[argument2]" | sed 's/_/ /g'
         printf "  %-15s %s %s\n" "※argument1" ":" "[Output_Format]" | sed 's/_/ /g'
-        printf "  %-15s %s %s\n" "※argument1" ":" "[Output_String]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument2" ":" "[Output_String]" | sed 's/_/ /g'
     fi
         echo
         printf "##############################################################################################\n"
@@ -16595,14 +16601,14 @@ function func_command_paste() {
         printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}_[オプション]_[引数1]_[引数2]" | sed 's/_/ /g'
         printf "  %-20s %s %s\n" "※オプション" ":" "[-ds]" | sed 's/_/ /g'
         printf "  %-17s %s %s\n" "※引数1" ":" "[対象ファイル1]" | sed 's/_/ /g'
-        printf "  %-17s %s %s\n" "※引数1" ":" "[対象ファイル2]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数2" ":" "[対象ファイル2]" | sed 's/_/ /g'
     else
         printf "  %-13s %s %s\n" "Command" ":" "${commandItem}"
         printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g'
         printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_[option]_[argument1]_[argument2]" | sed 's/_/ /g'
         printf "  %-15s %s %s\n" "※option" ":" "[-ds]" | sed 's/_/ /g'
         printf "  %-15s %s %s\n" "※argument1" ":" "[Target_File1]" | sed 's/_/ /g'
-        printf "  %-15s %s %s\n" "※argument1" ":" "[Target_File2]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument2" ":" "[Target_File2]" | sed 's/_/ /g'
     fi
         echo
         printf "##############################################################################################\n"
@@ -16778,6 +16784,1504 @@ function func_command_paste() {
 }
 
 #--------------------------------------------#
+# Command : sed                              #
+#--------------------------------------------#
+function func_command_sed() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### English Command Description Parameter / 영어 명령어 설명 파라미터 / 英語コマンド説明パラメータ
+    local commandDescriptionEnParam=$3
+    ### Korean Command Description Parameter / 한국어 명령어 설명 파라미터 / 韓国語コマンド説明パラメータ
+    local commandDescriptionKrParam=$4
+    ### Japense Command Description Parameter / 일본어 명령어 설명 파라미터 / 日本語コマンド説明パラメータ
+    local commandDescriptionJpParam=$5
+    ### Command / 명령어 / コマンド
+    local commandItem=$6
+    ### Count / 번호 / 番号 
+    local countNumber=0
+
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/
+    echo 'TestFile1' > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+    echo 'apple,banana,cream,dust,Test,txt,TestFile1,gui' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+    echo 'Test,bash,zsh,sh' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+    echo 'Test,java,Javascript,C,C#,C++,python,ruby' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+    echo 'TestFile2' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+    echo 'iphone,ipad,imac,Test,ipod,ipodtouch' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+    echo 'iphone,ipod,ipodtouch,Test,ipad,imac' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+    echo 'galaxyS7,Note7,ZFilp,S7,Test' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+    echo 'TestFile3' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+    echo 'Korea,Test,Japan,China' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+    echo 'Seoul,Tokyo,hongkong' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+    echo '0102,12310,asdas' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+    echo 'TestFile4 TestFile' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+    echo 'ps1,ps2,ps3,ps4' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+    echo 'psa,psa,psa,psa' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+    echo 'Nintendo,NDSL,DSL,wii' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+    echo 's/TestFile/fileRead/g' > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt
+    old_LC_ALL=${LC_ALL}
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${commandItem}
+    printf "##############################################################################################\n"
+    echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        printf "  %-16s %s %s\n" "명령어" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "기본설명" ":" "${commandDescriptionKrParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※사용법" ":" "${commandItem}_[옵션]_[인수1]_[인수2]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※옵션" ":" "[-nef]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※인수1" ":" "[패턴]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※인수2" ":" "[대상_파일]" | sed 's/_/ /g'
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        printf "  %-17s %s %s\n" "コマンド" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "基本説明" ":" "${commandDescriptionJpParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}_[オプション]_[引数1]_[引数2]" | sed 's/_/ /g'
+        printf "  %-20s %s %s\n" "※オプション" ":" "[-nef]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数1" ":" "[パタン]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数2" ":" "[対象ファイル]" | sed 's/_/ /g'
+    else
+        printf "  %-13s %s %s\n" "Command" ":" "${commandItem}"
+        printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_[option]_[argument1]_[argument2]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※option" ":" "[-nef]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument1" ":" "[Pattern]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument2" ":" "[Target_File]" | sed 's/_/ /g'
+    fi
+        echo
+        printf "##############################################################################################\n"
+        echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        export LC_ALL="ko_KR.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "sed 2,5d ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "2~5행 제외 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'TestFile1'
+            echo 'iphone,ipad,imac,Test,ipod,ipodtouch'
+            echo 'iphone,ipod,ipodtouch,Test,ipad,imac'
+            echo 'galaxyS7,Note7,ZFilp,S7,Test'
+            echo 'TestFile3'
+            echo 'Korea,Test,Japan,China'
+            echo 'Seoul,Tokyo,hongkong'
+            echo '0102,12310,asdas'
+            echo 'TestFile4 TestFile'
+            echo 'ps1,ps2,ps3,ps4'
+            echo 'psa,psa,psa,psa'
+            echo 'Nintendo,NDSL,DSL,wii'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "sed 2,5d ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            sed 2,5d ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "sed 2,5p ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "2~5행 중복 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'TestFile1'
+            echo 'apple,banana,cream,dust,Test,txt,TestFile1,gui'
+            echo 'apple,banana,cream,dust,Test,txt,TestFile1,gui'
+            echo 'Test,bash,zsh,sh'
+            echo 'Test,bash,zsh,sh'
+            echo 'Test,java,Javascript,C,C#,C++,python,ruby'
+            echo 'Test,java,Javascript,C,C#,C++,python,ruby'
+            echo 'TestFile2'
+            echo 'TestFile2'
+            echo 'iphone,ipad,imac,Test,ipod,ipodtouch'
+            echo 'iphone,ipod,ipodtouch,Test,ipad,imac'
+            echo 'galaxyS7,Note7,ZFilp,S7,Test'
+            echo 'TestFile3'
+            echo 'Korea,Test,Japan,China'
+            echo 'Seoul,Tokyo,hongkong'
+            echo '0102,12310,asdas'
+            echo 'TestFile4 TestFile'
+            echo 'ps1,ps2,ps3,ps4'
+            echo 'psa,psa,psa,psa'
+            echo 'Nintendo,NDSL,DSL,wii'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "sed 2,5p ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            sed 2,5p ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "sed -n 2,5p ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "2~5행만 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'apple,banana,cream,dust,Test,txt,TestFile1,gui'
+            echo 'Test,bash,zsh,sh'
+            echo 'Test,java,Javascript,C,C#,C++,python,ruby'
+            echo 'TestFile2'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "sed -n 2,5p ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            sed -n 2,5p ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "sed s/TestFile/SedSample/ ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SedSample1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "지정된 패턴을 각행에서 선두의 1회만 변경 후 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'SedSample1'
+            echo 'apple,banana,cream,dust,Test,txt,SedSample1,gui'
+            echo 'Test,bash,zsh,sh'
+            echo 'Test,java,Javascript,C,C#,C++,python,ruby'
+            echo 'SedSample2'
+            echo 'iphone,ipad,imac,Test,ipod,ipodtouch'
+            echo 'iphone,ipod,ipodtouch,Test,ipad,imac'
+            echo 'galaxyS7,Note7,ZFilp,S7,Test'
+            echo 'SedSample3'
+            echo 'Korea,Test,Japan,China'
+            echo 'Seoul,Tokyo,hongkong'
+            echo '0102,12310,asdas'
+            echo 'SedSample4 TestFile'
+            echo 'ps1,ps2,ps3,ps4'
+            echo 'psa,psa,psa,psa'
+            echo 'Nintendo,NDSL,DSL,wii'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "sed s/TestFile/SedSample/ ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            sed s/TestFile/SedSample/ ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "sed s/TestFile/SedSample/g ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "지정된 패턴을 각행에서 모두 변경 후 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'SedSample1'
+            echo 'apple,banana,cream,dust,Test,txt,SedSample1,gui'
+            echo 'Test,bash,zsh,sh'
+            echo 'Test,java,Javascript,C,C#,C++,python,ruby'
+            echo 'SedSample2'
+            echo 'iphone,ipad,imac,Test,ipod,ipodtouch'
+            echo 'iphone,ipod,ipodtouch,Test,ipad,imac'
+            echo 'galaxyS7,Note7,ZFilp,S7,Test'
+            echo 'SedSample3'
+            echo 'Korea,Test,Japan,China'
+            echo 'Seoul,Tokyo,hongkong'
+            echo '0102,12310,asdas'
+            echo 'SedSample4 SedSample'
+            echo 'ps1,ps2,ps3,ps4'
+            echo 'psa,psa,psa,psa'
+            echo 'Nintendo,NDSL,DSL,wii'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "sed s/TestFile/SedSample/g ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            sed s/TestFile/SedSample/g ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "sed s/TestFile/SedSample/p ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "지정된 패턴을 각행에서 모두 변경 후 데이터가 변경된 데이터 중복 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'SedSample1'
+            echo 'SedSample1'
+            echo 'apple,banana,cream,dust,Test,txt,SedSample1,gui'
+            echo 'apple,banana,cream,dust,Test,txt,SedSample1,gui'
+            echo 'Test,bash,zsh,sh'
+            echo 'Test,java,Javascript,C,C#,C++,python,ruby'
+            echo 'SedSample2'
+            echo 'SedSample2'
+            echo 'iphone,ipad,imac,Test,ipod,ipodtouch'
+            echo 'iphone,ipod,ipodtouch,Test,ipad,imac'
+            echo 'galaxyS7,Note7,ZFilp,S7,Test'
+            echo 'SedSample3'
+            echo 'SedSample3'
+            echo 'Korea,Test,Japan,China'
+            echo 'Seoul,Tokyo,hongkong'
+            echo '0102,12310,asdas'
+            echo 'SedSample4 SedSample'
+            echo 'SedSample4 SedSample'
+            echo 'ps1,ps2,ps3,ps4'
+            echo 'psa,psa,psa,psa'
+            echo 'Nintendo,NDSL,DSL,wii'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "sed s/TestFile/SedSample/p ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            sed s/TestFile/SedSample/p ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "sed -e s/TestFile/SedSample/g -e s/ps/tt/g ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "여러개의 패턴을 변경 후 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'SedSample1'
+            echo 'apple,banana,cream,dust,Test,txt,SedSample1,gui'
+            echo 'Test,bash,zsh,sh'
+            echo 'Test,java,Javascript,C,C#,C++,python,ruby'
+            echo 'SedSample2'
+            echo 'iphone,ipad,imac,Test,ipod,ipodtouch'
+            echo 'iphone,ipod,ipodtouch,Test,ipad,imac'
+            echo 'galaxyS7,Note7,ZFilp,S7,Test'
+            echo 'SedSample3'
+            echo 'Korea,Test,Japan,China'
+            echo 'Seoul,Tokyo,hongkong'
+            echo '0102,12310,asdas'
+            echo 'SedSample4 SedSample'
+            echo 'tt1,tt2,tt3,tt4'
+            echo 'tta,tta,tta,tta'
+            echo 'Nintendo,NDSL,DSL,wii'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "sed -e s/TestFile/SedSample/g -e s/ps/tt/g ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            sed -e s/TestFile/SedSample/g -e s/ps/tt/g ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "sed -f ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "파일에 작성된 변경패턴을 읽어서 파일 변경"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'fileRead1'
+            echo 'apple,banana,cream,dust,Test,txt,fileRead1,gui'
+            echo 'Test,bash,zsh,sh'
+            echo 'Test,java,Javascript,C,C#,C++,python,ruby'
+            echo 'fileRead2'
+            echo 'iphone,ipad,imac,Test,ipod,ipodtouch'
+            echo 'iphone,ipod,ipodtouch,Test,ipad,imac'
+            echo 'galaxyS7,Note7,ZFilp,S7,Test'
+            echo 'fileRead3'
+            echo 'Korea,Test,Japan,China'
+            echo 'Seoul,Tokyo,hongkong'
+            echo '0102,12310,asdas'
+            echo 'fileRead4 fileRead'
+            echo 'ps1,ps2,ps3,ps4'
+            echo 'psa,psa,psa,psa'
+            echo 'Nintendo,NDSL,DSL,wii'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "sed -f ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            sed -f ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        export LC_ALL="ja_JP.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "sed 2,5d ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "2~5行を除く出力"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'TestFile1'
+            echo 'apple,banana,cream,dust,Test,txt,TestFile1,gui'
+            echo 'apple,banana,cream,dust,Test,txt,TestFile1,gui'
+            echo 'Test,bash,zsh,sh'
+            echo 'Test,bash,zsh,sh'
+            echo 'Test,java,Javascript,C,C#,C++,python,ruby'
+            echo 'Test,java,Javascript,C,C#,C++,python,ruby'
+            echo 'TestFile2'
+            echo 'TestFile2'
+            echo 'iphone,ipad,imac,Test,ipod,ipodtouch'
+            echo 'iphone,ipod,ipodtouch,Test,ipad,imac'
+            echo 'galaxyS7,Note7,ZFilp,S7,Test'
+            echo 'TestFile3'
+            echo 'Korea,Test,Japan,China'
+            echo 'Seoul,Tokyo,hongkong'
+            echo '0102,12310,asdas'
+            echo 'TestFile4 TestFile'
+            echo 'ps1,ps2,ps3,ps4'
+            echo 'psa,psa,psa,psa'
+            echo 'Nintendo,NDSL,DSL,wii'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "sed 2,5d ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            sed 2,5d ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "sed 2,5p ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "2~5行重複出力"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'TestFile1'
+            echo 'apple,banana,cream,dust,Test,txt,TestFile1,gui'
+            echo 'apple,banana,cream,dust,Test,txt,TestFile1,gui'
+            echo 'Test,bash,zsh,sh'
+            echo 'Test,bash,zsh,sh'
+            echo 'Test,java,Javascript,C,C#,C++,python,ruby'
+            echo 'Test,java,Javascript,C,C#,C++,python,ruby'
+            echo 'TestFile2'
+            echo 'TestFile2'
+            echo 'iphone,ipad,imac,Test,ipod,ipodtouch'
+            echo 'iphone,ipod,ipodtouch,Test,ipad,imac'
+            echo 'galaxyS7,Note7,ZFilp,S7,Test'
+            echo 'TestFile3'
+            echo 'Korea,Test,Japan,China'
+            echo 'Seoul,Tokyo,hongkong'
+            echo '0102,12310,asdas'
+            echo 'TestFile4 TestFile'
+            echo 'ps1,ps2,ps3,ps4'
+            echo 'psa,psa,psa,psa'
+            echo 'Nintendo,NDSL,DSL,wii'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "sed 2,5p ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            sed 2,5p ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "sed -n 2,5p ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "2~5行のみ出力"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'apple,banana,cream,dust,Test,txt,TestFile1,gui'
+            echo 'Test,bash,zsh,sh'
+            echo 'Test,java,Javascript,C,C#,C++,python,ruby'
+            echo 'TestFile2'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "sed -n 2,5p ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            sed -n 2,5p ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "sed s/TestFile/SedSample/ ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SedSample1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "指定されたパターンを各行で先頭の1回だけ変更して出力"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'SedSample1'
+            echo 'apple,banana,cream,dust,Test,txt,SedSample1,gui'
+            echo 'Test,bash,zsh,sh'
+            echo 'Test,java,Javascript,C,C#,C++,python,ruby'
+            echo 'SedSample2'
+            echo 'iphone,ipad,imac,Test,ipod,ipodtouch'
+            echo 'iphone,ipod,ipodtouch,Test,ipad,imac'
+            echo 'galaxyS7,Note7,ZFilp,S7,Test'
+            echo 'SedSample3'
+            echo 'Korea,Test,Japan,China'
+            echo 'Seoul,Tokyo,hongkong'
+            echo '0102,12310,asdas'
+            echo 'SedSample4 TestFile'
+            echo 'ps1,ps2,ps3,ps4'
+            echo 'psa,psa,psa,psa'
+            echo 'Nintendo,NDSL,DSL,wii'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "sed s/TestFile/SedSample/ ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SedSample1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            sed s/TestFile/SedSample/ ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SedSample1.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "sed s/TestFile/SedSample/g ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "指定されたパターンを各行ですべて変更した後に出力"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'SedSample1'
+            echo 'apple,banana,cream,dust,Test,txt,SedSample1,gui'
+            echo 'Test,bash,zsh,sh'
+            echo 'Test,java,Javascript,C,C#,C++,python,ruby'
+            echo 'SedSample2'
+            echo 'iphone,ipad,imac,Test,ipod,ipodtouch'
+            echo 'iphone,ipod,ipodtouch,Test,ipad,imac'
+            echo 'galaxyS7,Note7,ZFilp,S7,Test'
+            echo 'SedSample3'
+            echo 'Korea,Test,Japan,China'
+            echo 'Seoul,Tokyo,hongkong'
+            echo '0102,12310,asdas'
+            echo 'SedSample4 SedSample'
+            echo 'ps1,ps2,ps3,ps4'
+            echo 'psa,psa,psa,psa'
+            echo 'Nintendo,NDSL,DSL,wii'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "sed s/TestFile/SedSample/g ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            sed s/TestFile/SedSample/g ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "sed s/TestFile/SedSample/p ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "指定されたパターンを各行ですべて変更した後、データが変更されたデータ重複出力"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'SedSample1'
+            echo 'SedSample1'
+            echo 'apple,banana,cream,dust,Test,txt,SedSample1,gui'
+            echo 'apple,banana,cream,dust,Test,txt,SedSample1,gui'
+            echo 'Test,bash,zsh,sh'
+            echo 'Test,java,Javascript,C,C#,C++,python,ruby'
+            echo 'SedSample2'
+            echo 'SedSample2'
+            echo 'iphone,ipad,imac,Test,ipod,ipodtouch'
+            echo 'iphone,ipod,ipodtouch,Test,ipad,imac'
+            echo 'galaxyS7,Note7,ZFilp,S7,Test'
+            echo 'SedSample3'
+            echo 'SedSample3'
+            echo 'Korea,Test,Japan,China'
+            echo 'Seoul,Tokyo,hongkong'
+            echo '0102,12310,asdas'
+            echo 'SedSample4 SedSample'
+            echo 'SedSample4 SedSample'
+            echo 'ps1,ps2,ps3,ps4'
+            echo 'psa,psa,psa,psa'
+            echo 'Nintendo,NDSL,DSL,wii'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "sed s/TestFile/SedSample/p ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            sed s/TestFile/SedSample/p ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "sed -e s/TestFile/SedSample/g -e s/ps/tt/g ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "複数のパターンを変更して出力"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'SedSample1'
+            echo 'apple,banana,cream,dust,Test,txt,SedSample1,gui'
+            echo 'Test,bash,zsh,sh'
+            echo 'Test,java,Javascript,C,C#,C++,python,ruby'
+            echo 'SedSample2'
+            echo 'iphone,ipad,imac,Test,ipod,ipodtouch'
+            echo 'iphone,ipod,ipodtouch,Test,ipad,imac'
+            echo 'galaxyS7,Note7,ZFilp,S7,Test'
+            echo 'SedSample3'
+            echo 'Korea,Test,Japan,China'
+            echo 'Seoul,Tokyo,hongkong'
+            echo '0102,12310,asdas'
+            echo 'SedSample4 SedSample'
+            echo 'tt1,tt2,tt3,tt4'
+            echo 'tta,tta,tta,tta'
+            echo 'Nintendo,NDSL,DSL,wii'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "sed -e s/TestFile/SedSample/g -e s/ps/tt/g ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            sed -e s/TestFile/SedSample/g -e s/ps/tt/g ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "sed -f ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "ファイルに作成された変更パターンを読んでファイルを変更"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'fileRead1'
+            echo 'apple,banana,cream,dust,Test,txt,fileRead1,gui'
+            echo 'Test,bash,zsh,sh'
+            echo 'Test,java,Javascript,C,C#,C++,python,ruby'
+            echo 'fileRead2'
+            echo 'iphone,ipad,imac,Test,ipod,ipodtouch'
+            echo 'iphone,ipod,ipodtouch,Test,ipad,imac'
+            echo 'galaxyS7,Note7,ZFilp,S7,Test'
+            echo 'fileRead3'
+            echo 'Korea,Test,Japan,China'
+            echo 'Seoul,Tokyo,hongkong'
+            echo '0102,12310,asdas'
+            echo 'fileRead4 fileRead'
+            echo 'ps1,ps2,ps3,ps4'
+            echo 'psa,psa,psa,psa'
+            echo 'Nintendo,NDSL,DSL,wii'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "sed -f ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            sed -f ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    else
+        export LC_ALL="en_US.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "sed 2,5d ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Outputs excluding lines 2 to 5"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'TestFile1'
+            echo 'iphone,ipad,imac,Test,ipod,ipodtouch'
+            echo 'iphone,ipod,ipodtouch,Test,ipad,imac'
+            echo 'galaxyS7,Note7,ZFilp,S7,Test'
+            echo 'TestFile3'
+            echo 'Korea,Test,Japan,China'
+            echo 'Seoul,Tokyo,hongkong'
+            echo '0102,12310,asdas'
+            echo 'TestFile4 TestFile'
+            echo 'ps1,ps2,ps3,ps4'
+            echo 'psa,psa,psa,psa'
+            echo 'Nintendo,NDSL,DSL,wii'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "sed 2,5d ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            sed 2,5d ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "sed 2,5p ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Line 2 to line 5 duplicate output"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'TestFile1'
+            echo 'apple,banana,cream,dust,Test,txt,TestFile1,gui'
+            echo 'apple,banana,cream,dust,Test,txt,TestFile1,gui'
+            echo 'Test,bash,zsh,sh'
+            echo 'Test,bash,zsh,sh'
+            echo 'Test,java,Javascript,C,C#,C++,python,ruby'
+            echo 'Test,java,Javascript,C,C#,C++,python,ruby'
+            echo 'TestFile2'
+            echo 'TestFile2'
+            echo 'iphone,ipad,imac,Test,ipod,ipodtouch'
+            echo 'iphone,ipod,ipodtouch,Test,ipad,imac'
+            echo 'galaxyS7,Note7,ZFilp,S7,Test'
+            echo 'TestFile3'
+            echo 'Korea,Test,Japan,China'
+            echo 'Seoul,Tokyo,hongkong'
+            echo '0102,12310,asdas'
+            echo 'TestFile4 TestFile'
+            echo 'ps1,ps2,ps3,ps4'
+            echo 'psa,psa,psa,psa'
+            echo 'Nintendo,NDSL,DSL,wii'
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "sed 2,5p ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            sed 2,5p ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "sed -n 2,5p ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Output lines 2 to 5 only"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'apple,banana,cream,dust,Test,txt,TestFile1,gui'
+            echo 'Test,bash,zsh,sh'
+            echo 'Test,java,Javascript,C,C#,C++,python,ruby'
+            echo 'TestFile2'
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "sed -n 2,5p ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            sed -n 2,5p ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "sed s/TestFile/SedSample/ ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SedSample1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Change the specified pattern only once in each row and output it"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'SedSample1'
+            echo 'apple,banana,cream,dust,Test,txt,SedSample1,gui'
+            echo 'Test,bash,zsh,sh'
+            echo 'Test,java,Javascript,C,C#,C++,python,ruby'
+            echo 'SedSample2'
+            echo 'iphone,ipad,imac,Test,ipod,ipodtouch'
+            echo 'iphone,ipod,ipodtouch,Test,ipad,imac'
+            echo 'galaxyS7,Note7,ZFilp,S7,Test'
+            echo 'SedSample3'
+            echo 'Korea,Test,Japan,China'
+            echo 'Seoul,Tokyo,hongkong'
+            echo '0102,12310,asdas'
+            echo 'SedSample4 TestFile'
+            echo 'ps1,ps2,ps3,ps4'
+            echo 'psa,psa,psa,psa'
+            echo 'Nintendo,NDSL,DSL,wii'
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "sed s/TestFile/SedSample/ ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SedSample1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            sed s/TestFile/SedSample/ ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SedSample1.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "sed s/TestFile/SedSample/g ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Change all the specified patterns in each row and output them"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'SedSample1'
+            echo 'apple,banana,cream,dust,Test,txt,SedSample1,gui'
+            echo 'Test,bash,zsh,sh'
+            echo 'Test,java,Javascript,C,C#,C++,python,ruby'
+            echo 'SedSample2'
+            echo 'iphone,ipad,imac,Test,ipod,ipodtouch'
+            echo 'iphone,ipod,ipodtouch,Test,ipad,imac'
+            echo 'galaxyS7,Note7,ZFilp,S7,Test'
+            echo 'SedSample3'
+            echo 'Korea,Test,Japan,China'
+            echo 'Seoul,Tokyo,hongkong'
+            echo '0102,12310,asdas'
+            echo 'SedSample4 SedSample'
+            echo 'ps1,ps2,ps3,ps4'
+            echo 'psa,psa,psa,psa'
+            echo 'Nintendo,NDSL,DSL,wii'
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "sed s/TestFile/SedSample/g ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            sed s/TestFile/SedSample/g ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "sed s/TestFile/SedSample/p ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Data duplicate output with changed data after changing the specified pattern all in each row"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'SedSample1'
+            echo 'SedSample1'
+            echo 'apple,banana,cream,dust,Test,txt,SedSample1,gui'
+            echo 'apple,banana,cream,dust,Test,txt,SedSample1,gui'
+            echo 'Test,bash,zsh,sh'
+            echo 'Test,java,Javascript,C,C#,C++,python,ruby'
+            echo 'SedSample2'
+            echo 'SedSample2'
+            echo 'iphone,ipad,imac,Test,ipod,ipodtouch'
+            echo 'iphone,ipod,ipodtouch,Test,ipad,imac'
+            echo 'galaxyS7,Note7,ZFilp,S7,Test'
+            echo 'SedSample3'
+            echo 'SedSample3'
+            echo 'Korea,Test,Japan,China'
+            echo 'Seoul,Tokyo,hongkong'
+            echo '0102,12310,asdas'
+            echo 'SedSample4 SedSample'
+            echo 'SedSample4 SedSample'
+            echo 'ps1,ps2,ps3,ps4'
+            echo 'psa,psa,psa,psa'
+            echo 'Nintendo,NDSL,DSL,wii'
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "sed s/TestFile/SedSample/p ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            sed s/TestFile/SedSample/p ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "sed -e s/TestFile/SedSample/g -e s/ps/tt/g ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Output after changing multiple patterns"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'SedSample1'
+            echo 'apple,banana,cream,dust,Test,txt,SedSample1,gui'
+            echo 'Test,bash,zsh,sh'
+            echo 'Test,java,Javascript,C,C#,C++,python,ruby'
+            echo 'SedSample2'
+            echo 'iphone,ipad,imac,Test,ipod,ipodtouch'
+            echo 'iphone,ipod,ipodtouch,Test,ipad,imac'
+            echo 'galaxyS7,Note7,ZFilp,S7,Test'
+            echo 'SedSample3'
+            echo 'Korea,Test,Japan,China'
+            echo 'Seoul,Tokyo,hongkong'
+            echo '0102,12310,asdas'
+            echo 'SedSample4 SedSample'
+            echo 'tt1,tt2,tt3,tt4'
+            echo 'tta,tta,tta,tta'
+            echo 'Nintendo,NDSL,DSL,wii'
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "sed -e s/TestFile/SedSample/g -e s/ps/tt/g ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            sed -e s/TestFile/SedSample/g -e s/ps/tt/g ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "sed -f ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Change the file by reading the change pattern created in the file"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'fileRead1'
+            echo 'apple,banana,cream,dust,Test,txt,fileRead1,gui'
+            echo 'Test,bash,zsh,sh'
+            echo 'Test,java,Javascript,C,C#,C++,python,ruby'
+            echo 'fileRead2'
+            echo 'iphone,ipad,imac,Test,ipod,ipodtouch'
+            echo 'iphone,ipod,ipodtouch,Test,ipad,imac'
+            echo 'galaxyS7,Note7,ZFilp,S7,Test'
+            echo 'fileRead3'
+            echo 'Korea,Test,Japan,China'
+            echo 'Seoul,Tokyo,hongkong'
+            echo '0102,12310,asdas'
+            echo 'fileRead4 fileRead'
+            echo 'ps1,ps2,ps3,ps4'
+            echo 'psa,psa,psa,psa'
+            echo 'Nintendo,NDSL,DSL,wii'
+            echo 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "sed -f ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            sed -f ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    fi
+        echo
+    printf "##############################################################################################\n"
+
+    export LC_ALL=${old_LC_ALL}
+
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    rm -rf ${filePathParam%/}/tmp/${commandItem}/
+
+    func_basicSetting_LogFileName_Path ${PID} "1" ${commandItem}
+    echo 
+    
+}
+
+#--------------------------------------------#
+# Command : nkf                              #
+#--------------------------------------------#
+function func_command_nkf() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### English Command Description Parameter / 영어 명령어 설명 파라미터 / 英語コマンド説明パラメータ
+    local commandDescriptionEnParam=$3
+    ### Korean Command Description Parameter / 한국어 명령어 설명 파라미터 / 韓国語コマンド説明パラメータ
+    local commandDescriptionKrParam=$4
+    ### Japense Command Description Parameter / 일본어 명령어 설명 파라미터 / 日本語コマンド説明パラメータ
+    local commandDescriptionJpParam=$5
+    ### Command / 명령어 / コマンド
+    local commandItem=$6
+    ### Count / 번호 / 番号 
+    local countNumber=0
+
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/
+    echo 'English' > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En.txt
+    echo '한글' > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr.txt
+    echo '日本語漢字,にほんご,ニホンゴ' > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp.txt
+    old_LC_ALL=${LC_ALL}
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${commandItem}
+    printf "##############################################################################################\n"
+    echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        printf "  %-16s %s %s\n" "명령어" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "기본설명" ":" "${commandDescriptionKrParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※사용법" ":" "${commandItem}_[옵션]_[인수1]_[인수2]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※옵션" ":" "[-nef]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※인수1" ":" "[패턴]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※인수2" ":" "[대상_파일]" | sed 's/_/ /g'
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        printf "  %-17s %s %s\n" "コマンド" ":" "${commandItem}"
+        printf "  %-17s %s %s\n" "基本説明" ":" "${commandDescriptionJpParam}" | sed 's/_/ /g'
+        printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}_[オプション]_[引数1]_[引数2]" | sed 's/_/ /g'
+        printf "  %-20s %s %s\n" "※オプション" ":" "[-nef]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数1" ":" "[パタン]" | sed 's/_/ /g'
+        printf "  %-17s %s %s\n" "※引数2" ":" "[対象ファイル]" | sed 's/_/ /g'
+    else
+        printf "  %-13s %s %s\n" "Command" ":" "${commandItem}"
+        printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_[option]_[argument1]_[argument2]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※option" ":" "[-nef]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument1" ":" "[Pattern]" | sed 's/_/ /g'
+        printf "  %-15s %s %s\n" "※argument2" ":" "[Target_File]" | sed 's/_/ /g'
+    fi
+        echo
+        printf "##############################################################################################\n"
+        echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        export LC_ALL="ko_KR.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "nkf ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "파일 내용 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo '한글'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "nkf ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            nkf ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "nkf -g ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "파일의 문자 코드 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'UTF-8'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "nkf -g ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            nkf -g ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "nkf --guess ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "파일의 문자 코드,개행 코드 출력"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'UTF-8 (LF)'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "nkf --guess ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            nkf --guess ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "nkf -e ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr_EUC.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "문자코드 EUC로 변경(한글은 ASCII 변경됨)"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'ASCII (LF)'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "nkf -e ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr_EUC.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            nkf -e ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr_EUC.txt
+            nkf --guess ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr_EUC.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "nkf -j ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr_JIS.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "문자코드 JIS로 변경(한글은 ASCII 변경됨)"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'ASCII (LF)'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "nkf -j ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr_JIS.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            nkf -j ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr_JIS.txt
+            nkf --guess ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr_JIS.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "nkf -s ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr_SJIS.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "문자코드 SJIS로 변경(한글은 ASCII 변경됨)"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'ASCII (LF)'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "nkf -j ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr_SJIS.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            nkf -j ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr_SJIS.txt
+            nkf --guess ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr_SJIS.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "nkf -w ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr_UTF-8.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "문자코드 UTF-8로 변경"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'UTF-8 (LF)'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "nkf -w ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr_UTF-8.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            nkf -w ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr_UTF-8.txt
+            nkf --guess ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr_UTF-8.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "nkf -Lw ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr_CRLF.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "개행코드 CRLF로 변경"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'UTF-8 (CRLF)'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "nkf -Lw ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr_CRLF.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            nkf -Lw ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr_CRLF.txt
+            nkf --guess ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr_CRLF.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "nkf -Lu ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr_CRLF.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr_LF.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "개행코드 LF로 변경"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'UTF-8 (LF)'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "nkf -Lu ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr_CRLF.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr_LF.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            nkf -Lu ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr_CRLF.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr_LF.txt
+            nkf --guess ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr_LF.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "nkf -Lm ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr_LF.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr_CR.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "개행코드 CR로 변경"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'UTF-8 (CR)'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "nkf -Lm ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr_LF.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr_CR.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            nkf -Lm ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr_LF.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr_CR.txt
+            nkf --guess ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr_CR.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "nkf --oc=UTF-8-BOM ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr_UTF-8-BOM.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(예상)" ":" "문자코드 UTF-8 (BOM)으로 변경"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'UTF-8 (BOM) (LF)'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과(실제)" ":" "nkf --oc=UTF-8-BOM ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr_UTF-8-BOM.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            nkf --oc=UTF-8-BOM ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr_UTF-8-BOM.txt
+            nkf --guess ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Kr_UTF-8-BOM.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        export LC_ALL="ja_JP.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "nkf ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "ファイル内容出力"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo '日本語漢字,にほんご,ニホンゴ'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "nkf ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            nkf ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "nkf -g ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "ファイルの文字コード出力"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'UTF-8'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "nkf -g ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            nkf -g ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "nkf --guess ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "ファイルの文字コード、改行コードの出力"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'UTF-8 (LF)'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "nkf --guess ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            nkf --guess ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "nkf -e ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp_EUC.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "文字コードをEUCに変更"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'EUC-JP (LF)'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "nkf -e ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp_EUC.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            nkf -e ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp_EUC.txt
+            nkf --guess ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp_EUC.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "nkf -j ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp_JIS.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "文字コードをJISに変更"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'ISO-2022-JP (LF)'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "nkf -j ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp_JIS.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            nkf -j ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp_JIS.txt
+            nkf --guess ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp_JIS.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "nkf -s ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp_SJIS.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "文字コードをSJISに変更"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'Shift_JIS (LF)'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "nkf -s ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp_SJIS.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            nkf -s ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp_SJIS.txt
+            nkf --guess ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp_SJIS.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "nkf -w ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp_UTF-8.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "文字コードをUTF-8に変更"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'UTF-8 (LF)'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "nkf -w ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp_UTF-8.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            nkf -w ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp_UTF-8.txt
+            nkf --guess ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp_UTF-8.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "nkf -Lw ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp_CRLF.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "改行コードCRLFに変更"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'UTF-8 (CRLF)'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "nkf -Lw ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp_CRLF.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            nkf -Lw ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp_CRLF.txt
+            nkf --guess ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp_CRLF.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "nkf -Lu ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp_CRLF.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp_LF.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "改行コードLFに変更"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'UTF-8 (LF)'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "nkf -Lu ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp_CRLF.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp_LF.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            nkf -Lu ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp_CRLF.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp_LF.txt
+            nkf --guess ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp_LF.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "nkf -Lm ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp_LF.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp_CR.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "改行コードCRに変更"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'UTF-8 (CR)'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "nkf -Lm ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp_LF.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp_CR.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            nkf -Lm ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp_LF.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp_CR.txt
+            nkf --guess ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp_CR.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "nkf --oc=UTF-8-BOM ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp_UTF-8-BOM.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" "文字コードUTF-8(BOM)に変更"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'UTF-8 (BOM) (LF)'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "nkf --oc=UTF-8-BOM ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp_UTF-8-BOM.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            nkf --oc=UTF-8-BOM ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp_UTF-8-BOM.txt
+            nkf --guess ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_Jp_UTF-8-BOM.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    else
+        export LC_ALL="en_US.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "nkf ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "File Content Output"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'English'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "nkf ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            nkf ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "nkf -g ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Character code output of a file"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'ASCII'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "nkf -g ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            nkf -g ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "nkf --guess ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Character code in the file, outputting the new line code"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'ASCII (LF)'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "nkf --guess ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            nkf --guess ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "nkf -e ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En_EUC.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Change character code to EUC(English changed to ASCII)"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'ASCII (LF)'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "nkf -e ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En_EUC.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            nkf -e ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En_EUC.txt
+            nkf --guess ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En_EUC.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "nkf -j ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En_JIS.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Change character code to JIS(English changed to ASCII)"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'ASCII (LF)'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "nkf -j ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En_JIS.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            nkf -j ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En_JIS.txt
+            nkf --guess ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En_JIS.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "nkf -s ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En_SJIS.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Change character code to SJIS(English changed to ASCII)"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'ASCII (LF)'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "nkf -s ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En_SJIS.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            nkf -s ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En_SJIS.txt
+            nkf --guess ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En_SJIS.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "nkf -w ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En_UTF-8.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Change character code to UTF-8(English changed to ASCII)"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'ASCII (LF)'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "nkf -w ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En_UTF-8.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            nkf -w ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En_UTF-8.txt
+            nkf --guess ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En_UTF-8.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "nkf -Lw ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En_CRLF.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Change new line code to CRLF"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'ASCII (CRLF)'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "nkf -Lw ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En_CRLF.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            nkf -Lw ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En_CRLF.txt
+            nkf --guess ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En_CRLF.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "nkf -Lu ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En_CRLF.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En_LF.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Change new line code to LF"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'ASCII (LF)'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "nkf -Lu ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En_CRLF.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En_LF.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            nkf -Lu ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En_CRLF.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En_LF.txt
+            nkf --guess ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En_LF.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "nkf -Lm ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En_LF.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En_CR.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Change new line code to CR"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'ASCII (CR)'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "nkf -Lm ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En_LF.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En_CR.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            nkf -Lm ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En_LF.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En_CR.txt
+            nkf --guess ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En_CR.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "nkf --oc=UTF-8-BOM ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En_UTF-8-BOM.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":" "Change character code to UTF-8 (BOM)"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo 'UTF-8 (BOM) (LF)'
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "nkf --oc=UTF-8-BOM ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En_UTF-8-BOM.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            nkf --oc=UTF-8-BOM ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En.txt > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En_UTF-8-BOM.txt
+            nkf --guess ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_En_UTF-8-BOM.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    fi
+        echo
+    printf "##############################################################################################\n"
+
+    export LC_ALL=${old_LC_ALL}
+
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    rm -rf ${filePathParam%/}/tmp/${commandItem}/
+
+    func_basicSetting_LogFileName_Path ${PID} "1" ${commandItem}
+    echo 
+    
+}
+
+#--------------------------------------------#
 # Command List                               #
 #  : 명령어 리스트                               #
 #  : コマンドリスト                              #
@@ -16884,6 +18388,9 @@ readonly moreJp="ユーザーがテキストファイルの内容をインタラ
 readonly mvEn="Used_to_move_or_rename_files_or_directories"
 readonly mvKr="파일이나_디렉터리를_이동하거나_이름을_변경하는데_사용"
 readonly mvJp="ファイルやディレクトリを移動または名前を変更するために使用"
+readonly nkfEn="Used_to_ensure_correct_character_encoding_in_text_processing"
+readonly nkfKr="텍스트_처리에서_올바른_문자_인코딩을_보장하기_위해_사용"
+readonly nkfJp="テキスト処理で正しい文字エンコーディングを保証するために使用"
 readonly pasteEn="Used_to_merge_rows_of_multiple_files"
 readonly pasteKr="여러_파일의_행을_병합하는데_사용"
 readonly pasteJp="複数のファイルの行をマージするために使用"
@@ -16905,6 +18412,9 @@ readonly rmJp="Linuxでファイルやディレクトリを削除するために
 readonly rmdirEn="Use_Linux_to_delete_empty_directories"
 readonly rmdirKr="리눅스에서_비어있는_디렉터리를_삭제하는_데_사용"
 readonly rmdirJp="Linuxで空のディレクトリを削除するために使用"
+readonly sedEn="A_powerful_text_editor_that_performs_basic_text_conversion"
+readonly sedKr="기본_텍스트_변환을_수행하는_강력한_텍스트_편집기"
+readonly sedJp="デフォルトのテキスト変換を実行する強力なテキストエディタ"
 readonly sleepEn="It_is_commonly_used_in_scripts_or_programs_when_you_want_to_pause_execution_for_a_certain_duration"
 readonly sleepKr="지정된_시간_동안_실행을_지연시키는데_사용됩니다.주로_스크립트나_프로그램에서_일정한_시간_동안_대기하고자_할_때_활용"
 readonly sleepJp="指定された時間の間、実行を遅延させるために使用されます。主にスクリプトやプログラムで一定の時間待機させたい場合に利用"
@@ -16950,10 +18460,10 @@ readonly whoamiJp="現在ログインしているユーザーの名前を表示"
 readonly zipEn="Command_is_used_to_compress_files_and_directories_creating_a_compressed_archive.It_is_primarily_used_to_save_space_by_compressing_files_or_when_transferring_files"
 readonly zipKr="파일_및_디렉터리를_압축하고_압축_파일을_만드는데_사용됩니다.주로_파일을_압축하여_용량을_절약하거나_파일을_전송할_때_활용"
 readonly zipJp="ファイルやディレクトリを圧縮し、圧縮ファイルを作成するのに使用されます。主にファイルを圧縮して容量を節約しファイルを転送する際に利用"
-declare -a commandList=("cal" "cat" "cd" "chgrp" "chmod" "chown" "clear" "cp" "cut" "date" "dd" "df" "diff" "du" "echo" "env" "exit" "export" "expr" "fc" "find" "grep" "gunzip" "gzip" "head" "history" "id" "less" "ln" "ls" "man" "mkdir" "more" "mv" "paste" "ping" "printf" "ps" "pwd" "rm" "rmdir" "sleep" "sort" "tail" "tar" "top" "touch" "tr" "umask" "uname" "uniq" "unzip" "uptime" "wc" "whoami" "zip")
-declare -a commandDescriptionEn=("${calEn}" "${catEn}" "${cdEn}" "${chgrpEn}" "${chmodEn}" "${chownEn}" "${clearEn}" "${cpEn}" "${cutEn}" "${dateEn}" "${ddEn}" "${dfEn}" "${diffEn}" "${duEn}" "${echoEn}" "${envEn}" "${exitEn}" "${exportEn}" "${exprEn}" "${fcEn}" "${findEn}" "${grepEn}" "${gunzipEn}" "${gzipEn}" "${headEn}" "${historyEn}" "${idEn}" "${lessEn}" "${lnEn}" "${lsEn}" "${manEn}" "${mkdirEn}" "${moreEn}" "${mvEn}" "${pasteEn}" "${pingEn}" "${printfEn}" "${psEn}" "${pwdEn}" "${rmEn}" "${rmdirEn}" "${sleepEn}" "${sortEn}" "${tailEn}" "${tarEn}" "${topEn}" "${touchEn}" "${trEn}" "${umaskEn}" "${unameEn}" "${uniqEn}" "${unzipEn}" "${uptimeEn}" "${wcEn}" "${whoamiEn}" "${zipEn}")
-declare -a commandDescriptionKr=("${calKr}" "${catKr}" "${cdKr}" "${chgrpKr}" "${chmodKr}" "${chownKr}" "${clearKr}" "${cpKr}" "${cutKr}" "${dateKr}" "${ddKr}" "${dfKr}" "${diffKr}" "${duKr}" "${echoKr}" "${envKr}" "${exitKr}" "${exportKr}" "${exprKr}" "${fcKr}" "${findKr}" "${grepKr}" "${gunzipKr}" "${gzipKr}" "${headKr}" "${historyKr}" "${idKr}" "${lessKr}" "${lnKr}" "${lsKr}" "${manKr}" "${mkdirKr}" "${moreKr}" "${mvKr}" "${pasteKr}" "${pingKr}" "${printfKr}" "${psKr}" "${pwdKr}" "${rmKr}" "${rmdirKr}" "${sleepKr}" "${sortKr}" "${tailKr}" "${tarKr}" "${topKr}" "${touchKr}" "${trKr}" "${umaskKr}" "${unameKr}" "${uniqKr}" "${unzipKr}" "${uptimeKr}" "${wcKr}" "${whoamiKr}" "${zipKr}")
-declare -a commandDescriptionJp=("${calJp}" "${catJp}" "${cdJp}" "${chgrpJp}" "${chmodJp}" "${chownJp}" "${clearJp}" "${cpJp}" "${cutJp}" "${dateJp}" "${ddJp}" "${dfJp}" "${diffJp}" "${duJp}" "${echoJp}" "${envJp}" "${exitJp}" "${exportJp}" "${exprJp}" "${fcJp}" "${findJp}" "${grepJp}" "${gunzipJp}" "${gzipJp}" "${headJp}" "${historyJp}" "${idJp}" "${lessJp}" "${lnJp}" "${lsJp}" "${manJp}" "${mkdirJp}" "${moreJp}" "${mvJp}" "${pasteJp}" "${pingJp}" "${printfJp}" "${psJp}" "${pwdJp}" "${rmJp}" "${rmdirJp}" "${sleepJp}" "${sortJp}" "${tailJp}" "${tarJp}" "${topJp}" "${touchJp}" "${trJp}" "${umaskJp}" "${unameJp}" "${uniqJp}" "${unzipJp}" "${uptimeJp}" "${wcJp}" "${whoamiJp}" "${zipJp}")
+declare -a commandList=("cal" "cat" "cd" "chgrp" "chmod" "chown" "clear" "cp" "cut" "date" "dd" "df" "diff" "du" "echo" "env" "exit" "export" "expr" "fc" "find" "grep" "gunzip" "gzip" "head" "history" "id" "less" "ln" "ls" "man" "mkdir" "more" "mv" "nkf" "paste" "ping" "printf" "ps" "pwd" "rm" "rmdir" "sed" "sleep" "sort" "tail" "tar" "top" "touch" "tr" "umask" "uname" "uniq" "unzip" "uptime" "wc" "whoami" "zip")
+declare -a commandDescriptionEn=("${calEn}" "${catEn}" "${cdEn}" "${chgrpEn}" "${chmodEn}" "${chownEn}" "${clearEn}" "${cpEn}" "${cutEn}" "${dateEn}" "${ddEn}" "${dfEn}" "${diffEn}" "${duEn}" "${echoEn}" "${envEn}" "${exitEn}" "${exportEn}" "${exprEn}" "${fcEn}" "${findEn}" "${grepEn}" "${gunzipEn}" "${gzipEn}" "${headEn}" "${historyEn}" "${idEn}" "${lessEn}" "${lnEn}" "${lsEn}" "${manEn}" "${mkdirEn}" "${moreEn}" "${mvEn}" "${nkfEn}" "${pasteEn}" "${pingEn}" "${printfEn}" "${psEn}" "${pwdEn}" "${rmEn}" "${rmdirEn}" "${sedEn}" "${sleepEn}" "${sortEn}" "${tailEn}" "${tarEn}" "${topEn}" "${touchEn}" "${trEn}" "${umaskEn}" "${unameEn}" "${uniqEn}" "${unzipEn}" "${uptimeEn}" "${wcEn}" "${whoamiEn}" "${zipEn}")
+declare -a commandDescriptionKr=("${calKr}" "${catKr}" "${cdKr}" "${chgrpKr}" "${chmodKr}" "${chownKr}" "${clearKr}" "${cpKr}" "${cutKr}" "${dateKr}" "${ddKr}" "${dfKr}" "${diffKr}" "${duKr}" "${echoKr}" "${envKr}" "${exitKr}" "${exportKr}" "${exprKr}" "${fcKr}" "${findKr}" "${grepKr}" "${gunzipKr}" "${gzipKr}" "${headKr}" "${historyKr}" "${idKr}" "${lessKr}" "${lnKr}" "${lsKr}" "${manKr}" "${mkdirKr}" "${moreKr}" "${mvKr}" "${nkfKr}" "${pasteKr}" "${pingKr}" "${printfKr}" "${psKr}" "${pwdKr}" "${rmKr}" "${rmdirKr}" "${sedKr}" "${sleepKr}" "${sortKr}" "${tailKr}" "${tarKr}" "${topKr}" "${touchKr}" "${trKr}" "${umaskKr}" "${unameKr}" "${uniqKr}" "${unzipKr}" "${uptimeKr}" "${wcKr}" "${whoamiKr}" "${zipKr}")
+declare -a commandDescriptionJp=("${calJp}" "${catJp}" "${cdJp}" "${chgrpJp}" "${chmodJp}" "${chownJp}" "${clearJp}" "${cpJp}" "${cutJp}" "${dateJp}" "${ddJp}" "${dfJp}" "${diffJp}" "${duJp}" "${echoJp}" "${envJp}" "${exitJp}" "${exportJp}" "${exprJp}" "${fcJp}" "${findJp}" "${grepJp}" "${gunzipJp}" "${gzipJp}" "${headJp}" "${historyJp}" "${idJp}" "${lessJp}" "${lnJp}" "${lsJp}" "${manJp}" "${mkdirJp}" "${moreJp}" "${mvJp}" "${nkfJp}" "${pasteJp}" "${pingJp}" "${printfJp}" "${psJp}" "${pwdJp}" "${rmJp}" "${rmdirJp}" "${sedJp}" "${sleepJp}" "${sortJp}" "${tailJp}" "${tarJp}" "${topJp}" "${touchJp}" "${trJp}" "${umaskJp}" "${unameJp}" "${uniqJp}" "${unzipJp}" "${uptimeJp}" "${wcJp}" "${whoamiJp}" "${zipJp}")
 
 #--------------------------------------------#
 # Script Basic Variable Setting              #
