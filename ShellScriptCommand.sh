@@ -882,6 +882,10 @@ function func_linuxCommandsList() {
             read -p " Search Command (Cancel:C) : " searchCommand
         fi
 
+        if [[ ${searchCommand} =~ ^[0-9]+$ && ${#searchCommand} -gt 0 ]]; then
+            searchCommand=${commandList[$((${searchCommand}-1))]}
+        fi
+
         if [[ ${searchCommand} == [cC] || ${searchCommand} == [cC][aA][nN][cC][eE][lL] ]];then
             searchCommand=""
             break
@@ -891,61 +895,6 @@ function func_linuxCommandsList() {
     fi
 
 }
-
-#--------------------------------------------#
-# Linux Script Tip List                      #
-#  : Linux Script Tip List                   #
-#  : 리눅스 스크립트 팁 리스트                     #
-#  : Linuxスクリプトヒントリスト                   #
-#--------------------------------------------#
-function func_linuxScriptTipList() {
-    
-    ### Language Parameter / 언어 파라미터 / 言語パラメータ
-    local languageParam=$1
-
-    ### Function Main Logic / 함수 메인 로직 / 関数メインロジック
-    Index=0
-    echo
-    printf "##############################################################################################\n"
-    if [[ ${languageParam} == [kK][rR] ]]; then
-        printf "  %-8s %s  %-18s %s  %-102s\n" "번호" "#" "설명"
-        printf "##############################################################################################\n"
-        for scriptTipIndex in ${scriptTipList[@]}; do
-            printf "  %03d    %s  %-15s %s  %-100s\n" $((${Index}+1)) "#" ${scriptTipList[${Index}]} | sed 's/_/ /g'
-            Index=$(( ${Index} + 1 ))
-        done
-    elif [[ ${languageParam} == [jJ][pP] ]]; then
-        printf "  %-8s %s  %-19s %s  %-102s\n" "番号" "#" "説明"
-        printf "##############################################################################################\n"
-        for scriptTipIndex in ${scriptTipList[@]}; do
-            printf "  %03d    %s  %-15s %s  %-100s\n" $((${Index}+1)) "#" ${scriptTipList[${Index}]} | sed 's/_/ /g'
-            Index=$(( ${Index} + 1 ))
-        done
-    else
-        printf "  %-6s %s  %-15s %s  %-100s\n" "Number" "#" "Description"
-        printf "##############################################################################################\n"
-        for scriptTipIndex in ${scriptTipList[@]}; do
-            printf "  %03d    %s  %-15s %s  %-100s\n" $((${Index}+1)) "#" ${scriptTipList[${Index}]} | sed 's/_/ /g'
-            Index=$(( ${Index} + 1 ))
-        done
-    fi
-    printf "##############################################################################################\n"
-    echo
-    if [[ ${languageParam} == [kK][rR] ]];then
-        read -p " 스크립트 팁 (취소:C) : " searchScriptTip
-    elif [[ ${languageParam} == [jJ][pP] ]];then
-        read -p " スクリプトヒント (取り消し:C) : " searchScriptTip
-    else
-        read -p " Script Tip (Cancel:C) : " searchScriptTip
-    fi
-
-    if [[ ${searchScriptTip} == [cC] || ${searchScriptTip} == [cC][aA][nN][cC][eE][lL] ]];then
-        searchScriptTip=""
-        break
-    fi
-
-}
-
 
 #--------------------------------------------#
 # Linux Commands Exist Check                 #
@@ -1249,6 +1198,742 @@ function func_linuxCommandExample() {
         fi
     done
 
+}
+
+#--------------------------------------------#
+# Linux Script Tip List                      #
+#  : Linux Script Tip List                   #
+#  : 리눅스 스크립트 팁 리스트                     #
+#  : Linuxスクリプトヒントリスト                   #
+#--------------------------------------------#
+function func_linuxScriptTipList() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local languageParam=$1
+
+    ### Function Main Logic / 함수 메인 로직 / 関数メインロジック
+    Index=0
+    echo
+    printf "##############################################################################################\n"
+    if [[ ${languageParam} == [kK][rR] ]]; then
+        printf "  %-8s %s  %-18s %s  %-102s\n" "번호" "#" "설명"
+        printf "##############################################################################################\n"
+        for scriptTipIndex in ${scriptTipList[@]}; do
+            printf "  %03d    %s  %-15s %s  %-100s\n" $((${Index}+1)) "#" ${scriptTipList[${Index}]} | sed 's/_/ /g'
+            Index=$(( ${Index} + 1 ))
+        done
+    elif [[ ${languageParam} == [jJ][pP] ]]; then
+        printf "  %-8s %s  %-19s %s  %-102s\n" "番号" "#" "説明"
+        printf "##############################################################################################\n"
+        for scriptTipIndex in ${scriptTipList[@]}; do
+            printf "  %03d    %s  %-15s %s  %-100s\n" $((${Index}+1)) "#" ${scriptTipList[${Index}]} | sed 's/_/ /g'
+            Index=$(( ${Index} + 1 ))
+        done
+    else
+        printf "  %-6s %s  %-15s %s  %-100s\n" "Number" "#" "Description"
+        printf "##############################################################################################\n"
+        for scriptTipIndex in ${scriptTipList[@]}; do
+            printf "  %03d    %s  %-15s %s  %-100s\n" $((${Index}+1)) "#" ${scriptTipList[${Index}]} | sed 's/_/ /g'
+            Index=$(( ${Index} + 1 ))
+        done
+    fi
+    printf "##############################################################################################\n"
+    echo
+    if [[ ${languageParam} == [kK][rR] ]];then
+        read -p " 스크립트 팁 (취소:C) : " searchScriptTipIndex
+    elif [[ ${languageParam} == [jJ][pP] ]];then
+        read -p " スクリプトヒント (取り消し:C) : " searchScriptTipIndex
+    else
+        read -p " Script Tip (Cancel:C) : " searchScriptTipIndex
+    fi
+
+    if [[ ${searchScriptTipIndex} == [cC] || ${searchScriptTipIndex} == [cC][aA][nN][cC][eE][lL] ]];then
+        searchScriptTipIndex=""
+        break
+    fi
+
+}
+
+#--------------------------------------------#
+# Linux Script Tip Example                   #
+#  : Linux Script Tip Example                #
+#  : 리눅스 스크립트 팁 예                        #
+#  : Linuxスクリプトヒント例                      #
+#--------------------------------------------#
+function func_linuxScriptTipExample() {
+
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### FilePath / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### Array Index / 배열 인덱스 파라미터 / 配列インデックスパラメータ
+    local scriptTipIndex=$3
+
+    clear
+    echo
+    case ${scriptTipIndex} in
+        1)
+            func_script_for ${ouputLanguageParam} ${filePath} for
+            ;;
+        2)
+            func_script_case ${ouputLanguageParam} ${filePath} case
+            ;;
+        *)  echo ; 
+            if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+                echo " 에러 : 스크립트 팁 리스트에 존재하는 번호를 입력해주세요"; 
+            elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+                echo " エラー : スクリプトヒントリストに存在する番号を入力"; 
+            else
+                echo " ERROR : Please enter a number that exists in the script tip list"; 
+            fi
+            echo ; # default
+    esac
+    
+    while true
+    do
+        if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+            read -p " 메인메뉴[Y] / 재검색[N/C] : " previousMenu
+        elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+            read -p " メインメニュー[Y] / 再検索[N/C] : " previousMenu
+        else
+            read -p " Main Menu[Y] / Re-searching[N/C] : " previousMenu
+        fi
+
+        if [[ ${previousMenu} == [yY] || ${previousMenu} == [yY][eE][sS] ]];then
+            clear
+            scriptTipIndex=""
+            break 2
+        elif [[ ${previousMenu} == [nN] || ${previousMenu} == [nN][oO] || ${previousMenu} == [cC] || ${previousMenu} == [cC][aA][nN][cC][eE][lL] ]];then
+            clear
+            scriptTipIndex=""
+            break
+        fi
+    done
+
+}
+
+#--------------------------------------------#
+# Command : for                              #
+#--------------------------------------------#
+function func_script_for() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### Command / 명령어 / コマンド
+    local scriptItem=$3
+    ### Count / 번호 / 番号 
+    local countNumber=0
+
+    mkdir -p ${filePathParam%/}/tmp/${scriptItem}/
+    old_LC_ALL=${LC_ALL}
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${scriptItem}
+    printf "##############################################################################################\n"
+    echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        export LC_ALL="ko_KR.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "통상적 작성법1"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과" ":"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "forIndex=1"
+            echo "forIndex=2"
+            echo "forIndex=3"
+            echo "forIndex=4"
+            echo "forIndex=5"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "사용방법" ":" 'for ((i=1; i<=5; i++))'
+        printf "    %-21s %s %s\n" "사용방법" ":" 'do'
+        printf "    %-21s %s %s\n" "사용방법" ":" '    echo "forIndex='${i}'" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile${countNumber}.txt'
+        printf "    %-21s %s %s\n" "사용방법" ":" 'done'
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            for ((i=1; i<=5; i++))
+            do
+                echo "forIndex=${i}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile${countNumber}.txt
+            done
+            cat ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile${countNumber}.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "통상적 작성법2"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과" ":"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "forIndex=1"
+            echo "forIndex=2"
+            echo "forIndex=3"
+            echo "forIndex=4"
+            echo "forIndex=5"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "사용방법" ":" 'for forIndex in {1..5}'
+        printf "    %-21s %s %s\n" "사용방법" ":" 'do'
+        printf "    %-21s %s %s\n" "사용방법" ":" "    echo "forIndex='${forIndex}'" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile${countNumber}.txt"
+        printf "    %-21s %s %s\n" "사용방법" ":" 'done'
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            for forIndex in {1..5}
+            do
+                echo "forIndex=${forIndex}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile${countNumber}.txt
+            done
+            cat ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile${countNumber}.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "한 줄 작성법"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과" ":"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "forIndex=1"
+            echo "forIndex=2"
+            echo "forIndex=3"
+            echo "forIndex=4"
+            echo "forIndex=5"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "사용방법" ":" "for forIndex in {1..5}; do echo "forIndex='${forIndex}'" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile${countNumber}.txt; done"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            for forIndex in {1..5}; do echo "forIndex=${forIndex}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile${countNumber}.txt; done
+            cat ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile${countNumber}.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "시퀀스 작성법"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과" ":"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "forIndex=1"
+            echo "forIndex=3"
+            echo "forIndex=5"
+            echo "forIndex=7"
+            echo "forIndex=9"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "사용방법" ":" 'for forIndex in $(seq 1 2 10)'
+        printf "    %-21s %s %s\n" "사용방법" ":" 'do'
+        printf "    %-21s %s %s\n" "사용방법" ":" "    echo "forIndex='${forIndex}'" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile${countNumber}.txt"
+        printf "    %-21s %s %s\n" "사용방법" ":" 'done'
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            for forIndex in $(seq 1 2 10)
+            do
+                echo "forIndex=${forIndex}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile${countNumber}.txt
+            done
+            cat ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile${countNumber}.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "배열을 사용한 반복문 작성법"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과" ":"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "forIndex=En"
+            echo "forIndex=Kr"
+            echo "forIndex=Jp"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "사용방법" ":" 'stringArray=(En Kr Jp)'
+        printf "    %-21s %s %s\n" "사용방법" ":" 'for forIndex in ${stringArray[@]}'
+        printf "    %-21s %s %s\n" "사용방법" ":" 'do'
+        printf "    %-21s %s %s\n" "사용방법" ":" "    echo "forIndex='${forIndex}'" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile${countNumber}.txt"
+        printf "    %-21s %s %s\n" "사용방법" ":" 'done'
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            stringArray=(En Kr Jp)
+            for forIndex in ${stringArray[@]}
+            do
+                echo "forIndex=${forIndex}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile${countNumber}.txt
+            done
+            cat ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile${countNumber}.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        export LC_ALL="ja_JP.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "通常の書き方1"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "forIndex=1"
+            echo "forIndex=2"
+            echo "forIndex=3"
+            echo "forIndex=4"
+            echo "forIndex=5"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" 'for ((i=1; i<=5; i++))'
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" 'do'
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "    echo "forIndex='${i}'" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile${countNumber}.txt"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" 'done'
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            for ((i=1; i<=5; i++))
+            do
+                echo "forIndex=${i}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile${countNumber}.txt
+            done
+            cat ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile${countNumber}.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "通常の書き方2"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "forIndex=1"
+            echo "forIndex=2"
+            echo "forIndex=3"
+            echo "forIndex=4"
+            echo "forIndex=5"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" 'for forIndex in {1..5}'
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" 'do'
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "    echo "forIndex='${forIndex}'" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile${countNumber}.txt"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" 'done'
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            for forIndex in {1..5}
+            do
+                echo "forIndex=${forIndex}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile${countNumber}.txt
+            done
+            cat ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile${countNumber}.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "一行の書き方"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "forIndex=1"
+            echo "forIndex=2"
+            echo "forIndex=3"
+            echo "forIndex=4"
+            echo "forIndex=5"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "for forIndex in {1..5}; do echo "forIndex='${forIndex}'" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile${countNumber}.txt; done"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            for forIndex in {1..5}; do echo "forIndex=${forIndex}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile${countNumber}.txt; done
+            cat ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile${countNumber}.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "シーケンスの書き方"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "forIndex=1"
+            echo "forIndex=3"
+            echo "forIndex=5"
+            echo "forIndex=7"
+            echo "forIndex=9"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" 'for forIndex in $(seq 1 2 10)'
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" 'do'
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "    echo "forIndex='${forIndex}'" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile${countNumber}.txt"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" 'done'
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            for forIndex in $(seq 1 2 10)
+            do
+                echo "forIndex=${forIndex}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile${countNumber}.txt
+            done
+            cat ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile${countNumber}.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "配列を使った繰り返し文の書き方"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "forIndex=En"
+            echo "forIndex=Kr"
+            echo "forIndex=Jp"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" 'stringArray=(En Kr Jp)'
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" 'for forIndex in ${stringArray[@]}'
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" 'do'
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "    echo "forIndex='${forIndex}'" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile${countNumber}.txt"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" 'done'
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            stringArray=(En Kr Jp)
+            for forIndex in ${stringArray[@]}
+            do
+                echo "forIndex=${forIndex}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile${countNumber}.txt
+            done
+            cat ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile${countNumber}.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    else
+        export LC_ALL="en_US.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "Typical Writing Method 1"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "forIndex=1"
+            echo "forIndex=2"
+            echo "forIndex=3"
+            echo "forIndex=4"
+            echo "forIndex=5"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" 'for ((i=1; i<=5; i++))'
+        printf "    %-15s %s %s\n" "Output(Real)" ":" 'do'
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "    echo "forIndex='${forIndex}'" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile${countNumber}.txt"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" 'done'
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            for ((i=1; i<=5; i++))
+            do
+                echo "forIndex=${i}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile${countNumber}.txt
+            done
+            cat ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile${countNumber}.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "Typical Writing Method 2"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "forIndex=1"
+            echo "forIndex=2"
+            echo "forIndex=3"
+            echo "forIndex=4"
+            echo "forIndex=5"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" 'for forIndex in {1..5}'
+        printf "    %-15s %s %s\n" "Output(Real)" ":" 'do'
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "    echo "forIndex='${forIndex}'" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile${countNumber}.txt"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" 'done'
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            for forIndex in {1..5}
+            do
+                echo "forIndex=${forIndex}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile${countNumber}.txt
+            done
+            cat ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile${countNumber}.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "How to write a line"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "forIndex=1"
+            echo "forIndex=2"
+            echo "forIndex=3"
+            echo "forIndex=4"
+            echo "forIndex=5"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "for forIndex in {1..5}; do echo "forIndex='${forIndex}'" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile${countNumber}.txt; done"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            for forIndex in {1..5}; do echo "forIndex=${forIndex}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile${countNumber}.txt; done
+            cat ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile${countNumber}.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "How to create a sequence"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "forIndex=1"
+            echo "forIndex=3"
+            echo "forIndex=5"
+            echo "forIndex=7"
+            echo "forIndex=9"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" 'for forIndex in $(seq 1 2 10)'
+        printf "    %-15s %s %s\n" "Output(Real)" ":" 'do'
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "    echo "forIndex='${forIndex}'" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile${countNumber}.txt"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" 'done'
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            for forIndex in $(seq 1 2 10)
+            do
+                echo "forIndex=${forIndex}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile${countNumber}.txt
+            done
+            cat ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile${countNumber}.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "How to write a repetition with an array"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo "forIndex=En"
+            echo "forIndex=Kr"
+            echo "forIndex=Jp"
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" 'stringArray=(En Kr Jp)'
+        printf "    %-15s %s %s\n" "Output(Real)" ":" 'for forIndex in ${stringArray[@]}'
+        printf "    %-15s %s %s\n" "Output(Real)" ":" 'do'
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "    echo "forIndex='${forIndex}'" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile${countNumber}.txt"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" 'done'
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            stringArray=(En Kr Jp)
+            for forIndex in ${stringArray[@]}
+            do
+                echo "forIndex=${forIndex}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile${countNumber}.txt
+            done
+            cat ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile${countNumber}.txt
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    fi
+        echo
+    printf "##############################################################################################\n"
+    
+    export LC_ALL=${old_LC_ALL}
+
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    rm -rf ${filePathParam%/}/tmp/${scriptItem}/
+    
+    func_basicSetting_LogFileName_Path ${PID} "1" ${scriptItem}
+    echo 
+    
+}
+
+#--------------------------------------------#
+# Command : case                             #
+#--------------------------------------------#
+function func_script_case() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### Command / 명령어 / コマンド
+    local scriptItem=$3
+    ### Count / 번호 / 番号 
+    local countNumber=0
+
+    mkdir -p ${filePathParam%/}/tmp/${scriptItem}/
+    old_LC_ALL=${LC_ALL}
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${scriptItem}
+    printf "##############################################################################################\n"
+    echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        export LC_ALL="ko_KR.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "통상적 작성법1"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과" ":"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo " 샘플1 : ${countNumber} "
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "사용방법" ":" "case '${countNumber}' in"
+        printf "    %-21s %s %s\n" "사용방법" ":" '    1)'
+        printf "    %-21s %s %s\n" "사용방법" ":" "        echo ' 샘플1 : ${countNumber} '"
+        printf "    %-21s %s %s\n" "사용방법" ":" '        ;;'
+        printf "    %-21s %s %s\n" "사용방법" ":" '    2)'
+        printf "    %-21s %s %s\n" "사용방법" ":" "        echo ' 샘플2 : ${countNumber} '"
+        printf "    %-21s %s %s\n" "사용방법" ":" '        ;;'
+        printf "    %-21s %s %s\n" "사용방법" ":" "    *)  echo ' 샘플 else : ${countNumber} '"
+        printf "    %-21s %s %s\n" "사용방법" ":" 'esac'
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        case "${countNumber}" in
+            1)
+                echo " 샘플1 : ${countNumber} "
+                ;;
+            2)
+                echo " 샘플2 : ${countNumber} "
+                ;;
+            *)  echo " 샘플 else : ${countNumber} " # default
+        esac
+        echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" ":" "한 줄 작성법"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "출력결과" ":"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo " 샘플2 : ${countNumber} "
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "사용방법" ":" "case '${countNumber}' in 1) echo \" 샘플1 : '${countNumber}' \";; 2) echo \" 샘플2 : '${countNumber}' \";; *) echo \" 샘플 else : '${countNumber}' \"; esac"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        case "${countNumber}" in 1) echo " 샘플1 : ${countNumber} ";; 2) echo " 샘플2 : ${countNumber} ";; *) echo " 샘플 else : ${countNumber} "; esac
+        echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        export LC_ALL="ja_JP.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "通常の書き方1"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo " サンプル1 : ${countNumber} "
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "case '${countNumber}' in"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" '    1)'
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "        echo ' サンプル1 : ${countNumber} '"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" '        ;;'
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" '    2)'
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "        echo ' サンプル2 : ${countNumber} '"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" '        ;;'
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "    *)  echo ' サンプル else : ${countNumber} '"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" 'esac'
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            case "${countNumber}" in
+                1)
+                    echo " サンプル1 : ${countNumber} "
+                    ;;
+                2)
+                    echo " サンプル2 : ${countNumber} "
+                    ;;
+                *)  echo " サンプル else : ${countNumber} " # default
+            esac
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" ":" "echo一行の書き方"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(予想)" ":" 
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo " サンプル2 : ${countNumber} "
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "出力結果(実際)" ":" "case '${countNumber}' in 1) echo \" サンプル1 : '${countNumber}' \";; 2) echo \" サンプル2 : '${countNumber}' \";; *) echo \" サンプル else : '${countNumber}' \"; esac"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            case "${countNumber}" in 1) echo " サンプル1 : ${countNumber} ";; 2) echo " サンプル2 : ${countNumber} ";; *) echo " サンプル else : ${countNumber} "; esac
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    else
+        export LC_ALL="en_US.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "Typical Writing Method 1"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo " Sample1 : ${countNumber} "
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-21s %s %s\n" "Output(Real)" ":" "case '${countNumber}' in"
+        printf "    %-21s %s %s\n" "Output(Real)" ":" '    1)'
+        printf "    %-21s %s %s\n" "Output(Real)" ":" "        echo ' サンプル1 : ${countNumber} '"
+        printf "    %-21s %s %s\n" "Output(Real)" ":" '        ;;'
+        printf "    %-21s %s %s\n" "Output(Real)" ":" '    2)'
+        printf "    %-21s %s %s\n" "Output(Real)" ":" "        echo ' サンプル2 : ${countNumber} '"
+        printf "    %-21s %s %s\n" "Output(Real)" ":" '        ;;'
+        printf "    %-21s %s %s\n" "Output(Real)" ":" "    *)  echo ' サンプル else : ${countNumber} '"
+        printf "    %-21s %s %s\n" "Output(Real)" ":" 'esac'
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            case "${countNumber}" in
+                1)
+                    echo " Sample1 : ${countNumber} "
+                    ;;
+                2)
+                    echo " Sample2 : ${countNumber} "
+                    ;;
+                *)  echo " Sample else : ${countNumber} " # default
+            esac
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        echo
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n"
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" ":" "How to write a line"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(expect)" ":"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            echo " Sample2 : ${countNumber} "
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+        printf "    %-15s %s %s\n" "Output(Real)" ":" "case '${countNumber}' in 1) echo \" Sample1 : '${countNumber}' \";; 2) echo \" Sample2 : '${countNumber}' \";; *) echo \" Sample else : '${countNumber}' \"; esac"
+        printf "#--------------------------------------------------------------------------------------------#\n"
+            echo
+            case "${countNumber}" in 1) echo " Sample1 : ${countNumber} ";; 2) echo " Sample2 : ${countNumber} ";; *) echo " Sample else : ${countNumber} "; esac
+            echo
+        printf "#--------------------------------------------------------------------------------------------#\n"
+    fi
+        echo
+    printf "##############################################################################################\n"
+    
+    export LC_ALL=${old_LC_ALL}
+
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    rm -rf ${filePathParam%/}/tmp/${scriptItem}/
+    
+    func_basicSetting_LogFileName_Path ${PID} "1" ${scriptItem}
+    echo 
+    
 }
 
 #--------------------------------------------#
@@ -19195,6 +19880,7 @@ declare -a commandDescriptionKr=("${aliasKr}" "${calKr}" "${catKr}" "${cdKr}" "$
 declare -a commandDescriptionJp=("${aliasJp}" "${calJp}" "${catJp}" "${cdJp}" "${chgrpJp}" "${chmodJp}" "${chownJp}" "${clearJp}" "${cpJp}" "${cutJp}" "${dateJp}" "${ddJp}" "${dfJp}" "${diffJp}" "${duJp}" "${echoJp}" "${envJp}" "${exitJp}" "${exportJp}" "${exprJp}" "${fcJp}" "${findJp}" "${grepJp}" "${gunzipJp}" "${gzipJp}" "${headJp}" "${historyJp}" "${idJp}" "${lessJp}" "${lnJp}" "${lsJp}" "${lsofJp}" "${manJp}" "${mkdirJp}" "${moreJp}" "${mvJp}" "${nkfJp}" "${pasteJp}" "${pingJp}" "${printfJp}" "${psJp}" "${pwdJp}" "${rmJp}" "${rmdirJp}" "${sedJp}" "${sleepJp}" "${sortJp}" "${tailJp}" "${tarJp}" "${topJp}" "${touchJp}" "${trJp}" "${umaskJp}" "${unameJp}" "${uniqJp}" "${unzipJp}" "${uptimeJp}" "${wcJp}" "${whoamiJp}" "${zipJp}")
 scriptTipList=()
 scriptTipList+=(Loop_for,반복문_for,繰り返し文_for)
+scriptTipList+=(Conditional_case,조건문_case,条件文_case)
 
 #--------------------------------------------#
 # Script Basic Variable Setting              #
@@ -19287,8 +19973,15 @@ do
         done
     elif [[ ${selectMenu} == 3 ]];then
         clear
-        ### Function Run / 함수 실행 / 関数実行
-        func_linuxScriptTipList ${ouputLanguage} 
+        while true
+        do
+            clear
+            ### Function Run / 함수 실행 / 関数実行
+            func_linuxScriptTipList ${ouputLanguage} 
+
+            func_linuxScriptTipExample ${ouputLanguage} ${filePath} ${searchScriptTipIndex}
+        done
+        
     elif [[ ${selectMenu} == 8 ]];then
         clear
         ### Function Run / 함수 실행 / 関数実行
