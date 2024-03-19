@@ -780,6 +780,12 @@ function func_linuxCommandExample() {
         egrep)
             func_command_egrep ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
             ;;
+        read)
+            func_command_read ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
+            ;;
+        sh)
+            func_command_sh ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
+            ;;
         *)  echo ; 
             if [[ ${ouputLanguageParam} == [kK][rR] ]];then
                 echo " 에러 : 명령어 함수 미포함 (func_command_${commandList[${commandItemIndex}]})"; 
@@ -19747,6 +19753,673 @@ function func_command_egrep() {
 }
 
 #--------------------------------------------#
+# Command : read                             #
+#--------------------------------------------#
+function func_command_read() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### English Command Description Parameter / 영어 명령어 설명 파라미터 / 英語コマンド説明パラメータ
+    local commandDescriptionEnParam=$3
+    ### Korean Command Description Parameter / 한국어 명령어 설명 파라미터 / 韓国語コマンド説明パラメータ
+    local commandDescriptionKrParam=$4
+    ### Japense Command Description Parameter / 일본어 명령어 설명 파라미터 / 日本語コマンド説明パラメータ
+    local commandDescriptionJpParam=$5
+    ### Command / 명령어 / コマンド
+    local commandItem=$6
+    ### Count / 번호 / 番号 
+    local countNumber=0
+
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/
+    old_LC_ALL=${LC_ALL}
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${commandItem}
+    printf "##############################################################################################\n" > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        printf "  %-16s %s %s\n" "명령어" ":" "${commandItem}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-17s %s %s\n" "기본설명" ":" "${commandDescriptionKrParam}" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-18s %s %s\n" "※사용법" ":" "${commandItem}_[옵션]_[인수1]_[인수2]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-17s %s %s\n" "※옵션" ":" "[-pnts]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-17s %s %s\n" "※인수1" ":" "[옵션설정값]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-17s %s %s\n" "※인수2" ":" "[입력값저장변수명]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        printf "  %-17s %s %s\n" "コマンド" ":" "${commandItem}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-17s %s %s\n" "基本説明" ":" "${commandDescriptionJpParam}" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}_[オプション]_[引数1]_[引数2]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-20s %s %s\n" "※オプション" ":" "[-pnts]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-17s %s %s\n" "※引数1" ":" "[オプション設定値]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-17s %s %s\n" "※引数2" ":" "[入力値保存変数名]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    else
+        printf "  %-13s %s %s\n" "Command" ":" "${commandItem}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_[option]_[argument1]_[argument2]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-15s %s %s\n" "※option" ":" "[-pnts]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-15s %s %s\n" "※argument1" ":" "[Option_Settings]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-15s %s %s\n" "※argument2" ":" "[Input_value_storage_variable_name]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    fi
+    echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    printf "##############################################################################################\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        export LC_ALL="ko_KR.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "예상출력결과" ":" "사용자로부터 입력받은 값을 이용" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "사용자로부터 입력받은 값을 name변수에 설정" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" "read name" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            read name >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "name=${name}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "예상출력결과" ":" "사용자로부터 입력받을때 먼저 출력되는 메시지를 설정" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "input your number : " >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'read -p " input your number : " tel' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            read -p " input your number : " tel >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "tel=${tel}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "예상출력결과" ":" "사용자로부터 입력받을 문자수를 설정" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "4자리 문자까지 입력받음" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" "read -n 4 nickName" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            read -n 4 nickName >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "nickName=${nickName}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "예상출력결과" ":" "사용자로부터 입력을 받는 시간을 설정" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "3초간만 데이터 입력을 받음" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" "read -t 3 waittime" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            read -t 3 waittime >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "waittime=${waittime}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "예상출력결과" ":" "입력값이 보이지 않음(비밀번호)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "입력값이 출력되지 않음" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" "read -s hideString" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            read -s hideString >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "hideString=${hideString}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        export LC_ALL="ja_JP.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "サンプル${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "予想出力結果" ":" "ユーザーから入力された値を利用" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "ユーザーから入力された値をname変数に設定" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" "read name" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            read name >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "name=${name}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "サンプル${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "予想出力結果" ":" "ユーザーから入力を受ける際に先に出力されるメッセージを設定" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "input your number : " >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'read -p " input your number : " tel' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            read -p " input your number : " tel >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "tel=${tel}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "サンプル${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "予想出力結果" ":" "ユーザーから入力される文字数を設定" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "4桁の文字まで入力を受ける" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" "read -n 4 nickName" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            read -n 4 nickName >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "nickName=${nickName}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "サンプル${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "予想出力結果" ":" "ユーザーから入力を受ける時間を設定" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "3秒間だけデータ入力を受ける" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" "read -t 3 waittime" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            read -t 3 waittime >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "waittime=${waittime}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "サンプル${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "予想出力結果" ":" "入力値が表示されない(パスワード)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "入力値が出力されない" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" "read -s hideString" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            read -s hideString >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "hideString=${hideString}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    else
+        export LC_ALL="en_US.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "Sample${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "ExpectedOutput" ":" "Use the value input from the user" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Set the value received from the user to the name variable" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" "read name" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            read name >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "name=${name}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "Sample${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "ExpectedOutput" ":" "Set the message that is output first when you receive input from the user" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "input your number : " >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'read -p " input your number : " tel' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            read -p " input your number : " tel >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "tel=${tel}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "Sample${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "ExpectedOutput" ":" "Set the number of characters to be entered from the user" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Enter up to four-digit characters" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" "read -n 4 nickName" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            read -n 4 nickName >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "nickName=${nickName}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "Sample${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "ExpectedOutput" ":" "Set the time to receive input from the user" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Data input only for 3 seconds" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" "read -t 3 waittime" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            read -t 3 waittime >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "waittime=${waittime}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "Sample${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "ExpectedOutput" ":" "Input not visible (password)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Input value not output" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" "read -s hideString" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            read -s hideString >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "hideString=${hideString}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    fi
+    echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    printf "##############################################################################################\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+
+    export LC_ALL=${old_LC_ALL}
+    less ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    rm -rf ${filePathParam%/}/tmp/${commandItem}/
+
+    func_basicSetting_LogFileName_Path ${PID} "1" ${commandItem}
+    echo 
+    
+}
+
+#--------------------------------------------#
+# Command : sh                               #
+#--------------------------------------------#
+function func_command_sh() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### English Command Description Parameter / 영어 명령어 설명 파라미터 / 英語コマンド説明パラメータ
+    local commandDescriptionEnParam=$3
+    ### Korean Command Description Parameter / 한국어 명령어 설명 파라미터 / 韓国語コマンド説明パラメータ
+    local commandDescriptionKrParam=$4
+    ### Japense Command Description Parameter / 일본어 명령어 설명 파라미터 / 日本語コマンド説明パラメータ
+    local commandDescriptionJpParam=$5
+    ### Command / 명령어 / コマンド
+    local commandItem=$6
+    ### Count / 번호 / 番号 
+    local countNumber=0
+
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/
+    echo '#!/bin/sh ' > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_Test1.sh
+    echo 'echo "testshell"' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_Test1.sh
+    echo 'for forIndex in {1..1000}; do echo "forIndex=${forIndex}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_Test1.txt; done' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_Test1.sh
+    echo '#!/bin/sh ' > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_Test2.sh
+    echo 'echo "testshell"' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_Test2.sh
+    echo 'for forIndex in {1..1000}; do echo "forIndex=${forIndex}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_Test2.txt; done' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_Test2.sh
+    echo '#!/bin/sh ' > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_Test3.sh
+    echo 'echo "testshell"' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_Test3.sh
+    echo 'for forIndex in {1..1000}; do echo "forIndex=${forIndex}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_Test3.txt; done' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_Test3.sh
+    echo '#!/bin/sh ' > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_Test4.sh
+    echo 'echo "testshell"' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_Test4.sh
+    echo 'for forIndex in {1..1000}; do echo "forIndex=${forIndex}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_Test4.txt; done' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_Test4.sh
+
+    old_LC_ALL=${LC_ALL}
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${commandItem}
+    printf "##############################################################################################\n" > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        printf "  %-16s %s %s\n" "명령어" ":" "${commandItem}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-17s %s %s\n" "기본설명" ":" "${commandDescriptionKrParam}" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-18s %s %s\n" "※사용법" ":" "${commandItem}_[옵션]_[인수1]_[인수2]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-17s %s %s\n" "※옵션" ":" "[-xv]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-17s %s %s\n" "※인수1" ":" "[대상쉘]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-17s %s %s\n" "※인수2" ":" "[입력값저장변수명]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        printf "  %-17s %s %s\n" "コマンド" ":" "${commandItem}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-17s %s %s\n" "基本説明" ":" "${commandDescriptionJpParam}" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}_[オプション]_[引数1]_[引数2]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-20s %s %s\n" "※オプション" ":" "[-xv]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-17s %s %s\n" "※引数1" ":" "[対象シェル]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-17s %s %s\n" "※引数2" ":" "[入力値保存変数名]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    else
+        printf "  %-13s %s %s\n" "Command" ":" "${commandItem}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_[option]_[argument1]_[argument2]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-15s %s %s\n" "※option" ":" "[-xv]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-15s %s %s\n" "※argument1" ":" "[Target_Shell]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-15s %s %s\n" "※argument2" ":" "[Input_value_storage_variable_name]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    fi
+    echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    printf "##############################################################################################\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        export LC_ALL="ko_KR.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "예상출력결과" ":" "쉘 실행" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "지정된 쉘을 실행" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" "sh ${filePathParam%/}/tmp/${commandItem}/${commandItem}_Test1.sh" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            sh ${filePathParam%/}/tmp/${commandItem}/${commandItem}_Test1.sh >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "예상출력결과" ":" "디버그 모드로 쉘 실행" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "디버그 모드로 실행" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" "sh -x ${filePathParam%/}/tmp/${commandItem}/${commandItem}_Test2.sh" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            sh -x ${filePathParam%/}/tmp/${commandItem}/${commandItem}_Test2.sh >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "예상출력결과" ":" "백그라운드에서 실행" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "백그라운드에서 실행" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" "sh ${filePathParam%/}/tmp/${commandItem}/${commandItem}_Test3.sh &" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            sh ${filePathParam%/}/tmp/${commandItem}/${commandItem}_Test3.sh & >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "예상출력결과" ":" "쉘을 실행 및 쉘 내용 출력" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "쉘을 실행 및 쉘 내용 출력" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" "sh -v ${filePathParam%/}/tmp/${commandItem}/${commandItem}_Test4.sh" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            sh -v ${filePathParam%/}/tmp/${commandItem}/${commandItem}_Test4.sh >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        export LC_ALL="ja_JP.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "サンプル${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "予想出力結果" ":" "指定されたシェルを実行" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "指定されたシェルを実行" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" "sh ${filePathParam%/}/tmp/${commandItem}/${commandItem}_Test1.sh" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            sh ${filePathParam%/}/tmp/${commandItem}/${commandItem}_Test1.sh >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "サンプル${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "予想出力結果" ":" "デバッグモードで実行" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "デバッグモードで実行" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" "sh -x ${filePathParam%/}/tmp/${commandItem}/${commandItem}_Test2.sh" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            sh -x ${filePathParam%/}/tmp/${commandItem}/${commandItem}_Test2.sh >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "サンプル${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "予想出力結果" ":" "バックグラウンドで実行" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "バックグラウンドで実行" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" "sh ${filePathParam%/}/tmp/${commandItem}/${commandItem}_Test3.sh &" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            sh ${filePathParam%/}/tmp/${commandItem}/${commandItem}_Test3.sh & >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "サンプル${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "予想出力結果" ":" "シェルを実行し、シェル内容を出力" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "シェルを実行し、シェル内容を出力" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" "sh -v ${filePathParam%/}/tmp/${commandItem}/${commandItem}_Test4.sh" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            sh -v ${filePathParam%/}/tmp/${commandItem}/${commandItem}_Test4.sh >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    else
+        export LC_ALL="en_US.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "Sample${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "ExpectedOutput" ":" "Run shell" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Run the specified shell" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" "sh ${filePathParam%/}/tmp/${commandItem}/${commandItem}_Test1.sh" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            sh ${filePathParam%/}/tmp/${commandItem}/${commandItem}_Test1.sh >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "Sample${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "ExpectedOutput" ":" "Run in debug mode" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Run in debug mode" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" "sh -x ${filePathParam%/}/tmp/${commandItem}/${commandItem}_Test2.sh" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            sh -x ${filePathParam%/}/tmp/${commandItem}/${commandItem}_Test2.sh >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "Sample${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "ExpectedOutput" ":" "Run in the background" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Run in the background" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" "sh ${filePathParam%/}/tmp/${commandItem}/${commandItem}_Test3.sh &" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            sh ${filePathParam%/}/tmp/${commandItem}/${commandItem}_Test3.sh & >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "Sample${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "ExpectedOutput" ":" "Run shell and output shell content" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Run shell and output shell content" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" "sh -v ${filePathParam%/}/tmp/${commandItem}/${commandItem}_Test4.sh" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            sh -v ${filePathParam%/}/tmp/${commandItem}/${commandItem}_Test4.sh >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    fi
+    echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    printf "##############################################################################################\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+
+    export LC_ALL=${old_LC_ALL}
+    less ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    rm -rf ${filePathParam%/}/tmp/${commandItem}/
+
+    func_basicSetting_LogFileName_Path ${PID} "1" ${commandItem}
+    echo 
+    
+}
+
+#--------------------------------------------#
 # Linux Script Tip List                      #
 #  : Linux Script Tip List                   #
 #  : 리눅스 스크립트 팁 리스트                     #
@@ -21896,6 +22569,9 @@ readonly psJp="現在実行中のプロセスID(PID)、当該プロセスに接�
 readonly pwdEn="Outputs_the_directory_you_are_currently_working_on"
 readonly pwdKr="현재_작업_중인_디렉터리를_출력"
 readonly pwdJp="現在の作業ディレクトリを表示"
+readonly readEn="Commonly_used_to_ask_users_for_input_interactively_or_to_read_input_from_a_file"
+readonly readKr="사용자에게_대화식으로_입력을_요청하거나_파일에서_입력을_읽는데_일반적으로_사용"
+readonly readJp="ユーザーに対話式で入力を要請したり、ファイルから入力を読み取るために一般的に使用"
 readonly rmEn="Use_to_delete_files_or_directories_from_Linux"
 readonly rmKr="리눅스에서_파일이나_디렉터리를_삭제하기_위해_사용"
 readonly rmJp="Linuxでファイルやディレクトリを削除するために使用"
@@ -21905,6 +22581,9 @@ readonly rmdirJp="Linuxで空のディレクトリを削除するために使用
 readonly sedEn="A_powerful_text_editor_that_performs_basic_text_conversion"
 readonly sedKr="기본_텍스트_변환을_수행하는_강력한_텍스트_편집기"
 readonly sedJp="デフォルトのテキスト変換を実行する強力なテキストエディタ"
+readonly shEn="A_shell_interpreter_that_executes_commands_read_from_a_command_line_string,file,_or_standard_input"
+readonly shKr="명령_줄_문자열,파일_또는_표준_입력에서_읽은_명령을_실행하는_쉘_해석기"
+readonly shJp="コマンドライン文字列、ファイル、または標準入力で読み込んだコマンドを実行するシェルアナライザ"
 readonly sleepEn="It_is_commonly_used_in_scripts_or_programs_when_you_want_to_pause_execution_for_a_certain_duration"
 readonly sleepKr="지정된_시간_동안_실행을_지연시키는데_사용됩니다.주로_스크립트나_프로그램에서_일정한_시간_동안_대기하고자_할_때_활용"
 readonly sleepJp="指定された時間の間、実行を遅延させるために使用されます。主にスクリプトやプログラムで一定の時間待機させたい場合に利用"
@@ -21950,10 +22629,10 @@ readonly whoamiJp="現在ログインしているユーザーの名前を表示"
 readonly zipEn="Command_is_used_to_compress_files_and_directories_creating_a_compressed_archive.It_is_primarily_used_to_save_space_by_compressing_files_or_when_transferring_files"
 readonly zipKr="파일_및_디렉터리를_압축하고_압축_파일을_만드는데_사용됩니다.주로_파일을_압축하여_용량을_절약하거나_파일을_전송할_때_활용"
 readonly zipJp="ファイルやディレクトリを圧縮し、圧縮ファイルを作成するのに使用されます。主にファイルを圧縮して容量を節約しファイルを転送する際に利用"
-declare -a commandList=("alias" "cal" "cat" "cd" "chgrp" "chmod" "chown" "clear" "cp" "cut" "date" "dd" "df" "diff" "du" "echo" "egrep" "env" "exit" "export" "expr" "fc" "find" "grep" "gunzip" "gzip" "head" "history" "id" "less" "ln" "ls" "lsof" "man" "mkdir" "more" "mv" "nkf" "paste" "ping" "printf" "ps" "pwd" "rm" "rmdir" "sed" "sleep" "sort" "tail" "tar" "top" "touch" "tr" "umask" "uname" "uniq" "unzip" "uptime" "wc" "whoami" "zip")
-declare -a commandDescriptionEn=("${aliasEn}" "${calEn}" "${catEn}" "${cdEn}" "${chgrpEn}" "${chmodEn}" "${chownEn}" "${clearEn}" "${cpEn}" "${cutEn}" "${dateEn}" "${ddEn}" "${dfEn}" "${diffEn}" "${duEn}" "${echoEn}" "${egrepEn}" "${envEn}" "${exitEn}" "${exportEn}" "${exprEn}" "${fcEn}" "${findEn}" "${grepEn}" "${gunzipEn}" "${gzipEn}" "${headEn}" "${historyEn}" "${idEn}" "${lessEn}" "${lnEn}" "${lsEn}" "${lsofEn}" "${manEn}" "${mkdirEn}" "${moreEn}" "${mvEn}" "${nkfEn}" "${pasteEn}" "${pingEn}" "${printfEn}" "${psEn}" "${pwdEn}" "${rmEn}" "${rmdirEn}" "${sedEn}" "${sleepEn}" "${sortEn}" "${tailEn}" "${tarEn}" "${topEn}" "${touchEn}" "${trEn}" "${umaskEn}" "${unameEn}" "${uniqEn}" "${unzipEn}" "${uptimeEn}" "${wcEn}" "${whoamiEn}" "${zipEn}")
-declare -a commandDescriptionKr=("${aliasKr}" "${calKr}" "${catKr}" "${cdKr}" "${chgrpKr}" "${chmodKr}" "${chownKr}" "${clearKr}" "${cpKr}" "${cutKr}" "${dateKr}" "${ddKr}" "${dfKr}" "${diffKr}" "${duKr}" "${echoKr}" "${egrepKr}" "${envKr}" "${exitKr}" "${exportKr}" "${exprKr}" "${fcKr}" "${findKr}" "${grepKr}" "${gunzipKr}" "${gzipKr}" "${headKr}" "${historyKr}" "${idKr}" "${lessKr}" "${lnKr}" "${lsKr}" "${lsofKr}" "${manKr}" "${mkdirKr}" "${moreKr}" "${mvKr}" "${nkfKr}" "${pasteKr}" "${pingKr}" "${printfKr}" "${psKr}" "${pwdKr}" "${rmKr}" "${rmdirKr}" "${sedKr}" "${sleepKr}" "${sortKr}" "${tailKr}" "${tarKr}" "${topKr}" "${touchKr}" "${trKr}" "${umaskKr}" "${unameKr}" "${uniqKr}" "${unzipKr}" "${uptimeKr}" "${wcKr}" "${whoamiKr}" "${zipKr}")
-declare -a commandDescriptionJp=("${aliasJp}" "${calJp}" "${catJp}" "${cdJp}" "${chgrpJp}" "${chmodJp}" "${chownJp}" "${clearJp}" "${cpJp}" "${cutJp}" "${dateJp}" "${ddJp}" "${dfJp}" "${diffJp}" "${duJp}" "${echoJp}" "${egrepJp}" "${envJp}" "${exitJp}" "${exportJp}" "${exprJp}" "${fcJp}" "${findJp}" "${grepJp}" "${gunzipJp}" "${gzipJp}" "${headJp}" "${historyJp}" "${idJp}" "${lessJp}" "${lnJp}" "${lsJp}" "${lsofJp}" "${manJp}" "${mkdirJp}" "${moreJp}" "${mvJp}" "${nkfJp}" "${pasteJp}" "${pingJp}" "${printfJp}" "${psJp}" "${pwdJp}" "${rmJp}" "${rmdirJp}" "${sedJp}" "${sleepJp}" "${sortJp}" "${tailJp}" "${tarJp}" "${topJp}" "${touchJp}" "${trJp}" "${umaskJp}" "${unameJp}" "${uniqJp}" "${unzipJp}" "${uptimeJp}" "${wcJp}" "${whoamiJp}" "${zipJp}")
+declare -a commandList=("alias" "cal" "cat" "cd" "chgrp" "chmod" "chown" "clear" "cp" "cut" "date" "dd" "df" "diff" "du" "echo" "egrep" "env" "exit" "export" "expr" "fc" "find" "grep" "gunzip" "gzip" "head" "history" "id" "less" "ln" "ls" "lsof" "man" "mkdir" "more" "mv" "nkf" "paste" "ping" "printf" "ps" "pwd" "read" "rm" "rmdir" "sed" "sh" "sleep" "sort" "tail" "tar" "top" "touch" "tr" "umask" "uname" "uniq" "unzip" "uptime" "wc" "whoami" "zip")
+declare -a commandDescriptionEn=("${aliasEn}" "${calEn}" "${catEn}" "${cdEn}" "${chgrpEn}" "${chmodEn}" "${chownEn}" "${clearEn}" "${cpEn}" "${cutEn}" "${dateEn}" "${ddEn}" "${dfEn}" "${diffEn}" "${duEn}" "${echoEn}" "${egrepEn}" "${envEn}" "${exitEn}" "${exportEn}" "${exprEn}" "${fcEn}" "${findEn}" "${grepEn}" "${gunzipEn}" "${gzipEn}" "${headEn}" "${historyEn}" "${idEn}" "${lessEn}" "${lnEn}" "${lsEn}" "${lsofEn}" "${manEn}" "${mkdirEn}" "${moreEn}" "${mvEn}" "${nkfEn}" "${pasteEn}" "${pingEn}" "${printfEn}" "${psEn}" "${pwdEn}" "${readEn}" "${rmEn}" "${rmdirEn}" "${sedEn}" "${shEn}" "${sleepEn}" "${sortEn}" "${tailEn}" "${tarEn}" "${topEn}" "${touchEn}" "${trEn}" "${umaskEn}" "${unameEn}" "${uniqEn}" "${unzipEn}" "${uptimeEn}" "${wcEn}" "${whoamiEn}" "${zipEn}")
+declare -a commandDescriptionKr=("${aliasKr}" "${calKr}" "${catKr}" "${cdKr}" "${chgrpKr}" "${chmodKr}" "${chownKr}" "${clearKr}" "${cpKr}" "${cutKr}" "${dateKr}" "${ddKr}" "${dfKr}" "${diffKr}" "${duKr}" "${echoKr}" "${egrepKr}" "${envKr}" "${exitKr}" "${exportKr}" "${exprKr}" "${fcKr}" "${findKr}" "${grepKr}" "${gunzipKr}" "${gzipKr}" "${headKr}" "${historyKr}" "${idKr}" "${lessKr}" "${lnKr}" "${lsKr}" "${lsofKr}" "${manKr}" "${mkdirKr}" "${moreKr}" "${mvKr}" "${nkfKr}" "${pasteKr}" "${pingKr}" "${printfKr}" "${psKr}" "${pwdKr}" "${readKr}" "${rmKr}" "${rmdirKr}" "${sedKr}" "${shKr}" "${sleepKr}" "${sortKr}" "${tailKr}" "${tarKr}" "${topKr}" "${touchKr}" "${trKr}" "${umaskKr}" "${unameKr}" "${uniqKr}" "${unzipKr}" "${uptimeKr}" "${wcKr}" "${whoamiKr}" "${zipKr}")
+declare -a commandDescriptionJp=("${aliasJp}" "${calJp}" "${catJp}" "${cdJp}" "${chgrpJp}" "${chmodJp}" "${chownJp}" "${clearJp}" "${cpJp}" "${cutJp}" "${dateJp}" "${ddJp}" "${dfJp}" "${diffJp}" "${duJp}" "${echoJp}" "${egrepJp}" "${envJp}" "${exitJp}" "${exportJp}" "${exprJp}" "${fcJp}" "${findJp}" "${grepJp}" "${gunzipJp}" "${gzipJp}" "${headJp}" "${historyJp}" "${idJp}" "${lessJp}" "${lnJp}" "${lsJp}" "${lsofJp}" "${manJp}" "${mkdirJp}" "${moreJp}" "${mvJp}" "${nkfJp}" "${pasteJp}" "${pingJp}" "${printfJp}" "${psJp}" "${pwdJp}" "${readJp}" "${rmJp}" "${rmdirJp}" "${sedJp}" "${shJp}" "${sleepJp}" "${sortJp}" "${tailJp}" "${tarJp}" "${topJp}" "${touchJp}" "${trJp}" "${umaskJp}" "${unameJp}" "${uniqJp}" "${unzipJp}" "${uptimeJp}" "${wcJp}" "${whoamiJp}" "${zipJp}")
 scriptTipList=()
 scriptTipList+=(Loop_for,반복문_for,繰り返し文_for)
 scriptTipList+=(Conditional_case,조건문_case,条件文_case)
@@ -22078,16 +22757,3 @@ done
 
 ### Function Run / 함수 실행 / 関数実行
 func_basicSetting_LogFileName_Path ${PID} "1" 
-
-## What to do when adding a command (ex:gzip)
-## 명령어 추가시 작업 내용 (예:gzip)
-## コマンド追加時の作業内容 (例:gzip)
-#readonly gzipEn="Compress_or_decompress_a_file"
-#readonly gzipKr="파일을_압축하거나_압축_해제"
-#readonly gzipJp="ファイルを圧縮したり解凍する"
-#declare -a commandList=("cat" "expr" "sleep" "gzip")
-#declare -a commandDescriptionEn=("${catEn}" "${exprEn}" "${sleepEn}" "${gzipEn}")
-#declare -a commandDescriptionKr=("${catKr}" "${exprKr}" "${sleepKr}" "${gzipKr}")
-#declare -a commandDescriptionJp=("${catJp}" "${exprJp}" "${sleepJp}" "${gzipJp}")
-#func_linuxCommandExample case 추가
-#func_linuxScriptTipExample 추가
