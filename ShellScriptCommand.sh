@@ -20507,7 +20507,10 @@ function func_linuxScriptTipExample() {
             func_script_break ${ouputLanguageParam} ${filePath} break
             ;;
         6)
-            func_script_continue ${ouputLanguageParam} ${filePath} break
+            func_script_continue ${ouputLanguageParam} ${filePath} continue
+            ;;
+        7)
+            func_script_if ${ouputLanguageParam} ${filePath} if
             ;;
         *)  echo ; 
             if [[ ${ouputLanguageParam} == [kK][rR] ]];then
@@ -20545,6 +20548,8 @@ function func_script_for() {
     echo
     clear
     func_basicSetting_LogFileName_Path ${PID} "0" ${scriptItem}
+    printf "##############################################################################################\n" > ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    printf "  %-16s %s %s\n" "" "" "for" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
     printf "##############################################################################################\n" > ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
     echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
     if [[ ${ouputLanguageParam} == [kK][rR] ]];then
@@ -21010,6 +21015,8 @@ function func_script_case() {
     clear
     func_basicSetting_LogFileName_Path ${PID} "0" ${scriptItem}
     printf "##############################################################################################\n" > ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    printf "  %-16s %s %s\n" "" "" "for" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    printf "##############################################################################################\n" > ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
     echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
     if [[ ${ouputLanguageParam} == [kK][rR] ]];then
         export LC_ALL="ko_KR.UTF-8"
@@ -21193,6 +21200,8 @@ function func_script_while() {
     echo
     clear
     func_basicSetting_LogFileName_Path ${PID} "0" ${scriptItem}
+    printf "##############################################################################################\n" > ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    printf "  %-16s %s %s\n" "" "" "while" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
     printf "##############################################################################################\n" > ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
     echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
     if [[ ${ouputLanguageParam} == [kK][rR] ]];then
@@ -21396,6 +21405,8 @@ function func_script_until() {
     echo
     clear
     func_basicSetting_LogFileName_Path ${PID} "0" ${scriptItem}
+    printf "##############################################################################################\n" > ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    printf "  %-16s %s %s\n" "" "" "until" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
     printf "##############################################################################################\n" > ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
     echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
     if [[ ${ouputLanguageParam} == [kK][rR] ]];then
@@ -21606,6 +21617,8 @@ function func_script_break() {
     clear
     func_basicSetting_LogFileName_Path ${PID} "0" ${scriptItem}
     printf "##############################################################################################\n" > ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    printf "  %-16s %s %s\n" "" "" "break" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    printf "##############################################################################################\n" > ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
     echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
     if [[ ${ouputLanguageParam} == [kK][rR] ]];then
         export LC_ALL="ko_KR.UTF-8"
@@ -21795,7 +21808,6 @@ function func_script_break() {
     
 }
 
-
 #--------------------------------------------#
 # Command : continue                         #
 #--------------------------------------------#
@@ -21815,6 +21827,8 @@ function func_script_continue() {
     echo
     clear
     func_basicSetting_LogFileName_Path ${PID} "0" ${scriptItem}
+    printf "##############################################################################################\n" > ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    printf "  %-16s %s %s\n" "" "" "continue" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
     printf "##############################################################################################\n" > ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
     echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
     if [[ ${ouputLanguageParam} == [kK][rR] ]];then
@@ -22040,6 +22054,778 @@ function func_script_continue() {
     export LC_ALL=${old_LC_ALL}
     less ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
     ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    rm -rf ${filePathParam%/}/tmp/${scriptItem}/
+    
+    func_basicSetting_LogFileName_Path ${PID} "1" ${scriptItem}
+    echo 
+    
+}
+
+#--------------------------------------------#
+# Command : if                               #
+#--------------------------------------------#
+function func_script_if() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### Command / 명령어 / コマンド
+    local scriptItem=$3
+    ### Count / 번호 / 番号 
+    local countNumber=0
+
+    mkdir -p ${filePathParam%/}/tmp/${scriptItem}/directory1/
+    mkdir -p ${filePathParam%/}/tmp/${scriptItem}/directory2/
+    echo "test1" > ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt
+    chmod 777 -R ${filePathParam%/}/tmp/${scriptItem}/directory1/
+    echo "test2" > ${filePathParam%/}/tmp/${scriptItem}/directory2/${scriptItem}_TestFile2.txt
+    chmod 000 -R ${filePathParam%/}/tmp/${scriptItem}/directory2/
+    old_LC_ALL=${LC_ALL}
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${scriptItem}
+    printf "##############################################################################################\n" > ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    printf "  %-16s %s %s\n" "" "" "if" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    printf "##############################################################################################\n" > ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        export LC_ALL="ko_KR.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "예상출력결과" ":" "[]통상적 작성법" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "조건문에 맞는 내용이 출력" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'read -p " Input Number(1,2,3,4,5) or text : " inputNumber' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'if [ ${inputNumber} = "text" ];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    echo " inputNumber is String(${inputNumber}) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'elif [ ${inputNumber} != "text" ];then ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    echo " inputNumber is Number(${inputNumber}) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    if [ ${inputNumber} -lt 3 ];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '        echo " Condition : -lt "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '        echo " ${inputNumber} < 3 "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    if [ ${inputNumber} -le 3 ];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '        echo " Condition : -le "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '        echo " ${inputNumber} <= 3 "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    if [ ${inputNumber} -eq 3 ];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '        echo " Condition : -eq "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '        echo " ${inputNumber} = 3 "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    if [ ${inputNumber} -ge 3 ];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '        echo " Condition : -ge "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '        echo " ${inputNumber} >= 3 "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    if [ ${inputNumber} -gt 3 ];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '        echo " Condition : -gt "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '        echo " ${inputNumber} > 3 "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    if [ ${inputNumber} -ne 3 ];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '        echo " Condition : -ne "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '        echo " ${inputNumber} != 3 "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    if [ ${inputNumber} -eq 3 -o ${inputNumber} -ne 3 ];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '        echo " Condition : -eq -o -ne "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '        echo " ${inputNumber} = 3 or ${inputNumber} != 3 "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    if [ ${inputNumber} -le 3 -a ${inputNumber} -lt 3 ];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '        echo " Condition : -le -a -lt "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '        echo " ${inputNumber} <= 3 or ${inputNumber} < 3 "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'else' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    echo " Input Number(1,2,3,4,5) or text "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        read -p " Input Number(1,2,3,4,5) or text : " inputNumber >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        if [ ${inputNumber} = "text" ];then 
+            echo " inputNumber is String(${inputNumber}) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        elif [ ${inputNumber} != "text" ];then 
+            echo " inputNumber is Number(${inputNumber}) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            if [ ${inputNumber} -lt 3 ];then
+                echo " Condition : -lt " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+                echo " ${inputNumber} < 3 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            fi
+            if [ ${inputNumber} -le 3 ];then
+                echo " Condition : -le " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+                echo " ${inputNumber} <= 3 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            fi
+            if [ ${inputNumber} -eq 3 ];then
+                echo " Condition : -eq " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+                echo " ${inputNumber} = 3 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            fi
+            if [ ${inputNumber} -ge 3 ];then
+                echo " Condition : -ge " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+                echo " ${inputNumber} >= 3 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            fi
+            if [ ${inputNumber} -gt 3 ];then
+                echo " Condition : -gt " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+                echo " ${inputNumber} > 3 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            fi
+            if [ ${inputNumber} -ne 3 ];then
+                echo " Condition : -ne " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+                echo " ${inputNumber} != 3 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            fi
+            if [ ${inputNumber} -eq 3 -o ${inputNumber} -ne 3 ];then
+                echo " Condition : -eq -o -ne " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+                echo " ${inputNumber} = 3 or ${inputNumber} != 3 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            fi
+            if [ ${inputNumber} -le 3 -a ${inputNumber} -lt 3 ];then
+                echo " Condition : -le -a -lt " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+                echo " ${inputNumber} <= 3 and ${inputNumber} < 3 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            fi
+        else
+            echo " Input Number(1,2,3,4,5) or text " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "예상출력결과" ":" "[[]]통상적 작성법" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "조건문에 맞는 내용이 출력" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'if [[] ${inputNumber} = "text" ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    echo " inputNumber is String(${inputNumber}) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'elif [[ ${inputNumber} != "text" ]];then ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    echo " inputNumber is Number(${inputNumber}) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'else' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    echo " Input Number(1,2,3,4,5) or text "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        if [[ ${inputNumber} == "text" ]];then 
+            echo " inputNumber is String(${inputNumber}) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        elif [[ ${inputNumber} != "text" ]];then 
+            echo " inputNumber is Number(${inputNumber}) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        else
+            echo " Input Number(1,2,3,4,5) or text " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "예상출력결과" ":" "한 줄 작성법" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "조건문에 맞는 내용이 출력" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'if [[ ${inputNumber} == "text" ]];then echo " inputNumber is String(${inputNumber}) "; elif [[ ${inputNumber} != "text" ]];then echo " inputNumber is Number(${inputNumber}) "; else echo " Input Number(1,2,3,4,5) or text "; fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        if [[ ${inputNumber} == "text" ]];then echo " inputNumber is String(${inputNumber}) "; elif [[ ${inputNumber} != "text" ]];then echo " inputNumber is Number(${inputNumber}) "; else echo " Input Number(1,2,3,4,5) or text "; fi >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "예상출력결과" ":" "조건 체크 작성법" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "조건문에 맞는 내용이 출력" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'if [[] ${inputNumber} = "text" ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        if [[ -e ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile0.txt ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile0.txt 존재하는 파일 출력(-e) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -e ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt 존재하지 않는 파일 출력안함(-e) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -e ${filePathParam%/}/tmp/${scriptItem}/directory1/ ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/ 존재하는 폴더 출력(-e) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -e ${filePathParam%/}/tmp/${scriptItem}/directory0/ ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory0/ 존재하지 않는 폴더 출력안함(-e) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -f ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt 파일 형식 출력(-f) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -f ${filePathParam%/}/tmp/${scriptItem}/directory1/ ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/ 폴더 형식이라서 출력안함(-f) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -d ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt 파일 형식이라서 출력안함(-d) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -d ${filePathParam%/}/tmp/${scriptItem}/directory1/ ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/ 폴더 형식 출력(-d) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -r ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt 읽기권한이 있어서 출력(-r) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -r ${filePathParam%/}/tmp/${scriptItem}/directory2/${scriptItem}_TestFile2.txt ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory2/${scriptItem}_TestFile2.txt 읽기권한이 없어서 출력안함(-r) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -r ${filePathParam%/}/tmp/${scriptItem}/directory1/ ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/ 읽기권한이 있어서 출력(-r) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -r ${filePathParam%/}/tmp/${scriptItem}/directory2/ ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory2/ 읽기권한이 없어서 출력안함(-r) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -w ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt 쓰기권한이 있어서 출력(-w) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -w ${filePathParam%/}/tmp/${scriptItem}/directory2/${scriptItem}_TestFile2.txt ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory2/${scriptItem}_TestFile2.txt 쓰기권한이 없어서 출력안함(-w) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -w ${filePathParam%/}/tmp/${scriptItem}/directory1/ ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/ 쓰기권한이 있어서 출력(-w) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -w ${filePathParam%/}/tmp/${scriptItem}/directory2/ ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory2/ 쓰기권한이 없어서 출력안함(-w) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -x ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt 실행권한이 있어서 출력(-x) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -x ${filePathParam%/}/tmp/${scriptItem}/directory2/${scriptItem}_TestFile2.txt ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory2/${scriptItem}_TestFile2.txt 실행권한이 없어서 출력안함(-x) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -x ${filePathParam%/}/tmp/${scriptItem}/directory1/ ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/ 실행권한이 없어서 출력안함(-x) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -x ${filePathParam%/}/tmp/${scriptItem}/directory2/ ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory2/ 실행권한이 없어서 출력안함(-x) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        export LC_ALL="ja_JP.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "予想出力結果" ":" "[]通常の使い方" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "条件文に合う内容が出力" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'read -p " Input Number(1,2,3,4,5) or text : " inputNumber' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'if [ ${inputNumber} = "text" ];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    echo " inputNumber is String(${inputNumber}) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'elif [ ${inputNumber} != "text" ];then ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    echo " inputNumber is Number(${inputNumber}) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    if [ ${inputNumber} -lt 3 ];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '        echo " Condition : -lt "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '        echo " ${inputNumber} < 3 "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    if [ ${inputNumber} -le 3 ];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '        echo " Condition : -le "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '        echo " ${inputNumber} <= 3 "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    if [ ${inputNumber} -eq 3 ];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '        echo " Condition : -eq "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '        echo " ${inputNumber} = 3 "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    if [ ${inputNumber} -ge 3 ];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '        echo " Condition : -ge "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '        echo " ${inputNumber} >= 3 "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    if [ ${inputNumber} -gt 3 ];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '        echo " Condition : -gt "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '        echo " ${inputNumber} > 3 "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    if [ ${inputNumber} -ne 3 ];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '        echo " Condition : -ne "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '        echo " ${inputNumber} != 3 "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    if [ ${inputNumber} -eq 3 -o ${inputNumber} -ne 3 ];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '        echo " Condition : -eq -o -ne "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '        echo " ${inputNumber} = 3 or ${inputNumber} != 3 "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    if [ ${inputNumber} -le 3 -a ${inputNumber} -lt 3 ];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '        echo " Condition : -le -a -lt "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '        echo " ${inputNumber} <= 3 or ${inputNumber} < 3 "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'else' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    echo " Input Number(1,2,3,4,5) or text "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            read -p " Input Number(1,2,3,4,5) or text : " inputNumber >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            if [ ${inputNumber} = "text" ];then 
+                echo " inputNumber is String(${inputNumber}) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            elif [ ${inputNumber} != "text" ];then 
+                echo " inputNumber is Number(${inputNumber}) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+                if [ ${inputNumber} -lt 3 ];then
+                    echo " Condition : -lt " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+                    echo " ${inputNumber} < 3 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+                fi
+                if [ ${inputNumber} -le 3 ];then
+                    echo " Condition : -le " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+                    echo " ${inputNumber} <= 3 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+                fi
+                if [ ${inputNumber} -eq 3 ];then
+                    echo " Condition : -eq " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+                    echo " ${inputNumber} = 3 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+                fi
+                if [ ${inputNumber} -ge 3 ];then
+                    echo " Condition : -ge " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+                    echo " ${inputNumber} >= 3 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+                fi
+                if [ ${inputNumber} -gt 3 ];then
+                    echo " Condition : -gt " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+                    echo " ${inputNumber} > 3 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+                fi
+                if [ ${inputNumber} -ne 3 ];then
+                    echo " Condition : -ne " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+                    echo " ${inputNumber} != 3 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+                fi
+                if [ ${inputNumber} -eq 3 -o ${inputNumber} -ne 3 ];then
+                    echo " Condition : -eq -o -ne " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+                    echo " ${inputNumber} = 3 or ${inputNumber} != 3 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+                fi
+                if [ ${inputNumber} -le 3 -a ${inputNumber} -lt 3 ];then
+                    echo " Condition : -le -a -lt " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+                    echo " ${inputNumber} <= 3 and ${inputNumber} < 3 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+                fi
+            else
+                echo " Input Number(1,2,3,4,5) or text " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            fi
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "予想出力結果" ":" "[[]]通常の使い方" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "条件文に合う内容が出力" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'if [[] ${inputNumber} = "text" ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    echo " inputNumber is String(${inputNumber}) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'elif [[ ${inputNumber} != "text" ]];then ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    echo " inputNumber is Number(${inputNumber}) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'else' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    echo " Input Number(1,2,3,4,5) or text "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            if [[ ${inputNumber} == "text" ]];then 
+                echo " inputNumber is String(${inputNumber}) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            elif [[ ${inputNumber} != "text" ]];then 
+                echo " inputNumber is Number(${inputNumber}) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            else
+                echo " Input Number(1,2,3,4,5) or text " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            fi
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "予想出力結果" ":" "一行書き方の使い方" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "条件文に合う内容が出力" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'if [[ ${inputNumber} == "text" ]];then echo " inputNumber is String(${inputNumber}) "; elif [[ ${inputNumber} != "text" ]];then echo " inputNumber is Number(${inputNumber}) "; else echo " Input Number(1,2,3,4,5) or text "; fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            if [[ ${inputNumber} == "text" ]];then echo " inputNumber is String(${inputNumber}) "; elif [[ ${inputNumber} != "text" ]];then echo " inputNumber is Number(${inputNumber}) "; else echo " Input Number(1,2,3,4,5) or text "; fi >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "サンプル${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "予想出力結果" ":" "条件チェックの使い方" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "条件文に合う内容が出力" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'if [[] ${inputNumber} = "text" ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        if [[ -e ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile0.txt ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile0.txt 存在するファイル出力(-e) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -e ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt 存在しないファイルを出力しない(-e) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -e ${filePathParam%/}/tmp/${scriptItem}/directory1/ ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/ 存在するフォルダ出力(-e) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -e ${filePathParam%/}/tmp/${scriptItem}/directory0/ ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory0/ 存在しないフォルダを出力しない(-e) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -f ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt フォルダ形式のため出力(-f) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -f ${filePathParam%/}/tmp/${scriptItem}/directory1/ ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/ フォルダ形式のため出力しない(-f) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -d ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt ファイル形式のため出力しない(-d) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -d ${filePathParam%/}/tmp/${scriptItem}/directory1/ ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/ フォルダ形式出力(-d) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -r ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt 読み取り権限があるので出力(-r) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -r ${filePathParam%/}/tmp/${scriptItem}/directory2/${scriptItem}_TestFile2.txt ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory2/${scriptItem}_TestFile2.txt 読み取り権限がないため出力しない(-r) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -r ${filePathParam%/}/tmp/${scriptItem}/directory1/ ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/ 読み取り権限があるので出力(-r) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -r ${filePathParam%/}/tmp/${scriptItem}/directory2/ ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory2/ 読み取り権限がないため出力しない(-r) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -w ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt 書き込み権限があるので出力(-w) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -w ${filePathParam%/}/tmp/${scriptItem}/directory2/${scriptItem}_TestFile2.txt ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory2/${scriptItem}_TestFile2.txt 書き込み権限がないため出力しない(-w) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -w ${filePathParam%/}/tmp/${scriptItem}/directory1/ ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/ 書き込み権限があるので出力(-w) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -w ${filePathParam%/}/tmp/${scriptItem}/directory2/ ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory2/ 書き込み権限がないため出力しない(-w) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -x ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt 実行権限があるので出力(-x) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -x ${filePathParam%/}/tmp/${scriptItem}/directory2/${scriptItem}_TestFile2.txt ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory2/${scriptItem}_TestFile2.txt 実行権限がないため出力しない(-x) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -x ${filePathParam%/}/tmp/${scriptItem}/directory1/ ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/ 実行権限がないため出力しない(-x) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -x ${filePathParam%/}/tmp/${scriptItem}/directory2/ ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory2/ 実行権限がないため出力しない(-x) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    else
+        export LC_ALL="en_US.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-15s %s %s\n" "ExpectedOutput" ":" "[]Typical Writing Method" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "Outputs content that matches the conditional statement" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'read -p " Input Number(1,2,3,4,5) or text : " inputNumber' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'if [ ${inputNumber} = "text" ];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    echo " inputNumber is String(${inputNumber}) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'elif [ ${inputNumber} != "text" ];then ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    echo " inputNumber is Number(${inputNumber}) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    if [ ${inputNumber} -lt 3 ];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '        echo " Condition : -lt "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '        echo " ${inputNumber} < 3 "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    if [ ${inputNumber} -le 3 ];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '        echo " Condition : -le "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '        echo " ${inputNumber} <= 3 "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    if [ ${inputNumber} -eq 3 ];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '        echo " Condition : -eq "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '        echo " ${inputNumber} = 3 "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    if [ ${inputNumber} -ge 3 ];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '        echo " Condition : -ge "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '        echo " ${inputNumber} >= 3 "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    if [ ${inputNumber} -gt 3 ];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '        echo " Condition : -gt "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '        echo " ${inputNumber} > 3 "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    if [ ${inputNumber} -ne 3 ];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '        echo " Condition : -ne "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '        echo " ${inputNumber} != 3 "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    if [ ${inputNumber} -eq 3 -o ${inputNumber} -ne 3 ];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '        echo " Condition : -eq -o -ne "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '        echo " ${inputNumber} = 3 or ${inputNumber} != 3 "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    if [ ${inputNumber} -le 3 -a ${inputNumber} -lt 3 ];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '        echo " Condition : -le -a -lt "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '        echo " ${inputNumber} <= 3 or ${inputNumber} < 3 "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'else' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    echo " Input Number(1,2,3,4,5) or text "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            read -p " Input Number(1,2,3,4,5) or text : " inputNumber >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            if [ ${inputNumber} = "text" ];then 
+                echo " inputNumber is String(${inputNumber}) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            elif [ ${inputNumber} != "text" ];then 
+                echo " inputNumber is Number(${inputNumber}) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+                if [ ${inputNumber} -lt 3 ];then
+                    echo " Condition : -lt " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+                    echo " ${inputNumber} < 3 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+                fi
+                if [ ${inputNumber} -le 3 ];then
+                    echo " Condition : -le " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+                    echo " ${inputNumber} <= 3 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+                fi
+                if [ ${inputNumber} -eq 3 ];then
+                    echo " Condition : -eq " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+                    echo " ${inputNumber} = 3 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+                fi
+                if [ ${inputNumber} -ge 3 ];then
+                    echo " Condition : -ge " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+                    echo " ${inputNumber} >= 3 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+                fi
+                if [ ${inputNumber} -gt 3 ];then
+                    echo " Condition : -gt " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+                    echo " ${inputNumber} > 3 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+                fi
+                if [ ${inputNumber} -ne 3 ];then
+                    echo " Condition : -ne " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+                    echo " ${inputNumber} != 3 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+                fi
+                if [ ${inputNumber} -eq 3 -o ${inputNumber} -ne 3 ];then
+                    echo " Condition : -eq -o -ne " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+                    echo " ${inputNumber} = 3 or ${inputNumber} != 3 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+                fi
+                if [ ${inputNumber} -le 3 -a ${inputNumber} -lt 3 ];then
+                    echo " Condition : -le -a -lt " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+                    echo " ${inputNumber} <= 3 and ${inputNumber} < 3 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+                fi
+            else
+                echo " Input Number(1,2,3,4,5) or text " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            fi
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-15s %s %s\n" "ExpectedOutput" ":" "[[]]Typical Writing Method" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "Outputs content that matches the conditional statement" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'if [[] ${inputNumber} = "text" ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    echo " inputNumber is String(${inputNumber}) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'elif [[ ${inputNumber} != "text" ]];then ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    echo " inputNumber is Number(${inputNumber}) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'else' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    echo " Input Number(1,2,3,4,5) or text "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            if [[ ${inputNumber} == "text" ]];then 
+                echo " inputNumber is String(${inputNumber}) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            elif [[ ${inputNumber} != "text" ]];then 
+                echo " inputNumber is Number(${inputNumber}) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            else
+                echo " Input Number(1,2,3,4,5) or text " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            fi
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-15s %s %s\n" "ExpectedOutput" ":" "A way of writing in a single line" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "Outputs content that matches the conditional statement" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'if [[ ${inputNumber} == "text" ]];then echo " inputNumber is String(${inputNumber}) "; elif [[ ${inputNumber} != "text" ]];then echo " inputNumber is Number(${inputNumber}) "; else echo " Input Number(1,2,3,4,5) or text "; fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            if [[ ${inputNumber} == "text" ]];then echo " inputNumber is String(${inputNumber}) "; elif [[ ${inputNumber} != "text" ]];then echo " inputNumber is Number(${inputNumber}) "; else echo " Input Number(1,2,3,4,5) or text "; fi >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "예상출력결과" ":" "조건 체크 작성법" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "조건문에 맞는 내용이 출력" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'if [[] ${inputNumber} = "text" ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        if [[ -e ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile0.txt ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile0.txt Existing File Output(-e) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -e ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt Non-existent file, not output(-e) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -e ${filePathParam%/}/tmp/${scriptItem}/directory1/ ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/ Existing Folder Output(-e) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -e ${filePathParam%/}/tmp/${scriptItem}/directory0/ ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory0/ Non-existent Folder, not output(-e) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -f ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt File Type Output(-f) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -f ${filePathParam%/}/tmp/${scriptItem}/directory1/ ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/ Not output because it is in Folder format(-f) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -d ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt Not output because it is in File format(-d) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -d ${filePathParam%/}/tmp/${scriptItem}/directory1/ ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/ Folder Type Output(-d) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -r ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt Output because you have read permissions(-r) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -r ${filePathParam%/}/tmp/${scriptItem}/directory2/${scriptItem}_TestFile2.txt ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory2/${scriptItem}_TestFile2.txt don't print because I don't have permission to read(-r) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -r ${filePathParam%/}/tmp/${scriptItem}/directory1/ ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/ Output because you have read permissions(-r) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -r ${filePathParam%/}/tmp/${scriptItem}/directory2/ ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory2/ don't print because don't have permission to read(-r) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -w ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt Output because you have write permissions(-w) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -w ${filePathParam%/}/tmp/${scriptItem}/directory2/${scriptItem}_TestFile2.txt ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory2/${scriptItem}_TestFile2.txt don't print because don't have permission to write(-w) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -w ${filePathParam%/}/tmp/${scriptItem}/directory1/ ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/ Output because you have write permissions(-w) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -w ${filePathParam%/}/tmp/${scriptItem}/directory2/ ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory2/ don't print because don't have permission to write(-w) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -x ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt Output because you have run permissions(-x) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -x ${filePathParam%/}/tmp/${scriptItem}/directory2/${scriptItem}_TestFile2.txt ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory2/${scriptItem}_TestFile2.txt don't print because don't have permission to run(-x) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -x ${filePathParam%/}/tmp/${scriptItem}/directory1/ ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/ don't print because don't have permission to run(-x) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo
+        if [[ -x ${filePathParam%/}/tmp/${scriptItem}/directory2/ ]];then 
+            echo " ${filePathParam%/}/tmp/${scriptItem}/directory2/ don't print because don't have permission to run(-x) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        fi
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    fi
+    echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    printf "##############################################################################################\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    
+    export LC_ALL=${old_LC_ALL}
+    less ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    chmod 777 ${filePathParam%/}/tmp/${scriptItem}/directory2/
     rm -rf ${filePathParam%/}/tmp/${scriptItem}/
     
     func_basicSetting_LogFileName_Path ${PID} "1" ${scriptItem}
@@ -22638,8 +23424,9 @@ scriptTipList+=(Loop_for,반복문_for,繰り返し文_for)
 scriptTipList+=(Conditional_case,조건문_case,条件文_case)
 scriptTipList+=(Loop_while,반복문_while,繰り返し文_while)
 scriptTipList+=(Loop_until,반복문_until,繰り返し文_until)
-scriptTipList+=(Loop_Stop_break,반복문_정지_break,繰り返し文_停止_break)
-scriptTipList+=(Loop_Stop_continue,반복문_정지_continue,繰り返し文_停止_continue)
+scriptTipList+=(LoopExit_break,반복문종료_break,繰り返し文終了_break)
+scriptTipList+=(LoopStopAndContinue_continue,반복문정지및재개_continue,繰り返し文停止及び再開_continue)
+scriptTipList+=(ConditionalCheck_if,조건문체크_if,条件文チェック_if)
 
 #--------------------------------------------#
 # Script Basic Variable Setting              #
