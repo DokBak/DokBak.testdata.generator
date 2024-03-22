@@ -16,31 +16,31 @@
 #                                                                                 #
 ###################################################################################
 #                                                                                 #
-#  쉘  이름      : 참조 쉘                                                          　#
+#  쉘  이름      : 참조 쉘                                                           #
 #                                                                                 #
-#  작 성 자      : DokBak                                                        　　#
+#  작 성 자      : DokBak                                                           #
 #  작 성 일      : 2024/2/21          신규 작성                                       #
-#  수 정 일      :                                                               　　#
+#  수 정 일      :                                                                  #
 #                                                                                 #
-#  처리 개요      : 쉘 스크립트 작성을 위한 참조 쉘                                       　#
+#  처리 개요      : 쉘 스크립트 작성을 위한 참조 쉘                                         #
 #                                                                                 #
-#  파라미터       :                                                             　　　#
+#  파라미터       :                                                                 #
 #     파라미터1  (옵션) : 명령어                                                       #
-#     파라미터2  (옵션) : 언어                                                       　#
+#     파라미터2  (옵션) : 언어                                                         #
 #                                                                                 #
 ###################################################################################
 #                                                                                 #
 #  スクリプト名    : 参照シェル                                                         #
 #                                                                                 #
-#  作成者        : DokBak                                                        　　#
+#  作成者        : DokBak                                                           #
 #  作成日        : 2024/2/21          新規作成                                        #
-#  修正日        :                                                               　　#
+#  修正日        :                                                                  #
 #                                                                                 #
-#  処理概要      : シェルスクリプト作成に参考できる参照シェル                                 　#
+#  処理概要      : シェルスクリプト作成に参考できる参照シェル                                  #
 #                                                                                 #
-#  パラメータ     :                                                               　　#
+#  パラメータ     :                                                                  #
 #     パラメータ1  (任意) : 言語                                                       #
-#     パラメータ2  (任意) : 命令語                                                   　　#
+#     パラメータ2  (任意) : 命令語                                                     #
 #                                                                                 #
 ###################################################################################
 
@@ -159,6 +159,7 @@ function func_mainMenu() {
             printf "  * %-36s*\n"                       "2. 리눅스 명령어 리스트"
             printf "  * %-36s*\n"                       "3. 스크립트 작성 도움말"
             printf "  *                            *\n"
+            printf "  * %-30s*\n"                       "7. 보조 쉘"
             printf "  * %-33s*\n"                       "8. 편집기 리스트"
             printf "  * %-29s*\n"                       "9. 종료"
             printf "  ******************************\n"
@@ -174,6 +175,7 @@ function func_mainMenu() {
             printf "  * %-39s*\n"                       "2. リナックスコマンドリスト"
             printf "  * %-36s*\n"                       "3. スクリプトのヘルプ"
             printf "  *                            *\n"
+            printf "  * %-33s*\n"                       "7. 手伝いシェル"
             printf "  * %-35s*\n"                       "8. エディターリスト"
             printf "  * %-29s*\n"                       "9. 終了"
             printf "  ******************************\n"
@@ -189,6 +191,7 @@ function func_mainMenu() {
             printf "  * %-27s*\n"                       "2. List of Linux Commands"
             printf "  * %-27s*\n"                       "3. Helping For Script"
             printf "  *                            *\n"
+            printf "  * %-27s*\n"                       "7. Helper Shell"
             printf "  * %-27s*\n"                       "8. List of Editor"
             printf "  * %-27s*\n"                       "9. End"
             printf "  ******************************\n"
@@ -20512,6 +20515,15 @@ function func_linuxScriptTipExample() {
         7)
             func_script_if ${ouputLanguageParam} ${filePath} if
             ;;
+        8)
+            func_script_Calculate_Bracket ${ouputLanguageParam} ${filePath} Calculate_Bracket
+            ;;
+        9)
+            func_script_Quotation_Marks ${ouputLanguageParam} ${filePath} Quotation_Marks
+            ;;
+        10)
+            func_script_Variables_Modifiy ${ouputLanguageParam} ${filePath} Quotation_Marks
+            ;;
         *)  echo ; 
             if [[ ${ouputLanguageParam} == [kK][rR] ]];then
                 echo " 에러 : 스크립트 팁 리스트에 존재하는 번호를 입력해주세요"; 
@@ -20549,8 +20561,10 @@ function func_script_for() {
     clear
     func_basicSetting_LogFileName_Path ${PID} "0" ${scriptItem}
     printf "##############################################################################################\n" > ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
-    printf "  %-16s %s %s\n" "" "" "for" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
-    printf "##############################################################################################\n" > ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    printf "  %-16s %s %s\n" "" "" "${scriptItem}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    printf "##############################################################################################\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
     echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
     if [[ ${ouputLanguageParam} == [kK][rR] ]];then
         export LC_ALL="ko_KR.UTF-8"
@@ -21015,8 +21029,10 @@ function func_script_case() {
     clear
     func_basicSetting_LogFileName_Path ${PID} "0" ${scriptItem}
     printf "##############################################################################################\n" > ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
-    printf "  %-16s %s %s\n" "" "" "for" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
-    printf "##############################################################################################\n" > ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    printf "  %-16s %s %s\n" "" "" "${scriptItem}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    printf "##############################################################################################\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
     echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
     if [[ ${ouputLanguageParam} == [kK][rR] ]];then
         export LC_ALL="ko_KR.UTF-8"
@@ -21201,8 +21217,10 @@ function func_script_while() {
     clear
     func_basicSetting_LogFileName_Path ${PID} "0" ${scriptItem}
     printf "##############################################################################################\n" > ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
-    printf "  %-16s %s %s\n" "" "" "while" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
-    printf "##############################################################################################\n" > ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    printf "  %-16s %s %s\n" "" "" "${scriptItem}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    printf "##############################################################################################\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
     echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
     if [[ ${ouputLanguageParam} == [kK][rR] ]];then
         export LC_ALL="ko_KR.UTF-8"
@@ -21406,8 +21424,10 @@ function func_script_until() {
     clear
     func_basicSetting_LogFileName_Path ${PID} "0" ${scriptItem}
     printf "##############################################################################################\n" > ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
-    printf "  %-16s %s %s\n" "" "" "until" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
-    printf "##############################################################################################\n" > ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    printf "  %-16s %s %s\n" "" "" "${scriptItem}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    printf "##############################################################################################\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
     echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
     if [[ ${ouputLanguageParam} == [kK][rR] ]];then
         export LC_ALL="ko_KR.UTF-8"
@@ -21617,8 +21637,10 @@ function func_script_break() {
     clear
     func_basicSetting_LogFileName_Path ${PID} "0" ${scriptItem}
     printf "##############################################################################################\n" > ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
-    printf "  %-16s %s %s\n" "" "" "break" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
-    printf "##############################################################################################\n" > ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    printf "  %-16s %s %s\n" "" "" "${scriptItem}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    printf "##############################################################################################\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
     echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
     if [[ ${ouputLanguageParam} == [kK][rR] ]];then
         export LC_ALL="ko_KR.UTF-8"
@@ -21828,8 +21850,10 @@ function func_script_continue() {
     clear
     func_basicSetting_LogFileName_Path ${PID} "0" ${scriptItem}
     printf "##############################################################################################\n" > ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
-    printf "  %-16s %s %s\n" "" "" "continue" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
-    printf "##############################################################################################\n" > ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    printf "  %-16s %s %s\n" "" "" "${scriptItem}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    printf "##############################################################################################\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
     echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
     if [[ ${ouputLanguageParam} == [kK][rR] ]];then
         export LC_ALL="ko_KR.UTF-8"
@@ -22086,8 +22110,10 @@ function func_script_if() {
     clear
     func_basicSetting_LogFileName_Path ${PID} "0" ${scriptItem}
     printf "##############################################################################################\n" > ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
-    printf "  %-16s %s %s\n" "" "" "if" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
-    printf "##############################################################################################\n" > ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    printf "  %-16s %s %s\n" "" "" "${scriptItem}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    printf "##############################################################################################\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
     echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
     if [[ ${ouputLanguageParam} == [kK][rR] ]];then
         export LC_ALL="ko_KR.UTF-8"
@@ -22248,7 +22274,85 @@ function func_script_if() {
             echo "조건문에 맞는 내용이 출력" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
-        printf "    %-21s %s %s\n" "사용법" ":" 'if [[] ${inputNumber} = "text" ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'if [[ -e ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile0.txt ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile0.txt Existing File Output(-e) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'if [[ -e ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt Non-existent file, not output(-e) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'if [[ -e ${filePathParam%/}/tmp/${scriptItem}/directory1/ ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/ Existing Folder Output(-e) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'if [[ -e ${filePathParam%/}/tmp/${scriptItem}/directory0/ ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory0/ Non-existent Folder, not output(-e) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'if [[ -f ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt File Type Output(-f)' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'if [[ -f ${filePathParam%/}/tmp/${scriptItem}/directory1/ ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/ Not output because it is in Folder format(-f) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'if [[ -d ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt Not output because it is in File format(-d) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'if [[ -d ${filePathParam%/}/tmp/${scriptItem}/directory1/ ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/ Folder Type Output(-d) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'if [[ -r ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt Output because you have read permissions(-r) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'if [[ -r ${filePathParam%/}/tmp/${scriptItem}/directory2/${scriptItem}_TestFile2.txt ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory2/${scriptItem}_TestFile2.txt don't print because I don't have permission to read(-r) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'if [[ -r ${filePathParam%/}/tmp/${scriptItem}/directory1/ ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/ Output because you have read permissions(-r) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'if [[ -r ${filePathParam%/}/tmp/${scriptItem}/directory2/ ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory2/ don't print because don't have permission to read(-r) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'if [[ -w ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt Output because you have write permissions(-w) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'if [[ -w ${filePathParam%/}/tmp/${scriptItem}/directory2/${scriptItem}_TestFile2.txt ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory2/${scriptItem}_TestFile2.txt don't print because don't have permission to write(-w) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'if [[ -w ${filePathParam%/}/tmp/${scriptItem}/directory1/ ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/ Output because you have write permissions(-w) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'if [[ -w ${filePathParam%/}/tmp/${scriptItem}/directory2/ ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory2/ don't print because don't have permission to write(-w) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'if [[ -x ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt Output because you have run permissions(-x) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'if [[ -x ${filePathParam%/}/tmp/${scriptItem}/directory2/${scriptItem}_TestFile2.txt ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory2/${scriptItem}_TestFile2.txt don't print because don't have permission to run(-x) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'if [[ -x ${filePathParam%/}/tmp/${scriptItem}/directory1/ ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/ don't print because don't have permission to run(-x) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'if [[ -x ${filePathParam%/}/tmp/${scriptItem}/directory2/ ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory2/ don't print because don't have permission to run(-x) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
         echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
         if [[ -e ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile0.txt ]];then 
@@ -22491,7 +22595,85 @@ function func_script_if() {
             echo "条件文に合う内容が出力" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
-        printf "    %-21s %s %s\n" "使い方" ":" 'if [[] ${inputNumber} = "text" ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'if [[ -e ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile0.txt ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile0.txt Existing File Output(-e) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'if [[ -e ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt Non-existent file, not output(-e) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'if [[ -e ${filePathParam%/}/tmp/${scriptItem}/directory1/ ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/ Existing Folder Output(-e) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'if [[ -e ${filePathParam%/}/tmp/${scriptItem}/directory0/ ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory0/ Non-existent Folder, not output(-e) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'if [[ -f ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt File Type Output(-f)' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'if [[ -f ${filePathParam%/}/tmp/${scriptItem}/directory1/ ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/ Not output because it is in Folder format(-f) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'if [[ -d ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt Not output because it is in File format(-d) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'if [[ -d ${filePathParam%/}/tmp/${scriptItem}/directory1/ ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/ Folder Type Output(-d) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'if [[ -r ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt Output because you have read permissions(-r) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'if [[ -r ${filePathParam%/}/tmp/${scriptItem}/directory2/${scriptItem}_TestFile2.txt ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory2/${scriptItem}_TestFile2.txt don't print because I don't have permission to read(-r) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'if [[ -r ${filePathParam%/}/tmp/${scriptItem}/directory1/ ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/ Output because you have read permissions(-r) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'if [[ -r ${filePathParam%/}/tmp/${scriptItem}/directory2/ ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory2/ don't print because don't have permission to read(-r) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'if [[ -w ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt Output because you have write permissions(-w) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'if [[ -w ${filePathParam%/}/tmp/${scriptItem}/directory2/${scriptItem}_TestFile2.txt ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory2/${scriptItem}_TestFile2.txt don't print because don't have permission to write(-w) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'if [[ -w ${filePathParam%/}/tmp/${scriptItem}/directory1/ ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/ Output because you have write permissions(-w) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'if [[ -w ${filePathParam%/}/tmp/${scriptItem}/directory2/ ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory2/ don't print because don't have permission to write(-w) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'if [[ -x ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt Output because you have run permissions(-x) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'if [[ -x ${filePathParam%/}/tmp/${scriptItem}/directory2/${scriptItem}_TestFile2.txt ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory2/${scriptItem}_TestFile2.txt don't print because don't have permission to run(-x) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'if [[ -x ${filePathParam%/}/tmp/${scriptItem}/directory1/ ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/ don't print because don't have permission to run(-x) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'if [[ -x ${filePathParam%/}/tmp/${scriptItem}/directory2/ ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory2/ don't print because don't have permission to run(-x) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
         echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
         if [[ -e ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile0.txt ]];then 
@@ -22726,15 +22908,93 @@ function func_script_if() {
         echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
         countNumber=$((${countNumber}+1))
         printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
-        printf "  %-12s %s %-15s\n" "샘플${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "Sample${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
-        printf "    %-21s %s %s\n" "예상출력결과" ":" "조건 체크 작성법" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "ExpectedOutput" ":" "condition check" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
-            echo "조건문에 맞는 내용이 출력" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "Outputs content that matches the conditional statement" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
-        printf "    %-21s %s %s\n" "사용법" ":" 'if [[] ${inputNumber} = "text" ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'if [[ -e ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile0.txt ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile0.txt Existing File Output(-e) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'if [[ -e ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt Non-existent file, not output(-e) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'if [[ -e ${filePathParam%/}/tmp/${scriptItem}/directory1/ ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/ Existing Folder Output(-e) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'if [[ -e ${filePathParam%/}/tmp/${scriptItem}/directory0/ ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory0/ Non-existent Folder, not output(-e) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'if [[ -f ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt File Type Output(-f)' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'if [[ -f ${filePathParam%/}/tmp/${scriptItem}/directory1/ ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/ Not output because it is in Folder format(-f) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'if [[ -d ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt Not output because it is in File format(-d) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'if [[ -d ${filePathParam%/}/tmp/${scriptItem}/directory1/ ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/ Folder Type Output(-d) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'if [[ -r ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt Output because you have read permissions(-r) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'if [[ -r ${filePathParam%/}/tmp/${scriptItem}/directory2/${scriptItem}_TestFile2.txt ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory2/${scriptItem}_TestFile2.txt don't print because I don't have permission to read(-r) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'if [[ -r ${filePathParam%/}/tmp/${scriptItem}/directory1/ ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/ Output because you have read permissions(-r) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'if [[ -r ${filePathParam%/}/tmp/${scriptItem}/directory2/ ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory2/ don't print because don't have permission to read(-r) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'if [[ -w ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt Output because you have write permissions(-w) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'if [[ -w ${filePathParam%/}/tmp/${scriptItem}/directory2/${scriptItem}_TestFile2.txt ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory2/${scriptItem}_TestFile2.txt don't print because don't have permission to write(-w) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'if [[ -w ${filePathParam%/}/tmp/${scriptItem}/directory1/ ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/ Output because you have write permissions(-w) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'if [[ -w ${filePathParam%/}/tmp/${scriptItem}/directory2/ ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory2/ don't print because don't have permission to write(-w) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'if [[ -x ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile1.txt Output because you have run permissions(-x) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'if [[ -x ${filePathParam%/}/tmp/${scriptItem}/directory2/${scriptItem}_TestFile2.txt ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory2/${scriptItem}_TestFile2.txt don't print because don't have permission to run(-x) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'if [[ -x ${filePathParam%/}/tmp/${scriptItem}/directory1/ ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory1/ don't print because don't have permission to run(-x) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'echo' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'if [[ -x ${filePathParam%/}/tmp/${scriptItem}/directory2/ ]];then' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    echo " ${filePathParam%/}/tmp/${scriptItem}/directory2/ don't print because don't have permission to run(-x) "' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'fi' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
         echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
         if [[ -e ${filePathParam%/}/tmp/${scriptItem}/directory1/${scriptItem}_TestFile0.txt ]];then 
@@ -22826,6 +23086,719 @@ function func_script_if() {
     less ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
     ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
     chmod 777 ${filePathParam%/}/tmp/${scriptItem}/directory2/
+    rm -rf ${filePathParam%/}/tmp/${scriptItem}/
+    
+    func_basicSetting_LogFileName_Path ${PID} "1" ${scriptItem}
+    echo 
+    
+}
+
+#--------------------------------------------#
+# Command : Calculate_Bracket                #
+#--------------------------------------------#
+function func_script_Calculate_Bracket() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### Command / 명령어 / コマンド
+    local scriptItem=$3
+    ### Count / 번호 / 番号 
+    local countNumber=0
+
+    mkdir -p ${filePathParam%/}/tmp/${scriptItem}/
+    old_LC_ALL=${LC_ALL}
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${scriptItem}
+    printf "##############################################################################################\n" > ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    printf "  %-16s %s %s\n" "" "" "${scriptItem} : $(( ))" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    printf "##############################################################################################\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        export LC_ALL="ko_KR.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "예상출력결과" ":" "통상적 작성법" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "Calculate Test(+) : 13" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "Calculate Test(-) : 7" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "Calculate Test(*) : 30" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "Calculate Test(/) : 3" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "Calculate Test(%) : 1" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'Number1=10' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'Number2=3' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'Calculate Test(+) : $(( ${Number1} + ${Number2} ))' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'Calculate Test(-) : $(( ${Number1} - ${Number2} ))' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'Calculate Test(*) : $(( ${Number1} * ${Number2} ))' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'Calculate Test(/) : $(( ${Number1} / ${Number2} ))' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'Calculate Test(%) : $(( ${Number1} % ${Number2} ))' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        Number1=10 >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        Number2=3 >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo "Calculate Test(+) : $(( ${Number1} + ${Number2} ))" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo "Calculate Test(-) : $(( ${Number1} - ${Number2} ))" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo "Calculate Test(*) : $(( ${Number1} * ${Number2} ))" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo "Calculate Test(/) : $(( ${Number1} / ${Number2} ))" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo "Calculate Test(%) : $(( ${Number1} % ${Number2} ))" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        export LC_ALL="ja_JP.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "予想出力結果" ":" "通常の使い方" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "Calculate Test(+) : 13" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "Calculate Test(-) : 7" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "Calculate Test(*) : 30" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "Calculate Test(/) : 3" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "Calculate Test(%) : 1" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'Number1=10' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'Number2=3' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'Calculate Test(+) : $(( ${Number1} + ${Number2} ))' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'Calculate Test(-) : $(( ${Number1} - ${Number2} ))' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'Calculate Test(*) : $(( ${Number1} * ${Number2} ))' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'Calculate Test(/) : $(( ${Number1} / ${Number2} ))' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'Calculate Test(%) : $(( ${Number1} % ${Number2} ))' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            Number1=10 >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            Number2=3 >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "Calculate Test(+) : $(( ${Number1} + ${Number2} ))" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "Calculate Test(-) : $(( ${Number1} - ${Number2} ))" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "Calculate Test(*) : $(( ${Number1} * ${Number2} ))" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "Calculate Test(/) : $(( ${Number1} / ${Number2} ))" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "Calculate Test(%) : $(( ${Number1} % ${Number2} ))" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    else
+        export LC_ALL="en_US.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-15s %s %s\n" "ExpectedOutput" ":" "Typical Writing Method" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "Calculate Test(+) : 13" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "Calculate Test(-) : 7" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "Calculate Test(*) : 30" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "Calculate Test(/) : 3" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "Calculate Test(%) : 1" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'Number1=10' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'Number2=3' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'Calculate Test(+) : $(( ${Number1} + ${Number2} ))' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'Calculate Test(-) : $(( ${Number1} - ${Number2} ))' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'Calculate Test(*) : $(( ${Number1} * ${Number2} ))' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'Calculate Test(/) : $(( ${Number1} / ${Number2} ))' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'Calculate Test(%) : $(( ${Number1} % ${Number2} ))' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            Number1=10 >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            Number2=3 >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "Calculate Test(+) : $(( ${Number1} + ${Number2} ))" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "Calculate Test(-) : $(( ${Number1} - ${Number2} ))" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "Calculate Test(*) : $(( ${Number1} * ${Number2} ))" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "Calculate Test(/) : $(( ${Number1} / ${Number2} ))" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "Calculate Test(%) : $(( ${Number1} % ${Number2} ))" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    fi
+    echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    printf "##############################################################################################\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    
+    export LC_ALL=${old_LC_ALL}
+    less ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    rm -rf ${filePathParam%/}/tmp/${scriptItem}/
+    
+    func_basicSetting_LogFileName_Path ${PID} "1" ${scriptItem}
+    echo 
+    
+}
+
+#--------------------------------------------#
+# Command : Quotation_Marks                  #
+#--------------------------------------------#
+function func_script_Quotation_Marks() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### Command / 명령어 / コマンド
+    local scriptItem=$3
+    ### Count / 번호 / 番号 
+    local countNumber=0
+
+    mkdir -p ${filePathParam%/}/tmp/${scriptItem}/
+    old_LC_ALL=${LC_ALL}
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${scriptItem}
+    printf "##############################################################################################\n" > ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    printf "  %-16s %s %s\n" "" "" "${scriptItem} : '',"",``" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    printf "##############################################################################################\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        export LC_ALL="ko_KR.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "예상출력결과" ":" "통상적 작성법" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo testpwd='${testpwd}' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo testpwd=pwd >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo testpwd="작업패스" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'testpwd=pwd' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'echo testpwd='${testpwd}'' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'echo testpwd="${testpwd}"' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'echo testpwd=`${testpwd}`' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        testpwd=pwd >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo testpwd='${testpwd}' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo testpwd="${testpwd}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo testpwd=`${testpwd}` >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        export LC_ALL="ja_JP.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "予想出力結果" ":" "通常の使い方" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo testpwd='${testpwd}' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo testpwd=pwd >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo testpwd="作業ディレクトリ" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'testpwd=pwd' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'echo testpwd='${testpwd}'' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'echo testpwd="${testpwd}"' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'echo testpwd=`${testpwd}`' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            testpwd=pwd >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo testpwd='${testpwd}' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo testpwd="${testpwd}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo testpwd=`${testpwd}` >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    else
+        export LC_ALL="en_US.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-15s %s %s\n" "ExpectedOutput" ":" "Typical Writing Method" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo testpwd='${testpwd}' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo testpwd=pwd >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo testpwd="WorkingDirectory" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'testpwd=pwd' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'echo testpwd='${testpwd}'' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'echo testpwd="${testpwd}"' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'echo testpwd=`${testpwd}`' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            testpwd=pwd >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo testpwd='${testpwd}' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo testpwd="${testpwd}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo testpwd=`${testpwd}` >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    fi
+    echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    printf "##############################################################################################\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    
+    export LC_ALL=${old_LC_ALL}
+    less ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    rm -rf ${filePathParam%/}/tmp/${scriptItem}/
+    
+    func_basicSetting_LogFileName_Path ${PID} "1" ${scriptItem}
+    echo 
+    
+}
+
+#--------------------------------------------#
+# Command : Variables_Modifiy                #
+#--------------------------------------------#
+function func_script_Variables_Modifiy() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### Command / 명령어 / コマンド
+    local scriptItem=$3
+    ### Count / 번호 / 番号 
+    local countNumber=0
+
+    mkdir -p ${filePathParam%/}/tmp/${scriptItem}/
+    old_LC_ALL=${LC_ALL}
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${scriptItem}
+    printf "##############################################################################################\n" > ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    printf "  %-16s %s %s\n" "" "" "${scriptItem} : '',"",``" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    printf "##############################################################################################\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        export LC_ALL="ko_KR.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "예상출력결과" ":" "통상적 작성법" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '[Variable] : 원본 값 ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern} : AAABBBCACCBBDDAATT ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern2} : TestingtDataCutTestingtaCut ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${#VarPattern} : 18 ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${#VarPattern2} : 27 ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern%B*A} : AAABBBCACCBBDDAATT ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern%B*} : AAABBBCACCB ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern2%i*t} : TestingtDataCutTest ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern2%i*} : TestingtDataCutTest ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern%%B*A} : AAABBBCACCBBDDAATT ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern%%B*} : AAA ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern2%%i*t} : Test ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern2%%i*} : Test ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern#A*B} : BBCACCBBDDAATT' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern#*B} : BBCACCBBDDAATT' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern2#T*i} : ngtDataCutTestingtaCut' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern2#*i} : ngtDataCutTestingtaCut' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern##A*B} : DDAATT' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern##A*B} : DDAATT' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern2##T*i} : ngtaCut' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern2##T*i} : ngtaCut' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNotNull:-Test1} : TestNotNull ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNull:-Test1} : Test1 ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNotNull} : TestNotNull ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNull} :  ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNotNull:=Test1} : TestNotNull ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNull:=Test1} : Test1 ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNotNull} : TestNotNull ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNull} : Test1 ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNotNull:+Test1} : Test1 ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNull:+Test1} :  ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNotNull} : TestNotNull ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNull} :  ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNotNull:6} : tNull ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNull:6} :  ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNotNull} : TestNotNull ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNull} :  ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNotNull:6:2} : tNu ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNull:6:2} :  ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNotNull} : TestNotNull ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNull} :  ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNotNull:?Test1} : TestNotNull ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            VarPattern=AAABBBCACCBBDDAATT
+            VarPattern2=TestingtDataCutTestingtaCut
+            VarNotNull=TestNotNull
+            VarNull=
+            echo " [Variable] : 원본 값 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern} : ${VarPattern} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern2} : ${VarPattern2} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [#Variable] : 변수의 문자수 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${#VarPattern} : ${#VarPattern} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${#VarPattern2} : ${#VarPattern2} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [%pattern] : 끝점을 포함하여 가장 짧게 일치하는 패턴 삭제 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern%B*A} : ${VarPattern%B*A} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern%B*} : ${VarPattern%B*} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern2%i*t} : ${VarPattern2%i*t} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern2%i*} : ${VarPattern2%i*} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [%%pattern] : 끝점을 포함하여 가장 길게 일치하는 패턴 삭제 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern%%B*A} : ${VarPattern%%B*A} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern%%B*} : ${VarPattern%%B*} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern2%%i*t} : ${VarPattern2%%i*t} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern2%%i*} : ${VarPattern2%%i*} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [#pattern] : 시작점을 포함한 가장 짧은 일치하는 패턴 삭제 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern#A*B} : ${VarPattern#A*B}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern#*B} : ${VarPattern#*B}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern2#T*i} : ${VarPattern2#T*i}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern2#*i} : ${VarPattern2#*i}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [##pattern] : 시작점을 포함한 가장 길게 일치하는 패턴 삭제 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern##A*B} : ${VarPattern##A*B}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern##A*B} : ${VarPattern##*B}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern2##T*i} : ${VarPattern2##T*i}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern2##T*i} : ${VarPattern2##*i}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [:-Word] : 변수가 null이 아니면 변수 값을 그대로 사용 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [:-Word] : 변수가 null이면 [Word]로 대체(일시적) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarNotNull:-Test1} : ${VarNotNull:-Test1} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarNull:-Test1} : ${VarNull:-Test1} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarNotNull} : ${VarNotNull} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarNull} : ${VarNull} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [:=Word] : 변수가 null이 아니면 변수 값을 그대로 사용 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [:=Word] : 변수가 null이면 [Word]로 대체(영구적) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarNotNull:=Test1} : ${VarNotNull:=Test1} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarNull:=Test1} : ${VarNull:=Test1} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarNotNull} : ${VarNotNull} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarNull} : ${VarNull} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            VarNull=
+            echo " [:+Word] : 변수가 null이 아닌 경우 [Word]로 대체 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [:+Word] : 변수가 null이면 아무것도 하지 않음 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarNotNull:+Test1} : ${VarNotNull:+Test1} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarNull:+Test1} : ${VarNull:+Test1} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarNotNull} : ${VarNotNull} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarNull} : ${VarNull} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [:offset] : 왼쪽에서 [offset] 숫자로 변수 값을 오프셋하여 출력 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarNotNull:6} : ${VarNotNull:6} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarNotNull} : ${VarNotNull} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [:offset:length] : 왼쪽에서 [offset] 숫자로 변수 값 오프셋을 설정하고 [length]로 출력 "
+            echo " \${VarNotNull:6:2} : ${VarNotNull:6:3} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarNotNull} : ${VarNotNull} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [:?Word] : 변수가 null이 아니면 변수 값이 사용되고, 변수가 null이면 변수 값이 사용 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [:?Word] : 셸은 오류 출력 후에 종료 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarNotNull:?Test1} : ${VarNotNull:?Test1} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo ' \${VarNull:?Test1} : ${VarNull:?Test1} ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        export LC_ALL="ja_JP.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "予想出力結果" ":" "通常の使い方" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern} : AAABBBCACCBBDDAATT ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern2} : TestingtDataCutTestingtaCut ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${#VarPattern} : 18 ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${#VarPattern2} : 27 ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern%B*A} : AAABBBCACCBBDDAATT ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern%B*} : AAABBBCACCB ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern2%i*t} : TestingtDataCutTest ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern2%i*} : TestingtDataCutTest ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern%%B*A} : AAABBBCACCBBDDAATT ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern%%B*} : AAA ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern2%%i*t} : Test ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern2%%i*} : Test ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern#A*B} : BBCACCBBDDAATT' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern#*B} : BBCACCBBDDAATT' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern2#T*i} : ngtDataCutTestingtaCut' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern2#*i} : ngtDataCutTestingtaCut' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern##A*B} : DDAATT' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern##A*B} : DDAATT' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern2##T*i} : ngtaCut' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern2##T*i} : ngtaCut' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNotNull:-Test1} : TestNotNull ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNull:-Test1} : Test1 ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNotNull} : TestNotNull ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNull} :  ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNotNull:=Test1} : TestNotNull ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNull:=Test1} : Test1 ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNotNull} : TestNotNull ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNull} : Test1 ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNotNull:+Test1} : Test1 ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNull:+Test1} :  ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNotNull} : TestNotNull ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNull} :  ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNotNull:6} : tNull ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNull:6} :  ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNotNull} : TestNotNull ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNull} :  ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNotNull:6:2} : tNu ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNull:6:2} :  ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNotNull} : TestNotNull ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNull} :  ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNotNull:?Test1} : TestNotNull ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            VarPattern=AAABBBCACCBBDDAATT
+            VarPattern2=TestingtDataCutTestingtaCut
+            VarNotNull=TestNotNull
+            VarNull=
+            echo " [Variable] : 原本の値 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern} : ${VarPattern} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern2} : ${VarPattern2} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [#Variable] : 変数の文字数 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${#VarPattern} : ${#VarPattern} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${#VarPattern2} : ${#VarPattern2} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [%pattern] : 終点を含めて最も短く一致するパターンを削除 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern%B*A} : ${VarPattern%B*A} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern%B*} : ${VarPattern%B*} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern2%i*t} : ${VarPattern2%i*t} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern2%i*} : ${VarPattern2%i*} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [%%pattern] : 終点を含めて最も長く一致するパターンを削除 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern%%B*A} : ${VarPattern%%B*A} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern%%B*} : ${VarPattern%%B*} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern2%%i*t} : ${VarPattern2%%i*t} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern2%%i*} : ${VarPattern2%%i*} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [#pattern] : 始点を含む最も短い一致するパターンを削除 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern#A*B} : ${VarPattern#A*B}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern#*B} : ${VarPattern#*B}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern2#T*i} : ${VarPattern2#T*i}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern2#*i} : ${VarPattern2#*i}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [##pattern] : 始点を含む最も長く一致するパターンを削除 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern##A*B} : ${VarPattern##A*B}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern##A*B} : ${VarPattern##*B}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern2##T*i} : ${VarPattern2##T*i}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern2##T*i} : ${VarPattern2##*i}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [:-Word] : 変数がnullでなければ変数値をそのまま使用 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [:-Word] : 変数がnullの場合は[Word]に置き換える(臨時的) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarNotNull:-Test1} : ${VarNotNull:-Test1} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarNull:-Test1} : ${VarNull:-Test1} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarNotNull} : ${VarNotNull} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarNull} : ${VarNull} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [:=Word] : 変数がnullでなければ変数値をそのまま使用 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [:=Word] : 変数がnullの場合は[Word]に置き換える(永久的) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarNotNull:=Test1} : ${VarNotNull:=Test1} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarNull:=Test1} : ${VarNull:=Test1} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarNotNull} : ${VarNotNull} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarNull} : ${VarNull} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            VarNull=
+            echo " [:+Word] : 変数がnullでない場合は、[Word]に置き換える " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [:+Word] : 変数がnullなら何もしない " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarNotNull:+Test1} : ${VarNotNull:+Test1} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarNull:+Test1} : ${VarNull:+Test1} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarNotNull} : ${VarNotNull} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarNull} : ${VarNull} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [:offset] : 左側から[offset]の数字で変数値をオフセットして出力 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarNotNull:6} : ${VarNotNull:6} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarNotNull} : ${VarNotNull} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [:offset:length] : 左側で[offset]の数字で変数値オフセットを設定し、[length]で出力 "
+            echo " \${VarNotNull:6:2} : ${VarNotNull:6:3} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarNotNull} : ${VarNotNull} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [:?Word] : 変数がnullでなければ変数値が使用され、変数がnullであれば変数値が使用 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [:?Word] : シェルはエラー出力後に終了 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarNotNull:?Test1} : ${VarNotNull:?Test1} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo ' \${VarNull:?Test1} : ${VarNull:?Test1} ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    else
+        export LC_ALL="en_US.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-15s %s %s\n" "ExpectedOutput" ":" "Typical Writing Method" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '[Variable] : 원본 값 ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern} : AAABBBCACCBBDDAATT ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern2} : TestingtDataCutTestingtaCut ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${#VarPattern} : 18 ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${#VarPattern2} : 27 ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern%B*A} : AAABBBCACCBBDDAATT ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern%B*} : AAABBBCACCB ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern2%i*t} : TestingtDataCutTest ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern2%i*} : TestingtDataCutTest ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern%%B*A} : AAABBBCACCBBDDAATT ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern%%B*} : AAA ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern2%%i*t} : Test ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern2%%i*} : Test ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern#A*B} : BBCACCBBDDAATT' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern#*B} : BBCACCBBDDAATT' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern2#T*i} : ngtDataCutTestingtaCut' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern2#*i} : ngtDataCutTestingtaCut' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern##A*B} : DDAATT' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern##A*B} : DDAATT' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern2##T*i} : ngtaCut' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarPattern2##T*i} : ngtaCut' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNotNull:-Test1} : TestNotNull ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNull:-Test1} : Test1 ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNotNull} : TestNotNull ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNull} :  ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNotNull:=Test1} : TestNotNull ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNull:=Test1} : Test1 ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNotNull} : TestNotNull ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNull} : Test1 ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNotNull:+Test1} : Test1 ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNull:+Test1} :  ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNotNull} : TestNotNull ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNull} :  ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNotNull:6} : tNull ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNull:6} :  ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNotNull} : TestNotNull ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNull} :  ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNotNull:6:2} : tNu ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNull:6:2} :  ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNotNull} : TestNotNull ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNull} :  ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo '${VarNotNull:?Test1} : TestNotNull ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            VarPattern=AAABBBCACCBBDDAATT
+            VarPattern2=TestingtDataCutTestingtaCut
+            VarNotNull=TestNotNull
+            VarNull=
+            echo " [Variable] : Original value " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern} : ${VarPattern} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern2} : ${VarPattern2} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [#Variable] : Number of characters in a variable " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${#VarPattern} : ${#VarPattern} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${#VarPattern2} : ${#VarPattern2} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [%pattern] : Delete the shortest matching pattern, including end points " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern%B*A} : ${VarPattern%B*A} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern%B*} : ${VarPattern%B*} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern2%i*t} : ${VarPattern2%i*t} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern2%i*} : ${VarPattern2%i*} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [%%pattern] : Delete the longest matching pattern, including end points " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern%%B*A} : ${VarPattern%%B*A} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern%%B*} : ${VarPattern%%B*} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern2%%i*t} : ${VarPattern2%%i*t} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern2%%i*} : ${VarPattern2%%i*} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [#pattern] : Delete the shortest matching pattern including the starting point " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern#A*B} : ${VarPattern#A*B}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern#*B} : ${VarPattern#*B}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern2#T*i} : ${VarPattern2#T*i}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern2#*i} : ${VarPattern2#*i}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [##pattern] : Delete the longest matching pattern including the starting point " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern##A*B} : ${VarPattern##A*B}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern##A*B} : ${VarPattern##*B}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern2##T*i} : ${VarPattern2##T*i}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarPattern2##T*i} : ${VarPattern2##*i}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [:-Word] : Use variable values as they are if the variable is not null " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [:-Word] : Replace with [Word] if the variable is null " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarNotNull:-Test1} : ${VarNotNull:-Test1} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarNull:-Test1} : ${VarNull:-Test1} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarNotNull} : ${VarNotNull} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarNull} : ${VarNull} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [:=Word] : Use variable values as they are if the variable is not null " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [:=Word] : Replace with [Word] if the variable is null " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarNotNull:=Test1} : ${VarNotNull:=Test1} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarNull:=Test1} : ${VarNull:=Test1} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarNotNull} : ${VarNotNull} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarNull} : ${VarNull} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            VarNull=
+            echo " [:+Word] : Replace with [Word] if the variable is not null " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [:+Word] : Do nothing if the variable is null " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarNotNull:+Test1} : ${VarNotNull:+Test1} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarNull:+Test1} : ${VarNull:+Test1} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarNotNull} : ${VarNotNull} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarNull} : ${VarNull} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [:offset] : Outputs variable values offset by [offset] numbers from the left " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarNotNull:6} : ${VarNotNull:6} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarNotNull} : ${VarNotNull} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [:offset:length] : Set a variable value offset from the left to the [offset] number and output to [length] "
+            echo " \${VarNotNull:6:2} : ${VarNotNull:6:3} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarNotNull} : ${VarNotNull} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [:?Word] : If the variable is not null, the variable value is used; if the variable is null, the variable value is used " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [:?Word] : Shell shuts down after error output " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " \${VarNotNull:?Test1} : ${VarNotNull:?Test1} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo ' \${VarNull:?Test1} : ${VarNull:?Test1} ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    fi
+    echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    printf "##############################################################################################\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    
+    export LC_ALL=${old_LC_ALL}
+    less ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
     rm -rf ${filePathParam%/}/tmp/${scriptItem}/
     
     func_basicSetting_LogFileName_Path ${PID} "1" ${scriptItem}
@@ -23427,6 +24400,9 @@ scriptTipList+=(Loop_until,반복문_until,繰り返し文_until)
 scriptTipList+=(LoopExit_break,반복문종료_break,繰り返し文終了_break)
 scriptTipList+=(LoopStopAndContinue_continue,반복문정지및재개_continue,繰り返し文停止及び再開_continue)
 scriptTipList+=(ConditionalCheck_if,조건문체크_if,条件文チェック_if)
+scriptTipList+=(Calculate_\(\),계산_\(\),計算_\(\))
+scriptTipList+=(Quotation_Marks_\"\"_\'\'_\`\`,따옴표_\"\"_\'\'_\`\`,クウォウテイション_\"\"_\'\'_\`\`)
+scriptTipList+=(Variables_Modifiy,변수편집,変数編集)
 
 #--------------------------------------------#
 # Script Basic Variable Setting              #
@@ -23527,7 +24503,9 @@ do
 
             func_linuxScriptTipExample ${ouputLanguage} ${filePath} ${searchScriptTipIndex}
         done
-        
+    elif [[ ${selectMenu} == 7 ]];then
+        clear
+        ### Function Run / 함수 실행 / 関数実行
     elif [[ ${selectMenu} == 8 ]];then
         clear
         ### Function Run / 함수 실행 / 関数実行
