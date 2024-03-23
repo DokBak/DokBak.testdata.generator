@@ -207,6 +207,8 @@ function func_mainMenu() {
             break
         elif [[ ${selectMenu} == 3 ]]; then
             break
+        elif [[ ${selectMenu} == 7 ]]; then
+            break
         elif [[ ${selectMenu} == 8 ]]; then
             break
         elif [[ ${selectMenu} == 9 ]]; then
@@ -215,13 +217,13 @@ function func_mainMenu() {
             clear
             if [[ ${languageParam} == [kK][rR] ]]; then
                 echo
-                printf "%s\n" "### 선택 가능한 메뉴(번호) : 1, 2, 3, 8, 9 ###"
+                printf "%s\n" "### 선택 가능한 메뉴(번호) : 1, 2, 3, 7, 8, 9 ###"
             elif [[ ${languageParam} == [jJ][pP] ]]; then
                 echo
-                printf "%s\n" "### 選択可能なメニュー(番号) : 1, 2, 3, 8, 9 ###"
+                printf "%s\n" "### 選択可能なメニュー(番号) : 1, 2, 3, 7, 8, 9 ###"
             else
                 echo
-                printf "%s\n" "### Selectable menu (number): 1, 2, 3, 8, 9 ###"
+                printf "%s\n" "### Selectable menu (number): 1, 2, 3, 7, 8, 9 ###"
             fi
         fi
     done
@@ -788,6 +790,21 @@ function func_linuxCommandExample() {
             ;;
         sh)
             func_command_sh ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
+            ;;
+        shift)
+            func_command_shift ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
+            ;;
+        readonly)
+            func_command_readonly ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
+            ;;
+        declare)
+            func_command_declare ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
+            ;;
+        rename)
+            func_command_rename ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
+            ;;
+        awk)
+            func_command_awk ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
             ;;
         *)  echo ; 
             if [[ ${ouputLanguageParam} == [kK][rR] ]];then
@@ -20151,7 +20168,6 @@ function func_command_sh() {
     echo '#!/bin/sh ' > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_Test4.sh
     echo 'echo "testshell"' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_Test4.sh
     echo 'for forIndex in {1..1000}; do echo "forIndex=${forIndex}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_Test4.txt; done' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_Test4.sh
-
     old_LC_ALL=${LC_ALL}
     echo
     clear
@@ -20423,6 +20439,1738 @@ function func_command_sh() {
 }
 
 #--------------------------------------------#
+# Command : shift                            #
+#--------------------------------------------#
+function func_command_shift() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### English Command Description Parameter / 영어 명령어 설명 파라미터 / 英語コマンド説明パラメータ
+    local commandDescriptionEnParam=$3
+    ### Korean Command Description Parameter / 한국어 명령어 설명 파라미터 / 韓国語コマンド説明パラメータ
+    local commandDescriptionKrParam=$4
+    ### Japense Command Description Parameter / 일본어 명령어 설명 파라미터 / 日本語コマンド説明パラメータ
+    local commandDescriptionJpParam=$5
+    ### Command / 명령어 / コマンド
+    local commandItem=$6
+    ### Count / 번호 / 番号 
+    local countNumber=0
+
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/
+    old_LC_ALL=${LC_ALL}
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${commandItem}
+    printf "##############################################################################################\n" > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        printf "  %-16s %s %s\n" "명령어" ":" "${commandItem}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-17s %s %s\n" "기본설명" ":" "${commandDescriptionKrParam}" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-18s %s %s\n" "※사용법" ":" "${commandItem}_[인수]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-17s %s %s\n" "※인수" ":" "[이동수]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        printf "  %-17s %s %s\n" "コマンド" ":" "${commandItem}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-17s %s %s\n" "基本説明" ":" "${commandDescriptionJpParam}" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}_[引数]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-17s %s %s\n" "※引数" ":" "[移動数]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    else
+        printf "  %-13s %s %s\n" "Command" ":" "${commandItem}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_[argument]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-15s %s %s\n" "※argument" ":" "[Move_Count]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    fi
+    echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    printf "##############################################################################################\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        export LC_ALL="ko_KR.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "예상출력결과" ":" "파라미터 이동" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Kor Jap Usa Eng" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Kor Jap Usa" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Kor" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" "shift" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" "shift 2" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            set Kor Jap Usa Eng
+            echo "파라미터 갯수 : $#, 파라미터 : $* " >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            shift
+            echo "파라미터 갯수 : $#, 파라미터 : $* " >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            shift 2
+            echo "파라미터 갯수 : $#, 파라미터 : $* " >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        export LC_ALL="ja_JP.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "サンプル${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "予想出力結果" ":" "パラメータ移動" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Kor Jap Usa Eng" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Kor Jap Usa" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Kor" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" "shift" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" "shift 2" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            set Kor Jap Usa Eng
+            echo "パラメータ数 : $#, パラメータ : $* " >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            shift
+            echo "パラメータ数 : $#, パラメータ : $* " >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            shift 2
+            echo "パラメータ数 : $#, パラメータ : $* " >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    else
+        export LC_ALL="en_US.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "Sample${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "ExpectedOutput" ":" "Parameter Move" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Kor Jap Usa Eng" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Kor Jap Usa" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Kor" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" "shift" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" "shift 2" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            set Kor Jap Usa Eng
+            echo "Parameter Count : $#, Parameter : $* " >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            shift
+            echo "Parameter Count : $#, Parameter : $* " >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            shift 2
+            echo "Parameter Count : $#, Parameter : $* " >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    fi
+    echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    printf "##############################################################################################\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+
+    export LC_ALL=${old_LC_ALL}
+    less ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    rm -rf ${filePathParam%/}/tmp/${commandItem}/
+
+    func_basicSetting_LogFileName_Path ${PID} "1" ${commandItem}
+    echo 
+    
+}
+
+#--------------------------------------------#
+# Command : readonly                         #
+#--------------------------------------------#
+function func_command_readonly() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### English Command Description Parameter / 영어 명령어 설명 파라미터 / 英語コマンド説明パラメータ
+    local commandDescriptionEnParam=$3
+    ### Korean Command Description Parameter / 한국어 명령어 설명 파라미터 / 韓国語コマンド説明パラメータ
+    local commandDescriptionKrParam=$4
+    ### Japense Command Description Parameter / 일본어 명령어 설명 파라미터 / 日本語コマンド説明パラメータ
+    local commandDescriptionJpParam=$5
+    ### Command / 명령어 / コマンド
+    local commandItem=$6
+    ### Count / 번호 / 番号 
+    local countNumber=0
+
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/
+    old_LC_ALL=${LC_ALL}
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${commandItem}
+    printf "##############################################################################################\n" > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        printf "  %-16s %s %s\n" "명령어" ":" "${commandItem}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-17s %s %s\n" "기본설명" ":" "${commandDescriptionKrParam}" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-18s %s %s\n" "※사용법" ":" "${commandItem}_[인수]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-17s %s %s\n" "※인수" ":" "[선언변수]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        printf "  %-17s %s %s\n" "コマンド" ":" "${commandItem}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-17s %s %s\n" "基本説明" ":" "${commandDescriptionJpParam}" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}_[引数]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-17s %s %s\n" "※引数" ":" "[宣言変数]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    else
+        printf "  %-13s %s %s\n" "Command" ":" "${commandItem}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_[argument]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-15s %s %s\n" "※argument" ":" "[Declaration_Variables]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    fi
+    echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    printf "##############################################################################################\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        export LC_ALL="ko_KR.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "예상출력결과" ":" "읽기 전용 변수를 선언" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "readonlyTest=test" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" "readonly readonlyTest=test" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            readonly readonlyTest=test
+            echo "readonlyTest=${readonlyTest}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        export LC_ALL="ja_JP.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "サンプル${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "予想出力結果" ":" "読み取り専用変数を宣言" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "readonlyTest=test" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" "readonly readonlyTest=test" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            readonly readonlyTest=test
+            echo "readonlyTest=${readonlyTest}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    else
+        export LC_ALL="en_US.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "Sample${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "ExpectedOutput" ":" "Declare read-only variables" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "readonlyTest=test" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" "readonly readonlyTest=test" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            readonly readonlyTest=test
+            echo "readonlyTest=${readonlyTest}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    fi
+    echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    printf "##############################################################################################\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+
+    export LC_ALL=${old_LC_ALL}
+    less ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    rm -rf ${filePathParam%/}/tmp/${commandItem}/
+
+    func_basicSetting_LogFileName_Path ${PID} "1" ${commandItem}
+    echo 
+    
+}
+
+#--------------------------------------------#
+# Command : declare                          #
+#--------------------------------------------#
+function func_command_declare() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### English Command Description Parameter / 영어 명령어 설명 파라미터 / 英語コマンド説明パラメータ
+    local commandDescriptionEnParam=$3
+    ### Korean Command Description Parameter / 한국어 명령어 설명 파라미터 / 韓国語コマンド説明パラメータ
+    local commandDescriptionKrParam=$4
+    ### Japense Command Description Parameter / 일본어 명령어 설명 파라미터 / 日本語コマンド説明パラメータ
+    local commandDescriptionJpParam=$5
+    ### Command / 명령어 / コマンド
+    local commandItem=$6
+    ### Count / 번호 / 番号 
+    local countNumber=0
+
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/
+    old_LC_ALL=${LC_ALL}
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${commandItem}
+    printf "##############################################################################################\n" > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        printf "  %-16s %s %s\n" "명령어" ":" "${commandItem}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-17s %s %s\n" "기본설명" ":" "${commandDescriptionKrParam}" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-18s %s %s\n" "※사용법" ":" "${commandItem}_[옵션]_[인수]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-17s %s %s\n" "※옵션" ":" "[-pxraiFf]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-17s %s %s\n" "※인수" ":" "[선언변수]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        printf "  %-17s %s %s\n" "コマンド" ":" "${commandItem}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-17s %s %s\n" "基本説明" ":" "${commandDescriptionJpParam}" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}_[オプション]_[引数]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-20s %s %s\n" "※オプション" ":" "[-pxraiFf]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-17s %s %s\n" "※引数" ":" "[宣言変数]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    else
+        printf "  %-13s %s %s\n" "Command" ":" "${commandItem}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_[option]_[argument]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-15s %s %s\n" "※option" ":" "[-pxraiFf]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-15s %s %s\n" "※argument" ":" "[Declaration_Variables]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    fi
+    echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    printf "##############################################################################################\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        export LC_ALL="ko_KR.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "예상출력결과" ":" "글로벌 변수를 모두 출력" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "글로벌 변수를 모두 출력" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" "declare" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" "declare -p" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            declare >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "예상출력결과" ":" "글로벌 변수 선언" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "글로벌 변수 선언" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" "declare -x globalVariablex=declareVari" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            declare -x globalVariablex=declareVari >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "globalVariablex=${globalVariablex}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "예상출력결과" ":" "읽기전용 변수 선언" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "읽기전용 변수 선언" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" "declare -r globalVariabler=declareVari" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            declare -r globalVariabler=declareVari >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "globalVariabler=${globalVariabler}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "예상출력결과" ":" "배열 변수 선언" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "배열 변수 선언" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" "declare -a globalVariablea=(declareVari1 declareVari2)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            declare -a globalVariablea=(declareVari1 declareVari2) >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "globalVariablea[0]=${globalVariablea[0]}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "globalVariablea[1]=${globalVariablea[1]}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "globalVariablea[@]=${globalVariablea[@]}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "예상출력결과" ":" "뉴메릭(numeric) 변수 선언(문자값을 받을 경우 0이 할당됨)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "뉴메릭(numeric) 변수 선언(문자값을 받을 경우 0이 할당됨)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" "declare -i globalVariablei=12" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" "declare -i globalVariablei='test'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            declare -i globalVariablei=12 >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "globalVariablei=${globalVariablei}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            declare -i globalVariablei='test' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "globalVariablei=${globalVariablei}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "예상출력결과" ":" "-F : 쉘에 선언된 함수를 모두 출력(간단히)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "예상출력결과" ":" "-f : 쉘에 선언된 함수를 모두 출력(자세히)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "-f : 쉘에 선언된 함수를 모두 출력(간단히)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "-f : 쉘에 선언된 함수를 모두 출력(자세히)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" "declare -F" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            declare -F >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        export LC_ALL="ja_JP.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "サンプル${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "予想出力結果" ":" "グローバル変数をすべて出力" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "グローバル変数をすべて出力" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" "declare" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" "declare -p" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            declare >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "サンプル${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "予想出力結果" ":" "グローバル変数宣言" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "グローバル変数宣言" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" "declare -x globalVariablex=declareVari" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            declare -x globalVariablex=declareVari >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "globalVariablex=${globalVariablex}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "サンプル${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "予想出力結果" ":" "読み取り専用変数宣言" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "読み取り専用変数宣言" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" "declare -r globalVariabler=declareVari" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            declare -r globalVariabler=declareVari >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "globalVariabler=${globalVariabler}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "サンプル${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "予想出力結果" ":" "配列変数宣言" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "配列変数宣言" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" "declare -a globalVariablea=(declareVari1 declareVari2)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            declare -a globalVariablea=(declareVari1 declareVari2) >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "globalVariablea[0]=${globalVariablea[0]}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "globalVariablea[1]=${globalVariablea[1]}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "globalVariablea[@]=${globalVariablea[@]}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "サンプル${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "予想出力結果" ":" "ニューメリック(numeric)変数宣言(文字値を受け取る場合、0が割り当てられる)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "ニューメリック(numeric)変数宣言(文字値を受け取る場合、0が割り当てられる)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" "declare -i globalVariablei=12" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" "declare -i globalVariablei='test'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            declare -i globalVariablei=12 >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "globalVariablei=${globalVariablei}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            declare -i globalVariablei='test' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "globalVariablei=${globalVariablei}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "サンプル${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "予想出力結果" ":" "-F : シェルに宣言された関数をすべて出力（簡単）" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "予想出力結果" ":" "-f : シェルに宣言された関数をすべて出力（詳しく）" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "-f : シェルに宣言された関数をすべて出力（簡単）" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "-f : シェルに宣言された関数をすべて出力（詳しく）" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" "declare -F" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            declare -F >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    else
+        export LC_ALL="en_US.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "Sample${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "ExpectedOutput" ":" "Output all global variables" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Output all global variables" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" "declare" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" "declare -p" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            declare >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "Sample${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "ExpectedOutput" ":" "Global Variables Declaration" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Global Variables Declaration" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" "declare -x globalVariablex=declareVari" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            declare -x globalVariablex=declareVari >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "globalVariablex=${globalVariablex}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "Sample${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "ExpectedOutput" ":" "Declare read-only variables" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Declare read-only variables" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" "declare -r globalVariabler=declareVari" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            declare -r globalVariabler=declareVari >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "globalVariabler=${globalVariabler}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "Sample${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "ExpectedOutput" ":" "Arrangement Variables Declaration" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Arrangement Variables Declaration" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" "declare -a globalVariablea=(declareVari1 declareVari2)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            declare -a globalVariablea=(declareVari1 declareVari2) >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "globalVariablea[0]=${globalVariablea[0]}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "globalVariablea[1]=${globalVariablea[1]}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "globalVariablea[@]=${globalVariablea[@]}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "Sample${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "ExpectedOutput" ":" "Numeric variable declaration (0 assigned if character value is received)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Numeric variable declaration (0 assigned if character value is received)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" "declare -i globalVariablei=12" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" "declare -i globalVariablei='test'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            declare -i globalVariablei=12 >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "globalVariablei=${globalVariablei}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            declare -i globalVariablei='test' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "globalVariablei=${globalVariablei}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "Sample${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "ExpectedOutput" ":" "-F : Output all declared functions on the shell (simply)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "ExpectedOutput" ":" "-f : Output all declared functions on the shell (detail)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "-f : Output all declared functions on the shell (simply)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "-f : Output all declared functions on the shell (detail)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" "declare -F" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            declare -F >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    fi
+    echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    printf "##############################################################################################\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+
+    export LC_ALL=${old_LC_ALL}
+    less ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    rm -rf ${filePathParam%/}/tmp/${commandItem}/
+
+    func_basicSetting_LogFileName_Path ${PID} "1" ${commandItem}
+    echo 
+    
+}
+
+#--------------------------------------------#
+# Command : awk                              #
+#--------------------------------------------#
+function func_command_awk() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### English Command Description Parameter / 영어 명령어 설명 파라미터 / 英語コマンド説明パラメータ
+    local commandDescriptionEnParam=$3
+    ### Korean Command Description Parameter / 한국어 명령어 설명 파라미터 / 韓国語コマンド説明パラメータ
+    local commandDescriptionKrParam=$4
+    ### Japense Command Description Parameter / 일본어 명령어 설명 파라미터 / 日本語コマンド説明パラメータ
+    local commandDescriptionJpParam=$5
+    ### Command / 명령어 / コマンド
+    local commandItem=$6
+    ### Count / 번호 / 番号 
+    local countNumber=0
+
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/
+    echo 'Kr Korea 3324 5/11/96 50354' > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+    echo 'Jp Japan 5246 15/9/66 287650' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+    echo 'Us USA 7654 6/20/58 60000' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+    echo 'Cn China 8683 9/40/48 465000' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+    echo 'Kr    Korea   :3324    :5/11/96    :50354' > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt
+    echo 'Jp    Japan    :5246    :15/9/66    :287650' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt
+    echo 'Us    USA    :7654    :6/20/58    :60000' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt
+    echo 'Cn,China,:8683,:9/40/48,:465000' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt
+    echo '{print "Country : " $1, $2 }' > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_command.txt
+    echo '{print $1, $2, $3, $4, $5 }' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_command.txt
+    old_LC_ALL=${LC_ALL}
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${commandItem}
+    printf "##############################################################################################\n" > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        printf "  %-16s %s %s\n" "명령어" ":" "${commandItem}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-17s %s %s\n" "기본설명" ":" "${commandDescriptionKrParam}" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-18s %s %s\n" "※사용법" ":" "${commandItem}_[인수]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-17s %s %s\n" "※인수" ":" "[선언변수]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        printf "  %-17s %s %s\n" "コマンド" ":" "${commandItem}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-17s %s %s\n" "基本説明" ":" "${commandDescriptionJpParam}" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}_[引数]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-17s %s %s\n" "※引数" ":" "[宣言変数]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    else
+        printf "  %-13s %s %s\n" "Command" ":" "${commandItem}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_[argument]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-15s %s %s\n" "※argument" ":" "[Declaration_Variables]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    fi
+    echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    printf "##############################################################################################\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        export LC_ALL="ko_KR.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "예상출력결과" ":" "모든 위치의 값을 출력" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Kr Korea 3324 5/11/96 50354" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Jp Japan 5246 15/9/66 287650" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Us USA 7654 6/20/58 60000" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Cn China 8683 9/40/48 465000" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" "awk '{print}' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" "awk '{print \$0}' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '{print}'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '{print \$0}'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            awk '{print}' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '{print}' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "예상출력결과" ":" "공백으로 구분하여 1,2,3번 필드 출력" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Kr Korea 3324" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Jp Japan 5246" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Us USA 7654" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Cn China 8683" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" "awk '{print \$1, \$2, \$3}' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '{print \$1, \$2, \$3}'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            awk '{print $1, $2, $3}' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '{print $1, $2, $3}' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "예상출력결과" ":" "출력 레코드 라인번호를 출력" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "1 Kr Korea 3324" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "2 Jp Japan 5246" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "3 Us USA 7654" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "4 Cn China 8683" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" "awk '{print NR, \$1, \$2, \$3}' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '{print NR, \$1, \$2, \$3}'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            awk '{print NR, $1, $2, $3}' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '{print NR, $1, $2, $3}' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "예상출력결과" ":" "출력 레코드의 필드 갯수를 출력" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "5 Kr Korea 3324" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "5 Jp Japan 5246" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "5 Us USA 7654" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "5 Cn China 8683" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" "awk '{print NF, \$1, \$2, \$3}' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '{print NF, \$1, \$2, \$3}'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            awk '{print NF, $1, $2, $3}' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '{print NF, $1, $2, $3}' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "예상출력결과" ":" "지정된 패턴과 일치하는 레코드만 출력" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Kr Korea 3324 5/11/96 50354" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" "awk '/Korea/' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '/Korea/'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            awk '/Korea/' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '/Korea/' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "예상출력결과" ":" "일치는 패턴의 3, 4번 필드를 출력" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Japan 5246 15/9/66" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" "awk '/Japan/{print \$2, \$3, \$4}' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '/Japan/{print \$2, \$3, \$4}'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            awk '/Japan/{print $2, $3, $4}' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '/Japan/{print $2, $3, $4}' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "예상출력결과" ":" "지정된 필드가 조건을 만족시 출력(숫자)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Us USA 7654 6/20/58 60000" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Cn China 8683 9/40/48 465000" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" "awk '\$3 >=7000' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '\$3 >=7000'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            awk '$3 >=7000' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '$3 >=7000' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "예상출력결과" ":" "지정된 필드가 조건을 만족시 출력(문자)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Kr Korea 3324 5/11/96 50354" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" "awk '\$2 ~ /Kor/' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '\$2 ~ /Kor/'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            awk '$2 ~ /Kor/' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '$2 ~ /Kor/' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "예상출력결과" ":" "지정된 필드가 조건을 만족시 출력(문자)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Jp Japan 5246 15/9/66 287650" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Us USA 7654 6/20/58 60000" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Cn China 8683 9/40/48 465000" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" "awk '\$2 !~ /Kor/' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '\$2 !~ /Kor/'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            awk '$2 !~ /Kor/' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '$2 !~ /Kor/' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "예상출력결과" ":" "BEGIN[FS : 필드 구분자, OFS : 출력 필드 구분자, ORS : 출력 레코드 구분자]" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Kr Korea 3324 5/11/96 50354" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Jp Japan 5246 15/9/66 287650" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Us USA 7654 6/20/58 60000" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Cn China 8683 9/40/48 465000" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" "awk 'BEGIN{FS=":"; OFS="\\t"; ORS="\\n\\n"}{print \$1, \$2, \$3}' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk 'BEGIN{FS=":"; OFS="\\t"; ORS="\\n\\n"}{print \$1, \$2, \$3}'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            awk 'BEGIN{FS=":"; OFS="\t"; ORS="\n\n"}{print $1, $2, $3}' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk 'BEGIN{FS=":"; OFS="\t"; ORS="\n\n"}{print $1, $2, $3}' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "예상출력결과" ":" "제일 마지막 라인 출력" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Cn China 8683 9/40/48 465000Test Number 4" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" "awk 'END{print \$0 "Test Number " NR}' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk 'END{print \$0 "Test Number " NR}'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            awk 'END{print $0 "Test Number " NR}' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk 'END{print $0 "Test Number " NR}' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "예상출력결과" ":" "명령어 설정 파일에 작성된 내용으로 명령어 출력" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_command.txt >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Country : Kr Korea" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Kr Korea 3324 5/11/96 50354" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Country : Jp Japan" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Jp Japan 5246 15/9/66 287650" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Country : Us USA" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Us USA 7654 6/20/58 60000" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Country : Cn China" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Cn China 8683 9/40/48 465000" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" "awk -f ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_command.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk -f ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_command.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            awk -f ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_command.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk -f ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_command.txt >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "예상출력결과" ":" "구분기호가 공백( )이 아닌 콜론(:)으로 지정하여 출력" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "원본 : " >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Kr    Korea    3324     5/11/96    " >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Jp    Japan     5246     15/9/66    " >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Us    USA     7654     6/20/58    " >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Cn,China, 8683, 9/40/48," >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" "awk -F: '{print \$1, \$2, \$3}' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt | awk -F: '{print \$1, \$2, \$3}'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            awk -F: '{print $1, $2, $3}' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt | awk -F: '{print $1, $2, $3}' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        export LC_ALL="ja_JP.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "サンプル${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "予想出力結果" ":" "すべての位置の値を出力" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Kr Korea 3324 5/11/96 50354" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Jp Japan 5246 15/9/66 287650" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Us USA 7654 6/20/58 60000" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Cn China 8683 9/40/48 465000" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" "awk '{print}' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" "awk '{print \$0}' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '{print}'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '{print \$0}'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            awk '{print}' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '{print}' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "サンプル${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "予想出力結果" ":" "空白で区切って1、2、3番フィールドを出力" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Kr Korea 3324" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Jp Japan 5246" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Us USA 7654" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Cn China 8683" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" "awk '{print \$1, \$2, \$3}' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '{print \$1, \$2, \$3}'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            awk '{print $1, $2, $3}' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '{print $1, $2, $3}' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "サンプル${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "予想出力結果" ":" "出力レコードライン番号を出力" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "1 Kr Korea 3324" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "2 Jp Japan 5246" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "3 Us USA 7654" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "4 Cn China 8683" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" "awk '{print NR, \$1, \$2, \$3}' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '{print NR, \$1, \$2, \$3}'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            awk '{print NR, $1, $2, $3}' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '{print NR, $1, $2, $3}' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "サンプル${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "予想出力結果" ":" "出力レコードのフィールド数を出力" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "5 Kr Korea 3324" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "5 Jp Japan 5246" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "5 Us USA 7654" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "5 Cn China 8683" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" "awk '{print NF, \$1, \$2, \$3}' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '{print NF, \$1, \$2, \$3}'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            awk '{print NF, $1, $2, $3}' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '{print NF, $1, $2, $3}' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "サンプル${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "予想出力結果" ":" "指定されたパターンと一致するレコードのみ出力" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Kr Korea 3324 5/11/96 50354" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" "awk '/Korea/' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '/Korea/'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            awk '/Korea/' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '/Korea/' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "サンプル${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "予想出力結果" ":" "一致はパターンの3、4番フィールドを出力" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Japan 5246 15/9/66" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" "awk '/Japan/{print \$2, \$3, \$4}' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '/Japan/{print \$2, \$3, \$4}'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            awk '/Japan/{print $2, $3, $4}' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '/Japan/{print $2, $3, $4}' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "サンプル${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "予想出力結果" ":" "指定されたフィールドが条件を満たした場合に出力（数字）" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Us USA 7654 6/20/58 60000" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Cn China 8683 9/40/48 465000" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" "awk '\$3 >=7000' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '\$3 >=7000'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            awk '$3 >=7000' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '$3 >=7000' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "サンプル${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "予想出力結果" ":" "指定されたフィールドが条件を満たした場合に出力（文字）" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Kr Korea 3324 5/11/96 50354" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" "awk '\$2 ~ /Kor/' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '\$2 ~ /Kor/'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            awk '$2 ~ /Kor/' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '$2 ~ /Kor/' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "サンプル${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "予想出力結果" ":" "指定されたフィールドが条件を満たした場合に出力（文字）" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Jp Japan 5246 15/9/66 287650" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Us USA 7654 6/20/58 60000" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Cn China 8683 9/40/48 465000" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" "awk '\$2 !~ /Kor/' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '\$2 !~ /Kor/'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            awk '$2 !~ /Kor/' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '$2 !~ /Kor/' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "サンプル${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "予想出力結果" ":" "BEGIN[FS:フィールド区切り記号、OFS:出力フィールド区切り記号、ORS:出力レコード区切り記号]" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Kr Korea 3324 5/11/96 50354" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Jp Japan 5246 15/9/66 287650" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Us USA 7654 6/20/58 60000" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Cn China 8683 9/40/48 465000" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" "awk 'BEGIN{FS=":"; OFS="\\t"; ORS="\\n\\n"}{print \$1, \$2, \$3}' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk 'BEGIN{FS=":"; OFS="\\t"; ORS="\\n\\n"}{print \$1, \$2, \$3}'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            awk 'BEGIN{FS=":"; OFS="\t"; ORS="\n\n"}{print $1, $2, $3}' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk 'BEGIN{FS=":"; OFS="\t"; ORS="\n\n"}{print $1, $2, $3}' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "サンプル${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "予想出力結果" ":" "一番最後のライン出力" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Cn China 8683 9/40/48 465000Test Number 4" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" "awk 'END{print \$0 "Test Number " NR}' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk 'END{print \$0 "Test Number " NR}'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            awk 'END{print $0 "Test Number " NR}' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk 'END{print $0 "Test Number " NR}' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "サンプル${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "予想出力結果" ":" "コマンド設定ファイルに作成された内容でコマンドを出力" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_command.txt >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Country : Kr Korea" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Kr Korea 3324 5/11/96 50354" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Country : Jp Japan" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Jp Japan 5246 15/9/66 287650" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Country : Us USA" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Us USA 7654 6/20/58 60000" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Country : Cn China" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Cn China 8683 9/40/48 465000" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" "awk -f ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_command.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk -f ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_command.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            awk -f ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_command.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk -f ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_command.txt >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "サンプル${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "予想出力結果" ":" "区分記号が空白( )ではなくコロン( : )で指定して出力" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "原本 : " >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Kr    Korea    3324     5/11/96    " >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Jp    Japan     5246     15/9/66    " >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Us    USA     7654     6/20/58    " >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Cn,China, 8683, 9/40/48," >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" "awk -F: '{print \$1, \$2, \$3}' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt | awk -F: '{print \$1, \$2, \$3}'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            awk -F: '{print $1, $2, $3}' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt | awk -F: '{print $1, $2, $3}' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    else
+        export LC_ALL="en_US.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "Sample${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "ExpectedOutput" ":" "Outputs values for all locations" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Kr Korea 3324 5/11/96 50354" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Jp Japan 5246 15/9/66 287650" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Us USA 7654 6/20/58 60000" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Cn China 8683 9/40/48 465000" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" "awk '{print}' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" "awk '{print \$0}' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '{print}'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '{print \$0}'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            awk '{print}' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '{print}' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "Sample${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "ExpectedOutput" ":" "Field output 1,2,3 separated by spaces" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Kr Korea 3324" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Jp Japan 5246" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Us USA 7654" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Cn China 8683" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" "awk '{print \$1, \$2, \$3}' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '{print \$1, \$2, \$3}'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            awk '{print $1, $2, $3}' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '{print $1, $2, $3}' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "Sample${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "ExpectedOutput" ":" "Output Record Line Number" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "1 Kr Korea 3324" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "2 Jp Japan 5246" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "3 Us USA 7654" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "4 Cn China 8683" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" "awk '{print NR, \$1, \$2, \$3}' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '{print NR, \$1, \$2, \$3}'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            awk '{print NR, $1, $2, $3}' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '{print NR, $1, $2, $3}' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "Sample${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "ExpectedOutput" ":" "Outputs the number of fields in the output record" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "5 Kr Korea 3324" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "5 Jp Japan 5246" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "5 Us USA 7654" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "5 Cn China 8683" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" "awk '{print NF, \$1, \$2, \$3}' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '{print NF, \$1, \$2, \$3}'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            awk '{print NF, $1, $2, $3}' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '{print NF, $1, $2, $3}' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "Sample${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "ExpectedOutput" ":" "Output only records that match the specified pattern" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Kr Korea 3324 5/11/96 50354" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" "awk '/Korea/' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '/Korea/'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            awk '/Korea/' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '/Korea/' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "Sample${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "ExpectedOutput" ":" "Match outputs fields 3 and 4 of the pattern" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Japan 5246 15/9/66" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" "awk '/Japan/{print \$2, \$3, \$4}' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '/Japan/{print \$2, \$3, \$4}'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            awk '/Japan/{print $2, $3, $4}' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '/Japan/{print $2, $3, $4}' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "Sample${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "ExpectedOutput" ":" "Output (numerical) when the specified field satisfies the condition" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Us USA 7654 6/20/58 60000" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Cn China 8683 9/40/48 465000" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" "awk '\$3 >=7000' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '\$3 >=7000'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            awk '$3 >=7000' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '$3 >=7000' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "Sample${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "ExpectedOutput" ":" "Output (character) when the specified field satisfies the condition" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Kr Korea 3324 5/11/96 50354" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" "awk '\$2 ~ /Kor/' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '\$2 ~ /Kor/'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            awk '$2 ~ /Kor/' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '$2 ~ /Kor/' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "Sample${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "ExpectedOutput" ":" "Output (character) when the specified field satisfies the condition" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Jp Japan 5246 15/9/66 287650" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Us USA 7654 6/20/58 60000" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Cn China 8683 9/40/48 465000" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" "awk '\$2 !~ /Kor/' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '\$2 !~ /Kor/'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            awk '$2 !~ /Kor/' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk '$2 !~ /Kor/' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "Sample${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "ExpectedOutput" ":" "BEGIN [FS: field separator, OFS: output field separator, ORS: output record separator]" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Kr Korea 3324 5/11/96 50354" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Jp Japan 5246 15/9/66 287650" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Us USA 7654 6/20/58 60000" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Cn China 8683 9/40/48 465000" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" "awk 'BEGIN{FS=":"; OFS="\\t"; ORS="\\n\\n"}{print \$1, \$2, \$3}' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk 'BEGIN{FS=":"; OFS="\\t"; ORS="\\n\\n"}{print \$1, \$2, \$3}'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            awk 'BEGIN{FS=":"; OFS="\t"; ORS="\n\n"}{print $1, $2, $3}' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk 'BEGIN{FS=":"; OFS="\t"; ORS="\n\n"}{print $1, $2, $3}' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "Sample${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "ExpectedOutput" ":" "The last line output" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Cn China 8683 9/40/48 465000Test Number 4" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" "awk 'END{print \$0 "Test Number " NR}' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk 'END{print \$0 "Test Number " NR}'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            awk 'END{print $0 "Test Number " NR}' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk 'END{print $0 "Test Number " NR}' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "Sample${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "ExpectedOutput" ":" "Output a command as written in the command settings file" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_command.txt >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Country : Kr Korea" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Kr Korea 3324 5/11/96 50354" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Country : Jp Japan" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Jp Japan 5246 15/9/66 287650" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Country : Us USA" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Us USA 7654 6/20/58 60000" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Country : Cn China" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Cn China 8683 9/40/48 465000" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" "awk -f ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_command.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk -f ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_command.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            awk -f ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_command.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt | awk -f ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile_command.txt >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "Sample${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "ExpectedOutput" ":" "Outputs by specifying the separator as a colon (:) rather than a space ( )" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Original : " >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Kr    Korea    3324     5/11/96    " >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Jp    Japan     5246     15/9/66    " >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Us    USA     7654     6/20/58    " >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Cn,China, 8683, 9/40/48," >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" "awk -F: '{print \$1, \$2, \$3}' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" "cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt | awk -F: '{print \$1, \$2, \$3}'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            awk -F: '{print $1, $2, $3}' ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt | awk -F: '{print $1, $2, $3}' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    fi
+    echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    printf "##############################################################################################\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+
+    export LC_ALL=${old_LC_ALL}
+    less ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    rm -rf ${filePathParam%/}/tmp/${commandItem}/
+
+    func_basicSetting_LogFileName_Path ${PID} "1" ${commandItem}
+    echo 
+    
+}
+
+#--------------------------------------------#
 # Linux Script Tip List                      #
 #  : Linux Script Tip List                   #
 #  : 리눅스 스크립트 팁 리스트                     #
@@ -20441,21 +22189,24 @@ function func_linuxScriptTipList() {
         printf "  %-8s %s  %-18s %s  %-102s\n" "번호" "#" "설명"
         printf "##############################################################################################\n"
         for scriptTipIndex in ${scriptTipList[@]}; do
-            printf "  %03d    %s  %-15s %s  %-50s\n" $((${Index}+1)) "#" ${scriptTipList[${Index}]} | sed 's/_/ /g'
+            scriptItem=`echo ${scriptTipIndex} | cut -d, -f2 | sed 's/_/ /g'`
+            printf "  %03d    %s  %-15s %s  %-50s\n" $((${Index}+1)) "#" "${scriptItem}"
             Index=$(( ${Index} + 1 ))
         done
     elif [[ ${languageParam} == [jJ][pP] ]]; then
         printf "  %-8s %s  %-19s %s  %-102s\n" "番号" "#" "説明"
         printf "##############################################################################################\n"
         for scriptTipIndex in ${scriptTipList[@]}; do
-            printf "  %03d    %s  %-15s %s  %-50s\n" $((${Index}+1)) "#" ${scriptTipList[${Index}]} | sed 's/_/ /g'
+            scriptItem=`echo ${scriptTipIndex} | cut -d, -f3 | sed 's/_/ /g'`
+            printf "  %03d    %s  %-15s %s  %-50s\n" $((${Index}+1)) "#" "${scriptItem}"
             Index=$(( ${Index} + 1 ))
         done
     else
         printf "  %-6s %s  %-15s %s  %-100s\n" "Number" "#" "Description"
         printf "##############################################################################################\n"
         for scriptTipIndex in ${scriptTipList[@]}; do
-            printf "  %03d    %s  %-15s %s  %-50s\n" $((${Index}+1)) "#" ${scriptTipList[${Index}]} | sed 's/_/ /g'
+            scriptItem=`echo ${scriptTipIndex} | cut -d, -f1 | sed 's/_/ /g'`
+            printf "  %03d    %s  %-15s %s  %-50s\n" $((${Index}+1)) "#" "${scriptItem}"
             Index=$(( ${Index} + 1 ))
         done
     fi
@@ -24514,6 +26265,80 @@ function func_script_File_Input_Output() {
 }
 
 #--------------------------------------------#
+# Show Helper Shell                          #
+#  : Helper Shell                            #
+#  : 보조 쉘                                 　#
+#  : 手伝いシェル                               #
+#--------------------------------------------#
+function func_showHelperShell() {
+
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local languageParam=$1
+
+    ### Function Main Logic / 함수 메인 로직 / 関数メインロジック
+    while true
+    do
+        if [[ ${languageParam} == [kK][rR] ]];then
+            echo
+            printf "  ***********************************************************************************************************************\n"
+            printf "  * %-25s%7s\n"                                                                                   "보조 쉘"
+            printf "  ***********************************************************************************************************************\n"
+            printf "  * %-25s%-3s%-30s\n"                                                                                      "1. CreateTestData.sh" "*" "https://github.com/DokBak/DokBak_Shell_CMD/blob/main/CreateTestData.sh"
+            printf "  * \n"
+            printf "  * %-33s\n"                                                                                      "9. 이전메뉴"
+            printf "  ***********************************************************************************************************************\n"
+            echo 
+            read -p " 이전메뉴 : " showHelperShell
+            echo
+        elif [[ ${languageParam} == [jJ][pP] ]]; then
+            echo
+            printf "  ***********************************************************************************************************************\n"
+            printf "  * %-25s%7s\n"                                                                                   "手伝いシェル"
+            printf "  ***********************************************************************************************************************\n"
+            printf "  * %-25s%-3s%-30s\n"                                                                                      "1. CreateTestData.sh" "*" "https://github.com/DokBak/DokBak_Shell_CMD/blob/main/CreateTestData.sh"
+            printf "  * \n"
+            printf "  * %-25s\n"                                                                                      "9. 前のメニュー"
+            printf "  ***********************************************************************************************************************\n"
+            echo 
+            read -p " 前のメニュー : " showHelperShell
+            echo
+        else
+            echo
+            printf "  ***********************************************************************************************************************\n"
+            printf "  * %-25s%7s\n"                                                                                   "Helper Shell"
+            printf "  ***********************************************************************************************************************\n"
+            printf "  * %-25s%-3s%-30s*\n"                                                                                     "1. CreateTestData.sh" "*" "https://github.com/DokBak/DokBak_Shell_CMD/blob/main/CreateTestData.sh"
+            printf "  * \n"
+            printf "  * %-25s\n"                                                                                      "9. Previous Menu"
+            printf "  ***********************************************************************************************************************\n"
+            echo 
+            read -p " Previous Menu : " showHelperShell
+            echo
+        fi
+
+        ### Parameter exist / 파라미터가 존재 / パラメータが存在
+        if [[ ${showHelperShell} == 9 ]]; then
+            clear
+            break
+        else
+            clear
+            if [[ ${languageParam} == [kK][rR] ]]; then
+                echo
+                printf "%s%s\n" "### [9]를 입력해주세요 ###"
+            elif [[ ${languageParam} == [jJ][pP] ]]; then
+                echo
+                printf "%s%s\n" "### [9]を入力してください ###"
+            else
+                echo
+                printf "%s%s\n" "### Please input [9] ###"
+            fi
+        fi
+
+    done
+
+}
+
+#--------------------------------------------#
 # Select Editor                              #
 #  : List of Editor                          #
 #  : 편집기 리스트                             　#
@@ -24909,6 +26734,9 @@ function func_editor_nano() {
 readonly aliasEn="Used_to_list_information_about_files_left_open_by_various_processes_running_on_the_system"
 readonly aliasKr="시스템에서_실행_중인_다양한_프로세스가_열어_둔_파일에_대한_정보를_나열하는데_사용"
 readonly aliasJp="システムで実行されているさまざまなプロセスが開いているファイルに関する情報をリストするために使用"
+readonly awkEn="Manipulate_text_files_to_search_for_patterns_and_work_on_lines_that_match_those_patterns"
+readonly awkKr="텍스트_파일을_조작하여_패턴을_검색하고_해당_패턴과_일치하는_줄에_대해_작업을_수행"
+readonly awkJp="テキストファイルを操作してパターンを検索し、そのパターンと一致する行に対してタスクを実行"
 readonly calEn="It_allows_you_to_view_the_calendar_based_on_the_date_and_month_and_you_can_also_specify_a_particular_month_or_year_for_display"
 readonly calKr="날짜와_월에_따라_달력을_확인할_수_있으며_특정_월이나_연도를_지정하여_출력"
 readonly calJp="日付と月によってカレンダーを確認でき、特定の月や年を指定して表示"
@@ -24942,6 +26770,9 @@ readonly dateJp="現在のシステムの日付と時刻が表示され、フォ
 readonly ddEn="Used_primarily_for_tasks_such_as_creating_disk_images,copying_data_between_devices,_and_converting_file_formats"
 readonly ddKr="디스크_이미지_생성,_장치_간_데이터_복사,파일_형식_변환_등과_같은_작업에_사용"
 readonly ddJp="ディスクイメージの作成、デバイス間のデータ複製、ファイルフォーマットの変換などのタスクによく使われます"
+readonly declareEn="used_to_declare_variables_and_set_properties"
+readonly declareKr="변수를_선언하고_속성을_설정하는데_사용"
+readonly declareJp="変数を宣言して属性を設定するために使用"
 readonly dfEn="Use_to_display_information_about_disk_space_usage"
 readonly dfKr="디스크_공간_사용에_관한_정보를_표시하는_데_사용"
 readonly dfJp="ディスク領域の使用に関する情報を表示するために使用"
@@ -25038,6 +26869,12 @@ readonly pwdJp="現在の作業ディレクトリを表示"
 readonly readEn="Commonly_used_to_ask_users_for_input_interactively_or_to_read_input_from_a_file"
 readonly readKr="사용자에게_대화식으로_입력을_요청하거나_파일에서_입력을_읽는데_일반적으로_사용"
 readonly readJp="ユーザーに対話式で入力を要請したり、ファイルから入力を読み取るために一般的に使用"
+readonly readonlyEn="Make_variables_or_functions_read-only_so_that_they_are_not_modified_or_released_from_the_shell_script"
+readonly readonlyKr="변수나_함수를_읽기_전용으로_만들어_쉘_스크립트에서_수정하거나_해제되지_않도록함"
+readonly readonlyJp="変数や関数を読み取り専用にして、シェルスクリプトから修正または解除されないようにする"
+readonly renameEn="Modify_to_a_pattern_specifying_a_file_name"
+readonly renameKr="파일명을_지정하는_패턴으로_수정"
+readonly renameJp="ファイル名を指定するパターンに修正"
 readonly rmEn="Use_to_delete_files_or_directories_from_Linux"
 readonly rmKr="리눅스에서_파일이나_디렉터리를_삭제하기_위해_사용"
 readonly rmJp="Linuxでファイルやディレクトリを削除するために使用"
@@ -25050,6 +26887,9 @@ readonly sedJp="デフォルトのテキスト変換を実行する強力なテ�
 readonly shEn="A_shell_interpreter_that_executes_commands_read_from_a_command_line_string,file,_or_standard_input"
 readonly shKr="명령_줄_문자열,파일_또는_표준_입력에서_읽은_명령을_실행하는_쉘_해석기"
 readonly shJp="コマンドライン文字列、ファイル、または標準入力で読み込んだコマンドを実行するシェルアナライザ"
+readonly shiftEn="Used_to_move_location_parameters_in_a_shell_script"
+readonly shiftKr="쉘_스크립트에서_위치_매개변수를_이동시키는데_사용"
+readonly shiftJp="シェルスクリプトで位置パラメータを移動するために使用"
 readonly sleepEn="It_is_commonly_used_in_scripts_or_programs_when_you_want_to_pause_execution_for_a_certain_duration"
 readonly sleepKr="지정된_시간_동안_실행을_지연시키는데_사용됩니다.주로_스크립트나_프로그램에서_일정한_시간_동안_대기하고자_할_때_활용"
 readonly sleepJp="指定された時間の間、実行を遅延させるために使用されます。主にスクリプトやプログラムで一定の時間待機させたい場合に利用"
@@ -25095,10 +26935,10 @@ readonly whoamiJp="現在ログインしているユーザーの名前を表示"
 readonly zipEn="Command_is_used_to_compress_files_and_directories_creating_a_compressed_archive.It_is_primarily_used_to_save_space_by_compressing_files_or_when_transferring_files"
 readonly zipKr="파일_및_디렉터리를_압축하고_압축_파일을_만드는데_사용됩니다.주로_파일을_압축하여_용량을_절약하거나_파일을_전송할_때_활용"
 readonly zipJp="ファイルやディレクトリを圧縮し、圧縮ファイルを作成するのに使用されます。主にファイルを圧縮して容量を節約しファイルを転送する際に利用"
-declare -a commandList=("alias" "cal" "cat" "cd" "chgrp" "chmod" "chown" "clear" "cp" "cut" "date" "dd" "df" "diff" "du" "echo" "egrep" "env" "exit" "export" "expr" "fc" "find" "grep" "gunzip" "gzip" "head" "history" "id" "less" "ln" "ls" "lsof" "man" "mkdir" "more" "mv" "nkf" "paste" "ping" "printf" "ps" "pwd" "read" "rm" "rmdir" "sed" "sh" "sleep" "sort" "tail" "tar" "top" "touch" "tr" "umask" "uname" "uniq" "unzip" "uptime" "wc" "whoami" "zip")
-declare -a commandDescriptionEn=("${aliasEn}" "${calEn}" "${catEn}" "${cdEn}" "${chgrpEn}" "${chmodEn}" "${chownEn}" "${clearEn}" "${cpEn}" "${cutEn}" "${dateEn}" "${ddEn}" "${dfEn}" "${diffEn}" "${duEn}" "${echoEn}" "${egrepEn}" "${envEn}" "${exitEn}" "${exportEn}" "${exprEn}" "${fcEn}" "${findEn}" "${grepEn}" "${gunzipEn}" "${gzipEn}" "${headEn}" "${historyEn}" "${idEn}" "${lessEn}" "${lnEn}" "${lsEn}" "${lsofEn}" "${manEn}" "${mkdirEn}" "${moreEn}" "${mvEn}" "${nkfEn}" "${pasteEn}" "${pingEn}" "${printfEn}" "${psEn}" "${pwdEn}" "${readEn}" "${rmEn}" "${rmdirEn}" "${sedEn}" "${shEn}" "${sleepEn}" "${sortEn}" "${tailEn}" "${tarEn}" "${topEn}" "${touchEn}" "${trEn}" "${umaskEn}" "${unameEn}" "${uniqEn}" "${unzipEn}" "${uptimeEn}" "${wcEn}" "${whoamiEn}" "${zipEn}")
-declare -a commandDescriptionKr=("${aliasKr}" "${calKr}" "${catKr}" "${cdKr}" "${chgrpKr}" "${chmodKr}" "${chownKr}" "${clearKr}" "${cpKr}" "${cutKr}" "${dateKr}" "${ddKr}" "${dfKr}" "${diffKr}" "${duKr}" "${echoKr}" "${egrepKr}" "${envKr}" "${exitKr}" "${exportKr}" "${exprKr}" "${fcKr}" "${findKr}" "${grepKr}" "${gunzipKr}" "${gzipKr}" "${headKr}" "${historyKr}" "${idKr}" "${lessKr}" "${lnKr}" "${lsKr}" "${lsofKr}" "${manKr}" "${mkdirKr}" "${moreKr}" "${mvKr}" "${nkfKr}" "${pasteKr}" "${pingKr}" "${printfKr}" "${psKr}" "${pwdKr}" "${readKr}" "${rmKr}" "${rmdirKr}" "${sedKr}" "${shKr}" "${sleepKr}" "${sortKr}" "${tailKr}" "${tarKr}" "${topKr}" "${touchKr}" "${trKr}" "${umaskKr}" "${unameKr}" "${uniqKr}" "${unzipKr}" "${uptimeKr}" "${wcKr}" "${whoamiKr}" "${zipKr}")
-declare -a commandDescriptionJp=("${aliasJp}" "${calJp}" "${catJp}" "${cdJp}" "${chgrpJp}" "${chmodJp}" "${chownJp}" "${clearJp}" "${cpJp}" "${cutJp}" "${dateJp}" "${ddJp}" "${dfJp}" "${diffJp}" "${duJp}" "${echoJp}" "${egrepJp}" "${envJp}" "${exitJp}" "${exportJp}" "${exprJp}" "${fcJp}" "${findJp}" "${grepJp}" "${gunzipJp}" "${gzipJp}" "${headJp}" "${historyJp}" "${idJp}" "${lessJp}" "${lnJp}" "${lsJp}" "${lsofJp}" "${manJp}" "${mkdirJp}" "${moreJp}" "${mvJp}" "${nkfJp}" "${pasteJp}" "${pingJp}" "${printfJp}" "${psJp}" "${pwdJp}" "${readJp}" "${rmJp}" "${rmdirJp}" "${sedJp}" "${shJp}" "${sleepJp}" "${sortJp}" "${tailJp}" "${tarJp}" "${topJp}" "${touchJp}" "${trJp}" "${umaskJp}" "${unameJp}" "${uniqJp}" "${unzipJp}" "${uptimeJp}" "${wcJp}" "${whoamiJp}" "${zipJp}")
+declare -a commandList=("alias" "awk" "cal" "cat" "cd" "chgrp" "chmod" "chown" "clear" "cp" "cut" "date" "dd" "declare" "df" "diff" "du" "echo" "egrep" "env" "exit" "export" "expr" "fc" "find" "grep" "gunzip" "gzip" "head" "history" "id" "less" "ln" "ls" "lsof" "man" "mkdir" "more" "mv" "nkf" "paste" "ping" "printf" "ps" "pwd" "read" "readonly" "rename" "rm" "rmdir" "sed" "sh" ""shift "sleep" "sort" "tail" "tar" "top" "touch" "tr" "umask" "uname" "uniq" "unzip" "uptime" "wc" "whoami" "zip")
+declare -a commandDescriptionEn=("${aliasEn}" "${awkEn}" "${calEn}" "${catEn}" "${cdEn}" "${chgrpEn}" "${chmodEn}" "${chownEn}" "${clearEn}" "${cpEn}" "${cutEn}" "${dateEn}" "${ddEn}" "${declareEn}" "${dfEn}" "${diffEn}" "${duEn}" "${echoEn}" "${egrepEn}" "${envEn}" "${exitEn}" "${exportEn}" "${exprEn}" "${fcEn}" "${findEn}" "${grepEn}" "${gunzipEn}" "${gzipEn}" "${headEn}" "${historyEn}" "${idEn}" "${lessEn}" "${lnEn}" "${lsEn}" "${lsofEn}" "${manEn}" "${mkdirEn}" "${moreEn}" "${mvEn}" "${nkfEn}" "${pasteEn}" "${pingEn}" "${printfEn}" "${psEn}" "${pwdEn}" "${readEn}" "${readonlyEn}" "${renameEn}" "${rmEn}" "${rmdirEn}" "${sedEn}" "${shEn}" "${shiftEn}" "${sleepEn}" "${sortEn}" "${tailEn}" "${tarEn}" "${topEn}" "${touchEn}" "${trEn}" "${umaskEn}" "${unameEn}" "${uniqEn}" "${unzipEn}" "${uptimeEn}" "${wcEn}" "${whoamiEn}" "${zipEn}")
+declare -a commandDescriptionKr=("${aliasKr}" "${awkKr}" "${calKr}" "${catKr}" "${cdKr}" "${chgrpKr}" "${chmodKr}" "${chownKr}" "${clearKr}" "${cpKr}" "${cutKr}" "${dateKr}" "${ddKr}" "${declareKr}" "${dfKr}" "${diffKr}" "${duKr}" "${echoKr}" "${egrepKr}" "${envKr}" "${exitKr}" "${exportKr}" "${exprKr}" "${fcKr}" "${findKr}" "${grepKr}" "${gunzipKr}" "${gzipKr}" "${headKr}" "${historyKr}" "${idKr}" "${lessKr}" "${lnKr}" "${lsKr}" "${lsofKr}" "${manKr}" "${mkdirKr}" "${moreKr}" "${mvKr}" "${nkfKr}" "${pasteKr}" "${pingKr}" "${printfKr}" "${psKr}" "${pwdKr}" "${readKr}" "${readonlyKr}" "${renameKr}" "${rmKr}" "${rmdirKr}" "${sedKr}" "${shKr}" "${shiftKr}" "${sleepKr}" "${sortKr}" "${tailKr}" "${tarKr}" "${topKr}" "${touchKr}" "${trKr}" "${umaskKr}" "${unameKr}" "${uniqKr}" "${unzipKr}" "${uptimeKr}" "${wcKr}" "${whoamiKr}" "${zipKr}")
+declare -a commandDescriptionJp=("${aliasJp}" "${awkJp}" "${calJp}" "${catJp}" "${cdJp}" "${chgrpJp}" "${chmodJp}" "${chownJp}" "${clearJp}" "${cpJp}" "${cutJp}" "${dateJp}" "${ddJp}" "${declareJp}" "${dfJp}" "${diffJp}" "${duJp}" "${echoJp}" "${egrepJp}" "${envJp}" "${exitJp}" "${exportJp}" "${exprJp}" "${fcJp}" "${findJp}" "${grepJp}" "${gunzipJp}" "${gzipJp}" "${headJp}" "${historyJp}" "${idJp}" "${lessJp}" "${lnJp}" "${lsJp}" "${lsofJp}" "${manJp}" "${mkdirJp}" "${moreJp}" "${mvJp}" "${nkfJp}" "${pasteJp}" "${pingJp}" "${printfJp}" "${psJp}" "${pwdJp}" "${readJp}" "${readonlyJp}" "${renameJp}" "${rmJp}" "${rmdirJp}" "${sedJp}" "${shJp}" "${shiftJp}" "${sleepJp}" "${sortJp}" "${tailJp}" "${tarJp}" "${topJp}" "${touchJp}" "${trJp}" "${umaskJp}" "${unameJp}" "${uniqJp}" "${unzipJp}" "${uptimeJp}" "${wcJp}" "${whoamiJp}" "${zipJp}")
 scriptTipList=()
 scriptTipList+=(Loop_for,반복문_for,繰り返し文_for)
 scriptTipList+=(Conditional_case,조건문_case,条件文_case)
@@ -25112,7 +26952,7 @@ scriptTipList+=(Quotation_Marks_\"\"_\'\'_\`\`,따옴표_\"\"_\'\'_\`\`,クウ�
 scriptTipList+=(Variables_Modifiy,변수편집,変数編集)
 scriptTipList+=(Field_Separator_IFS,필드_구분자_IFS,フィールド区切り文字_IFS)
 scriptTipList+=(Parameter_utilization_\$,파라미터활용_\$,パラメータ活用_\$)
-scriptTipList+=(File_input_output,파일입출력,ファイル入出力)
+scriptTipList+=(File_input_output_\>_\>\>_\<,파일입출력_\>_\>\>_\<,ファイル入出力_\>_\>\>_\<)
 
 #--------------------------------------------#
 # Script Basic Variable Setting              #
@@ -25216,6 +27056,7 @@ do
     elif [[ ${selectMenu} == 7 ]];then
         clear
         ### Function Run / 함수 실행 / 関数実行
+        func_showHelperShell ${ouputLanguage}
     elif [[ ${selectMenu} == 8 ]];then
         clear
         ### Function Run / 함수 실행 / 関数実行
