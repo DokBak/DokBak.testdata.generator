@@ -2403,7 +2403,7 @@ function func_command_zip() {
             echo "updating: ${filePathParam%/}/tmp/${commandItem}/directory/test1/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "updating: ${filePathParam%/}/tmp/${commandItem}/directory/${commandItem}_TestFile2.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "  adding: ${filePathParam%/}/tmp/${commandItem}/directory/${commandItem}_TestFile3.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-21s %s %s\n" "사용법" ":" "zip ${filePathParam%/}/tmp/${commandItem}/directory/${commandItem}_TestFile.zip ${filePathParam%/}/tmp/${commandItem}/directory/test1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/directory/${commandItem}_TestFile2.txt ${filePathParam%/}/tmp/${commandItem}/directory/${commandItem}_TestFile3.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -2427,7 +2427,7 @@ function func_command_zip() {
             echo "  adding: ${filePathParam%/}/tmp/${commandItem}/directory/test1/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "  adding: ${filePathParam%/}/tmp/${commandItem}/directory/${commandItem}_TestFile2.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "  adding: ${filePathParam%/}/tmp/${commandItem}/directory/${commandItem}_TestFile3.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "사용법" ":" "zip -r ${filePathParam%/}/tmp/${commandItem}/directory/${commandItem}_TestFile_r.zip ${filePathParam%/}/tmp/${commandItem}/directory/" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -2449,7 +2449,7 @@ function func_command_zip() {
             echo "  adding: ${commandItem}_TestFile2.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "  adding: ${commandItem}_TestFile3.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "  adding: ${commandItem}_TestFile_r.zip" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "사용법" ":" "zip -j ${filePathParam%/}/tmp/${commandItem}/directory/${commandItem}_TestFile_j.zip ${filePathParam%/}/tmp/${commandItem}/directory/*" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -2469,7 +2469,7 @@ function func_command_zip() {
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "deleting: ${commandItem}_TestFile2.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "deleting: ${commandItem}_TestFile3.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "사용법" ":" "zip -d ${filePathParam%/}/tmp/${commandItem}/directory/${commandItem}_TestFile_j.zip ${commandItem}_TestFile2.txt ${commandItem}_TestFile3.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -2509,7 +2509,7 @@ function func_command_zip() {
             echo "updating: ${filePathParam%/}/tmp/${commandItem}/directory/test1/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "updating: ${filePathParam%/}/tmp/${commandItem}/directory/${commandItem}_TestFile2.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "  adding: ${filePathParam%/}/tmp/${commandItem}/directory/${commandItem}_TestFile3.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-21s %s %s\n" "使い方" ":" "zip ${filePathParam%/}/tmp/${commandItem}/directory/${commandItem}_TestFile.zip ${filePathParam%/}/tmp/${commandItem}/directory/test1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/directory/${commandItem}_TestFile2.txt ${filePathParam%/}/tmp/${commandItem}/directory/${commandItem}_TestFile3.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -2533,7 +2533,7 @@ function func_command_zip() {
             echo "  adding: ${filePathParam%/}/tmp/${commandItem}/directory/test1/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "  adding: ${filePathParam%/}/tmp/${commandItem}/directory/${commandItem}_TestFile2.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "  adding: ${filePathParam%/}/tmp/${commandItem}/directory/${commandItem}_TestFile3.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "使い方" ":" "zip -r ${filePathParam%/}/tmp/${commandItem}/directory/${commandItem}_TestFile_r.zip ${filePathParam%/}/tmp/${commandItem}/directory/" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -2555,7 +2555,7 @@ function func_command_zip() {
             echo "  adding: ${commandItem}_TestFile2.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "  adding: ${commandItem}_TestFile3.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "  adding: ${commandItem}_TestFile_r.zip" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "使い方" ":" "zip -j ${filePathParam%/}/tmp/${commandItem}/directory/${commandItem}_TestFile_j.zip ${filePathParam%/}/tmp/${commandItem}/directory/*" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -2575,7 +2575,7 @@ function func_command_zip() {
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "deleting: ${commandItem}_TestFile2.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "deleting: ${commandItem}_TestFile3.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "使い方" ":" "zip -d ${filePathParam%/}/tmp/${commandItem}/directory/${commandItem}_TestFile_j.zip ${commandItem}_TestFile2.txt ${commandItem}_TestFile3.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -2594,7 +2594,7 @@ function func_command_zip() {
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "  adding: ${filePathParam%/}/tmp/${commandItem}/directory/test1/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "  adding: ${filePathParam%/}/tmp/${commandItem}/directory/${commandItem}_TestFile2.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "zip ${filePathParam%/}/tmp/${commandItem}/directory/${commandItem}_TestFile.zip ${filePathParam%/}/tmp/${commandItem}/directory/test1/ ${filePathParam%/}/tmp/${commandItem}/directory/${commandItem}_TestFile2.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -2615,7 +2615,7 @@ function func_command_zip() {
             echo "updating: ${filePathParam%/}/tmp/${commandItem}/directory/test1/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "updating: ${filePathParam%/}/tmp/${commandItem}/directory/${commandItem}_TestFile2.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "  adding: ${filePathParam%/}/tmp/${commandItem}/directory/${commandItem}_TestFile3.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "zip ${filePathParam%/}/tmp/${commandItem}/directory/${commandItem}_TestFile.zip ${filePathParam%/}/tmp/${commandItem}/directory/test1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/directory/${commandItem}_TestFile2.txt ${filePathParam%/}/tmp/${commandItem}/directory/${commandItem}_TestFile3.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -2639,7 +2639,7 @@ function func_command_zip() {
             echo "  adding: ${filePathParam%/}/tmp/${commandItem}/directory/test1/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "  adding: ${filePathParam%/}/tmp/${commandItem}/directory/${commandItem}_TestFile2.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "  adding: ${filePathParam%/}/tmp/${commandItem}/directory/${commandItem}_TestFile3.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "zip -r ${filePathParam%/}/tmp/${commandItem}/directory/${commandItem}_TestFile_r.zip ${filePathParam%/}/tmp/${commandItem}/" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -2661,7 +2661,7 @@ function func_command_zip() {
             echo "  adding: ${commandItem}_TestFile2.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "  adding: ${commandItem}_TestFile3.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "  adding: ${commandItem}_TestFile_r.zip" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "zip -j ${filePathParam%/}/tmp/${commandItem}/directory/${commandItem}_TestFile_j.zip ${filePathParam%/}/tmp/${commandItem}/directory/*" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -2681,7 +2681,7 @@ function func_command_zip() {
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "deleting: ${commandItem}_TestFile2.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "deleting: ${commandItem}_TestFile3.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "zip -d ${filePathParam%/}/tmp/${commandItem}/directory/${commandItem}_TestFile_j.zip ${commandItem}_TestFile2.txt ${commandItem}_TestFile3.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -2896,7 +2896,7 @@ function func_command_unzip() {
             echo "extracting: ${commandItem}_TestFile2.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "extracting: ${commandItem}_TestFile3.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "extracting: ${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "unzip ${filePathParam%/}/tmp/${commandItem}/directory/${commandItem}_TestFile_jr.zip" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -2919,7 +2919,7 @@ function func_command_unzip() {
             echo "       23  MM-DD-YYYY hh:mm   unzip_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "---------                     -------" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "       69                     n files" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "unzip -l ${filePathParam%/}/tmp/${commandItem}/directory/${commandItem}_TestFile_jr.zip" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -2938,7 +2938,7 @@ function func_command_unzip() {
             echo "extracting: ${filePathParam%/}/tmp/${commandItem}/directory/test2/${commandItem}_TestFile2.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "extracting: ${filePathParam%/}/tmp/${commandItem}/directory/test2/${commandItem}_TestFile3.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "extracting: ${filePathParam%/}/tmp/${commandItem}/directory/test2/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "unzip ${filePathParam%/}/tmp/${commandItem}/directory/${commandItem}_TestFile_jr.zip -d ${filePathParam%/}/tmp/${commandItem}/directory/test2/" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -3590,7 +3590,7 @@ function func_command_date() {
             echo ' export LC_ALL="en_US.UTF-8" ' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             export LC_ALL="en_US.UTF-8" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "[the week] [Months] [Days] [hh]:[mm]:[ss] JST [YYYY]" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "date" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -3610,7 +3610,7 @@ function func_command_date() {
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "[X]  [M] [D] [hh]:[mm]:[ss] [YYYY]" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Fri Mar 1 21:35:28 2024" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "date '+%c'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -3631,7 +3631,7 @@ function func_command_date() {
             echo "YYYY-MM-DD : 2024-03-01" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "MM/DD/YY : 03/01/24" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "MM/DD/YYYY : 03/01/2024" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "date '+%F'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "date '+%D'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -3656,7 +3656,7 @@ function func_command_date() {
             echo "YYYY : 2024" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "  YY :   24" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "YY   : 20  " >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "date '+%Y'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "date '+%y'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -3682,7 +3682,7 @@ function func_command_date() {
             echo "March" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Mar" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Mar" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "date '+%m'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "date '+%B'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -3709,7 +3709,7 @@ function func_command_date() {
             echo "03" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo " 3" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo " 3" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "date '+%d'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "date '+%_d'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -3735,7 +3735,7 @@ function func_command_date() {
             echo "Sun" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "7 : 1(Mon)~7(Sun)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "0 : 0(Sun)~6(Mon)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "date '+%A'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "date '+%a'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -3760,7 +3760,7 @@ function func_command_date() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "PM" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "date '+%p'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -3782,7 +3782,7 @@ function func_command_date() {
             echo "01 : (2 words 12hours)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo " 1 : (1 words 24hours)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo " 1 : (1 words 12hours)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "date '+%H'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "date '+%I'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -3808,7 +3808,7 @@ function func_command_date() {
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "01 : (2 words)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo " 1 : (1 words)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "date '+%M'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "date '+%_M'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -3830,7 +3830,7 @@ function func_command_date() {
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "01 : (2 words)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo " 1 : (1 words)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "date '+%S'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "date '+%_S'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -3852,7 +3852,7 @@ function func_command_date() {
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "+0900" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "JST" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "date '+%z'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "date '+%Z'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -4553,7 +4553,7 @@ function func_command_wc() {
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "   Line_Count  Words_Count  Byte_Count  TargetFilePath"  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "       10           17         207       ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt"  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "wc ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -4572,7 +4572,7 @@ function func_command_wc() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "   10 : Line Count"  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "wc -l ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -4591,7 +4591,7 @@ function func_command_wc() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "   17 : Words Count (Separator : space)"  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "wc -w ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -4610,7 +4610,7 @@ function func_command_wc() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "   207 : Byte Count (LF : 1byte, CRLF : 2byte)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "wc -c ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -4822,7 +4822,7 @@ function func_command_uniq() {
             echo "test apple\ntest apple\ntest banana\ntest Banana\ntest banana\ntest apple\ntest Peach\ntest peach\ntest peach\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "##ExpectedOutput##" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "test apple\ntest banana\ntest Banana\ntest banana\ntest apple\ntest Peach\ntest peach\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "uniq ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -4841,7 +4841,7 @@ function func_command_uniq() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "   2 test apple\n   1 test banana\n   1 test Banana\n   1 test banana\n   1 test apple\n   1 test Peach\n   2 test peach\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "uniq -c ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -4860,7 +4860,7 @@ function func_command_uniq() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "test apple\ntest banana\ntest apple\ntest Peach\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "uniq -i ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -5124,7 +5124,7 @@ function func_command_touch() {
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Current Time" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             date "+%m/%d %H:%M" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "touch ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "touch ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -5150,7 +5150,7 @@ function func_command_touch() {
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Current Time" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             date "+%m/%d %H:%M" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "touch -t 199112312359 ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -5172,7 +5172,7 @@ function func_command_touch() {
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Current Time" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             date "+%m/%d %H:%M" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "touch -r ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -5194,7 +5194,7 @@ function func_command_touch() {
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Current Time" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             date "+%m/%d %H:%M" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "touch -c ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -5431,7 +5431,7 @@ function func_command_head() {
             echo 'TestFile8' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo 'TestFile9' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo 'TestFile10' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "head ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -5452,7 +5452,7 @@ function func_command_head() {
             echo 'TestFile1' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo 'TestFile2' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo 'TestFile3' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "head -n 3 ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "head -3 ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -5474,7 +5474,7 @@ function func_command_head() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo 'Tes' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "head -c 3 ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -5709,7 +5709,7 @@ function func_command_tail() {
             echo 'TestFile18' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo 'TestFile19' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo 'TestFile20' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "tail ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -5730,7 +5730,7 @@ function func_command_tail() {
             echo 'TestFile18' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo 'TestFile19' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo 'TestFile20' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "tail -n 3 ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "tail -3 ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -5752,7 +5752,7 @@ function func_command_tail() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo '20 : Include NewLine code' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "tail -c 3 ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -5890,7 +5890,7 @@ function func_command_cd() {
             echo "pwd : Working Directory" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "pwd : Directory1" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "pwd : Directory2" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "cd ${filePathParam%/}/tmp/${commandItem}/Directory1/" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "cd ${filePathParam%/}/tmp/${commandItem}/Directory2/" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -6114,7 +6114,7 @@ function func_command_chgrp() {
             echo "${commandItem}_TestFile1.txt : Change file group ownership to admin" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Directory1 : Change folder group ownership to admin" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "chgrp admin ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "chgrp admin ${filePathParam%/}/tmp/${commandItem}/Directory1/" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -6149,7 +6149,7 @@ function func_command_chgrp() {
             echo "${commandItem}_TestFile2.txt : Change file group ownership to admin" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Directory2 : Change folder group ownership to admin" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "chgrp -R admin ${filePathParam%/}/tmp/${commandItem}/Directory2/" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -6369,7 +6369,7 @@ function func_command_chmod() {
             echo "${commandItem}_TestFile1.txt : Change file group ownership to 777" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Directory1 : Change folder group ownership to 777" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "chmod 777 ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "chmod 777 ${filePathParam%/}/tmp/${commandItem}/Directory1/" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -6404,7 +6404,7 @@ function func_command_chmod() {
             echo "${commandItem}_TestFile2.txt : Change file group ownership to 777" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Directory2 : Change folder group ownership to 777" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "chmod -R 777 ${filePathParam%/}/tmp/${commandItem}/Directory2/" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -6627,7 +6627,7 @@ function func_command_chown() {
             echo "${commandItem}_TestFile1.txt : Change file ownership to ownchange" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Directory1 : Change folder ownership to ownchange" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "chown ownchange ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "chown ownchange ${filePathParam%/}/tmp/${commandItem}/Directory1/" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -6662,7 +6662,7 @@ function func_command_chown() {
             echo "${commandItem}_TestFile2.txt : Change file ownership to ownchange" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Directory2 : Change folder ownership to ownchange" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "chown -R ownchange ${filePathParam%/}/tmp/${commandItem}/Directory2/" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -6783,7 +6783,7 @@ function func_command_pwd() {
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Output Working Directory" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             cd ${filePathParam%/}/tmp/${commandItem}/ >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "pwd" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -7006,7 +7006,7 @@ function func_command_mkdir() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Directory1 : Folder Create" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "mkdir ${filePathParam%/}/tmp/${commandItem}/Directory1/" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -7030,7 +7030,7 @@ function func_command_mkdir() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Directory2 : フォルダ作成(権限 : 710)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "mkdir -m 710 ${filePathParam%/}/tmp/${commandItem}/Directory2/" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -7054,7 +7054,7 @@ function func_command_mkdir() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Directory3/SubDirectory4 : Folder Create" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "mkdir -p ${filePathParam%/}/tmp/${commandItem}/Directory3/SubDirectory4/" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -7235,7 +7235,7 @@ function func_command_rmdir() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Directory1 : Folder Delete" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "rmdir ${filePathParam%/}/tmp/${commandItem}/Directory1/" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -7259,7 +7259,7 @@ function func_command_rmdir() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Directory2/SubDirectory3 : Folder Delete" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "rmdir -p ${filePathParam%/}/tmp/${commandItem}/Directory2/" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -7539,7 +7539,7 @@ function func_command_rm() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "${commandItem}_TestFile1.txt : File Delete" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "rm ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -7587,7 +7587,7 @@ function func_command_rm() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Directory1 : Force file deletion" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "rm -f ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile3.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -7991,7 +7991,7 @@ function func_command_mv() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "${commandItem}_TestFile1.txt : File Moving" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "mv ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -8063,7 +8063,7 @@ function func_command_mv() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "${commandItem}_TestFile2.txt : Questions if existing files/folders exist when moving or renaming files/folders" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "mv -i ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile11.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -8087,7 +8087,7 @@ function func_command_mv() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Directory1 : Forced move or rename files and folders" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "mv -f ${filePathParam%/}/tmp/${commandItem}/Directory4/${commandItem}_TestFile3.txt ${filePathParam%/}/tmp/${commandItem}/Directory4/${commandItem}_TestFile5.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -8520,7 +8520,7 @@ function func_command_cp() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Directory2/${commandItem}_TestFile3.txt : Copy File (Rename)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "cp ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile3.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -8544,7 +8544,7 @@ function func_command_cp() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Directory2/${commandItem}_TestFile3.txt : Questions if a file of the same name exists in the output path" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "cp -i ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile3.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -8571,7 +8571,7 @@ function func_command_cp() {
             echo "Directory1/${commandItem}_TestFile2.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Directory1/${commandItem}_TestFile3.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Directory1/Test/Test.txt                : Copy all subdirectories" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "cp -r ${filePathParam%/}/tmp/${commandItem}/Directory2/ ${filePathParam%/}/tmp/${commandItem}/Directory1/" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -8595,7 +8595,7 @@ function func_command_cp() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Directory2/Test/${commandItem}_TestFile1.txt : Copy file owners, groups, privileges, timestamps, and so on" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "cp -p ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/Test/" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -8619,7 +8619,7 @@ function func_command_cp() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Directory2/Test/${commandItem}_TestFile2.txt : Copy file owners, groups, privileges, timestamps, and so on(-p) & copy the symbolic link system and maintain the original reference" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "cp -a ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile2.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/Test/" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -9022,7 +9022,7 @@ function func_command_cut() {
             echo "2 " >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "2 " >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "  : There is a possibility that the multi-byte character may not be output normally" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "cut -b 1 ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -9046,7 +9046,7 @@ function func_command_cut() {
             echo "2byte " >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "ＡTes : There is a possibility that the multi-byte character may not be output normally" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "あTes " >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "cut -b 1-5 ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -9070,7 +9070,7 @@ function func_command_cut() {
             echo "2 " >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Ａ " >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "あ " >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "cut -c 1 ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -9094,7 +9094,7 @@ function func_command_cut() {
             echo "2byte " >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "ＡTest " >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "あTest " >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "cut -c 1-5 ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -9118,7 +9118,7 @@ function func_command_cut() {
             echo "2byteString12byteString2,2byteString3" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "ＡTestFile1,3Testing2,3Testing3" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "あTestFile14Testing2,4Testing3" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "cut -f1 -w ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -9142,7 +9142,7 @@ function func_command_cut() {
             echo "2byteString12byteString2" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "ＡTestFile1" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "あTestFile14Testing2" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "cut -f1 -d ,  ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "cut -f1 -d ','  ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -9400,7 +9400,7 @@ function func_command_dd() {
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Copy in blocks and print out" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "dd if="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" of="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt"" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -9421,7 +9421,7 @@ function func_command_dd() {
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo " Copy and print in 32-byte blocks" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "dd if="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" of="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile3.txt" bs=32" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -9442,7 +9442,7 @@ function func_command_dd() {
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo " Copy and output 2 blocks per 32 byte block" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "dd if="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" of="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile4.txt" bs=32 count=2" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -9463,7 +9463,7 @@ function func_command_dd() {
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo " Skip by 2 blocks per 32-byte block and copy the rest and output it" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "dd if="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" of="${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile5.txt" bs=32 skip=2" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -9907,7 +9907,7 @@ function func_command_diff() {
             echo " > test File03" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo " > test File04" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo " > test File05" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "diff ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "diff ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -9933,7 +9933,7 @@ function func_command_diff() {
             echo " File comparison without difference : no output" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo " Compare files with differences : [argument1] and [argument2] differ print" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "diff -q ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "diff -q ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -9971,7 +9971,7 @@ function func_command_diff() {
             echo " > testFile03" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo " > testFile04" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo " > testFile05" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "diff -s ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "diff -s ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -10001,7 +10001,7 @@ function func_command_diff() {
             echo " < Test File01" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo " ---" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo " > Test   File01" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "diff -i ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "diff -i ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -10035,7 +10035,7 @@ function func_command_diff() {
             echo " > test File03" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo " > test File04" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo " > test File05" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "diff -b ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory2/${commandItem}_TestFile2.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "diff -b ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/Directory3/${commandItem}_TestFile3.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -10379,7 +10379,7 @@ function func_command_find() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Check if a file exists, Not exist : No such file or directory" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "find ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "find ${filePathParam%/}/tmp/${commandItem}/Directory1/${commandItem}_TestFile2.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -10399,7 +10399,7 @@ function func_command_find() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Outputs all files/folders in the subdirectory" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "find ${filePathParam%/}/tmp/${commandItem}/Directory1" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -10416,7 +10416,7 @@ function func_command_find() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Search for files/folders in a specified pattern and output the file/folder path if there is a result" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "find ${filePathParam%/}/tmp/${commandItem}/Directory1" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -10434,7 +10434,7 @@ function func_command_find() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Outputs all files in subfolders (-print: New Line, -print0: )" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "find ${filePathParam%/}/tmp/${commandItem}/Directory1 -name '*find*' -print " >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "find ${filePathParam%/}/tmp/${commandItem}/Directory1 -name '*find*' -print0 " >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -10456,7 +10456,7 @@ function func_command_find() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Search only up to upper path by depth n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "find ${filePathParam%/}/tmp/${commandItem}/Directory1/Directory3 -maxdepth 2 -name "*File2*" " >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -10477,7 +10477,7 @@ function func_command_find() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Delete files in retrieved patterns" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "find ${filePathParam%/}/tmp/${commandItem}/Directory1/Directory3/Directory4/Directory5/find_TestFile2.txt -name "*File2*" -delete " >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -10591,7 +10591,7 @@ function func_command_clear() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Clean up the terminal screen you're working on" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "clear" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -10705,7 +10705,7 @@ function func_command_man() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Used to display manual pages for other commands" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "man cat" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -10895,7 +10895,7 @@ function func_command_df() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Unit calculated as 1024 and output" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "df -h" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -10914,7 +10914,7 @@ function func_command_df() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Unit calculated as 1000 and output" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "df -H" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -10933,7 +10933,7 @@ function func_command_df() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Output local mount disk information only" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "df -l" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -11118,7 +11118,7 @@ function func_command_du() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Outputs the capacity of all files/folders in a subdirectory" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "du -a ${filePathParam%/}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -11135,7 +11135,7 @@ function func_command_du() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Unit calculated as 1024 and output" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "du -h ${filePathParam%/}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -11152,7 +11152,7 @@ function func_command_du() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Total Output of Capacity Used for a Specified Folder" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "du -s ${filePathParam%/}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -11263,7 +11263,7 @@ function func_command_history() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Displays a list of recently executed commands from the terminal" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "history" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -11413,7 +11413,7 @@ function func_command_less() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Check the contents of the file (no modification)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "less ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -11563,7 +11563,7 @@ function func_command_more() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Check the contents of the file (no modification)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "more ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -11674,7 +11674,7 @@ function func_command_whoami() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Displays the name of the user who is currently logged in" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "whoami" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -11792,7 +11792,7 @@ function func_command_echo() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Used to display the value of a text line or variable in a terminal" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "echo" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "echo 'Test Text'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -12022,7 +12022,7 @@ function func_command_id() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Output of all user group IDs (number output)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "id" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -12041,7 +12041,7 @@ function func_command_id() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "A number (UID) that uniquely identifies each user, where 0 is usually the UID of the root user" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "id -u" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -12060,7 +12060,7 @@ function func_command_id() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Numbers (GIDs) used to identify user groups, users belong to one or more groups" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "id -g" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -12079,7 +12079,7 @@ function func_command_id() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Output of all user group IDs (number output)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "id -G" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -12429,7 +12429,7 @@ function func_command_uname() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Kernel Name Output (Default Option -s)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "uname" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "uname -s" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -12450,7 +12450,7 @@ function func_command_uname() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Network Hostname Output" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "uname -n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -12469,7 +12469,7 @@ function func_command_uname() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Kernel Release Version Output" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "uname -r" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -12488,7 +12488,7 @@ function func_command_uname() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Outputs additional information related to kernel build time" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "uname -v" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -12507,7 +12507,7 @@ function func_command_uname() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Output system hardware type information" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "uname -m" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -12526,7 +12526,7 @@ function func_command_uname() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Output all information" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "uname -a" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "uname -snrvm" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -12547,7 +12547,7 @@ function func_command_uname() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Process Type Information Output" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "uname -p" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -12658,7 +12658,7 @@ function func_command_uptime() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Indicates how long the system is running without restarting(average system uptime, current time, number of users, and system load)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "uptime" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -12892,7 +12892,7 @@ function func_command_env() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Output all registered environmental variables" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "env" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -12911,7 +12911,7 @@ function func_command_env() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Output all registered environmental variables(no opening code)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "env -0" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -12930,7 +12930,7 @@ function func_command_env() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Setting environment variables that are temporarily set" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "env TESTVariables=TESTenv" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -12949,7 +12949,7 @@ function func_command_env() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Output the remaining environmental variables except for the specified environmental variables" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "env -u PATH" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -13067,7 +13067,7 @@ function func_command_export() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Deliver variables created in shell/terminal sessions to child processes to make them accessible throughout the environment" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "export GLOBALVAR=GLOBALDATA" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -13180,7 +13180,7 @@ function func_command_exit() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Deliver variables created in shell/terminal sessions to child processes to make them accessible throughout the environment" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "exit" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -13620,7 +13620,7 @@ function func_command_grep() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Search for a search term (test) in the target file and output a row containing the search results" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "grep test ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -13639,7 +13639,7 @@ function func_command_grep() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Search for a search term (Test) in the target file, case-insensitive, and output a row containing the search results" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "grep -i test ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -13658,7 +13658,7 @@ function func_command_grep() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Search the search term (Test) in the target file and output the lines excluding the search results" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "grep -v test ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -13677,7 +13677,7 @@ function func_command_grep() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Search target files with exact matching word units" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "grep -w test ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -13696,7 +13696,7 @@ function func_command_grep() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Displays the row number that initially contains the [search word] in the destination file" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "grep -n test ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -13715,7 +13715,7 @@ function func_command_grep() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Outputs the name of a file in which one or more rows match by a pattern in the destination file" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "grep -l test ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -13734,7 +13734,7 @@ function func_command_grep() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "The target file does not output even if there is an error" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "grep -s test ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -13753,7 +13753,7 @@ function func_command_grep() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Search all the way from the destination folder to the subdirectory files" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "grep -r test ${filePathParam%/}/tmp/${commandItem}/directory1/" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -13772,7 +13772,7 @@ function func_command_grep() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Retrieving multiple patterns from destination files" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "grep -e cream -e zsh ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -13989,7 +13989,7 @@ function func_command_ln() {
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Create a hard link (with the same inode and the same data blocks shared)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             ls -il ${filePathParam%/}/tmp/${commandItem}/directory1/ >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "ln ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/directory2/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -14010,7 +14010,7 @@ function func_command_ln() {
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Create a symbolic link (the symbolic link is disabled when the original file is deleted)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             ls -il ${filePathParam%/}/tmp/${commandItem}/directory1/ >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "ln -s ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/directory2/${commandItem}_TestFile2.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -14031,7 +14031,7 @@ function func_command_ln() {
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Force action when overriding an already existing link.If no option exists, output [File extists]" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             ls -il ${filePathParam%/}/tmp/${commandItem}/directory1/ >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "ln -f ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/directory2/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -14507,7 +14507,7 @@ function func_command_ls() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Displays the files/folders in the specified folder(no opening)(no output value if no files in the folder are present)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "ls ${filePathParam%/}/tmp/${commandItem}/directory1/" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "ls ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile0.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -14528,7 +14528,7 @@ function func_command_ls() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Displays file/folder details for the specified folder(displays capacity,permissions,groups,update dates, etc.)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "ls -l ${filePathParam%/}/tmp/${commandItem}/directory1/" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -14547,7 +14547,7 @@ function func_command_ls() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Show current folder (.), old folder (.), hidden file" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "ls -la ${filePathParam%/}/tmp/${commandItem}/directory1/" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -14566,7 +14566,7 @@ function func_command_ls() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Show hidden file" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "ls -lA ${filePathParam%/}/tmp/${commandItem}/directory1/" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -14585,7 +14585,7 @@ function func_command_ls() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Reverse output (descending -> folder order)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "ls -lr ${filePathParam%/}/tmp/${commandItem}/directory1/" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -14604,7 +14604,7 @@ function func_command_ls() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Revised date output in latest order" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "ls -lt ${filePathParam%/}/tmp/${commandItem}/directory1/" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -14623,7 +14623,7 @@ function func_command_ls() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "For folders, print [/] after the folder name" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "ls -lp ${filePathParam%/}/tmp/${commandItem}/directory1/" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -14642,7 +14642,7 @@ function func_command_ls() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Outputs all the way to subdirectories" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "ls -lR ${filePathParam%/}/tmp/${commandItem}/directory1/" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -14661,7 +14661,7 @@ function func_command_ls() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Convert capacity to human readable output (byte by default)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "ls -lh ${filePathParam%/}/tmp/${commandItem}/directory1/" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -14680,7 +14680,7 @@ function func_command_ls() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Displays the inode value, the unique number of the file/folder" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "ls -li ${filePathParam%/}/tmp/${commandItem}/directory1/" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -14923,7 +14923,7 @@ function func_command_umask() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "On My PC, which is MacOS, the default mask is 0022" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "umask" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -14944,7 +14944,7 @@ function func_command_umask() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Change default mask to 000" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "umask 000" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -14965,7 +14965,7 @@ function func_command_umask() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Change default mask to 777" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "umask 777" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -14986,7 +14986,7 @@ function func_command_umask() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Output masked permissions(u, g, o rights output, rwx output)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "umask -S" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -15294,7 +15294,7 @@ function func_command_fc() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Modifying a previously executed command to an editor" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "fc" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -15313,7 +15313,7 @@ function func_command_fc() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Output 15 commands that were executed previously (in order of past)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "fc -l" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -15332,7 +15332,7 @@ function func_command_fc() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Output 15 commands that were executed previously (up to date)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "fc -lr" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -15351,7 +15351,7 @@ function func_command_fc() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Output 3 commands that were executed previously (up to date)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "fc -lr -3" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -15370,7 +15370,7 @@ function func_command_fc() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Output the commands from number 3 to number 5 that were executed previously (in the latest order)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "fc -lr -3 -5" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -15389,7 +15389,7 @@ function func_command_fc() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Edit a command that was executed just before with the specified editor" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "fc -e nano" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "fc -e vim" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -15663,7 +15663,7 @@ function func_command_ping() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Test accessibility by sending packets to target hosts(unlimited)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "ping google.com" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -15682,7 +15682,7 @@ function func_command_ping() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Test accessibility by sending three packets to the target host" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "ping google.com -c 3" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -15701,7 +15701,7 @@ function func_command_ping() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Test accessibility by sending packets to target hosts at 3-second time intervals (unlimited)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "ping google.com -i 3" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -15720,7 +15720,7 @@ function func_command_ping() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Test accessibility by sending 3-byte-sized packets to target hosts (unlimited)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "ping google.com -s 3" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -15739,7 +15739,7 @@ function func_command_ping() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Up to 3 seconds to wait for response" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "ping google.com -t 3" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -15967,7 +15967,7 @@ function func_command_ps() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Provides information about the currently running process(PID, TTY, TIME, CMD)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "ps" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -15986,7 +15986,7 @@ function func_command_ps() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Provides information about the currently running process(Additional information:UID, PPID, STIME)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "ps -f" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -16005,7 +16005,7 @@ function func_command_ps() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Provides information about the currently running process(Display more information)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "ps -l" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -16024,7 +16024,7 @@ function func_command_ps() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "List of all user processes" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "ps -e" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -16135,7 +16135,7 @@ function func_command_top() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Used to display information about system usage and the processes currently running" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "top" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -16381,7 +16381,7 @@ function func_command_sort() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "From small to large [A -> Z -> a -> z]" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "sort ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -16400,7 +16400,7 @@ function func_command_sort() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "From large to small [z -> a -> Z -> A]" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "sort -r ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -16419,7 +16419,7 @@ function func_command_sort() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "case-insensitive alignment" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "sort -f ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -16438,7 +16438,7 @@ function func_command_sort() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Ignore leading spaces and sort" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "sort -b ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -16761,7 +16761,7 @@ function func_command_tar() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Create a tar archive compressed file using specified files" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "tar cvf ${filePathParam%/}/tmp/${commandItem}/Test_tarFile1.tar ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/directory2/${commandItem}_TestFile2.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -16780,7 +16780,7 @@ function func_command_tar() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Output the tar archive file internal file" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "tar tvf ${filePathParam%/}/tmp/${commandItem}/Test_tarFile1.tar" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -16799,7 +16799,7 @@ function func_command_tar() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Unzip the tar archive file to the current folder" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "tar xvf ${filePathParam%/}/tmp/${commandItem}/Test_tarFile1.tar" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -16818,7 +16818,7 @@ function func_command_tar() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Unzip the tar archive file to the specified folder" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "tar xvf ${filePathParam%/}/tmp/${commandItem}/Test_tarFile1.tar -C ${filePathParam%/}/tmp/${commandItem}/" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -16837,7 +16837,7 @@ function func_command_tar() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Add file to tar archive file (not overwrite)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "tar uvf ${filePathParam%/}/tmp/${commandItem}/Test_tarFile1.tar ${filePathParam%/}/tmp/${commandItem}/directory3/${commandItem}_TestFile3.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -16858,7 +16858,7 @@ function func_command_tar() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Add file to tar archive file (overwrite)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "tar rvf ${filePathParam%/}/tmp/${commandItem}/Test_tarFile1.tar ${filePathParam%/}/tmp/${commandItem}/directory3/${commandItem}_TestFile3.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -17098,7 +17098,7 @@ function func_command_tr() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Create a tar archive compressed file using specified files" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "tr [a-z] [A-Z] < ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -17117,7 +17117,7 @@ function func_command_tr() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Replace single characters with single characters" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "tr 't' 'x' < ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -17136,7 +17136,7 @@ function func_command_tr() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Delete the specified single character" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "tr -d 'te' < ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -17155,7 +17155,7 @@ function func_command_tr() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Deduplication of a given single character" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "tr -s ' ' < ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -17365,7 +17365,7 @@ function func_command_printf() {
             echo "%s : test data" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "%f : 15.0123456" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "%d : 15" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-21s %s %s\n" "HowToUse" ":" "printf '%s\n' 'test data'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-21s %s %s\n" "HowToUse" ":" "printf '%f\n' 15.0123456" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -17396,7 +17396,7 @@ function func_command_printf() {
             echo "%d : _ 15.01_" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "%f : _ 15_" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "%f : _015_" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-21s %s %s\n" "HowToUse" ":" "printf '%-15s\n' 'test_data'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-21s %s %s\n" "HowToUse" ":" "printf '%15s\n' 'test_data'" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -17616,7 +17616,7 @@ function func_command_paste() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Merge two files horizontally" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "paste ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/directory2/${commandItem}_TestFile2.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -17635,7 +17635,7 @@ function func_command_paste() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Merge using delimiter" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "paste -d ',' ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/directory2/${commandItem}_TestFile2.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -17654,7 +17654,7 @@ function func_command_paste() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Merge after matrix transition" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "paste -s ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/directory2/${commandItem}_TestFile2.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -18332,7 +18332,7 @@ function func_command_sed() {
             echo 'ps1,ps2,ps3,ps4' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo 'psa,psa,psa,psa' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo 'Nintendo,NDSL,DSL,wii' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "sed 2,5p ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -18354,7 +18354,7 @@ function func_command_sed() {
             echo 'Test,bash,zsh,sh' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo 'Test,java,Javascript,C,C#,C++,python,ruby' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo 'TestFile2' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "sed -n 2,5p ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -18388,7 +18388,7 @@ function func_command_sed() {
             echo 'ps1,ps2,ps3,ps4' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo 'psa,psa,psa,psa' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo 'Nintendo,NDSL,DSL,wii' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "sed s/TestFile/SedSample/ ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -18422,7 +18422,7 @@ function func_command_sed() {
             echo 'ps1,ps2,ps3,ps4' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo 'psa,psa,psa,psa' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo 'Nintendo,NDSL,DSL,wii' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "sed s/TestFile/SedSample/g ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -18461,7 +18461,7 @@ function func_command_sed() {
             echo 'ps1,ps2,ps3,ps4' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo 'psa,psa,psa,psa' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo 'Nintendo,NDSL,DSL,wii' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "sed s/TestFile/SedSample/p ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -18495,7 +18495,7 @@ function func_command_sed() {
             echo 'tt1,tt2,tt3,tt4' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo 'tta,tta,tta,tta' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo 'Nintendo,NDSL,DSL,wii' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "sed -e s/TestFile/SedSample/g -e s/ps/tt/g ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -18529,7 +18529,7 @@ function func_command_sed() {
             echo 'ps1,ps2,ps3,ps4' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo 'psa,psa,psa,psa' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo 'Nintendo,NDSL,DSL,wii' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "sed -f ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2.txt ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -19733,7 +19733,7 @@ function func_command_egrep() {
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "Search for a search term (test) in the target file and output a row containing the search results" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo  >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "    %-15s %s %s\n" "HowToUse" ":" "egrep tes? ${filePathParam%/}/tmp/${commandItem}/directory1/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -20522,7 +20522,16 @@ function func_linuxScriptTipExample() {
             func_script_Quotation_Marks ${ouputLanguageParam} ${filePath} Quotation_Marks
             ;;
         10)
-            func_script_Variables_Modifiy ${ouputLanguageParam} ${filePath} Quotation_Marks
+            func_script_Variables_Modifiy ${ouputLanguageParam} ${filePath} Variables_Modifiy
+            ;;
+        11)
+            func_script_IFS ${ouputLanguageParam} ${filePath} IFS
+            ;;
+        12)
+            func_script_Parameter_Using ${ouputLanguageParam} ${filePath} Parameter_Using
+            ;;
+        13)
+            func_script_File_Input_Output ${ouputLanguageParam} ${filePath} File_Input_Output
             ;;
         *)  echo ; 
             if [[ ${ouputLanguageParam} == [kK][rR] ]];then
@@ -23255,7 +23264,7 @@ function func_script_Quotation_Marks() {
     func_basicSetting_LogFileName_Path ${PID} "0" ${scriptItem}
     printf "##############################################################################################\n" > ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
     echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
-    printf "  %-16s %s %s\n" "" "" "${scriptItem} : '',"",``" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    printf "  %-16s %s %s\n" "" "" "${scriptItem} : '',\"\",\`\`" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
     echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
     printf "##############################################################################################\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
     echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
@@ -23790,6 +23799,704 @@ function func_script_Variables_Modifiy() {
             echo " [:?Word] : Shell shuts down after error output " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
             echo " \${VarNotNull:?Test1} : ${VarNotNull:?Test1} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
             echo ' \${VarNull:?Test1} : ${VarNull:?Test1} ' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    fi
+    echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    printf "##############################################################################################\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    
+    export LC_ALL=${old_LC_ALL}
+    less ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    rm -rf ${filePathParam%/}/tmp/${scriptItem}/
+    
+    func_basicSetting_LogFileName_Path ${PID} "1" ${scriptItem}
+    echo 
+    
+}
+
+#--------------------------------------------#
+# Command : IFS                              #
+#--------------------------------------------#
+function func_script_IFS() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### Command / 명령어 / コマンド
+    local scriptItem=$3
+    ### Count / 번호 / 番号 
+    local countNumber=0
+
+    mkdir -p ${filePathParam%/}/tmp/${scriptItem}/
+    old_LC_ALL=${LC_ALL}
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${scriptItem}
+    printf "##############################################################################################\n" > ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    printf "  %-16s %s %s\n" "" "" "${scriptItem} : IFS" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    printf "##############################################################################################\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        export LC_ALL="ko_KR.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "예상출력결과" ":" "통상적 작성법" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " Defualt : Space -> No. 1 : Korea" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " Defualt : Space -> No. 2 : Japan:China:USA" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'nation="Korea Japan:China:USA"' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'NumValue=0' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'for country in ${nation}' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'do' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    NumValue=$(( NumValue + 1 ))' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    echo " Defualt : Space -> No. ${NumValue} : ${country}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'done' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            nation="Korea Japan:China:USA"
+            NumValue=0
+            for country in ${nation}
+            do  
+                NumValue=$(( NumValue + 1 ))
+                echo " Defualt : Space -> No. ${NumValue} : ${country}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            done
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "예상출력결과" ":" "통상적 작성법" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " IFS : Space -> No. 1 : Korea Japan" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " IFS : Space -> No. 2 : China" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " IFS : Space -> No. 3 : USA" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'nation="Korea Japan:China:USA"' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'NumValue=0' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'oldifs=${IFS}' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'IFS=":"' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'for country in ${nation}' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'do' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    NumValue=$(( NumValue + 1 ))' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    echo " IFS : Space -> No. ${NumValue} : ${country}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'done' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            nation="Korea Japan:China:USA"
+            NumValue=0
+            oldifs=${IFS}
+            IFS=":"
+            for country in ${nation}
+            do  
+                NumValue=$(( NumValue + 1 ))
+                echo " IFS : Space -> No. ${NumValue} : ${country}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            done
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        export LC_ALL="ja_JP.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "予想出力結果" ":" "通常の使い方" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " Defualt : Space -> No. 1 : Korea" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " Defualt : Space -> No. 2 : Japan:China:USA" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'nation="Korea Japan:China:USA"' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'NumValue=0' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'for country in ${nation}' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'do' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    NumValue=$(( NumValue + 1 ))' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    echo " Defualt : Space -> No. ${NumValue} : ${country}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'done' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            nation="Korea Japan:China:USA"
+            NumValue=0
+            for country in ${nation}
+            do  
+                NumValue=$(( NumValue + 1 ))
+                echo " Defualt : Space -> No. ${NumValue} : ${country}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            done
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "予想出力結果" ":" "通常の使い方" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " IFS : Space -> No. 1 : Korea Japan" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " IFS : Space -> No. 2 : China" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " IFS : Space -> No. 3 : USA" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'nation="Korea Japan:China:USA"' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'NumValue=0' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'oldifs=${IFS}' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'IFS=":"' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'for country in ${nation}' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'do' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    NumValue=$(( NumValue + 1 ))' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    echo " IFS : Space -> No. ${NumValue} : ${country}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'done' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            nation="Korea Japan:China:USA"
+            NumValue=0
+            oldifs=${IFS}
+            IFS=":"
+            for country in ${nation}
+            do  
+                NumValue=$(( NumValue + 1 ))
+                echo " IFS : Space -> No. ${NumValue} : ${country}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            done
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    else
+        export LC_ALL="en_US.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-15s %s %s\n" "ExpectedOutput" ":" "Typical Writing Method" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " Defualt : Space -> No. 1 : Korea" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " Defualt : Space -> No. 2 : Japan:China:USA" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'nation="Korea Japan:China:USA"' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'NumValue=0' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'for country in ${nation}' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'do' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    NumValue=$(( NumValue + 1 ))' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    echo " Defualt : Space -> No. ${NumValue} : ${country}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'done' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            nation="Korea Japan:China:USA"
+            NumValue=0
+            for country in ${nation}
+            do  
+                NumValue=$(( NumValue + 1 ))
+                echo " Defualt : Space -> No. ${NumValue} : ${country}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            done
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-15s %s %s\n" "ExpectedOutput" ":" "Typical Writing Method" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " IFS : Space -> No. 1 : Korea Japan" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " IFS : Space -> No. 2 : China" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " IFS : Space -> No. 3 : USA" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'nation="Korea Japan:China:USA"' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'NumValue=0' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'oldifs=${IFS}' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'IFS=":"' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'for country in ${nation}' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'do' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    NumValue=$(( NumValue + 1 ))' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    echo " IFS : Space -> No. ${NumValue} : ${country}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'done' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            nation="Korea Japan:China:USA"
+            NumValue=0
+            oldifs=${IFS}
+            IFS=":"
+            for country in ${nation}
+            do  
+                NumValue=$(( NumValue + 1 ))
+                echo " IFS : Space -> No. ${NumValue} : ${country}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            done
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    fi
+    echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    printf "##############################################################################################\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    
+    IFS=${oldifs}
+    export LC_ALL=${old_LC_ALL}
+    less ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    rm -rf ${filePathParam%/}/tmp/${scriptItem}/
+    
+    func_basicSetting_LogFileName_Path ${PID} "1" ${scriptItem}
+    echo 
+    
+}
+
+
+#--------------------------------------------#
+# Command : Parameter_Using                  #
+#--------------------------------------------#
+function func_script_Parameter_Using() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### Command / 명령어 / コマンド
+    local scriptItem=$3
+    ### Count / 번호 / 番号 
+    local countNumber=0
+
+    mkdir -p ${filePathParam%/}/tmp/${scriptItem}/
+    old_LC_ALL=${LC_ALL}
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${scriptItem}
+    printf "##############################################################################################\n" > ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    printf "  %-16s %s %s\n" "" "" "${scriptItem} : $$, $!..." >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    printf "##############################################################################################\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        export LC_ALL="ko_KR.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "예상출력결과" ":" "통상적 작성법" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \$$ ] : 쉘 프로세스 ID " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \$! ] : 가장 최근 백그라운드에서 실행된 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \$? ] : 가장 최근의 종료 상태 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \$0 ] : 사용중인 쉘스크립트의 풀패스 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \$* ] : 모든 파라미터를 출력 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \$@ ] : 모든 파라미터를 출력(''으로 묶인경우 하나로 취급) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \$1 ] : 1자리수의 파라미터는 \$뒤에 숫자로 사용 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \${10} ] : 2자리수의 파라미터는 {}로 감싸주어야한다. " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \$# ] : 파라미터 갯수 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '[ \$$ ] : 쉘 프로세스 ID' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '[ \$! ] : 가장 최근 백그라운드에서 실행된' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '[ \$? ] : 가장 최근의 종료 상태' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '[ \$0 ] : 사용중인 쉘스크립트의 풀패스' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '[ \$* ] : 모든 파라미터를 출력' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '[ \$@ ] : 모든 파라미터를 출력(''으로 묶인경우 하나로 취급)' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '[ \$1 ] : 1자리수의 파라미터는 \$뒤에 숫자로 사용' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '[ \${10} ] : 2자리수의 파라미터는 {}로 감싸주어야한다.' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '[ \$# ] : 파라미터 갯수' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \$$ ] : $$ " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \$! ] : $! " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \$? ] : $? " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \$0 ] : $0 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \$* ] : $* " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \$@ ] : $@ " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \$1 ] : $1 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \${10} ] : ${10} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \$# ] : $# " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        export LC_ALL="ja_JP.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "予想出力結果" ":" "通常の使い方" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \$$ ] : シェルプロセスID " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \$! ] : 一番最近バックグラウンドで実行 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \$? ] : 最近終了状態 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \$0 ] : 使用中のシェルスクリプトのフルパス " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \$* ] : 全てのパラメータ出力 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \$@ ] : すべてのパラメータが出力されます(''に縛られた場合、1つに処理される) " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \$1 ] : 1桁のパラメータが\$の後に数字として使われます " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \${10} ] : 2桁のパラメータは{}で囲む必要があります " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \$# ] : パラメータ数 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '[ \$$ ] : シェルプロセスID' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '[ \$! ] : 一番最近バックグラウンドで実行' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '[ \$? ] : 最近終了状態' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '[ \$0 ] : 使用中のシェルスクリプトのフルパス' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '[ \$* ] : 全てのパラメータ出力' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '[ \$@ ] : すべてのパラメータが出力されます(''に縛られた場合、1つに処理される)' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '[ \$1 ] : 1桁のパラメータが\$の後に数字として使われます' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '[ \${10} ] : 2桁のパラメータは{}で囲む必要があります' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '[ \$# ] : パラメータ数' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \$$ ] : $$ " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \$! ] : $! " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \$? ] : $? " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \$0 ] : $0 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \$* ] : $* " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \$@ ] : $@ " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \$1 ] : $1 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \${10} ] : ${10} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \$# ] : $# " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    else
+        export LC_ALL="en_US.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-15s %s %s\n" "ExpectedOutput" ":" "Typical Writing Method" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \$$ ] : shell process ID " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \$! ] : most recently run in the background " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \$? ] : Most recent shutdown status " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \$0 ] : full pass of the shell script in use " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \$* ] : Output all parameters " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \$@ ] : All parameters are output (handled as one if tied to'') " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \$1 ] : 1digit parameter is used as a number after \$ " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \${10} ] : 2digit parameters must be wrapped with {} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \$# ] : Number of parameters " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '[ \$$ ] : shell process ID' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '[ \$! ] : most recently run in the background' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '[ \$? ] : Most recent shutdown status' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '[ \$0 ] : full pass of the shell script in use' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '[ \$* ] : Output all parameters' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '[ \$@ ] : All parameters are output (handled as one if tied to'')' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '[ \$1 ] : 1 digit parameter is used as a number after \$' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '[ \${10} ] : 2digit parameters must be wrapped with {}' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '[ \$# ] : Number of parameters' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \$$ ] : $$ " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \$! ] : $! " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \$? ] : $? " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \$0 ] : $0 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \$* ] : $* " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \$@ ] : $@ " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \$1 ] : $1 " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \${10} ] : ${10} " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " [ \$# ] : $# " >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    fi
+    echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    printf "##############################################################################################\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    
+    export LC_ALL=${old_LC_ALL}
+    less ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    rm -rf ${filePathParam%/}/tmp/${scriptItem}/
+    
+    func_basicSetting_LogFileName_Path ${PID} "1" ${scriptItem}
+    echo 
+    
+}
+
+#--------------------------------------------#
+# Command : File_Input_Output                #
+#--------------------------------------------#
+function func_script_File_Input_Output() {
+
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### Command / 명령어 / コマンド
+    local scriptItem=$3
+    ### Count / 번호 / 番号 
+    local countNumber=0
+
+    mkdir -p ${filePathParam%/}/tmp/${scriptItem}/
+    old_LC_ALL=${LC_ALL}
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${scriptItem}
+    printf "##############################################################################################\n" > ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    printf "  %-16s %s %s\n" "" "" "${scriptItem} : >,>>,<" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    printf "##############################################################################################\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        export LC_ALL="ko_KR.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "예상출력결과" ":" "덮어쓰기" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "test12" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'cat ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile.txt >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "test11" > ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile.txt
+            echo "test12" > ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile.txt
+            cat ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile.txt >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "예상출력결과" ":" "이어쓰기" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "test12" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "test21" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "test22" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'cat ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile.txt >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "test21" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile.txt
+            echo "test22" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile.txt
+            cat ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile.txt >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "예상출력결과" ":" "파일로부터 표준입력" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "test22 test21 test12" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'echo `sort -r < ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile.txt` >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo `sort -r < ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile.txt` >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "예상출력결과" ":" "에러발생시만 파일에 출력" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " No such file or directory" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'cat ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_NoTestFile.txt >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'cat ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_NoTestFile.txt 2>> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_NoTestFile.txt >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_NoTestFile.txt 2>> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        export LC_ALL="ja_JP.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "サンプル${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "予想出力結果" ":" "上書き" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "test12" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'cat ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile.txt >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "test11" > ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile.txt
+            echo "test12" > ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile.txt
+            cat ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile.txt >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "サンプル${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "予想出力結果" ":" "続き作成" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "test12" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "test21" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "test22" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'cat ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile.txt >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "test21" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile.txt
+            echo "test22" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile.txt
+            cat ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile.txt >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "サンプル${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "予想出力結果" ":" "ファイルから標準入力" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "test22 test21 test12" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'echo `sort -r < ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile.txt` >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo `sort -r < ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile.txt` >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "サンプル${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "予想出力結果" ":" "エラー発生時のみファイルに出力" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " No such file or directory" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'cat ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_NoTestFile.txt >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'cat ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_NoTestFile.txt 2>> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_NoTestFile.txt >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_NoTestFile.txt 2>> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    else
+        export LC_ALL="en_US.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "Sample${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "ExpectedOutput" ":" "Overwrite" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "test12" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'cat ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile.txt >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "test11" > ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile.txt
+            echo "test12" > ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile.txt
+            cat ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile.txt >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "Sample${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "ExpectedOutput" ":" "Additional Write" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "test12" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "test21" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "test22" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'cat ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile.txt >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "test21" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile.txt
+            echo "test22" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile.txt
+            cat ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile.txt >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "Sample${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "ExpectedOutput" ":" "Enter Standard from File" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "test22 test21 test12" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'echo `sort -r < ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile.txt` >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo `sort -r < ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_TestFile.txt` >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "Sample${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "ExpectedOutput" ":" "Output to a file only when an error occurs" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo " No such file or directory" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'cat ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_NoTestFile.txt >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'cat ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_NoTestFile.txt 2>> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_NoTestFile.txt >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_NoTestFile.txt 2>> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
     fi
@@ -24403,6 +25110,9 @@ scriptTipList+=(ConditionalCheck_if,조건문체크_if,条件文チェック_if)
 scriptTipList+=(Calculate_\(\),계산_\(\),計算_\(\))
 scriptTipList+=(Quotation_Marks_\"\"_\'\'_\`\`,따옴표_\"\"_\'\'_\`\`,クウォウテイション_\"\"_\'\'_\`\`)
 scriptTipList+=(Variables_Modifiy,변수편집,変数編集)
+scriptTipList+=(Field_Separator_IFS,필드_구분자_IFS,フィールド区切り文字_IFS)
+scriptTipList+=(Parameter_utilization_\$,파라미터활용_\$,パラメータ活用_\$)
+scriptTipList+=(File_input_output,파일입출력,ファイル入出力)
 
 #--------------------------------------------#
 # Script Basic Variable Setting              #
