@@ -499,6 +499,10 @@ function func_linuxCommandsList() {
             read -p " Search Command (Cancel:C) : " searchCommand
         fi
 
+        if [[ ${searchCommand} == [0-9][0-9][0-9] ]];then
+            searchCommand=$((10#${searchCommand}))
+        fi
+
         if [[ ${searchCommand} =~ ^[0-9]+$ && ${#searchCommand} -gt 0 ]]; then
             searchCommand=${commandList[$((${searchCommand}-1))]}
         fi
@@ -22296,6 +22300,10 @@ function func_linuxScriptTipList() {
         read -p " スクリプトヒント (取り消し:C) : " searchScriptTipIndex
     else
         read -p " Script Tip (Cancel:C) : " searchScriptTipIndex
+    fi
+
+    if [[ ${searchScriptTipIndex} == [0-9][0-9][0-9] ]];then
+        searchScriptTipIndex=$((10#${searchScriptTipIndex}))
     fi
 
     if [[ ${searchScriptTipIndex} == [cC] || ${searchScriptTipIndex} == [cC][aA][nN][cC][eE][lL] ]];then
