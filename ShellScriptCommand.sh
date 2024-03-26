@@ -15497,7 +15497,10 @@ function func_command_ping() {
         printf "    %-21s %s %s\n" "사용법" ":" "ping google.com" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            ping google.com >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "실행중인 명령 : ping google.com">> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "잠시 기다려주세요">> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo `ping google.com | head -n 10` >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -15516,7 +15519,10 @@ function func_command_ping() {
         printf "    %-21s %s %s\n" "사용법" ":" "ping google.com -c 3" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            ping google.com -c 3 >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "실행중인 명령 : ping google.com -c 3">> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "잠시 기다려주세요">> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo `ping google.com -c 3 | head -n 10` >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -15535,7 +15541,10 @@ function func_command_ping() {
         printf "    %-21s %s %s\n" "사용법" ":" "ping google.com -i 3" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            ping google.com -i 3 >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "실행중인 명령 : ping google.com -i 3">> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "잠시 기다려주세요">> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo `ping google.com -i 3 | head -n 10` >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -15554,7 +15563,10 @@ function func_command_ping() {
         printf "    %-21s %s %s\n" "사용법" ":" "ping google.com -s 3" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            ping google.com -s 3 >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "실행중인 명령 : ping google.com -s 3">> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "잠시 기다려주세요">> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo `ping google.com -s 3 | head -n 10` >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -15573,7 +15585,10 @@ function func_command_ping() {
         printf "    %-21s %s %s\n" "사용법" ":" "ping google.com -t 3" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            ping google.com -t 3 >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "실행중인 명령 : ping google.com -t 3">> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "잠시 기다려주세요">> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo `ping google.com -t 3 | head -n 10` >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
     elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
@@ -15591,7 +15606,10 @@ function func_command_ping() {
         printf "    %-21s %s %s\n" "使い方" ":" "ping google.com" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            ping google.com >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "実行中のコマンド : ping google.com">> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "少々お待ちください。">> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo `ping google.com | head -n 10` >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -15610,7 +15628,10 @@ function func_command_ping() {
         printf "    %-21s %s %s\n" "使い方" ":" "ping google.com -c 3" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            ping google.com -c 3 >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "実行中のコマンド : ping google.com -c 3">> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "少々お待ちください。">> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo `ping google.com -c 3 | head -n 10` >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -15629,7 +15650,10 @@ function func_command_ping() {
         printf "    %-21s %s %s\n" "使い方" ":" "ping google.com -i 3" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            ping google.com -i 3 >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "実行中のコマンド : ping google.com -i 3">> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "少々お待ちください。">> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo `ping google.com -i 3 | head -n 10` >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -15648,7 +15672,10 @@ function func_command_ping() {
         printf "    %-21s %s %s\n" "使い方" ":" "ping google.com -s 3" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            ping google.com -s 3 >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "実行中のコマンド : ping google.com -s 3">> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "少々お待ちください。">> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo `ping google.com -s 3 | head -n 10` >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -15667,7 +15694,10 @@ function func_command_ping() {
         printf "    %-21s %s %s\n" "使い方" ":" "ping google.com -t 3" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            ping google.com -t 3 >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "実行中のコマンド : ping google.com -t 3">> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "少々お待ちください。">> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo `ping google.com -t 3 | head -n 10` >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
     else
@@ -15685,7 +15715,10 @@ function func_command_ping() {
         printf "    %-15s %s %s\n" "HowToUse" ":" "ping google.com" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            ping google.com >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Executed command : ping google.com">> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Just a moment, please.">> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo `ping google.com | head -n 10` >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -15704,7 +15737,10 @@ function func_command_ping() {
         printf "    %-15s %s %s\n" "HowToUse" ":" "ping google.com -c 3" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            ping google.com -c 3 >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Executed command : ping google.com -c 3">> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Just a moment, please.">> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo `ping google.com -c 3 | head -n 10` >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -15723,7 +15759,10 @@ function func_command_ping() {
         printf "    %-15s %s %s\n" "HowToUse" ":" "ping google.com -i 3" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            ping google.com -i 3 >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Executed command : ping google.com -i 3">> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Just a moment, please.">> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo `ping google.com -i 3 | head -n 10` >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -15742,7 +15781,10 @@ function func_command_ping() {
         printf "    %-15s %s %s\n" "HowToUse" ":" "ping google.com -s 3" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            ping google.com -s 3 >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Executed command : ping google.com -s 3">> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Just a moment, please.">> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo `ping google.com -s 3 | head -n 10` >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -15761,7 +15803,10 @@ function func_command_ping() {
         printf "    %-15s %s %s\n" "HowToUse" ":" "ping google.com -t 3" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            ping google.com -t 3 >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Executed command : ping google.com -t 3">> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Just a moment, please.">> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo `ping google.com -t 3 | head -n 10` >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
     fi
@@ -16121,7 +16166,8 @@ function func_command_top() {
         printf "    %-21s %s %s\n" "사용법" ":" "top" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo 'top' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo `top | head -n 25` >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
     elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
@@ -16139,7 +16185,8 @@ function func_command_top() {
         printf "    %-21s %s %s\n" "使い方" ":" "top" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo 'top' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo `top | head -n 25` >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
     else
@@ -16157,7 +16204,8 @@ function func_command_top() {
         printf "    %-15s %s %s\n" "HowToUse" ":" "top" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
-            echo 'top' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo `top | head -n 25` >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
     fi
@@ -19839,6 +19887,8 @@ function func_command_read() {
         printf "    %-21s %s %s\n" "사용법" ":" "read name" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "실행중인 명령 : read name">> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             read name >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "name=${name}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -19859,6 +19909,8 @@ function func_command_read() {
         printf "    %-21s %s %s\n" "사용법" ":" 'read -p " input your number : " tel' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "실행중인 명령 : read -p " input your number : " tel">> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             read -p " input your number : " tel >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "tel=${tel}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -19879,6 +19931,8 @@ function func_command_read() {
         printf "    %-21s %s %s\n" "사용법" ":" "read -n 4 nickName" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "실행중인 명령 : read -n 4 nickName">> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             read -n 4 nickName >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "nickName=${nickName}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -19899,6 +19953,8 @@ function func_command_read() {
         printf "    %-21s %s %s\n" "사용법" ":" "read -t 3 waittime" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "실행중인 명령 : read -t 3 waittime">> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             read -t 3 waittime >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "waittime=${waittime}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -19919,6 +19975,8 @@ function func_command_read() {
         printf "    %-21s %s %s\n" "사용법" ":" "read -s hideString" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "실행중인 명령 : read -s hideString">> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             read -s hideString >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "hideString=${hideString}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -19938,6 +19996,8 @@ function func_command_read() {
         printf "    %-21s %s %s\n" "使い方" ":" "read name" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "実行中のコマンド : read name">> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             read name >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "name=${name}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -19958,6 +20018,8 @@ function func_command_read() {
         printf "    %-21s %s %s\n" "使い方" ":" 'read -p " input your number : " tel' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "実行中のコマンド : read -p " input your number : " tel">> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             read -p " input your number : " tel >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "tel=${tel}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -19978,6 +20040,8 @@ function func_command_read() {
         printf "    %-21s %s %s\n" "使い方" ":" "read -n 4 nickName" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "実行中のコマンド : read -n 4 nickName">> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             read -n 4 nickName >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "nickName=${nickName}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -19998,6 +20062,8 @@ function func_command_read() {
         printf "    %-21s %s %s\n" "使い方" ":" "read -t 3 waittime" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "実行中のコマンド : read -t 3 waittime">> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             read -t 3 waittime >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "waittime=${waittime}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -20018,6 +20084,8 @@ function func_command_read() {
         printf "    %-21s %s %s\n" "使い方" ":" "read -s hideString" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "実行中のコマンド : read -s hideString">> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             read -s hideString >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "hideString=${hideString}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -20037,6 +20105,8 @@ function func_command_read() {
         printf "    %-21s %s %s\n" "HowToUse" ":" "read name" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Executed command : read name">> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             read name >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "name=${name}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -20057,6 +20127,8 @@ function func_command_read() {
         printf "    %-21s %s %s\n" "HowToUse" ":" 'read -p " input your number : " tel' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Executed command : read -p " input your number : " tel">> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             read -p " input your number : " tel >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "tel=${tel}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -20077,6 +20149,8 @@ function func_command_read() {
         printf "    %-21s %s %s\n" "HowToUse" ":" "read -n 4 nickName" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Executed command : read -n 4 nickName">> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             read -n 4 nickName >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "nickName=${nickName}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -20097,6 +20171,8 @@ function func_command_read() {
         printf "    %-21s %s %s\n" "HowToUse" ":" "read -t 3 waittime" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Executed command : read -t 3 waittime">> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             read -t 3 waittime >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "waittime=${waittime}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
@@ -20117,6 +20193,8 @@ function func_command_read() {
         printf "    %-21s %s %s\n" "HowToUse" ":" "read -s hideString" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
         printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "Executed command : read -s hideString">> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            cat ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             read -s hideString >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo "hideString=${hideString}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
             echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
