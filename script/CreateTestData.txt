@@ -1,0 +1,13 @@
+encoding=UTF-8
+newLine=LF
+enclosing="
+delimiting=,
+outputType=FILE
+trim=FS
+dataTypeList="char","string","byte","short","int","long","float","double"
+outputName=createfile_YYYYMMDD.txt
+
+
+
+items_name="test1","test2","test3","test4","test5","test6","test7","test8"
+items_length="1","6","5","3","4","9","3.1","4.2"
