@@ -232,7 +232,7 @@ function check_data_dataType(){
     elif [[ ${dataType} == [bB][yY][tT][eE] ]];then
         data_dataType="2"
         dataType_status="0"
-    elif [[ ${dataType} == [sS][tT][oO][rR][tT] ]];then
+    elif [[ ${dataType} == [sS][hH][oO][rR][tT] ]];then
         data_dataType="3"
         dataType_status="0"
     elif [[ ${dataType} == [iI][nN][tT] ]];then
@@ -340,19 +340,91 @@ filePath=${fileAbsolutePath%/*}/
 ### SetFile / 설정파일 / 設定ファイル
 setFilePath=${filePath%/}/CreateTestData.txt
 
-echo ${fileRelativePath}
-echo ${fileAbsolutePath}
-echo ${scriptName}
-echo ${filePath}
-echo ${setFilePath}
-echo
-
 clear
-check_file_encoding ${setFilePath}
-check_file_newLine ${setFilePath}
-check_file_enclosing ${setFilePath}
-check_file_delimiting ${setFilePath}
-check_data_outputType ${setFilePath}
-check_data_trim ${setFilePath}
-check_data_dataType ${setFilePath} 2
-check_data_outputName ${setFilePath}
+
+while [ true ];do
+
+    check_file_encoding ${setFilePath}
+            data_file_encoding="4"
+    check_file_newLine ${setFilePath}
+            data_file_newLine="2"
+    check_file_enclosing ${setFilePath}
+            data_file_enclosing="2"
+    check_file_delimiting ${setFilePath}
+            data_file_delimiting="2"
+    check_data_outputType ${setFilePath}
+            data_outputType="3"
+    check_data_trim ${setFilePath}
+            data_trim="8"
+    check_data_outputName ${setFilePath}
+            data_outputName=${outputName}
+    # status check
+    if [[ ${encoding_status} -ne 0 ]];then
+        echo "文字コード情報を取得失敗"
+        break
+    elif  [[ ${newLine_status} -ne 0 ]];then
+        echo "改行コード情報を取得失敗"
+        break
+    elif  [[ ${enclosing_status} -ne 0 ]];then
+        echo "囲み文字情報を取得失敗"
+        break
+    elif  [[ ${delimiting_status} -ne 0 ]];then
+        echo "区切り文字情報を取得失敗"
+        break
+    elif  [[ ${outputType_status} -ne 0 ]];then
+        echo "出力タイプ情報を取得失敗"
+        break
+    elif  [[ ${trim_status} -ne 0 ]];then
+        echo "トリム情報を取得失敗"
+        break
+    elif  [[ ${dataType_status} -ne 0 ]];then
+        echo "データタイプ情報を取得失敗"
+        break
+    elif  [[ ${outputName_status} -ne 0 ]];then
+        echo "出力結果名情報を取得失敗"
+        break
+    fi
+    
+    export `cat ${setFilePath} | grep itemsLength`
+    itemCounts=`echo ${itemsLength} | sed 's/"//g' | awk -F, -v field=${_itemNum} '{print NF}'`
+
+    echo "main 처리"
+    echo
+    for ((itemIndex=1; itemIndex<=${itemCounts}; itemIndex++))
+    do
+        echo "itemIndex=${itemIndex}"
+        itemLength=`echo ${itemsLength} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
+        check_data_dataType ${setFilePath} ${itemIndex}
+        echo "data_dataType=${data_dataType}"
+        if [[ ${data_dataType} = [0-1] ]];then
+            echo "문자열을 출력"
+
+            random_ascii=$((RANDOM % 26 + 65))
+            random_char=$(printf \\$(printf '%03o' $random_ascii))
+            echo $random_char
+
+        elif [[ ${data_dataType} = [2-4] ]];then
+            echo "정수를 출력"
+            echo $((RANDOM % 10))
+
+        elif [[ ${data_dataType} = [5-7] ]];then
+            echo "실수를 출력"
+            echo $((RANDOM % 10))
+        fi
+        echo
+    done
+
+    echo
+    echo "itemsLength=${itemsLength}"
+    echo "itemCounts=${itemCounts}"
+    endFlg=1
+    if [[ ${endFlg} -eq 1 ]];then
+        break
+    fi
+
+done
+
+
+#printf "%s" "testああvv" | iconv -t SJIS >> ./filename.txt
+#printf "%s" "testああvv" | iconv -t SJIS | tr "\n" "\r" >> ./filename.txt
+#nkf --guess ./filename.txt

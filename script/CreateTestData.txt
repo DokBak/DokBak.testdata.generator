@@ -9,5 +9,5 @@ outputName=createfile_YYYYMMDD.txt
 
 
 
-items_name="test1","test2","test3","test4","test5","test6","test7","test8"
-items_length="1","6","5","3","4","9","3.1","4.2"
+itemsName="test1","test2","test3","test4","test5","test6","test7","test8"
+itemsLength="1","6","5","3","4","9","3.1","4.2"
