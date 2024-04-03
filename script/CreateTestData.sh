@@ -13,20 +13,20 @@ function check_file_encoding(){
     encoding_status=""
 
     # 取得情報選別
-    if [[ ${encoding} == [uU][tT][fF]"-8" ]];then
-        data_file_encoding="0"
+    if [[ ${encoding} == 0 ]];then
+        data_file_encoding="UTF-8"
         encoding_status="0"
-    elif [[ ${encoding} == [eE][uU][cC] ]];then
-        data_file_encoding="1"
+    elif [[ ${encoding} == 1 ]];then
+        data_file_encoding="EUC"
         encoding_status="0"
-    elif [[ ${encoding} == [jJ][iI][sS] ]];then
-        data_file_encoding="2"
+    elif [[ ${encoding} == 2 ]];then
+        data_file_encoding="JIS"
         encoding_status="0"
-    elif [[ ${encoding} == [sS][jJ][iI][sS] ]];then
-        data_file_encoding="3"
+    elif [[ ${encoding} == 3 ]];then
+        data_file_encoding="SJIS"
         encoding_status="0"
-    elif [[ ${encoding} == [uU][tT][fF]"-8("[bB][oO][mM]")" ]];then
-        data_file_encoding="4"
+    elif [[ ${encoding} == 4 ]];then
+        data_file_encoding="UTF-8(BOM)"
         encoding_status="0"
     else
         encoding_status="1"
@@ -49,14 +49,14 @@ function check_file_newLine(){
     newLine_status=""
 
     # 取得情報選別
-    if [[ ${newLine} == [cC][rR][lL][fF] ]];then
-        data_file_newLine="0"
+    if [[ ${newLine} == 0 ]];then
+        data_file_newLine="CRLF"
         newLine_status="0"
-    elif [[ ${newLine} == [lL][fF] ]];then
-        data_file_newLine="1"
+    elif [[ ${newLine} == 1 ]];then
+        data_file_newLine="CR"
         newLine_status="0"
-    elif [[ ${newLine} == [cC][rR] ]];then
-        data_file_newLine="2"
+    elif [[ ${newLine} == 2 ]];then
+        data_file_newLine="LF"
         newLine_status="0"
     else
         newLine_status="1"
@@ -79,18 +79,18 @@ function check_file_enclosing(){
     enclosing_status=""
 
     # 取得情報選別
-    if [[ ${enclosing} == "" ]];then
-        data_file_enclosing="0"
+    if [[ ${enclosing} == 0 ]];then
+        data_file_enclosing=""
         enclosing_status="0"
-    elif [[ ${enclosing} == "\"" ]];then
-        data_file_enclosing="1"
+    elif [[ ${enclosing} == 1 ]];then
+        data_file_enclosing="\""
         enclosing_status="0"
-    elif [[ ${enclosing} == "\'" ]];then
-        data_file_enclosing="2"
+    elif [[ ${enclosing} == 2 ]];then
+        data_file_enclosing="\'"
         enclosing_status="0"
     else
         enclosing_status="1"
-        echo "「\"」, 「\'」, 「」(無)"
+        echo "「」(無), 「\"」, 「\'」"
     fi
 
     echo "取得囲み文字：${data_file_enclosing}"
@@ -109,18 +109,18 @@ function check_file_delimiting(){
     delimiting_status=""
 
     # 取得情報選別
-    if [[ ${delimiting} == "" ]];then
-        data_file_delimiting="0"
+    if [[ ${delimiting} == 0 ]];then
+        data_file_delimiting=""
         delimiting_status="0"
-    elif [[ ${delimiting} == "," ]];then
-        data_file_delimiting="1"
+    elif [[ ${delimiting} == 1 ]];then
+        data_file_delimiting=","
         delimiting_status="0"
-    elif [[ ${delimiting} == "\t" ]];then
-        data_file_delimiting="2"
+    elif [[ ${delimiting} == 2 ]];then
+        data_file_delimiting="\t"
         delimiting_status="0"
     else
         delimiting_status="1"
-        echo "「,」, 「\t」, 「」(無)"
+        echo "「」(無), 「,」, 「\t」"
     fi
 
     echo "取得区切り文字：${data_file_delimiting}"
@@ -139,21 +139,21 @@ function check_data_outputType(){
     outputType_status=""
 
     # 取得情報選別
-    if [[ ${outputType} == [fF][iI][lL][eE] ]];then
-        data_outputType="0"
+    if [[ ${outputType} == 0 ]];then
+        data_outputType="FILE"
         outputType_status="0"
-    elif [[ ${outputType} == [sS][qQ][lL] ]];then
-        data_outputType="1"
+    elif [[ ${outputType} == 1 ]];then
+        data_outputType="SQL"
         outputType_status="0"
-    elif [[ ${outputType} == ".gz" ]];then
-        data_outputType="2"
+    elif [[ ${outputType} == 2 ]];then
+        data_outputType=".gz"
         outputType_status="0"
-    elif [[ ${outputType} == ".Z" ]];then
-        data_outputType="3"
+    elif [[ ${outputType} == 3 ]];then
+        data_outputType=".Z"
         outputType_status="0"
     else
         outputType_status="1"
-        echo "支援する出力タイプ：file, SQL, .gz, .Z"
+        echo "支援する出力タイプ：FILE, SQL, .gz, .Z"
     fi
 
     echo "取得出力タイプ：${data_outputType}"
@@ -173,35 +173,35 @@ function check_data_trim(){
 
     # 取得情報選別
     if [[ ${trim} == "" ]];then
-        data_trim="0"
+        data_trim=""
         trim_status="0"
-    elif [[ ${trim} == [fF][hH][sS] ]];then
-        data_trim="1"
+    elif [[ ${trim} == 1 ]];then
+        data_trim="F_HS"
         trim_status="0"
-    elif [[ ${trim} == [bB][hH][sS] ]];then
-        data_trim="2"
+    elif [[ ${trim} == 2 ]];then
+        data_trim="B_HS"
         trim_status="0"
-    elif [[ ${trim} == [fF][fF][sS] ]];then
-        data_trim="3"
+    elif [[ ${trim} == 3 ]];then
+        data_trim="F_FS"
         trim_status="0"
-    elif [[ ${trim} == [bB][fF][sS] ]];then
-        data_trim="4"
+    elif [[ ${trim} == 4 ]];then
+        data_trim="B_FS"
         trim_status="0"
-    elif [[ ${trim} == [hH][sS] ]];then
-        data_trim="5"
+    elif [[ ${trim} == 5 ]];then
+        data_trim="A_HS"
         trim_status="0"
-    elif [[ ${trim} == [hH][sS][fF][fF][sS] ]];then
-        data_trim="6"
+    elif [[ ${trim} == 6 ]];then
+        data_trim="A_HS_F_FS"
         trim_status="0"
-    elif [[ ${trim} == [hH][sS][bB][fF][sS] ]];then
-        data_trim="7"
+    elif [[ ${trim} == 7 ]];then
+        data_trim="A_HS_B_FS"
         trim_status="0"
-    elif [[ ${trim} == [fF][sS] ]];then
-        data_trim="8"
+    elif [[ ${trim} == 8 ]];then
+        data_trim="A_FS"
         trim_status="0"
     else
         trim_status="1"
-        echo "支援するトリム：FHS, BHS, FFS, BFS, HS, HSFFS, HSBFS, FS"
+        echo "支援するトリム：F_HS, B_HS, F_FS, B_FS, A_HS, A_HS_F_FS, A_HS_B_FS, A_FS"
     fi
 
     echo "取得トリム：${data_trim}"
@@ -210,49 +210,49 @@ function check_data_trim(){
 #--------------------------------------------#
 #  7.設定ファイルからデータタイプ情報を取得             #
 #--------------------------------------------#
-function check_data_dataType(){
+function check_data_itemType(){
 
     # 設定ファイルパス
     local _settingFile=${1}
     # 項目番号
     local _itemNum=${2}
     # データタイプ
-    export `cat ${_settingFile} | grep dataTypeList`
-    dataType=`echo ${dataTypeList} | sed 's/"//g' | awk -F, -v field=${_itemNum} '{print $field}'`
-    data_dataType=""
-    dataType_status=""
+    export `cat ${_settingFile} | grep list_itemType`
+    itemType=`echo ${list_itemType} | sed 's/"//g' | awk -F, -v field=${_itemNum} '{print $field}'`
+    data_itemType=""
+    itemType_status=""
 
     # 取得情報選別
-    if [[ ${dataType} == [cC][hH][aA][rR] ]];then
-        data_dataType="0"
-        dataType_status="0"
-    elif [[ ${dataType} == [sS][tT][rR][iI][nN][gG] ]];then
-        data_dataType="1"
-        dataType_status="0"
-    elif [[ ${dataType} == [bB][yY][tT][eE] ]];then
-        data_dataType="2"
-        dataType_status="0"
-    elif [[ ${dataType} == [sS][hH][oO][rR][tT] ]];then
-        data_dataType="3"
-        dataType_status="0"
-    elif [[ ${dataType} == [iI][nN][tT] ]];then
-        data_dataType="4"
-        dataType_status="0"
-    elif [[ ${dataType} == [lL][oO][nN][gG] ]];then
-        data_dataType="5"
-        dataType_status="0"
-    elif [[ ${dataType} == [fF][lL][oO][aA][tT] ]];then
-        data_dataType="6"
-        dataType_status="0"
-    elif [[ ${dataType} == [dD][oO][uU][bB][lL][eE] ]];then
-        data_dataType="7"
-        dataType_status="0"
+    if [[ ${itemType} == [cC][hH][aA][rR] ]];then
+        data_itemType="0"
+        itemType_status="0"
+    elif [[ ${itemType} == [sS][tT][rR][iI][nN][gG] ]];then
+        data_itemType="1"
+        itemType_status="0"
+    elif [[ ${itemType} == [bB][yY][tT][eE] ]];then
+        data_itemType="2"
+        itemType_status="0"
+    elif [[ ${itemType} == [sS][hH][oO][rR][tT] ]];then
+        data_itemType="3"
+        itemType_status="0"
+    elif [[ ${itemType} == [iI][nN][tT] ]];then
+        data_itemType="4"
+        itemType_status="0"
+    elif [[ ${itemType} == [lL][oO][nN][gG] ]];then
+        data_itemType="5"
+        itemType_status="0"
+    elif [[ ${itemType} == [fF][lL][oO][aA][tT] ]];then
+        data_itemType="6"
+        itemType_status="0"
+    elif [[ ${itemType} == [dD][oO][uU][bB][lL][eE] ]];then
+        data_itemType="7"
+        itemType_status="0"
     else
-        dataType_status="1"
+        itemType_status="1"
         echo "支援するデータタイプ：char, string, byte, short, int, long, float, double"
     fi
 
-    echo "取得データタイプ：${data_dataType}"
+    echo "取得データタイプ：${data_itemType}"
 }
 
 #--------------------------------------------#
@@ -342,81 +342,184 @@ setFilePath=${filePath%/}/CreateTestData.txt
 
 clear
 
+
+check_file_encoding ${setFilePath}
+        data_file_encoding="UTF-8"
+check_file_newLine ${setFilePath}
+        data_file_newLine="CRLF"
+check_file_enclosing ${setFilePath}
+        data_file_enclosing="\""
+check_file_delimiting ${setFilePath}
+        data_file_delimiting=","
+check_data_outputType ${setFilePath}
+        data_outputType="FILE"
+check_data_trim ${setFilePath}
+        data_trim="A_FS"
+check_data_outputName ${setFilePath}
+        #data_outputName=${outputName}
+
+# status check
+if [[ ${encoding_status} -ne 0 ]];then
+    echo "文字コード情報を取得失敗"
+    break
+elif  [[ ${newLine_status} -ne 0 ]];then
+    echo "改行コード情報を取得失敗"
+    break
+elif  [[ ${enclosing_status} -ne 0 ]];then
+    echo "囲み文字情報を取得失敗"
+    break
+elif  [[ ${delimiting_status} -ne 0 ]];then
+    echo "区切り文字情報を取得失敗"
+    break
+elif  [[ ${outputType_status} -ne 0 ]];then
+    echo "出力タイプ情報を取得失敗"
+    break
+elif  [[ ${trim_status} -ne 0 ]];then
+    echo "トリム情報を取得失敗"
+    break
+elif  [[ ${itemType_status} -ne 0 ]];then
+    echo "データタイプ情報を取得失敗"
+    break
+elif  [[ ${outputName_status} -ne 0 ]];then
+    echo "出力結果名情報を取得失敗"
+    break
+fi
+
+# setFile check
+
+
+
+
+
+clear
+
+testNumber=0
+
 while [ true ];do
-
-    check_file_encoding ${setFilePath}
-            data_file_encoding="4"
-    check_file_newLine ${setFilePath}
-            data_file_newLine="2"
-    check_file_enclosing ${setFilePath}
-            data_file_enclosing="2"
-    check_file_delimiting ${setFilePath}
-            data_file_delimiting="2"
-    check_data_outputType ${setFilePath}
-            data_outputType="3"
-    check_data_trim ${setFilePath}
-            data_trim="8"
-    check_data_outputName ${setFilePath}
-            data_outputName=${outputName}
-    # status check
-    if [[ ${encoding_status} -ne 0 ]];then
-        echo "文字コード情報を取得失敗"
-        break
-    elif  [[ ${newLine_status} -ne 0 ]];then
-        echo "改行コード情報を取得失敗"
-        break
-    elif  [[ ${enclosing_status} -ne 0 ]];then
-        echo "囲み文字情報を取得失敗"
-        break
-    elif  [[ ${delimiting_status} -ne 0 ]];then
-        echo "区切り文字情報を取得失敗"
-        break
-    elif  [[ ${outputType_status} -ne 0 ]];then
-        echo "出力タイプ情報を取得失敗"
-        break
-    elif  [[ ${trim_status} -ne 0 ]];then
-        echo "トリム情報を取得失敗"
-        break
-    elif  [[ ${dataType_status} -ne 0 ]];then
-        echo "データタイプ情報を取得失敗"
-        break
-    elif  [[ ${outputName_status} -ne 0 ]];then
-        echo "出力結果名情報を取得失敗"
-        break
-    fi
+    testNumber=$(( ${testNumber} + 1 ))
+    echo "tmp_testNumber=${testNumber}"
     
-    export `cat ${setFilePath} | grep itemsLength`
-    itemCounts=`echo ${itemsLength} | sed 's/"//g' | awk -F, -v field=${_itemNum} '{print NF}'`
-
-    echo "main 처리"
+    export `cat ${setFilePath} | grep list_itemsLength`
+    itemsCount=`echo ${list_itemsLength} | sed 's/"//g' | awk -F, -v field=${_itemNum} '{print NF}'`
+    
+    echo "tmp_itemsCount=${itemsCount}"
     echo
-    for ((itemIndex=1; itemIndex<=${itemCounts}; itemIndex++))
-    do
-        echo "itemIndex=${itemIndex}"
-        itemLength=`echo ${itemsLength} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
-        check_data_dataType ${setFilePath} ${itemIndex}
-        echo "data_dataType=${data_dataType}"
-        if [[ ${data_dataType} = [0-1] ]];then
-            echo "문자열을 출력"
+    echo "tmp_main 처리"
+    echo
+        for ((itemIndex=1; itemIndex<=${itemsCount}; itemIndex++))
+        do
+            echo "tmp_itemIndex=${itemIndex}"
+            echo
+            itemLength=`echo ${list_itemsLength} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
+            echo "tmp_itemLength=${itemLength}"
+            echo
 
-            random_ascii=$((RANDOM % 26 + 65))
-            random_char=$(printf \\$(printf '%03o' $random_ascii))
-            echo $random_char
+            check_data_itemType ${setFilePath} ${itemIndex}
+            echo
+            echo "data_itemType=${data_itemType}"
+            echo
+            item=""
+            if [[ ${data_itemType} = [0] ]];then
+                randomAscii=$((RANDOM % 26 + 65))
+                randomChar=$(printf \\$(printf '%03o' ${randomAscii}))
+                item=${item}${randomChar}
+                echo "item=${item}"
+            elif [[ ${data_itemType} = [1] ]];then
+                echo "문자열을 출력 ${i}"
+                if [[ ${itemLength} -lt 2 ]];then
+                    item=${item}
+                    echo "2보다 작다"
+                elif [[ ${itemLength} -lt 3 && ${data_trim} ~= F_HS || ${data_trim} ~= A_HS ]];then
+                    echo "3보다 작다"
+                else
+                    echo "1보다 크다"
+                fi 
+                for ((i=1; i<=${itemLength}; i++))    
+                do
+                    randomAscii=$((RANDOM % 26 + 65))
+                    randomChar=$(printf \\$(printf '%03o' ${randomAscii}))
+                    item=${item}${randomChar}
+                    echo "item=${item}"
+                done
+            elif [[ ${data_itemType} = [2-5] ]];then
+                echo "정수를 출력"
+                for ((i=1; i<=${itemLength}; i++))    
+                do
+                    if [[ ${i} = [1] ]];then
+                        randomint=$((RANDOM % 9))
+                        if [[ ${randomint} = [0] ]];then
+                            randomint=9
+                        fi
+                    else
+                        randomint=$((RANDOM % 10))
+                    fi
+                    item=${item}${randomint}
+                    echo "item=${item}"
+                done
+            elif [[ ${data_itemType} = [6-7] ]];then
+                echo "실수를 출력"
+                echo ${itemLength} 
+                fullParts=`echo ${itemLength} | awk -F. '{print $1}'`
+                decimalParts=`echo ${itemLength} | awk -F. '{print $2}'`
+                echo "fullParts=${fullParts}"
+                echo "decimalParts=${decimalParts}"
+                integerParts=$(( ${fullParts} - ${decimalParts} - 1 ))
+                echo "integerParts=${integerParts}"
+                for ((i=1; i<=${integerParts}; i++))    
+                do
+                    if [[ ${i} = [1] ]];then
+                        randomint=$((RANDOM % 9))
+                        if [[ ${randomint} = [0] ]];then
+                            randomint=9
+                        fi
+                    else
+                        randomint=$((RANDOM % 10))
+                    fi
+                    item=${item}${randomint}
+                    echo "item=${item}"
+                done
+                echo "integerParts checking"
 
-        elif [[ ${data_dataType} = [2-4] ]];then
-            echo "정수를 출력"
-            echo $((RANDOM % 10))
-
-        elif [[ ${data_dataType} = [5-7] ]];then
-            echo "실수를 출력"
-            echo $((RANDOM % 10))
+                if [[ ${decimalParts} = [0] ]];then
+                    item=${item}
+                elif [[ ${decimalParts} = [1] ]];then
+                    item=${item}.
+                    randomint=$((RANDOM % 10))
+                    if [[ ${randomint} = [0] ]];then
+                        randomint=9
+                    fi
+                    item=${item}${randomint}
+                else
+                    item=${item}.
+                    for ((i=1; i<=$(( ${decimalParts} - 1 )); i++))    
+                    do
+                        randomint=$((RANDOM % 10))
+                        item=${item}${randomint}
+                        echo "item=${item}"
+                    done
+                    randomint=$((RANDOM % 10))
+                    if [[ ${randomint} = [0] ]];then
+                        randomint=9
+                    fi
+                    item=${item}${randomint}
+                    echo "item=${item}"
+                fi
+            fi
+            echo "fianl"
+            if [[ ${itemsCount} = ${itemIndex} ]];then
+                lineText=${lineText}${data_file_enclosing}${item}${data_file_enclosing}
+            else
+                lineText=${lineText}${data_file_enclosing}${item}${data_file_enclosing}${data_file_delimiting}
+            fi
+            echo "lineText=${lineText}"
+            
+            
+        done
+        if [[ ${testNumber} = 1 ]];then
+            echo "${lineText}" > ${data_outputName}
+        else 
+            echo "${lineText}" >> ${data_outputName}
         fi
-        echo
-    done
-
-    echo
-    echo "itemsLength=${itemsLength}"
-    echo "itemCounts=${itemCounts}"
     endFlg=1
     if [[ ${endFlg} -eq 1 ]];then
         break

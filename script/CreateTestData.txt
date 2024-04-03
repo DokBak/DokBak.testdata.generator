@@ -1,13 +1,46 @@
-encoding=UTF-8
-newLine=LF
-enclosing="
-delimiting=,
-outputType=FILE
-trim=FS
-dataTypeList="char","string","byte","short","int","long","float","double"
+encoding=0
+### 0 : UTF-8
+### 1 : EUC
+### 2 : JIS
+### 3 : SJIS
+### 4 : UTF-8(BOM)
+
+newLine=2
+### 0 : CRLF
+### 1 : CR
+### 2 : LF
+
+enclosing=1
+### 0 : 
+### 1 : "
+### 2 : '
+
+delimiting=1
+### 0 : 
+### 1 : ,
+### 2 : \t
+
+outputType=0
+### 0 : FILE
+### 1 : SQL
+### 2 : .gz
+### 3 : .Z
+
 outputName=createfile_YYYYMMDD.txt
 
+list_trim="0","1","2","3","4","5","6","7"
+### 0 : 
+### 1 : F_HS      (Front_HalfSpace)
+### 2 : B_HS      (Back_HalfSpace)
+### 3 : F_FS      (Front_FullSpace)
+### 4 : B_FS      (Back_FullSpace)
+### 5 : A_HS      (ALL_HalfSpace)
+### 6 : A_HS_F_FS (ALL_HalfSpace_Front_FullSpace)
+### 7 : A_HS_B_FS (ALL_HalfSpace_Back_FullSpace)
+### 8 : A_FS      (ALL_FullSpace)
 
+list_itemType="char","string","byte","short","int","long","float","double"
 
-itemsName="test1","test2","test3","test4","test5","test6","test7","test8"
-itemsLength="1","6","5","3","4","9","3.1","4.2"
+list_itemsName="test1","test2","test3","test4","test5","test6","test7","test8"
+
+list_itemsLength="1","6","5","3","4","9","7.3","7.2"
