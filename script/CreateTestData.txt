@@ -1,45 +1,54 @@
-encoding=0
+data_encoding=0
 ### 0 : UTF-8
 ### 1 : EUC
 ### 2 : JIS
 ### 3 : SJIS
 ### 4 : UTF-8(BOM)
 
-newLine=2
+data_newLine=2
 ### 0 : CRLF
 ### 1 : CR
 ### 2 : LF
 
-enclosing=1
+data_enclosing=1
 ### 0 : 
 ### 1 : "
 ### 2 : '
 
-delimiting=1
+data_delimiting=1
 ### 0 : 
 ### 1 : ,
 ### 2 : \t
 
-outputType=0
+data_multiByteCharacter=1
+### 0 : Not multiByteCharacter
+### 1 : multiByteCharacter
+
+data_outputType=0
 ### 0 : FILE
 ### 1 : SQL
 ### 2 : .gz
 ### 3 : .Z
 
-outputName=createfile_YYYYMMDD.txt
+data_escapeCode_list="0","1","2"
+### 0 : \
+### 1 : "
+### 2 : '
 
-list_trim="0","1","2","3","4","5","6","7"
-### 0 : 
-### 1 : F_HS      (Front_HalfSpace)
-### 2 : B_HS      (Back_HalfSpace)
-### 3 : F_FS      (Front_FullSpace)
-### 4 : B_FS      (Back_FullSpace)
-### 5 : A_HS      (ALL_HalfSpace)
-### 6 : A_HS_F_FS (ALL_HalfSpace_Front_FullSpace)
-### 7 : A_HS_B_FS (ALL_HalfSpace_Back_FullSpace)
-### 8 : A_FS      (ALL_FullSpace)
+data_outputName=createfile_YYYYMMDD.txt
+data_schema=TEST_SCHEMA
 
-list_itemType="char","string","byte","short","int","long","float","double"
+list_itemsTrim="ft","bk","FT","BK","ftbk","ftbkFT","ftbkBK","ftbkFTBK"
+### ft       : (Front_HalfSpace)
+### bk       : (Back_HalfSpace)
+### FT       : (Front_FullSpace)
+### BK       : (Back_FullSpace)
+### ftbk     : (ALL_HalfSpace)
+### ftbkFT   : (ALL_HalfSpace_Front_FullSpace)
+### ftbkBK   : (ALL_HalfSpace_Back_FullSpace)
+### ftbkFTBK : (ALL_FullSpace)
+
+list_itemsType="char","string","byte","short","int","long","float","double"
 
 list_itemsName="test1","test2","test3","test4","test5","test6","test7","test8"
 
