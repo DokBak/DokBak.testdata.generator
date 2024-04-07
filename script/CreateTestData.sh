@@ -33,7 +33,7 @@ function check_file_encoding() {
         echo "支援する文字コード：UTF-8, EUC, JIS, SJIS, UTF-8(BOM)"
     fi
 
-    echo "取得文字コード：${checked_data_encoding}"
+    # echo "取得文字コード：${checked_data_encoding}"
 }
 
 #--------------------------------------------#
@@ -93,7 +93,7 @@ function check_file_enclosing() {
         echo "「」(無), 「\"」, 「\'」"
     fi
 
-    echo "取得囲み文字：${checked_data_enclosing}"
+    # echo "取得囲み文字：${checked_data_enclosing}"
 }
 
 #--------------------------------------------#
@@ -123,7 +123,7 @@ function check_file_delimiting() {
         echo "「」(無), 「,」, 「\t」"
     fi
 
-    echo "取得区切り文字：${checked_data_delimiting}"
+    # echo "取得区切り文字：${checked_data_delimiting}"
 }
 
 #--------------------------------------------#
@@ -157,7 +157,7 @@ function check_file_multiByteCharacter() {
         echo "「0」, 「1」"
     fi
 
-    echo "マルチバイト文字：${checked_data_multiByteCharacter}"
+    # echo "マルチバイト文字：${checked_data_multiByteCharacter}"
     
 }
 
@@ -191,7 +191,7 @@ function check_data_outputType() {
         echo "支援する出力タイプ：FILE, SQL, .gz, .Z"
     fi
 
-    echo "取得出力タイプ：${checked_data_outputType}"
+    # echo "取得出力タイプ：${checked_data_outputType}"
 }
 
 function create_string_item() {
@@ -206,7 +206,7 @@ function create_string_item() {
             _randomChar=$(printf \\$(printf '%03o' ${_randomAscii}))
             item=${item}${_randomChar}
     done
-    echo "item=${item}"
+    # echo "item=${item}"
 }
 
 function create_integer_item() {
@@ -227,7 +227,7 @@ function create_integer_item() {
         fi
         item=${item}${_randomint}
     done
-    echo "item=${item}"
+    # echo "item=${item}"
 }
 
 function create_float_item() {
@@ -265,7 +265,7 @@ function create_float_item() {
         fi
         item=${item}${_randomint}
     fi
-    echo "item=${item}"
+    # echo "item=${item}"
 }
 
 #--------------------------------------------#
@@ -337,7 +337,7 @@ function check_data_outputName() {
         checked_data_outputName=`echo ${checked_data_outputName} | sed "s/?/0/g"`
     fi
 
-    echo "取得出力結果名：${checked_data_outputName}、取得ファイル番号：${data_fileCounts}"
+    # echo "取得出力結果名：${checked_data_outputName}、取得ファイル番号：${data_fileCounts}"
 }
 
 function create_normal_record() {
@@ -369,8 +369,6 @@ function create_normal_record() {
             fi
         fi
 
-        echo "itemType=${itemType}"
-        echo "item=${item}"
         if [[ ${itemType} = [cC][hH][aA][rR] || ${itemType} = [sS][tT][rR][iI][nN][gG] ]];then
             create_string_item ${itemLength} ${_option}
         elif [[ ${itemType} = [bB][yY][tT][eE] || ${itemType} = [sS][hH][oO][rR][tT] || ${itemType} = [iI][nN][tT] || ${itemType} = [lL][oO][nN][gG] ]];then
@@ -433,6 +431,63 @@ function create_trim_data() {
     fi
 }
 
+function create_trim_record() {
+    
+    # 設定ファイルパス
+    local _createFile=${1}
+    # 設定ファイルパス
+    local _option=${2}
+
+    trimsStringCount=`echo "$list_itemsTrim" | sed 's/,//g' | sed 's/"//g' | wc -c`
+    trimsCount=$(( $(( ${trimsStringCount} - 1 )) / 2 ))
+
+    while [ true ]; do
+        itemIndex=1
+        
+        echo "itemTrim=${itemTrim}"
+        for ((itemIndex=1; itemIndex<=${itemsCount}; itemIndex++));do
+            itemTrim=`echo ${list_itemsTrim} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
+            itemType=`echo ${list_itemsType} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
+            itemName=`echo ${list_itemsName} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
+            itemLength=`echo ${list_itemsLength} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
+            item=""
+
+            if [[ ${itemType} = [cC][hH][aA][rR] || ${itemType} = [sS][tT][rR][iI][nN][gG] ]];then
+                create_string_item ${itemLength} ${_option}
+            elif [[ ${itemType} = [bB][yY][tT][eE] || ${itemType} = [sS][hH][oO][rR][tT] || ${itemType} = [iI][nN][tT] || ${itemType} = [lL][oO][nN][gG] ]];then
+                create_integer_item ${itemLength} ${_option}
+            elif [[ ${itemType} = [fF][lL][oO][aA][tT] || ${itemType} = [dD][oO][uU][bB][lL][eE] ]];then
+                create_float_item ${itemLength} ${_option}
+            fi
+            
+            if [[ ${itemsCount} = ${itemIndex} ]];then
+                if [[ ${checked_data_outputType} = SQL ]];then
+                    checked_data_enclosing=\'
+                    dataRecord=${dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}
+                else
+                    dataRecord=${dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}
+                    if [[ ${checked_data_newLine} = CRLF ]];then
+                        printf "${dataRecord}$(printf \\$(printf '%03o' 13 ))\n" > ${_createFile}
+                    elif  [[ ${checked_data_newLine} = CR ]];then
+                        printf "${dataRecord}$(printf \\$(printf '%03o' 13 ))" > ${_createFile}
+                    else # LF
+                        printf "${dataRecord}\n" > ${_createFile}
+                    fi
+                fi
+            else
+                if [[ ${checked_data_outputType} = SQL ]];then
+                    checked_data_enclosing=\'
+                    dataRecord=${dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}${checked_data_delimiting}
+                else
+                    dataRecord=${dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}${checked_data_delimiting}
+                fi
+            fi
+        done
+
+        break
+    done 
+
+}
 
 #--------------------------------------------#
 #  メイン処理                                   #
@@ -465,8 +520,10 @@ export `cat ${setFilePath} | grep list_itemsLength`
 
 itemsCount=`echo ${list_itemsLength} | sed 's/"//g' | awk -F, '{print NF}'`
 
-create_normal_record ${filePath%/}/${checked_data_outputName} MULTI
-#create_normal_record ${filePath%/}/${checked_data_outputName}
+### Normal data
+#create_normal_record ${filePath%/}/${checked_data_outputName} ${checked_data_multiByteCharacter}
+### Trim data
+create_trim_record ${filePath%/}/${checked_data_outputName} trim
 
 echo "dataRecord=${dataRecord}"
 
