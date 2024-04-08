@@ -5,7 +5,7 @@ data_encoding=0
 ### 3 : SJIS
 ### 4 : UTF-8(BOM)
 
-data_newLine=2
+data_newLine=0
 ### 0 : CRLF
 ### 1 : CR
 ### 2 : LF
@@ -38,7 +38,7 @@ data_escapeCode_list="0","1","2"
 data_outputName=createfile_YYYYMMDD.txt
 data_schema=TEST_SCHEMA
 
-list_itemsTrim="ft","bk","FT","BK","ftbk","ftbkFT","ftbkBK","ftbkFTBK"
+list_itemsTrim="ftbk,"FTBK","ftbkFTBK","ftbkFTBK","ftbkFTBK","ftbkFTBK","ftbkFTBK","ftbkFTBK"
 ### ft       : (Front_HalfSpace)
 ### bk       : (Back_HalfSpace)
 ### FT       : (Front_FullSpace)
@@ -52,4 +52,4 @@ list_itemsType="char","string","byte","short","int","long","float","double"
 
 list_itemsName="test1","test2","test3","test4","test5","test6","test7","test8"
 
-list_itemsLength="1","6","5","3","4","9","7.3","7.2"
+list_itemsLength="1","6","5","3","4","9","7.3","7.3"

@@ -63,7 +63,7 @@ function check_file_newLine() {
         echo "支援する改行コード：CRLF, LF, CR"
     fi
 
-    echo "取得改行コード：${checked_data_newLine}"
+    # echo "取得改行コード：${checked_data_newLine}"
 }
 
 #--------------------------------------------#
@@ -405,6 +405,9 @@ function create_normal_record() {
         list_itemsName=`echo ${list_itemsName} | sed 's/"//g'`
         echo "INSERT INTO "${data_schema}.${data_outputName}" (${list_itemsName}) VALUES (${dataRecord})" > ${_createFile}.txt
     fi
+    dataRecord=""
+    item=""
+
 }
 
 function create_trim_data() {
@@ -438,28 +441,121 @@ function create_trim_record() {
     # 設定ファイルパス
     local _option=${2}
 
-    trimsStringCount=`echo "$list_itemsTrim" | sed 's/,//g' | sed 's/"//g' | wc -c`
+    trimsStringCount=`echo "${list_itemsTrim}" | sed 's/,//g' | sed 's/"//g' | wc -c`
     trimsCount=$(( $(( ${trimsStringCount} - 1 )) / 2 ))
-
+    trimItemIndex=1
+    tmpCount=1
+    cutfront=1
+    cutback=2
     while [ true ]; do
-        itemIndex=1
-        
-        echo "itemTrim=${itemTrim}"
+
+        itemTrim=`echo ${list_itemsTrim} | sed 's/"//g' | awk -F, -v field=${trimItemIndex} '{print $field}'`
+        itemTrimCount=$(( `echo "${itemTrim}" | wc -c` - 1 ))
+        itemTrimCount=$(( ${itemTrimCount} / 2 ))
+        targetItemTrim=`echo "${itemTrim}" | cut -b ${cutfront}-${cutback}`
+        trimFlg=0
+
         for ((itemIndex=1; itemIndex<=${itemsCount}; itemIndex++));do
-            itemTrim=`echo ${list_itemsTrim} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
             itemType=`echo ${list_itemsType} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
             itemName=`echo ${list_itemsName} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
             itemLength=`echo ${list_itemsLength} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
-            item=""
+            fullParts=`echo ${itemLength} | awk -F. '{print $1}'`
+            decimalParts=`echo ${itemLength} | awk -F. '{print $2}'`
+            integerParts=$(( ${fullParts} - ${decimalParts} - 1 ))
+
+            if [[ ${itemIndex} = ${trimItemIndex} ]];then
+                if [[ ${targetItemTrim} = ft ]];then
+                    if [[ ${itemType} = [fF][lL][oO][aA][tT] || ${itemType} = [dD][oO][uU][bB][lL][eE] ]];then
+                        if [[ ${integerParts} -gt 1 ]];then
+                            itemLength=${fullParts}
+                        else
+                            item=""
+                            trimFlg=1
+                            continue
+                        fi
+                    fi
+
+                    if [[ ${itemLength} -gt 1 ]];then
+                        create_trim_data ${targetItemTrim} HS
+                        itemLength=$(( ${itemLength} - 1))
+                    else
+                        trimFlg=1
+                    fi
+                elif [[ ${targetItemTrim} = FT ]];then
+                    if [[ ${itemType} = [fF][lL][oO][aA][tT] || ${itemType} = [dD][oO][uU][bB][lL][eE] ]];then
+                        if [[ ${integerParts} -gt 2 ]];then
+                            itemLength=${fullParts}
+                        else
+                            item=""
+                            trimFlg=1
+                            continue
+                        fi
+                    fi
+
+                    if [[ ${itemLength} -gt 2 ]];then
+                        create_trim_data ${targetItemTrim} FS
+                        itemLength=$(( ${itemLength} - 2))
+                    else
+                        trimFlg=1
+                    fi
+                elif [[ ${targetItemTrim} = bk ]];then
+                    if [[ ${itemType} = [fF][lL][oO][aA][tT] || ${itemType} = [dD][oO][uU][bB][lL][eE] ]];then
+                        if [[ ${decimalParts} -gt 1 ]];then
+                            itemLength=${fullParts}
+                            decimalParts=$(( ${decimalParts} - 1 ))
+                        else
+                            item=""
+                            trimFlg=1
+                            continue
+                        fi
+                    fi
+
+                    if [[ ${itemLength} -gt 1 ]];then
+                        itemLength=$(( ${itemLength} - 1 ))
+                    else
+                        trimFlg=1
+                    fi
+                elif [[ ${targetItemTrim} = BK ]];then
+                    if [[ ${itemType} = [fF][lL][oO][aA][tT] || ${itemType} = [dD][oO][uU][bB][lL][eE] ]];then
+                        if [[ ${decimalParts} -gt 2 ]];then
+                            itemLength=${fullParts}
+                            decimalParts=$(( ${decimalParts} - 2 ))
+                        else
+                            item=""
+                            trimFlg=1
+                            continue
+                        fi
+                    fi
+
+                    if [[ ${itemLength} -gt 2 ]];then
+                        itemLength=$(( ${itemLength} - 2 ))
+                    else
+                        trimFlg=1
+                    fi
+                fi
+            fi
+
+            if [[ ${trimFlg} = 1 ]];then
+                continue
+            fi
 
             if [[ ${itemType} = [cC][hH][aA][rR] || ${itemType} = [sS][tT][rR][iI][nN][gG] ]];then
                 create_string_item ${itemLength} ${_option}
             elif [[ ${itemType} = [bB][yY][tT][eE] || ${itemType} = [sS][hH][oO][rR][tT] || ${itemType} = [iI][nN][tT] || ${itemType} = [lL][oO][nN][gG] ]];then
                 create_integer_item ${itemLength} ${_option}
             elif [[ ${itemType} = [fF][lL][oO][aA][tT] || ${itemType} = [dD][oO][uU][bB][lL][eE] ]];then
+                itemLength=${itemLength}.${decimalParts}
                 create_float_item ${itemLength} ${_option}
             fi
             
+            if [[ ${itemIndex} = ${trimItemIndex} ]];then
+                if [[ ${targetItemTrim} = bk ]];then
+                    create_trim_data ${targetItemTrim} HS
+                elif [[ ${targetItemTrim} = BK ]];then
+                    create_trim_data ${targetItemTrim} FS
+                fi
+            fi
+
             if [[ ${itemsCount} = ${itemIndex} ]];then
                 if [[ ${checked_data_outputType} = SQL ]];then
                     checked_data_enclosing=\'
@@ -467,11 +563,11 @@ function create_trim_record() {
                 else
                     dataRecord=${dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}
                     if [[ ${checked_data_newLine} = CRLF ]];then
-                        printf "${dataRecord}$(printf \\$(printf '%03o' 13 ))\n" > ${_createFile}
+                        printf "${dataRecord}$(printf \\$(printf '%03o' 13 ))\n" >> ${_createFile}
                     elif  [[ ${checked_data_newLine} = CR ]];then
-                        printf "${dataRecord}$(printf \\$(printf '%03o' 13 ))" > ${_createFile}
+                        printf "${dataRecord}$(printf \\$(printf '%03o' 13 ))" >> ${_createFile}
                     else # LF
-                        printf "${dataRecord}\n" > ${_createFile}
+                        printf "${dataRecord}\n" >> ${_createFile}
                     fi
                 fi
             else
@@ -482,9 +578,24 @@ function create_trim_record() {
                     dataRecord=${dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}${checked_data_delimiting}
                 fi
             fi
+            item=""
         done
 
-        break
+
+        dataRecord=""
+        if [[ ${tmpCount} -eq ${itemTrimCount} ]];then
+            trimItemIndex=$(( ${trimItemIndex} + 1 ))
+            tmpCount=1
+            cutfront=1
+            cutback=2
+        else
+            tmpCount=$(( ${tmpCount} + 1 ))
+            cutfront=$(( ${cutfront} + 2 ))
+            cutback=$(( ${cutback} + 2 ))
+        fi
+        if [[ ${trimItemIndex} -gt ${itemsCount} ]];then
+            break
+        fi
     done 
 
 }
@@ -503,7 +614,6 @@ filePath=${fileAbsolutePath%/*}/
 ### SetFile / 설정파일 / 設定ファイル
 setFilePath=${filePath%/}/CreateTestData.txt
 
-
 check_file_encoding ${setFilePath}
 check_file_newLine ${setFilePath}
 check_file_enclosing ${setFilePath}
@@ -521,9 +631,25 @@ export `cat ${setFilePath} | grep list_itemsLength`
 itemsCount=`echo ${list_itemsLength} | sed 's/"//g' | awk -F, '{print NF}'`
 
 ### Normal data
-#create_normal_record ${filePath%/}/${checked_data_outputName} ${checked_data_multiByteCharacter}
+create_normal_record ${filePath%/}/tmp_${checked_data_outputName} ${checked_data_multiByteCharacter}
 ### Trim data
-create_trim_record ${filePath%/}/${checked_data_outputName} trim
+create_trim_record ${filePath%/}/tmp_${checked_data_outputName} trim
+
+### encoding change
+if [[ ${checked_data_encoding} = UTF-8 ]];then
+    nkf -w ${filePath%/}/tmp_${checked_data_outputName} > ${filePath%/}/${checked_data_outputName}
+elif [[ ${checked_data_encoding} = EUC ]];then
+    nkf -e ${filePath%/}/tmp_${checked_data_outputName} > ${filePath%/}/${checked_data_outputName}
+elif [[ ${checked_data_encoding} = JIS ]];then
+    nkf -j ${filePath%/}/tmp_${checked_data_outputName} > ${filePath%/}/${checked_data_outputName}
+elif [[ ${checked_data_encoding} = SJIS ]];then
+    nkf -s ${filePath%/}/tmp_${checked_data_outputName} > ${filePath%/}/${checked_data_outputName}
+elif [[ ${checked_data_encoding} = "UTF-8(BOM)" ]];then
+    nkf --oc=UTF-8-BOM ${filePath%/}/tmp_${checked_data_outputName} > ${filePath%/}/${checked_data_outputName}
+fi
+rm -rfv ${filePath%/}/tmp_${checked_data_outputName}
+
+
 
 echo "dataRecord=${dataRecord}"
 
