@@ -21274,6 +21274,144 @@ function func_command_declare() {
 }
 
 #--------------------------------------------#
+# Command : rename                           #
+#--------------------------------------------#
+function func_command_rename() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### English Command Description Parameter / 영어 명령어 설명 파라미터 / 英語コマンド説明パラメータ
+    local commandDescriptionEnParam=$3
+    ### Korean Command Description Parameter / 한국어 명령어 설명 파라미터 / 韓国語コマンド説明パラメータ
+    local commandDescriptionKrParam=$4
+    ### Japense Command Description Parameter / 일본어 명령어 설명 파라미터 / 日本語コマンド説明パラメータ
+    local commandDescriptionJpParam=$5
+    ### Command / 명령어 / コマンド
+    local commandItem=$6
+    ### Count / 번호 / 番号 
+    local countNumber=0
+
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/
+    echo 'test_data' > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1_20240408.txt
+    echo 'test_data' > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2_20240408.txt
+    echo 'test_data' > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile3_20240408.txt
+    old_LC_ALL=${LC_ALL}
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${commandItem}
+    printf "##############################################################################################\n" > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    echo
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        printf "  %-16s %s %s\n" "명령어" ":" "${commandItem}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-17s %s %s\n" "기본설명" ":" "${commandDescriptionKrParam}" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-18s %s %s\n" "※사용법" ":" "${commandItem}_[인수1]_[인수2]_[인수3]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-17s %s %s\n" "※인수1" ":" "[변경전텍스트]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-17s %s %s\n" "※인수2" ":" "[변경후텍스트]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-17s %s %s\n" "※인수3" ":" "[대상파일]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        printf "  %-17s %s %s\n" "コマンド" ":" "${commandItem}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-17s %s %s\n" "基本説明" ":" "${commandDescriptionJpParam}" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}_[引数1]_[引数2]_[引数3]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-17s %s %s\n" "※引数1" ":" "[変更前文字]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-17s %s %s\n" "※引数2" ":" "[変更後文字]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-17s %s %s\n" "※引数3" ":" "[対象ファイル]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    else
+        printf "  %-13s %s %s\n" "Command" ":" "${commandItem}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_[argument1]_[argument2]_[argument3]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-15s %s %s\n" "※argument1" ":" "[Text_before_change]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-15s %s %s\n" "※argument2" ":" "[Text_after_change]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-15s %s %s\n" "※argument3" ":" "[Destination_file]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    fi
+    echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    printf "##############################################################################################\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        export LC_ALL="ko_KR.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "예상출력결과" ":" "대상파일의 이름을 변경" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1_20221231.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2_20221231.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile3_20221231.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" "rename 20240408 20221231 ${filePathParam%/}/tmp/${commandItem}/*" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            ls -l ${filePathParam%/}/tmp/${commandItem}/ >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            rename 20240408 20221231 ${filePathParam%/}/tmp/${commandItem}/*
+            echo "rename 20240408 20221231 ${filePathParam%/}/tmp/${commandItem}/*" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            ls -l ${filePathParam%/}/tmp/${commandItem}/ >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        export LC_ALL="ja_JP.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "サンプル${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "予想出力結果" ":" "対象ファイルのファイル名を変更" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1_20221231.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2_20221231.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile3_20221231.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" "rename 20240408 20221231 ${filePathParam%/}/tmp/${commandItem}/*" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            ls -l ${filePathParam%/}/tmp/${commandItem}/ >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            rename 20240408 20221231 ${filePathParam%/}/tmp/${commandItem}/*
+            echo "rename 20240408 20221231 ${filePathParam%/}/tmp/${commandItem}/*" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            ls -l ${filePathParam%/}/tmp/${commandItem}/ >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    else
+        export LC_ALL="en_US.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "Sample${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "ExpectedOutput" ":" "Change the name of the destination file" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1_20221231.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile2_20221231.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile3_20221231.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" "rename 20240408 20221231 ${filePathParam%/}/tmp/${commandItem}/*" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            ls -l ${filePathParam%/}/tmp/${commandItem}/ >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            rename 20240408 20221231 ${filePathParam%/}/tmp/${commandItem}/*
+            echo "rename 20240408 20221231 ${filePathParam%/}/tmp/${commandItem}/*" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            ls -l ${filePathParam%/}/tmp/${commandItem}/ >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    fi
+    echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    printf "##############################################################################################\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+
+    export LC_ALL=${old_LC_ALL}
+    less ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    rm -rf ${filePathParam%/}/tmp/${commandItem}/
+
+    func_basicSetting_LogFileName_Path ${PID} "1" ${commandItem}
+    echo 
+    
+}
+
+#--------------------------------------------#
 # Command : awk                              #
 #--------------------------------------------#
 function func_command_awk() {
