@@ -10,12 +10,12 @@ data_newLine=0
 ### 1 : CR
 ### 2 : LF
 
-data_enclosing=1
+data_enclosing=0
 ### 0 : 
 ### 1 : "
 ### 2 : '
 
-data_delimiting=1
+data_delimiting=0
 ### 0 : 
 ### 1 : ,
 ### 2 : \t
@@ -38,7 +38,7 @@ data_escapeCode_list="0","1","2"
 data_outputName=createfile_YYYYMMDD.txt
 data_schema=TEST_SCHEMA
 
-list_itemsTrim="ftbk,"FTBK","ftbkFTBK","ftbkFTBK","ftbkFTBK","ftbkFTBK","ftbkFTBK","ftbkFTBK"
+list_itemsTrim="ftbkFTBK,"ftbkFTBK","ftbkFTBK","ftbkFTBK","ftbkFTBK","ftbkFTBK","ftbkFTBK","ftbkFTBK",""
 ### ft       : (Front_HalfSpace)
 ### bk       : (Back_HalfSpace)
 ### FT       : (Front_FullSpace)
@@ -47,9 +47,32 @@ list_itemsTrim="ftbk,"FTBK","ftbkFTBK","ftbkFTBK","ftbkFTBK","ftbkFTBK","ftbkFTB
 ### ftbkFT   : (ALL_HalfSpace_Front_FullSpace)
 ### ftbkBK   : (ALL_HalfSpace_Back_FullSpace)
 ### ftbkFTBK : (ALL_FullSpace)
+### Type date is only ""(NotTrim)
 
-list_itemsType="char","string","byte","short","int","long","float","double"
+list_itemsType="char","string","byte","short","int","long","float","double","date:YYYYMMDD"
+### char          : (1byte string)
+### string        : (nbyte string)
+### byte          : (-128 ~ 127)
+### short         : (-32,768 ~ 32,767)
+### int           : (-2,147,483,648 ~ 2,147,483,647)
+### long          : (-9,223,372,036,854,775,808 ~ 9,223,372,036,854,775,807)
+### float         : (3.4 X 10-38) ~ (3.4 X 1038)
+### double        : (1.7 X 10-308) ~ (1.7 X 10308)
+### date:YYYYMMDD : (date:format / [format_ex] YYYYMMDD, YYYYMMDDhhmmss)
 
-list_itemsName="test1","test2","test3","test4","test5","test6","test7","test8"
+list_itemsLength="1","6","5","3","4","9","7.3","7.3","8"
+### char          : only 1
+### string        : n
+### byte          : max 3
+### short         : max 5
+### int           : max 10
+### long          : max 19
+### float         : max 38
+### double        : max 308
+### date:YYYYMMDD : max 14
 
-list_itemsLength="1","6","5","3","4","9","7.3","7.3"
+list_itemsNotNull="1","1","1","1","1","1","1","1","1"
+### 0 : Not Null 
+### 1 : Null Allow
+
+list_itemsName="test1","test2","test3","test4","test5","test6","test7","test8","test9"

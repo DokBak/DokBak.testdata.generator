@@ -3,7 +3,7 @@
 #--------------------------------------------#
 #  1.設定ファイルから文字コード情報を取得              #
 #--------------------------------------------#
-function check_file_encoding() {
+function check_data_encoding() {
 
     # 設定ファイルパス
     local _settingFile=${1}
@@ -39,7 +39,7 @@ function check_file_encoding() {
 #--------------------------------------------#
 #  2.設定ファイルから改行コード情報を取得              #
 #--------------------------------------------#
-function check_file_newLine() {
+function check_data_newLine() {
 
     # 設定ファイルパス
     local _settingFile=${1}
@@ -69,7 +69,7 @@ function check_file_newLine() {
 #--------------------------------------------#
 #  3.設定ファイルから囲み文字情報を取得      　        #
 #--------------------------------------------#
-function check_file_enclosing() {
+function check_data_enclosing() {
 
     # 設定ファイルパス
     local _settingFile=${1}
@@ -99,7 +99,7 @@ function check_file_enclosing() {
 #--------------------------------------------#
 #  4.設定ファイルから区切り文字情報を取得      　       #
 #--------------------------------------------#
-function check_file_delimiting() {
+function check_data_delimiting() {
 
     # 設定ファイルパス
     local _settingFile=${1}
@@ -129,7 +129,7 @@ function check_file_delimiting() {
 #--------------------------------------------#
 #  4.設定ファイルから区切り文字情報を取得      　       #
 #--------------------------------------------#
-function check_file_multiByteCharacter() {
+function check_data_multiByteCharacter() {
 
     # 設定ファイルパス
     local _settingFile=${1}
@@ -268,6 +268,36 @@ function create_float_item() {
     # echo "item=${item}"
 }
 
+function create_date_item() {
+    _format=$1
+    
+    if [[ ${_format} =~ YYYYMMDDhhmmss ]];then
+        item=`date +"%Y%m%d%H%M%S"`
+    elif [[ ${_format} =~ YYYYMMDDhhmm ]];then
+        item=`date +"%Y%m%d%H%M"`
+    elif [[ ${_format} =~ YYYYMMDDhh ]];then
+        item=`date +"%Y%m%d%H"`
+    elif [[ ${_format} =~ YYYYMMDD ]];then
+        item=`date +"%Y%m%d"`
+    elif [[ ${_format} =~ YYYYMM ]];then
+        item=`date +"%Y%m"`
+    elif [[ ${_format} =~ YYYY ]];then
+        item=`date +"%Y"`
+    elif [[ ${_format} =~ MMDD ]];then
+        item=`date +"%m%d"`
+    elif [[ ${_format} =~ MM ]];then
+        item=`date +"%m"`
+    elif [[ ${_format} =~ DD ]];then
+        item=`date +"%d"`
+    elif [[ ${_format} =~ hhmm ]];then
+        item=`date +"%H%M"`
+    elif [[ ${_format} =~ hh ]];then
+        item=`date +"%H"`
+    fi
+
+    # echo "item=${item}"
+}
+
 #--------------------------------------------#
 #  8.設定ファイルから出力結果名情報を取得              #
 #--------------------------------------------#
@@ -375,6 +405,8 @@ function create_normal_record() {
             create_integer_item ${itemLength} ${_option}
         elif [[ ${itemType} = [fF][lL][oO][aA][tT] || ${itemType} = [dD][oO][uU][bB][lL][eE] ]];then
             create_float_item ${itemLength} ${_option}
+        elif [[ ${itemType} =~ [dD][aA][tT][eE] ]];then
+            create_date_item ${itemType}
         fi
         
         if [[ ${itemsCount} = ${itemIndex} ]];then
@@ -532,7 +564,9 @@ function create_trim_record() {
                     else
                         trimFlg=1
                     fi
-                fi
+                elif [[ ${targetItemTrim} = "" ]];then
+                    trimFlg=1
+                fi  
             fi
 
             if [[ ${trimFlg} = 1 ]];then
@@ -546,6 +580,8 @@ function create_trim_record() {
             elif [[ ${itemType} = [fF][lL][oO][aA][tT] || ${itemType} = [dD][oO][uU][bB][lL][eE] ]];then
                 itemLength=${itemLength}.${decimalParts}
                 create_float_item ${itemLength} ${_option}
+            elif [[ ${itemType} =~ [dD][aA][tT][eE] ]];then
+                create_date_item ${itemType}
             fi
             
             if [[ ${itemIndex} = ${trimItemIndex} ]];then
@@ -581,9 +617,10 @@ function create_trim_record() {
             item=""
         done
 
-
         dataRecord=""
-        if [[ ${tmpCount} -eq ${itemTrimCount} ]];then
+        if [[ 0 -eq ${itemTrimCount} ]];then
+            trimItemIndex=$(( ${trimItemIndex} + 1 ))
+        elif [[ ${tmpCount} -eq ${itemTrimCount} ]];then
             trimItemIndex=$(( ${trimItemIndex} + 1 ))
             tmpCount=1
             cutfront=1
@@ -596,6 +633,255 @@ function create_trim_record() {
         if [[ ${trimItemIndex} -gt ${itemsCount} ]];then
             break
         fi
+    done 
+
+}
+
+function create_number_limit_record() {
+    
+    # 設定ファイルパス
+    local _createFile=${1}
+    # 設定ファイルパス
+    local _option=${2}
+    dataRecord=""
+    number_limit=1
+    limitItemIndex=1
+    while [ true ]; do
+        targetItemType=`echo ${list_itemsType} | sed 's/"//g' | awk -F, -v field=${limitItemIndex} '{print $field}'`
+        limitFlg=0
+        item=""
+
+        for ((itemIndex=1; itemIndex<=${itemsCount}; itemIndex++));do
+            itemType=`echo ${list_itemsType} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
+            itemName=`echo ${list_itemsName} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
+            itemLength=`echo ${list_itemsLength} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
+            fullParts=`echo ${itemLength} | awk -F. '{print $1}'`
+            decimalParts=`echo ${itemLength} | awk -F. '{print $2}'`
+            integerParts=$(( ${fullParts} - ${decimalParts} - 1 ))
+
+            if [[ ${itemType} = [cC][hH][aA][rR] || ${itemType} = [sS][tT][rR][iI][nN][gG] ]];then
+                create_string_item ${itemLength} ${_option}
+                if [[ ${limitItemIndex} = ${itemIndex} ]];then
+                    limitFlg=1
+                fi
+            elif [[ ${itemType} = [bB][yY][tT][eE] || ${itemType} = [sS][hH][oO][rR][tT] || ${itemType} = [iI][nN][tT] || ${itemType} = [lL][oO][nN][gG] ]];then
+                if [[ ${limitItemIndex} = ${itemIndex} ]];then
+                    for ((i=1; i<=${itemLength}; i++)); do
+                        if [[ ${number_limit} = 1 ]];then
+                            _randomint=9
+                        else
+                            _randomint=0
+                        fi
+                        item=${item}${_randomint}
+                    done
+                else
+                    create_integer_item ${itemLength} ${_option}
+                fi
+            elif [[ ${itemType} = [fF][lL][oO][aA][tT] || ${itemType} = [dD][oO][uU][bB][lL][eE] ]];then
+                if [[ ${limitItemIndex} = ${itemIndex} ]];then
+                    for ((i=1; i<=${integerParts}; i++)); do
+                        if [[ ${number_limit} = 1 ]];then
+                            _randomint=9
+                        else
+                            _randomint=0
+                        fi
+                        item=${item}${_randomint}
+                    done
+                    item=${item}.
+                    for ((i=1; i<=${decimalParts}; i++)); do
+                        if [[ ${number_limit} = 1 ]];then
+                            _randomint=9
+                        else
+                            _randomint=0
+                        fi
+                        item=${item}${_randomint}
+                    done
+                else
+                    create_float_item ${itemLength} ${_option}
+                fi
+            elif [[ ${itemType} =~ [dD][aA][tT][eE] ]];then
+                if [[ ${limitItemIndex} = ${itemIndex} ]];then
+                    limitFlg=1
+                else
+                    create_date_item ${itemType}
+                fi
+            fi
+            
+            if [[ ${limitFlg} = 1 ]];then
+                continue
+            fi
+            echo "itemsCount=${itemsCount}, itemIndex=${itemIndex}"
+            echo "limitItemIndex=${limitItemIndex}"
+            echo
+            if [[ ${itemsCount} = ${itemIndex} ]];then
+                if [[ ${checked_data_outputType} = SQL ]];then
+                    checked_data_enclosing=\'
+                    dataRecord=${dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}
+                else
+                    dataRecord=${dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}
+                    if [[ ${checked_data_newLine} = CRLF ]];then
+                        printf "${dataRecord}$(printf \\$(printf '%03o' 13 ))\n" >> ${_createFile}
+                    elif  [[ ${checked_data_newLine} = CR ]];then
+                        printf "${dataRecord}$(printf \\$(printf '%03o' 13 ))" >> ${_createFile}
+                    else # LF
+                        printf "${dataRecord}\n" >> ${_createFile}
+                    fi
+                fi
+            else
+                if [[ ${checked_data_outputType} = SQL ]];then
+                    checked_data_enclosing=\'
+                    dataRecord=${dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}${checked_data_delimiting}
+                else
+                    dataRecord=${dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}${checked_data_delimiting}
+                fi
+            fi
+            echo "dataRecord=${dataRecord}"
+
+            item=""
+        done
+        if [[ ${number_limit} = 2 ]];then
+            limitItemIndex=$(( ${limitItemIndex} + 1 ))
+            number_limit=1
+        else
+            number_limit=2
+        fi
+
+        if [[ ${limitItemIndex} -gt ${itemsCount} ]];then
+            break
+        fi
+        dataRecord=""
+    done 
+
+}
+
+function create_not_null_record() {
+    
+    # 設定ファイルパス
+    local _createFile=${1}
+    # 設定ファイルパス
+    local _option=${2}
+    dataRecord=""
+
+    number_not_null=1
+    notNullItemIndex=1
+    while [ true ]; do
+        targetItemType=`echo ${list_itemsType} | sed 's/"//g' | awk -F, -v field=${notNullItemIndex} '{print $field}'`
+        notNullFlg=0
+        item=""
+        for ((itemIndex=1; itemIndex<=${itemsCount}; itemIndex++));do
+            itemNotNull=`echo ${list_itemsNotNull} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
+            itemType=`echo ${list_itemsType} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
+            itemName=`echo ${list_itemsName} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
+            itemLength=`echo ${list_itemsLength} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
+            fullParts=`echo ${itemLength} | awk -F. '{print $1}'`
+
+            if [[ ${itemType} = [cC][hH][aA][rR] || ${itemType} = [sS][tT][rR][iI][nN][gG] ]];then
+                if [[ ${notNullItemIndex} = ${itemIndex} ]];then
+                    if [[ ${itemNotNull} = 1 ]];then
+                        if [[ ${checked_data_enclosing} = "" && ${checked_data_delimiting} = "" ]];then
+                            for ((i=1; i<=${itemLength}; i++)); do
+                                _randomchar=" "
+                                item=${item}${_randomchar}
+                            done
+                        else
+                            _randomchar=""
+                            item=${item}${_randomchar}
+                        fi
+                    elif [[ ${itemNotNull} = 0 ]];then
+                        notNullFlg=1
+                    fi
+                else
+                    create_string_item ${itemLength} ${_option}
+                fi
+            elif [[ ${itemType} = [bB][yY][tT][eE] || ${itemType} = [sS][hH][oO][rR][tT] || ${itemType} = [iI][nN][tT] || ${itemType} = [lL][oO][nN][gG] ]];then
+                if [[ ${notNullItemIndex} = ${itemIndex} ]];then
+                    if [[ ${itemNotNull} = 1 ]];then
+                        if [[ ${checked_data_enclosing} = "" && ${checked_data_delimiting} = "" ]];then
+                            for ((i=1; i<=${itemLength}; i++)); do
+                                _randomint=" "
+                                item=${item}${_randomint}
+                            done
+                        else
+                            _randomint=""
+                            item=${item}${_randomint}
+                        fi
+                    else
+                        notNullFlg=1
+                    fi
+                else
+                    create_integer_item ${itemLength} ${_option}
+                fi
+            elif [[ ${itemType} = [fF][lL][oO][aA][tT] || ${itemType} = [dD][oO][uU][bB][lL][eE] ]];then
+                if [[ ${notNullItemIndex} = ${itemIndex} ]];then
+                    if [[ ${itemNotNull} = 1 ]];then
+                        if [[ ${checked_data_enclosing} = "" && ${checked_data_delimiting} = "" ]];then
+                            for ((i=1; i<=${fullParts}; i++)); do
+                                _randomint=" "
+                                item=${item}${_randomint}
+                            done
+                        else
+                            _randomint=""
+                            item=${item}${_randomint}
+                        fi
+                    else
+                        notNullFlg=1
+                    fi
+                else
+                    create_float_item ${itemLength} ${_option}
+                fi
+            elif [[ ${itemType} =~ [dD][aA][tT][eE] ]];then
+                if [[ ${notNullItemIndex} = ${itemIndex} ]];then
+                    if [[ ${itemNotNull} = 1 ]];then
+                        if [[ ${checked_data_enclosing} = "" && ${checked_data_delimiting} = "" ]];then
+                            for ((i=1; i<=${itemLength}; i++)); do
+                                _randomDate=" "
+                                item=${item}${_randomDate}
+                            done
+                        else
+                            _randomDate=""
+                            item=${item}${_randomDate}
+                        fi
+                    else
+                        notNullFlg=1
+                    fi
+                else
+                    create_date_item ${itemType}
+                fi
+            fi
+            if [[ ${notNullFlg} = 1 ]];then
+                continue
+            fi
+
+            if [[ ${itemsCount} = ${itemIndex} ]];then
+                if [[ ${checked_data_outputType} = SQL ]];then
+                    checked_data_enclosing=\'
+                    dataRecord=${dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}
+                else
+                    dataRecord=${dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}
+                    if [[ ${checked_data_newLine} = CRLF ]];then
+                        printf "${dataRecord}$(printf \\$(printf '%03o' 13 ))\n" >> ${_createFile}
+                    elif  [[ ${checked_data_newLine} = CR ]];then
+                        printf "${dataRecord}$(printf \\$(printf '%03o' 13 ))" >> ${_createFile}
+                    else # LF
+                        printf "${dataRecord}\n" >> ${_createFile}
+                    fi
+                fi
+            else
+                if [[ ${checked_data_outputType} = SQL ]];then
+                    checked_data_enclosing=\'
+                    dataRecord=${dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}${checked_data_delimiting}
+                else
+                    dataRecord=${dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}${checked_data_delimiting}
+                fi
+            fi
+            item=""
+        done
+        notNullItemIndex=$(( ${notNullItemIndex} + 1 ))
+
+        if [[ ${notNullItemIndex} -gt ${itemsCount} ]];then
+            break
+        fi
+        dataRecord=""
     done 
 
 }
@@ -614,41 +900,46 @@ filePath=${fileAbsolutePath%/*}/
 ### SetFile / 설정파일 / 設定ファイル
 setFilePath=${filePath%/}/CreateTestData.txt
 
-check_file_encoding ${setFilePath}
-check_file_newLine ${setFilePath}
-check_file_enclosing ${setFilePath}
-check_file_delimiting ${setFilePath}
+check_data_encoding ${setFilePath}
+check_data_newLine ${setFilePath}
+check_data_enclosing ${setFilePath}
+check_data_delimiting ${setFilePath}
 check_data_outputType ${setFilePath}
 check_data_outputName ${setFilePath}
-check_file_multiByteCharacter ${setFilePath} jp
+check_data_multiByteCharacter ${setFilePath} jp
 
 export `cat ${setFilePath} | grep data_escapeCode_list`
 export `cat ${setFilePath} | grep list_itemsTrim`
 export `cat ${setFilePath} | grep list_itemsType`
 export `cat ${setFilePath} | grep list_itemsName`
 export `cat ${setFilePath} | grep list_itemsLength`
+export `cat ${setFilePath} | grep list_itemsNotNull`
 
 itemsCount=`echo ${list_itemsLength} | sed 's/"//g' | awk -F, '{print NF}'`
 
 ### Normal data
-create_normal_record ${filePath%/}/tmp_${checked_data_outputName} ${checked_data_multiByteCharacter}
+#create_normal_record ${filePath%/}/tmp_${checked_data_outputName} ${checked_data_multiByteCharacter}
 ### Trim data
-create_trim_record ${filePath%/}/tmp_${checked_data_outputName} trim
-
+#create_trim_record ${filePath%/}/tmp_${checked_data_outputName} trim
+### Limit Number data
+create_number_limit_record ${filePath%/}/tmp_${checked_data_outputName} number_limit
+### Not Null data
+create_not_null_record ${filePath%/}/tmp_${checked_data_outputName} not_null
 ### encoding change
-if [[ ${checked_data_encoding} = UTF-8 ]];then
-    nkf -w ${filePath%/}/tmp_${checked_data_outputName} > ${filePath%/}/${checked_data_outputName}
-elif [[ ${checked_data_encoding} = EUC ]];then
-    nkf -e ${filePath%/}/tmp_${checked_data_outputName} > ${filePath%/}/${checked_data_outputName}
-elif [[ ${checked_data_encoding} = JIS ]];then
-    nkf -j ${filePath%/}/tmp_${checked_data_outputName} > ${filePath%/}/${checked_data_outputName}
-elif [[ ${checked_data_encoding} = SJIS ]];then
-    nkf -s ${filePath%/}/tmp_${checked_data_outputName} > ${filePath%/}/${checked_data_outputName}
-elif [[ ${checked_data_encoding} = "UTF-8(BOM)" ]];then
-    nkf --oc=UTF-8-BOM ${filePath%/}/tmp_${checked_data_outputName} > ${filePath%/}/${checked_data_outputName}
+if [[ -e ${filePath%/}/tmp_${checked_data_outputName} ]];then
+    if [[ ${checked_data_encoding} = UTF-8 ]];then
+        nkf -w ${filePath%/}/tmp_${checked_data_outputName} > ${filePath%/}/${checked_data_outputName}
+    elif [[ ${checked_data_encoding} = EUC ]];then
+        nkf -e ${filePath%/}/tmp_${checked_data_outputName} > ${filePath%/}/${checked_data_outputName}
+    elif [[ ${checked_data_encoding} = JIS ]];then
+        nkf -j ${filePath%/}/tmp_${checked_data_outputName} > ${filePath%/}/${checked_data_outputName}
+    elif [[ ${checked_data_encoding} = SJIS ]];then
+        nkf -s ${filePath%/}/tmp_${checked_data_outputName} > ${filePath%/}/${checked_data_outputName}
+    elif [[ ${checked_data_encoding} = "UTF-8(BOM)" ]];then
+        nkf --oc=UTF-8-BOM ${filePath%/}/tmp_${checked_data_outputName} > ${filePath%/}/${checked_data_outputName}
+    fi
+    rm -rfv ${filePath%/}/tmp_${checked_data_outputName}
 fi
-rm -rfv ${filePath%/}/tmp_${checked_data_outputName}
-
 
 
 echo "dataRecord=${dataRecord}"
