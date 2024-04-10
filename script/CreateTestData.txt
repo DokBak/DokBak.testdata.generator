@@ -1,3 +1,6 @@
+### テストデータ作成設定一覧
+
+### 文字コード
 data_encoding=0
 ### 0 : UTF-8
 ### 1 : EUC
@@ -5,39 +8,49 @@ data_encoding=0
 ### 3 : SJIS
 ### 4 : UTF-8(BOM)
 
+### 改行コード
 data_newLine=0
 ### 0 : CRLF
 ### 1 : CR
 ### 2 : LF
 
+### 囲み文字
 data_enclosing=0
 ### 0 : 
 ### 1 : "
 ### 2 : '
 
+### 区切り文字
 data_delimiting=0
 ### 0 : 
 ### 1 : ,
 ### 2 : \t
 
+### マルチバイトチェックフラグ
 data_multiByteCharacter=1
 ### 0 : Not multiByteCharacter
 ### 1 : multiByteCharacter
 
+### 出力タイプ
 data_outputType=0
 ### 0 : FILE
 ### 1 : SQL
 ### 2 : .gz
 ### 3 : .Z
 
+### エスケープ文字
 data_escapeCode_list="0","1","2"
 ### 0 : \
 ### 1 : "
 ### 2 : '
 
+### 出力タイプ名
 data_outputName=createfile_YYYYMMDD.txt
+
+### SQLタイプ出力の場合、スキーマ名
 data_schema=TEST_SCHEMA
 
+### 項目別トリム情報リスト
 list_itemsTrim="ftbkFTBK,"ftbkFTBK","ftbkFTBK","ftbkFTBK","ftbkFTBK","ftbkFTBK","ftbkFTBK","ftbkFTBK",""
 ### ft       : (Front_HalfSpace)
 ### bk       : (Back_HalfSpace)
@@ -49,6 +62,7 @@ list_itemsTrim="ftbkFTBK,"ftbkFTBK","ftbkFTBK","ftbkFTBK","ftbkFTBK","ftbkFTBK",
 ### ftbkFTBK : (ALL_FullSpace)
 ### Type date is only ""(NotTrim)
 
+### 項目別タイプ情報リスト
 list_itemsType="char","string","byte","short","int","long","float","double","date:YYYYMMDD"
 ### char          : (1byte string)
 ### string        : (nbyte string)
@@ -60,6 +74,7 @@ list_itemsType="char","string","byte","short","int","long","float","double","dat
 ### double        : (1.7 X 10-308) ~ (1.7 X 10308)
 ### date:YYYYMMDD : (date:format / [format_ex] YYYYMMDD, YYYYMMDDhhmmss)
 
+### 項目別桁数情報リスト
 list_itemsLength="1","6","5","3","4","9","7.3","7.3","8"
 ### char          : only 1
 ### string        : n
@@ -71,8 +86,10 @@ list_itemsLength="1","6","5","3","4","9","7.3","7.3","8"
 ### double        : max 308
 ### date:YYYYMMDD : max 14
 
+### 項目別ヌル情報リスト
 list_itemsNotNull="1","1","1","1","1","1","1","1","1"
 ### 0 : Not Null 
 ### 1 : Null Allow
 
+### 項目別名情報リスト
 list_itemsName="test1","test2","test3","test4","test5","test6","test7","test8","test9"

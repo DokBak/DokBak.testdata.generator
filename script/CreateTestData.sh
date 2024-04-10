@@ -1,35 +1,36 @@
 #!/bin/bash
 
 #--------------------------------------------#
-#  1.設定ファイルから文字コード情報を取得              #
+#   01. 設定ファイルから文字コード情報を取得
 #--------------------------------------------#
 function check_data_encoding() {
 
+    # 関数終了コード
+    local _encoding_status=""
     # 設定ファイルパス
     local _settingFile=${1}
     # 文字コード
     export `cat ${_settingFile} | grep data_encoding`
     checked_data_encoding=""
-    encoding_status=""
 
     # 取得情報選別
     if [[ ${data_encoding} = 0 ]];then
         checked_data_encoding="UTF-8"
-        encoding_status="0"
+        _encoding_status="0"
     elif [[ ${data_encoding} = 1 ]];then
         checked_data_encoding="EUC"
-        encoding_status="0"
+        _encoding_status="0"
     elif [[ ${data_encoding} = 2 ]];then
         checked_data_encoding="JIS"
-        encoding_status="0"
+        _encoding_status="0"
     elif [[ ${data_encoding} = 3 ]];then
         checked_data_encoding="SJIS"
-        encoding_status="0"
+        _encoding_status="0"
     elif [[ ${data_encoding} = 4 ]];then
         checked_data_encoding="UTF-8(BOM)"
-        encoding_status="0"
+        _encoding_status="0"
     else
-        encoding_status="1"
+        _encoding_status="1"
         echo "支援する文字コード：UTF-8, EUC, JIS, SJIS, UTF-8(BOM)"
     fi
 
@@ -37,29 +38,30 @@ function check_data_encoding() {
 }
 
 #--------------------------------------------#
-#  2.設定ファイルから改行コード情報を取得              #
+#   02. 設定ファイルから改行コード情報を取得
 #--------------------------------------------#
 function check_data_newLine() {
 
+    # 関数終了コード
+    local _newLine_status=""
     # 設定ファイルパス
     local _settingFile=${1}
     # 改行コード
     export `cat ${_settingFile} | grep data_newLine`
     checked_data_newLine=""
-    newLine_status=""
 
     # 取得情報選別
     if [[ ${data_newLine} = 0 ]];then
         checked_data_newLine="CRLF"
-        newLine_status="0"
+        _newLine_status="0"
     elif [[ ${data_newLine} = 1 ]];then
         checked_data_newLine="CR"
-        newLine_status="0"
+        _newLine_status="0"
     elif [[ ${data_newLine} = 2 ]];then
         checked_data_newLine="LF"
-        newLine_status="0"
+        _newLine_status="0"
     else
-        newLine_status="1"
+        _newLine_status="1"
         echo "支援する改行コード：CRLF, LF, CR"
     fi
 
@@ -67,16 +69,17 @@ function check_data_newLine() {
 }
 
 #--------------------------------------------#
-#  3.設定ファイルから囲み文字情報を取得      　        #
+#   03. 設定ファイルから囲み文字情報を取得
 #--------------------------------------------#
 function check_data_enclosing() {
 
+    # 関数終了コード
+    local enclosing_status=""
     # 設定ファイルパス
     local _settingFile=${1}
     # 囲み文字
     export `cat ${_settingFile} | grep data_enclosing`
     checked_data_enclosing=""
-    enclosing_status=""
 
     # 取得情報選別
     if [[ ${data_enclosing} = 0 ]];then
@@ -97,29 +100,30 @@ function check_data_enclosing() {
 }
 
 #--------------------------------------------#
-#  4.設定ファイルから区切り文字情報を取得      　       #
+#   04. 設定ファイルから区切り文字情報を取得
 #--------------------------------------------#
 function check_data_delimiting() {
 
+    # 関数終了コード
+    local _delimiting_status=""
     # 設定ファイルパス
     local _settingFile=${1}
     # 区切り文字
     export `cat ${_settingFile} | grep data_delimiting`
     checked_data_delimiting=""
-    delimiting_status=""
 
     # 取得情報選別
     if [[ ${data_delimiting} = 0 ]];then
         checked_data_delimiting=""
-        delimiting_status="0"
+        _delimiting_status="0"
     elif [[ ${data_delimiting} = 1 ]];then
         checked_data_delimiting=","
-        delimiting_status="0"
+        _delimiting_status="0"
     elif [[ ${data_delimiting} = 2 ]];then
         checked_data_delimiting="\t"
-        delimiting_status="0"
+        _delimiting_status="0"
     else
-        delimiting_status="1"
+        _delimiting_status="1"
         echo "「」(無), 「,」, 「\t」"
     fi
 
@@ -127,10 +131,12 @@ function check_data_delimiting() {
 }
 
 #--------------------------------------------#
-#  4.設定ファイルから区切り文字情報を取得      　       #
+#   05. 設定ファイルからマルチバイト文字情報を取得
 #--------------------------------------------#
 function check_data_multiByteCharacter() {
 
+    # 関数終了コード
+    local _multiByteCharacter_status=""
     # 設定ファイルパス
     local _settingFile=${1}
     # 設定ファイルパス
@@ -138,84 +144,102 @@ function check_data_multiByteCharacter() {
     # 区切り文字
     export `cat ${_settingFile} | grep data_multiByteCharacter`
     checked_data_multiByteCharacter=""
-    multiByteCharacter_status=""
 
     # 取得情報選別
     if [[ ${data_multiByteCharacter} = 0 ]];then
         checked_data_multiByteCharacter=""
-        multiByteCharacter_status="0"
+        _multiByteCharacter_status="0"
     elif [[ ${data_multiByteCharacter} = 1 ]];then
         if [[ ${_language} = [kK][rR] ]];then 
             checked_data_multiByteCharacter="가"
-            multiByteCharacter_status="0"
+            _multiByteCharacter_status="0"
         elif [[ ${_language} = [jJ][pP] ]];then 
             checked_data_multiByteCharacter="あ"
-            multiByteCharacter_status="0"
+            _multiByteCharacter_status="0"
         fi 
     else
-        multiByteCharacter_status="1"
+        _multiByteCharacter_status="1"
         echo "「0」, 「1」"
     fi
 
     # echo "マルチバイト文字：${checked_data_multiByteCharacter}"
-    
 }
 
 #--------------------------------------------#
-#  5.設定ファイルから出力タイプ情報を取得               #
+#   06. 設定ファイルから出力タイプ情報を取得
 #--------------------------------------------#
 function check_data_outputType() {
 
+    # 関数終了コード
+    local _outputType_status=""
     # 設定ファイルパス
     local _settingFile=${1}
     # 出力タイプ
     export `cat ${_settingFile} | grep data_outputType`
     checked_data_outputType=""
-    outputType_status=""
 
     # 取得情報選別
     if [[ ${data_outputType} = 0 ]];then
         checked_data_outputType="FILE"
-        outputType_status="0"
+        _outputType_status="0"
     elif [[ ${data_outputType} = 1 ]];then
         checked_data_outputType="SQL"
-        outputType_status="0"
+        _outputType_status="0"
     elif [[ ${data_outputType} = 2 ]];then
         checked_data_outputType=".gz"
-        outputType_status="0"
+        _outputType_status="0"
     elif [[ ${data_outputType} = 3 ]];then
         checked_data_outputType=".Z"
-        outputType_status="0"
+        _outputType_status="0"
     else
-        outputType_status="1"
+        _outputType_status="1"
         echo "支援する出力タイプ：FILE, SQL, .gz, .Z"
     fi
 
     # echo "取得出力タイプ：${checked_data_outputType}"
 }
 
+#--------------------------------------------#
+#   07. 項目変数タイプが文字列値の場合、データ作成
+#--------------------------------------------#
 function create_string_item() {
+    
+    # 項目の桁数
     _itemLength=$1
+    # 変数初期化有無
     _funcOption=$2
+
+    # 1番項目の場合変数初期化
     if [[ ${_funcOption} = "" ]];then
         item=""
     fi
 
+    # 文字列値データ作成
     for ((i=1; i<=${_itemLength}; i++)); do
             _randomAscii=$((RANDOM % 26 + 65))
             _randomChar=$(printf \\$(printf '%03o' ${_randomAscii}))
             item=${item}${_randomChar}
     done
+
     # echo "item=${item}"
 }
 
+#--------------------------------------------#
+#   08. 項目変数タイプが整数値の場合、データ作成
+#--------------------------------------------#
 function create_integer_item() {
+
+    # 項目の桁数
     _itemLength=$1
+    # 変数初期化有無
     _funcOption=$2
+
+    # 1番項目の場合変数初期化
     if [[ ${_funcOption} = "" ]];then
         item=""
     fi
 
+    # 整数データ作成
     for ((i=1; i<=${_itemLength}; i++)); do
         if [[ ${i} = [1] ]];then
             _randomint=$((RANDOM % 9))
@@ -227,19 +251,33 @@ function create_integer_item() {
         fi
         item=${item}${_randomint}
     done
+
     # echo "item=${item}"
 }
 
+#--------------------------------------------#
+#   09. 項目変数タイプが小数値の場合、データ作成
+#--------------------------------------------#
 function create_float_item() {
+    
+    # 項目の桁数
     _itemLength=$1
+    # 変数初期化有無
     _funcOption=$2
+    
+    # 1番項目の場合変数初期化
     if [[ ${_funcOption} = "" ]];then
         item=""
     fi
 
+    # 整数、「.」、小数　の総数
     _fullParts=`echo ${_itemLength} | awk -F. '{print $1}'`
+    # 小数部分の桁数
     _decimalParts=`echo ${_itemLength} | awk -F. '{print $2}'`
+    # 整数部分の桁数
     _integerParts=$(( ${_fullParts} - ${_decimalParts} - 1 ))
+    
+    # 小数値データ作成
     for ((i=1; i<=${_integerParts}; i++)) ;do
         if [[ ${i} = [1] ]];then
             _randomint=$((RANDOM % 9))
@@ -265,12 +303,19 @@ function create_float_item() {
         fi
         item=${item}${_randomint}
     fi
+
     # echo "item=${item}"
 }
 
+#--------------------------------------------#
+#   10. 項目変数タイプが日付値の場合、データ作成
+#--------------------------------------------#
 function create_date_item() {
+
+    # 出力フォーマット
     _format=$1
     
+    #　出力フォーマットによって実行日を設定
     if [[ ${_format} =~ YYYYMMDDhhmmss ]];then
         item=`date +"%Y%m%d%H%M%S"`
     elif [[ ${_format} =~ YYYYMMDDhhmm ]];then
@@ -299,20 +344,21 @@ function create_date_item() {
 }
 
 #--------------------------------------------#
-#  8.設定ファイルから出力結果名情報を取得              #
+#   11. 設定ファイルから出力結果名情報を取得
 #--------------------------------------------#
 function check_data_outputName() {
 
+    # 関数終了コード
+    local outputName_status=""
     # 設定ファイルパス
     local _settingFile=${1}
+    # ファイル番号
+    local _data_fileCounts=`echo ${data_outputName} | grep -o "?" | wc -l`
     # 出力結果名
     export `cat ${_settingFile} | grep data_outputName`
     export `cat ${_settingFile} | grep data_schema`
     checked_data_outputName=""
-    outputName_status=""
-    # ファイル番号
-    data_fileCounts=`echo ${data_outputName} | grep -o "?" | wc -l`
-
+    
     # 取得情報選別
     if [[ ${data_outputName} =~ YYYYMMDDhhmmss ]];then
         YYYYMMDDhhmmss=`date +"%Y%m%d%H%M%S"`
@@ -363,27 +409,39 @@ function check_data_outputName() {
         data_outputName_status="0"
     fi
     
-    if [[ ${data_fileCounts} -gt 0 ]];then
+    # 連番がある場合の設定
+    if [[ ${_data_fileCounts} -gt 0 ]];then
         checked_data_outputName=`echo ${checked_data_outputName} | sed "s/?/0/g"`
     fi
 
-    # echo "取得出力結果名：${checked_data_outputName}、取得ファイル番号：${data_fileCounts}"
+    # echo "取得出力結果名：${checked_data_outputName}、取得ファイル番号：${_data_fileCounts}"
 }
 
+#--------------------------------------------#
+#   12. ノーマルデータ作成（マルチバイトデータ作成）
+#--------------------------------------------#
 function create_normal_record() {
     
     # 設定ファイルパス
     local _createFile=${1}
     # 設定ファイルパス
     local _option=${2}
+    # 出力レコード
+    local _dataRecord=""
 
+    # データ作成処理
     for ((itemIndex=1; itemIndex<=${itemsCount}; itemIndex++));do
-        itemTrim=`echo ${list_itemsTrim} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
+        # 設定ファイルから取得する項目タイプ情報
         itemType=`echo ${list_itemsType} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
-        itemName=`echo ${list_itemsName} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
+        # 設定ファイルから取得する項目桁数情報
         itemLength=`echo ${list_itemsLength} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
+        # 項目変数初期化
         item=""
 
+        # マルチバイトチェック処理、対象：文字列タイプのみ
+        # 文字コードが「UTF-8の場合、マルチバイト文字は3バイト
+        # 文字コードが「「JIS」,「SJIS」,「EUC」の場合、マルチバイト文字は2バイト
+        # その他の文字コードの場合、マルチバイト文字は1バイト
         if [[ ${checked_data_multiByteCharacter} = "" ]];then
             item=${item}
         else 
@@ -399,6 +457,7 @@ function create_normal_record() {
             fi
         fi
 
+        # 項目タイプ別テストデータ作成
         if [[ ${itemType} = [cC][hH][aA][rR] || ${itemType} = [sS][tT][rR][iI][nN][gG] ]];then
             create_string_item ${itemLength} ${_option}
         elif [[ ${itemType} = [bB][yY][tT][eE] || ${itemType} = [sS][hH][oO][rR][tT] || ${itemType} = [iI][nN][tT] || ${itemType} = [lL][oO][nN][gG] ]];then
@@ -409,44 +468,50 @@ function create_normal_record() {
             create_date_item ${itemType}
         fi
         
+        # 項目データ、囲み文字、区切り文字、改行コードから一時ファイル(文字コード設定ファイル)作成
         if [[ ${itemsCount} = ${itemIndex} ]];then
             if [[ ${checked_data_outputType} = SQL ]];then
                 checked_data_enclosing=\'
-                dataRecord=${dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}
+                _dataRecord=${_dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}
             else
-                dataRecord=${dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}
+                _dataRecord=${_dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}
                 if [[ ${checked_data_newLine} = CRLF ]];then
-                    printf "${dataRecord}$(printf \\$(printf '%03o' 13 ))\n" > ${_createFile}
+                    printf "${_dataRecord}$(printf \\$(printf '%03o' 13 ))\n" > ${_createFile}
                 elif  [[ ${checked_data_newLine} = CR ]];then
-                    printf "${dataRecord}$(printf \\$(printf '%03o' 13 ))" > ${_createFile}
+                    printf "${_dataRecord}$(printf \\$(printf '%03o' 13 ))" > ${_createFile}
                 else # LF
-                    printf "${dataRecord}\n" > ${_createFile}
+                    printf "${_dataRecord}\n" > ${_createFile}
                 fi
             fi
         else
             if [[ ${checked_data_outputType} = SQL ]];then
                 checked_data_enclosing=\'
-                dataRecord=${dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}${checked_data_delimiting}
+                _dataRecord=${_dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}${checked_data_delimiting}
             else
-                dataRecord=${dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}${checked_data_delimiting}
+                _dataRecord=${_dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}${checked_data_delimiting}
             fi
         fi
     done
 
+    # SQLの場合、クエリー形式に修正
     if [[ ${checked_data_outputType} = SQL ]];then
         list_itemsName=`echo ${list_itemsName} | sed 's/"//g'`
-        echo "INSERT INTO "${data_schema}.${data_outputName}" (${list_itemsName}) VALUES (${dataRecord})" > ${_createFile}.txt
+        echo "INSERT INTO "${data_schema}.${data_outputName}" (${list_itemsName}) VALUES (${_dataRecord})" > ${_createFile}.sql
     fi
-    dataRecord=""
-    item=""
 
 }
 
+#--------------------------------------------#
+#   13. トリムデータ(半角、全角スペース)作成
+#--------------------------------------------#
 function create_trim_data() {
     
+    # 項目トリム情報
     _itemTrim=$1
+    # 項目トリム位置
     _trimLocation=$2
 
+    # 半角スペーストリム設定
     if [[ ${_trimLocation} = [hH][sS] ]];then
         if [[ ${_itemTrim} =~ ft ]];then
             item=""
@@ -456,6 +521,7 @@ function create_trim_data() {
         fi
     fi
 
+    # 全角スペーストリム設定
     if [[ ${_trimLocation} = [fF][sS] ]];then
         if [[ ${_itemTrim} =~ FT ]];then
             item=""
@@ -472,30 +538,47 @@ function create_trim_record() {
     local _createFile=${1}
     # 設定ファイルパス
     local _option=${2}
+    # 出力レコード
+    local _dataRecord=""
+    # トリムターゲット項目番号
+    local _trimItemIndex=1
+    # カレントトリムターゲット項目番号
+    local _tmpCount=1
+    # トリム情報から取得する先頭の文字
+    local _cutfront=1
+    # トリム情報から取得する後列の文字
+    local _cutback=2
 
-    trimsStringCount=`echo "${list_itemsTrim}" | sed 's/,//g' | sed 's/"//g' | wc -c`
-    trimsCount=$(( $(( ${trimsStringCount} - 1 )) / 2 ))
-    trimItemIndex=1
-    tmpCount=1
-    cutfront=1
-    cutback=2
+    # データ作成処理
     while [ true ]; do
 
-        itemTrim=`echo ${list_itemsTrim} | sed 's/"//g' | awk -F, -v field=${trimItemIndex} '{print $field}'`
+        # 設定ファイルから取得する項目トリム情報
+        itemTrim=`echo ${list_itemsTrim} | sed 's/"//g' | awk -F, -v field=${_trimItemIndex} '{print $field}'`
+        # 項目トリム情報文字列数
         itemTrimCount=$(( `echo "${itemTrim}" | wc -c` - 1 ))
         itemTrimCount=$(( ${itemTrimCount} / 2 ))
-        targetItemTrim=`echo "${itemTrim}" | cut -b ${cutfront}-${cutback}`
+        # 項目トリム情報
+        targetItemTrim=`echo "${itemTrim}" | cut -b ${_cutfront}-${_cutback}`
+        # トリムデータフラグ
         trimFlg=0
+        # 項目変数初期化
+        item=""
 
+        # 項目トリム情報に　「ft」が存在場合、項目の先頭に半角スペース（1バイト）追加 
+        # 項目トリム情報に　「bk」が存在場合、項目の後列に半角スペース（1バイト）追加 
+        # 項目トリム情報に　「FT」が存在場合、項目の先頭に全角スペース（2バイト）追加 
+        # 項目トリム情報に　「BK」が存在場合、項目の後列に全角スペース（2バイト）追加 
         for ((itemIndex=1; itemIndex<=${itemsCount}; itemIndex++));do
+            # 設定ファイルから取得する項目タイプ情報
             itemType=`echo ${list_itemsType} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
-            itemName=`echo ${list_itemsName} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
+            # 設定ファイルから取得する項目桁数情報
             itemLength=`echo ${list_itemsLength} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
+            # 設定ファイルから取得する
             fullParts=`echo ${itemLength} | awk -F. '{print $1}'`
             decimalParts=`echo ${itemLength} | awk -F. '{print $2}'`
             integerParts=$(( ${fullParts} - ${decimalParts} - 1 ))
 
-            if [[ ${itemIndex} = ${trimItemIndex} ]];then
+            if [[ ${itemIndex} = ${_trimItemIndex} ]];then
                 if [[ ${targetItemTrim} = ft ]];then
                     if [[ ${itemType} = [fF][lL][oO][aA][tT] || ${itemType} = [dD][oO][uU][bB][lL][eE] ]];then
                         if [[ ${integerParts} -gt 1 ]];then
@@ -584,7 +667,7 @@ function create_trim_record() {
                 create_date_item ${itemType}
             fi
             
-            if [[ ${itemIndex} = ${trimItemIndex} ]];then
+            if [[ ${itemIndex} = ${_trimItemIndex} ]];then
                 if [[ ${targetItemTrim} = bk ]];then
                     create_trim_data ${targetItemTrim} HS
                 elif [[ ${targetItemTrim} = BK ]];then
@@ -595,42 +678,47 @@ function create_trim_record() {
             if [[ ${itemsCount} = ${itemIndex} ]];then
                 if [[ ${checked_data_outputType} = SQL ]];then
                     checked_data_enclosing=\'
-                    dataRecord=${dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}
+                    _dataRecord=${_dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}
                 else
-                    dataRecord=${dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}
+                    _dataRecord=${_dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}
                     if [[ ${checked_data_newLine} = CRLF ]];then
-                        printf "${dataRecord}$(printf \\$(printf '%03o' 13 ))\n" >> ${_createFile}
+                        printf "${_dataRecord}$(printf \\$(printf '%03o' 13 ))\n" >> ${_createFile}
                     elif  [[ ${checked_data_newLine} = CR ]];then
-                        printf "${dataRecord}$(printf \\$(printf '%03o' 13 ))" >> ${_createFile}
+                        printf "${_dataRecord}$(printf \\$(printf '%03o' 13 ))" >> ${_createFile}
                     else # LF
-                        printf "${dataRecord}\n" >> ${_createFile}
+                        printf "${_dataRecord}\n" >> ${_createFile}
                     fi
                 fi
             else
                 if [[ ${checked_data_outputType} = SQL ]];then
                     checked_data_enclosing=\'
-                    dataRecord=${dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}${checked_data_delimiting}
+                    _dataRecord=${_dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}${checked_data_delimiting}
                 else
-                    dataRecord=${dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}${checked_data_delimiting}
+                    _dataRecord=${_dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}${checked_data_delimiting}
                 fi
             fi
             item=""
         done
 
-        dataRecord=""
-        if [[ 0 -eq ${itemTrimCount} ]];then
-            trimItemIndex=$(( ${trimItemIndex} + 1 ))
-        elif [[ ${tmpCount} -eq ${itemTrimCount} ]];then
-            trimItemIndex=$(( ${trimItemIndex} + 1 ))
-            tmpCount=1
-            cutfront=1
-            cutback=2
-        else
-            tmpCount=$(( ${tmpCount} + 1 ))
-            cutfront=$(( ${cutfront} + 2 ))
-            cutback=$(( ${cutback} + 2 ))
+        # SQLの場合、クエリー形式に修正
+        if [[ ${checked_data_outputType} = SQL ]];then
+            list_itemsName=`echo ${list_itemsName} | sed 's/"//g'`
+            echo "INSERT INTO "${data_schema}.${data_outputName}" (${list_itemsName}) VALUES (${_dataRecord})" > ${_createFile}.sql
         fi
-        if [[ ${trimItemIndex} -gt ${itemsCount} ]];then
+
+        if [[ 0 -eq ${itemTrimCount} ]];then
+            _trimItemIndex=$(( ${_trimItemIndex} + 1 ))
+        elif [[ ${_tmpCount} -eq ${itemTrimCount} ]];then
+            _trimItemIndex=$(( ${_trimItemIndex} + 1 ))
+            _tmpCount=1
+            _cutfront=1
+            _cutback=2
+        else
+            _tmpCount=$(( ${_tmpCount} + 1 ))
+            _cutfront=$(( ${_cutfront} + 2 ))
+            _cutback=$(( ${_cutback} + 2 ))
+        fi
+        if [[ ${_trimItemIndex} -gt ${itemsCount} ]];then
             break
         fi
     done 
@@ -643,11 +731,16 @@ function create_number_limit_record() {
     local _createFile=${1}
     # 設定ファイルパス
     local _option=${2}
-    dataRecord=""
-    number_limit=1
-    limitItemIndex=1
+    # 出力レコード
+    local _dataRecord=""
+    # リミットチェック数
+    local _number_limit=1
+    # 対象項目番号
+    local _limitItemIndex=1
+    
+    # データ作成処理
     while [ true ]; do
-        targetItemType=`echo ${list_itemsType} | sed 's/"//g' | awk -F, -v field=${limitItemIndex} '{print $field}'`
+        targetItemType=`echo ${list_itemsType} | sed 's/"//g' | awk -F, -v field=${_limitItemIndex} '{print $field}'`
         limitFlg=0
         item=""
 
@@ -661,13 +754,13 @@ function create_number_limit_record() {
 
             if [[ ${itemType} = [cC][hH][aA][rR] || ${itemType} = [sS][tT][rR][iI][nN][gG] ]];then
                 create_string_item ${itemLength} ${_option}
-                if [[ ${limitItemIndex} = ${itemIndex} ]];then
+                if [[ ${_limitItemIndex} = ${itemIndex} ]];then
                     limitFlg=1
                 fi
             elif [[ ${itemType} = [bB][yY][tT][eE] || ${itemType} = [sS][hH][oO][rR][tT] || ${itemType} = [iI][nN][tT] || ${itemType} = [lL][oO][nN][gG] ]];then
-                if [[ ${limitItemIndex} = ${itemIndex} ]];then
+                if [[ ${_limitItemIndex} = ${itemIndex} ]];then
                     for ((i=1; i<=${itemLength}; i++)); do
-                        if [[ ${number_limit} = 1 ]];then
+                        if [[ ${_number_limit} = 1 ]];then
                             _randomint=9
                         else
                             _randomint=0
@@ -678,9 +771,9 @@ function create_number_limit_record() {
                     create_integer_item ${itemLength} ${_option}
                 fi
             elif [[ ${itemType} = [fF][lL][oO][aA][tT] || ${itemType} = [dD][oO][uU][bB][lL][eE] ]];then
-                if [[ ${limitItemIndex} = ${itemIndex} ]];then
+                if [[ ${_limitItemIndex} = ${itemIndex} ]];then
                     for ((i=1; i<=${integerParts}; i++)); do
-                        if [[ ${number_limit} = 1 ]];then
+                        if [[ ${_number_limit} = 1 ]];then
                             _randomint=9
                         else
                             _randomint=0
@@ -689,7 +782,7 @@ function create_number_limit_record() {
                     done
                     item=${item}.
                     for ((i=1; i<=${decimalParts}; i++)); do
-                        if [[ ${number_limit} = 1 ]];then
+                        if [[ ${_number_limit} = 1 ]];then
                             _randomint=9
                         else
                             _randomint=0
@@ -700,7 +793,7 @@ function create_number_limit_record() {
                     create_float_item ${itemLength} ${_option}
                 fi
             elif [[ ${itemType} =~ [dD][aA][tT][eE] ]];then
-                if [[ ${limitItemIndex} = ${itemIndex} ]];then
+                if [[ ${_limitItemIndex} = ${itemIndex} ]];then
                     limitFlg=1
                 else
                     create_date_item ${itemType}
@@ -711,45 +804,52 @@ function create_number_limit_record() {
                 continue
             fi
             echo "itemsCount=${itemsCount}, itemIndex=${itemIndex}"
-            echo "limitItemIndex=${limitItemIndex}"
+            echo "_limitItemIndex=${_limitItemIndex}"
             echo
             if [[ ${itemsCount} = ${itemIndex} ]];then
                 if [[ ${checked_data_outputType} = SQL ]];then
                     checked_data_enclosing=\'
-                    dataRecord=${dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}
+                    _dataRecord=${_dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}
                 else
-                    dataRecord=${dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}
+                    _dataRecord=${_dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}
                     if [[ ${checked_data_newLine} = CRLF ]];then
-                        printf "${dataRecord}$(printf \\$(printf '%03o' 13 ))\n" >> ${_createFile}
+                        printf "${_dataRecord}$(printf \\$(printf '%03o' 13 ))\n" >> ${_createFile}
                     elif  [[ ${checked_data_newLine} = CR ]];then
-                        printf "${dataRecord}$(printf \\$(printf '%03o' 13 ))" >> ${_createFile}
+                        printf "${_dataRecord}$(printf \\$(printf '%03o' 13 ))" >> ${_createFile}
                     else # LF
-                        printf "${dataRecord}\n" >> ${_createFile}
+                        printf "${_dataRecord}\n" >> ${_createFile}
                     fi
                 fi
             else
                 if [[ ${checked_data_outputType} = SQL ]];then
                     checked_data_enclosing=\'
-                    dataRecord=${dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}${checked_data_delimiting}
+                    _dataRecord=${_dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}${checked_data_delimiting}
                 else
-                    dataRecord=${dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}${checked_data_delimiting}
+                    _dataRecord=${_dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}${checked_data_delimiting}
                 fi
             fi
-            echo "dataRecord=${dataRecord}"
+            echo "_dataRecord=${_dataRecord}"
 
             item=""
         done
-        if [[ ${number_limit} = 2 ]];then
-            limitItemIndex=$(( ${limitItemIndex} + 1 ))
-            number_limit=1
-        else
-            number_limit=2
+
+        # SQLの場合、クエリー形式に修正
+        if [[ ${checked_data_outputType} = SQL ]];then
+            list_itemsName=`echo ${list_itemsName} | sed 's/"//g'`
+            echo "INSERT INTO "${data_schema}.${data_outputName}" (${list_itemsName}) VALUES (${_dataRecord})" > ${_createFile}.sql
         fi
 
-        if [[ ${limitItemIndex} -gt ${itemsCount} ]];then
+        if [[ ${_number_limit} = 2 ]];then
+            _limitItemIndex=$(( ${_limitItemIndex} + 1 ))
+            _number_limit=1
+        else
+            _number_limit=2
+        fi
+
+        if [[ ${_limitItemIndex} -gt ${itemsCount} ]];then
             break
         fi
-        dataRecord=""
+        _dataRecord=""
     done 
 
 }
@@ -760,10 +860,11 @@ function create_not_null_record() {
     local _createFile=${1}
     # 設定ファイルパス
     local _option=${2}
-    dataRecord=""
-
+    # 出力レコード
+    local _dataRecord=""
     number_not_null=1
     notNullItemIndex=1
+    # データ作成処理
     while [ true ]; do
         targetItemType=`echo ${list_itemsType} | sed 's/"//g' | awk -F, -v field=${notNullItemIndex} '{print $field}'`
         notNullFlg=0
@@ -855,33 +956,40 @@ function create_not_null_record() {
             if [[ ${itemsCount} = ${itemIndex} ]];then
                 if [[ ${checked_data_outputType} = SQL ]];then
                     checked_data_enclosing=\'
-                    dataRecord=${dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}
+                    _dataRecord=${_dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}
                 else
-                    dataRecord=${dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}
+                    _dataRecord=${_dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}
                     if [[ ${checked_data_newLine} = CRLF ]];then
-                        printf "${dataRecord}$(printf \\$(printf '%03o' 13 ))\n" >> ${_createFile}
+                        printf "${_dataRecord}$(printf \\$(printf '%03o' 13 ))\n" >> ${_createFile}
                     elif  [[ ${checked_data_newLine} = CR ]];then
-                        printf "${dataRecord}$(printf \\$(printf '%03o' 13 ))" >> ${_createFile}
+                        printf "${_dataRecord}$(printf \\$(printf '%03o' 13 ))" >> ${_createFile}
                     else # LF
-                        printf "${dataRecord}\n" >> ${_createFile}
+                        printf "${_dataRecord}\n" >> ${_createFile}
                     fi
                 fi
             else
                 if [[ ${checked_data_outputType} = SQL ]];then
                     checked_data_enclosing=\'
-                    dataRecord=${dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}${checked_data_delimiting}
+                    _dataRecord=${_dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}${checked_data_delimiting}
                 else
-                    dataRecord=${dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}${checked_data_delimiting}
+                    _dataRecord=${_dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}${checked_data_delimiting}
                 fi
             fi
             item=""
         done
+
+        # SQLの場合、クエリー形式に修正
+        if [[ ${checked_data_outputType} = SQL ]];then
+            list_itemsName=`echo ${list_itemsName} | sed 's/"//g'`
+            echo "INSERT INTO "${data_schema}.${data_outputName}" (${list_itemsName}) VALUES (${_dataRecord})" > ${_createFile}.sql
+        fi
+
         notNullItemIndex=$(( ${notNullItemIndex} + 1 ))
 
         if [[ ${notNullItemIndex} -gt ${itemsCount} ]];then
             break
         fi
-        dataRecord=""
+        _dataRecord=""
     done 
 
 }
@@ -942,7 +1050,7 @@ if [[ -e ${filePath%/}/tmp_${checked_data_outputName} ]];then
 fi
 
 
-echo "dataRecord=${dataRecord}"
+echo "_dataRecord=${_dataRecord}"
 
 
 
