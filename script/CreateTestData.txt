@@ -15,13 +15,13 @@ data_newLine=0
 ### 2 : LF
 
 ### 囲み文字
-data_enclosing=0
+data_enclosing=1
 ### 0 : 
 ### 1 : "
 ### 2 : '
 
 ### 区切り文字
-data_delimiting=0
+data_delimiting=1
 ### 0 : 
 ### 1 : ,
 ### 2 : \t

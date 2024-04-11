@@ -353,7 +353,7 @@ function check_data_outputName() {
     # 設定ファイルパス
     local _settingFile=${1}
     # ファイル番号
-    local _data_fileCounts=`echo ${data_outputName} | grep -o "?" | wc -l`
+    data_fileCounts=`echo ${data_outputName} | grep -o "?" | wc -l`
     # 出力結果名
     export `cat ${_settingFile} | grep data_outputName`
     export `cat ${_settingFile} | grep data_schema`
@@ -428,13 +428,17 @@ function create_normal_record() {
     local _option=${2}
     # 出力レコード
     local _dataRecord=""
+    # 項目タイプ
+    local _itemType=""
+    # 項目桁数
+    local _itemLength=""
 
     # データ作成処理
     for ((itemIndex=1; itemIndex<=${itemsCount}; itemIndex++));do
         # 設定ファイルから取得する項目タイプ情報
-        itemType=`echo ${list_itemsType} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
+        _itemType=`echo ${list_itemsType} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
         # 設定ファイルから取得する項目桁数情報
-        itemLength=`echo ${list_itemsLength} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
+        _itemLength=`echo ${list_itemsLength} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
         # 項目変数初期化
         item=""
 
@@ -445,27 +449,27 @@ function create_normal_record() {
         if [[ ${checked_data_multiByteCharacter} = "" ]];then
             item=${item}
         else 
-            if [[ ${itemType} = [sS][tT][rR][iI][nN][gG] && ${itemLength} -gt 3 && ${checked_data_encoding} =~ UTF-8 ]];then
+            if [[ ${_itemType} = [sS][tT][rR][iI][nN][gG] && ${_itemLength} -gt 3 && ${checked_data_encoding} =~ UTF-8 ]];then
                 item=${item}${checked_data_multiByteCharacter}
-                itemLength=$(( ${itemLength} - 3 ))
-            elif [[ ${itemType} = [sS][tT][rR][iI][nN][gG] && ${itemLength} -gt 2 && ${checked_data_encoding} =~ JIS || ${checked_data_encoding} =~ EUC ]];then
+                _itemLength=$(( ${_itemLength} - 3 ))
+            elif [[ ${_itemType} = [sS][tT][rR][iI][nN][gG] && ${_itemLength} -gt 2 && ${checked_data_encoding} =~ JIS || ${checked_data_encoding} =~ EUC ]];then
                 item=${item}${checked_data_multiByteCharacter}
-                itemLength=$(( ${itemLength} - 2 ))
-            elif [[ ${itemType} = [sS][tT][rR][iI][nN][gG] ]];then
+                _itemLength=$(( ${_itemLength} - 2 ))
+            elif [[ ${_itemType} = [sS][tT][rR][iI][nN][gG] ]];then
                 item=${item}${checked_data_multiByteCharacter}
-                itemLength=$(( ${itemLength} - 1 ))
+                _itemLength=$(( ${_itemLength} - 1 ))
             fi
         fi
 
         # 項目タイプ別テストデータ作成
-        if [[ ${itemType} = [cC][hH][aA][rR] || ${itemType} = [sS][tT][rR][iI][nN][gG] ]];then
-            create_string_item ${itemLength} ${_option}
-        elif [[ ${itemType} = [bB][yY][tT][eE] || ${itemType} = [sS][hH][oO][rR][tT] || ${itemType} = [iI][nN][tT] || ${itemType} = [lL][oO][nN][gG] ]];then
-            create_integer_item ${itemLength} ${_option}
-        elif [[ ${itemType} = [fF][lL][oO][aA][tT] || ${itemType} = [dD][oO][uU][bB][lL][eE] ]];then
-            create_float_item ${itemLength} ${_option}
-        elif [[ ${itemType} =~ [dD][aA][tT][eE] ]];then
-            create_date_item ${itemType}
+        if [[ ${_itemType} = [cC][hH][aA][rR] || ${_itemType} = [sS][tT][rR][iI][nN][gG] ]];then
+            create_string_item ${_itemLength} ${_option}
+        elif [[ ${_itemType} = [bB][yY][tT][eE] || ${_itemType} = [sS][hH][oO][rR][tT] || ${_itemType} = [iI][nN][tT] || ${_itemType} = [lL][oO][nN][gG] ]];then
+            create_integer_item ${_itemLength} ${_option}
+        elif [[ ${_itemType} = [fF][lL][oO][aA][tT] || ${_itemType} = [dD][oO][uU][bB][lL][eE] ]];then
+            create_float_item ${_itemLength} ${_option}
+        elif [[ ${_itemType} =~ [dD][aA][tT][eE] ]];then
+            create_date_item ${_itemType}
         fi
         
         # 項目データ、囲み文字、区切り文字、改行コードから一時ファイル(文字コード設定ファイル)作成
@@ -498,6 +502,12 @@ function create_normal_record() {
         list_itemsName=`echo ${list_itemsName} | sed 's/"//g'`
         echo "INSERT INTO "${data_schema}.${data_outputName}" (${list_itemsName}) VALUES (${_dataRecord})" > ${_createFile}.sql
     fi
+
+    dataNumber=$(( ${dataNumber} + 1))
+    dataRecordLine=$(( ${dataRecordLine} + 1))
+    dataTargetItemNumber="A"
+    dataExplanation="Normal Data"
+    printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%-30s\n" "#" "${dataNumber}" "#" "${dataRecordLine}" "#" "${dataTargetItemNumber}" "#" "${dataExplanation}" >> ${filePath%/}/CreateTestData_Explan.txt
 
 }
 
@@ -532,6 +542,9 @@ function create_trim_data() {
     fi
 }
 
+#--------------------------------------------#
+#   14. トリムデータ作成
+#--------------------------------------------#
 function create_trim_record() {
     
     # 設定ファイルパス
@@ -540,6 +553,24 @@ function create_trim_record() {
     local _option=${2}
     # 出力レコード
     local _dataRecord=""
+    # 項目トリム情報
+    local _itemTrim=""
+    # 項目トリムパタン数
+    local _itemTrimCount=""
+    # 項目トリムターゲットパタン
+    local _targetItemTrim=""
+    # 項目トリム除外フラグ
+    local _trimFlg=""
+    # 項目タイプ
+    local _itemType=""
+    # 項目桁数
+    local _itemLength=""
+    # 整数、「.」、小数　の総数
+    local _fullParts=""
+    # 小数部分の桁数
+    local _decimalParts=""
+    # 整数部分の桁数
+    local _integerParts=""
     # トリムターゲット項目番号
     local _trimItemIndex=1
     # カレントトリムターゲット項目番号
@@ -553,16 +584,17 @@ function create_trim_record() {
     while [ true ]; do
 
         # 設定ファイルから取得する項目トリム情報
-        itemTrim=`echo ${list_itemsTrim} | sed 's/"//g' | awk -F, -v field=${_trimItemIndex} '{print $field}'`
+        _itemTrim=`echo ${list_itemsTrim} | sed 's/"//g' | awk -F, -v field=${_trimItemIndex} '{print $field}'`
         # 項目トリム情報文字列数
-        itemTrimCount=$(( `echo "${itemTrim}" | wc -c` - 1 ))
-        itemTrimCount=$(( ${itemTrimCount} / 2 ))
+        _itemTrimCount=$(( `echo "${_itemTrim}" | wc -c` - 1 ))
+        _itemTrimCount=$(( ${_itemTrimCount} / 2 ))
         # 項目トリム情報
-        targetItemTrim=`echo "${itemTrim}" | cut -b ${_cutfront}-${_cutback}`
+        _targetItemTrim=`echo "${_itemTrim}" | cut -b ${_cutfront}-${_cutback}`
         # トリムデータフラグ
-        trimFlg=0
+        _trimFlg=0
         # 項目変数初期化
         item=""
+        _dataRecord=""
 
         # 項目トリム情報に　「ft」が存在場合、項目の先頭に半角スペース（1バイト）追加 
         # 項目トリム情報に　「bk」が存在場合、項目の後列に半角スペース（1バイト）追加 
@@ -570,111 +602,140 @@ function create_trim_record() {
         # 項目トリム情報に　「BK」が存在場合、項目の後列に全角スペース（2バイト）追加 
         for ((itemIndex=1; itemIndex<=${itemsCount}; itemIndex++));do
             # 設定ファイルから取得する項目タイプ情報
-            itemType=`echo ${list_itemsType} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
+            _itemType=`echo ${list_itemsType} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
             # 設定ファイルから取得する項目桁数情報
-            itemLength=`echo ${list_itemsLength} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
-            # 設定ファイルから取得する
-            fullParts=`echo ${itemLength} | awk -F. '{print $1}'`
-            decimalParts=`echo ${itemLength} | awk -F. '{print $2}'`
-            integerParts=$(( ${fullParts} - ${decimalParts} - 1 ))
+            _itemLength=`echo ${list_itemsLength} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
+            # 設定ファイルから取得する小数情報
+            # 整数、「.」、小数　の総数
+            _fullParts=`echo ${_itemLength} | awk -F. '{print $1}'`
+            # 小数部分の桁数
+            _decimalParts=`echo ${_itemLength} | awk -F. '{print $2}'`
+            # 整数部分の桁数
+            _integerParts=$(( ${_fullParts} - ${_decimalParts} - 1 ))
 
+            # 項目タイプ別テストデータ作成
+            # 先頭トリム対象の場合、トリムデータ作成および本データ桁数再設定
+            # 後列トリム対象の場合、本データ桁数再設定
             if [[ ${itemIndex} = ${_trimItemIndex} ]];then
-                if [[ ${targetItemTrim} = ft ]];then
-                    if [[ ${itemType} = [fF][lL][oO][aA][tT] || ${itemType} = [dD][oO][uU][bB][lL][eE] ]];then
-                        if [[ ${integerParts} -gt 1 ]];then
-                            itemLength=${fullParts}
+                if [[ ${_targetItemTrim} = ft ]];then
+                    if [[ ${_itemType} = [fF][lL][oO][aA][tT] || ${_itemType} = [dD][oO][uU][bB][lL][eE] ]];then
+                        if [[ ${_integerParts} -gt 1 ]];then
+                            _itemLength=${_fullParts}
                         else
                             item=""
-                            trimFlg=1
+                            _trimFlg=1
                             continue
                         fi
                     fi
 
-                    if [[ ${itemLength} -gt 1 ]];then
-                        create_trim_data ${targetItemTrim} HS
-                        itemLength=$(( ${itemLength} - 1))
+                    if [[ ${_itemLength} -gt 1 ]];then
+                        create_trim_data ${_targetItemTrim} HS
+                        _itemLength=$(( ${_itemLength} - 1))
+                        dataTargetItemNumber=${itemIndex}
                     else
-                        trimFlg=1
+                        _trimFlg=1
                     fi
-                elif [[ ${targetItemTrim} = FT ]];then
-                    if [[ ${itemType} = [fF][lL][oO][aA][tT] || ${itemType} = [dD][oO][uU][bB][lL][eE] ]];then
-                        if [[ ${integerParts} -gt 2 ]];then
-                            itemLength=${fullParts}
+                elif [[ ${_targetItemTrim} = FT ]];then
+                    if [[ ${_itemType} = [fF][lL][oO][aA][tT] || ${_itemType} = [dD][oO][uU][bB][lL][eE] ]];then
+                        if [[ ${_integerParts} -gt 2 ]];then
+                            _itemLength=${_fullParts}
                         else
                             item=""
-                            trimFlg=1
+                            _trimFlg=1
                             continue
                         fi
                     fi
 
-                    if [[ ${itemLength} -gt 2 ]];then
-                        create_trim_data ${targetItemTrim} FS
-                        itemLength=$(( ${itemLength} - 2))
+                    if [[ ${_itemLength} -gt 2 ]];then
+                        create_trim_data ${_targetItemTrim} FS
+                        _itemLength=$(( ${_itemLength} - 2))
+                        dataTargetItemNumber=${itemIndex}
                     else
-                        trimFlg=1
+                        _trimFlg=1
                     fi
-                elif [[ ${targetItemTrim} = bk ]];then
-                    if [[ ${itemType} = [fF][lL][oO][aA][tT] || ${itemType} = [dD][oO][uU][bB][lL][eE] ]];then
-                        if [[ ${decimalParts} -gt 1 ]];then
-                            itemLength=${fullParts}
-                            decimalParts=$(( ${decimalParts} - 1 ))
+                elif [[ ${_targetItemTrim} = bk ]];then
+                    if [[ ${_itemType} = [fF][lL][oO][aA][tT] || ${_itemType} = [dD][oO][uU][bB][lL][eE] ]];then
+                        if [[ ${_decimalParts} -gt 1 ]];then
+                            _itemLength=${_fullParts}
+                            _decimalParts=$(( ${_decimalParts} - 1 ))
                         else
                             item=""
-                            trimFlg=1
+                            _trimFlg=1
                             continue
                         fi
                     fi
 
-                    if [[ ${itemLength} -gt 1 ]];then
-                        itemLength=$(( ${itemLength} - 1 ))
+                    if [[ ${_itemLength} -gt 1 ]];then
+                        _itemLength=$(( ${_itemLength} - 1 ))
                     else
-                        trimFlg=1
+                        _trimFlg=1
                     fi
-                elif [[ ${targetItemTrim} = BK ]];then
-                    if [[ ${itemType} = [fF][lL][oO][aA][tT] || ${itemType} = [dD][oO][uU][bB][lL][eE] ]];then
-                        if [[ ${decimalParts} -gt 2 ]];then
-                            itemLength=${fullParts}
-                            decimalParts=$(( ${decimalParts} - 2 ))
+                elif [[ ${_targetItemTrim} = BK ]];then
+                    if [[ ${_itemType} = [fF][lL][oO][aA][tT] || ${_itemType} = [dD][oO][uU][bB][lL][eE] ]];then
+                        if [[ ${_decimalParts} -gt 2 ]];then
+                            _itemLength=${_fullParts}
+                            _decimalParts=$(( ${_decimalParts} - 2 ))
                         else
                             item=""
-                            trimFlg=1
+                            _trimFlg=1
                             continue
                         fi
                     fi
 
-                    if [[ ${itemLength} -gt 2 ]];then
-                        itemLength=$(( ${itemLength} - 2 ))
+                    if [[ ${_itemLength} -gt 2 ]];then
+                        _itemLength=$(( ${_itemLength} - 2 ))
                     else
-                        trimFlg=1
+                        _trimFlg=1
                     fi
-                elif [[ ${targetItemTrim} = "" ]];then
-                    trimFlg=1
+                elif [[ ${_targetItemTrim} = "" ]];then
+                    _trimFlg=1
                 fi  
             fi
 
-            if [[ ${trimFlg} = 1 ]];then
+            # トリム対象ではない場合、省略
+            if [[ ${_trimFlg} = 1 ]];then
                 continue
-            fi
-
-            if [[ ${itemType} = [cC][hH][aA][rR] || ${itemType} = [sS][tT][rR][iI][nN][gG] ]];then
-                create_string_item ${itemLength} ${_option}
-            elif [[ ${itemType} = [bB][yY][tT][eE] || ${itemType} = [sS][hH][oO][rR][tT] || ${itemType} = [iI][nN][tT] || ${itemType} = [lL][oO][nN][gG] ]];then
-                create_integer_item ${itemLength} ${_option}
-            elif [[ ${itemType} = [fF][lL][oO][aA][tT] || ${itemType} = [dD][oO][uU][bB][lL][eE] ]];then
-                itemLength=${itemLength}.${decimalParts}
-                create_float_item ${itemLength} ${_option}
-            elif [[ ${itemType} =~ [dD][aA][tT][eE] ]];then
-                create_date_item ${itemType}
-            fi
-            
-            if [[ ${itemIndex} = ${_trimItemIndex} ]];then
-                if [[ ${targetItemTrim} = bk ]];then
-                    create_trim_data ${targetItemTrim} HS
-                elif [[ ${targetItemTrim} = BK ]];then
-                    create_trim_data ${targetItemTrim} FS
+            else
+                if [[ ${itemIndex} = ${_trimItemIndex} ]];then
+                    dataNumber=$(( ${dataNumber} + 1))
+                    dataRecordLine=$(( ${dataRecordLine} + 1))
+                    if [[ ${_targetItemTrim} = ft ]];then
+                        dataExplanation="先頭半角スペーストリム（${_targetItemTrim}）"
+                    elif [[ ${_targetItemTrim} = bk ]];then
+                        dataExplanation="後列半角スペーストリム（${_targetItemTrim}）"
+                    elif [[ ${_targetItemTrim} = FT ]];then
+                        dataExplanation="先頭全角スペーストリム（${_targetItemTrim}）"
+                    elif [[ ${_targetItemTrim} = BK ]];then
+                        dataExplanation="後列全角スペーストリム（${_targetItemTrim}）"
+                    fi
+                    printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%-30s\n" "#" "${dataNumber}" "#" "${dataRecordLine}" "#" "${dataTargetItemNumber}" "#" "${dataExplanation}" >> ${filePath%/}/CreateTestData_Explan.txt
                 fi
             fi
 
+            # トリム桁数除外のデータ作成
+            if [[ ${_itemType} = [cC][hH][aA][rR] || ${_itemType} = [sS][tT][rR][iI][nN][gG] ]];then
+                create_string_item ${_itemLength} ${_option}
+            elif [[ ${_itemType} = [bB][yY][tT][eE] || ${_itemType} = [sS][hH][oO][rR][tT] || ${_itemType} = [iI][nN][tT] || ${_itemType} = [lL][oO][nN][gG] ]];then
+                create_integer_item ${_itemLength} ${_option}
+            elif [[ ${_itemType} = [fF][lL][oO][aA][tT] || ${_itemType} = [dD][oO][uU][bB][lL][eE] ]];then
+                _itemLength=${_itemLength}.${_decimalParts}
+                create_float_item ${_itemLength} ${_option}
+            elif [[ ${_itemType} =~ [dD][aA][tT][eE] ]];then
+                create_date_item ${_itemType}
+            fi
+
+            # 後列トリム対象の場合、トリムデータ作成
+            if [[ ${itemIndex} = ${_trimItemIndex} ]];then
+                if [[ ${_targetItemTrim} = bk ]];then
+                    create_trim_data ${_targetItemTrim} HS
+                    dataTargetItemNumber=${itemIndex}
+                elif [[ ${_targetItemTrim} = BK ]];then
+                    create_trim_data ${_targetItemTrim} FS
+                    dataTargetItemNumber=${itemIndex}
+                fi
+            fi
+
+            # 項目データ、囲み文字、区切り文字、改行コードから一時ファイル(文字コード設定ファイル)作成
             if [[ ${itemsCount} = ${itemIndex} ]];then
                 if [[ ${checked_data_outputType} = SQL ]];then
                     checked_data_enclosing=\'
@@ -697,6 +758,8 @@ function create_trim_record() {
                     _dataRecord=${_dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}${checked_data_delimiting}
                 fi
             fi
+            
+            # レコード出力後項目変数初期化
             item=""
         done
 
@@ -706,9 +769,11 @@ function create_trim_record() {
             echo "INSERT INTO "${data_schema}.${data_outputName}" (${list_itemsName}) VALUES (${_dataRecord})" > ${_createFile}.sql
         fi
 
-        if [[ 0 -eq ${itemTrimCount} ]];then
+        # トリムタイプが複数の場合、次のタイプのデータ作成
+        # ftFTの場合、半角スペーストリムデータ(ft)作成後全角スペーストリムデータ(FT)を作成
+        if [[ 0 -eq ${_itemTrimCount} ]];then
             _trimItemIndex=$(( ${_trimItemIndex} + 1 ))
-        elif [[ ${_tmpCount} -eq ${itemTrimCount} ]];then
+        elif [[ ${_tmpCount} -eq ${_itemTrimCount} ]];then
             _trimItemIndex=$(( ${_trimItemIndex} + 1 ))
             _tmpCount=1
             _cutfront=1
@@ -718,6 +783,8 @@ function create_trim_record() {
             _cutfront=$(( ${_cutfront} + 2 ))
             _cutback=$(( ${_cutback} + 2 ))
         fi
+
+        # 全項目のデータ作成後終了
         if [[ ${_trimItemIndex} -gt ${itemsCount} ]];then
             break
         fi
@@ -725,6 +792,9 @@ function create_trim_record() {
 
 }
 
+#--------------------------------------------#
+#   15. 数値タイプのリミットデータ作成(陰數除外)
+#--------------------------------------------#
 function create_number_limit_record() {
     
     # 設定ファイルパス
@@ -733,6 +803,8 @@ function create_number_limit_record() {
     local _option=${2}
     # 出力レコード
     local _dataRecord=""
+    # 項目トリム除外フラグ
+    local _limitFlg=""
     # リミットチェック数
     local _number_limit=1
     # 対象項目番号
@@ -740,26 +812,36 @@ function create_number_limit_record() {
     
     # データ作成処理
     while [ true ]; do
-        targetItemType=`echo ${list_itemsType} | sed 's/"//g' | awk -F, -v field=${_limitItemIndex} '{print $field}'`
-        limitFlg=0
+
+        # トリムデータフラグ
+        _limitFlg=0
+        # 項目変数初期化
         item=""
-
+        _dataRecord=""
+        
+        # 項目タイプ情報が数値タイプの場合のみデータ作成
         for ((itemIndex=1; itemIndex<=${itemsCount}; itemIndex++));do
-            itemType=`echo ${list_itemsType} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
-            itemName=`echo ${list_itemsName} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
-            itemLength=`echo ${list_itemsLength} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
-            fullParts=`echo ${itemLength} | awk -F. '{print $1}'`
-            decimalParts=`echo ${itemLength} | awk -F. '{print $2}'`
-            integerParts=$(( ${fullParts} - ${decimalParts} - 1 ))
+            # 設定ファイルから取得する項目タイプ情報
+            _itemType=`echo ${list_itemsType} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
+            # 設定ファイルから取得する項目桁数情報
+            _itemLength=`echo ${list_itemsLength} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
+            # 設定ファイルから取得する小数情報
+            # 整数、「.」、小数　の総数
+            _fullParts=`echo ${_itemLength} | awk -F. '{print $1}'`
+            # 小数部分の桁数
+            _decimalParts=`echo ${_itemLength} | awk -F. '{print $2}'`
+            # 整数部分の桁数
+            _integerParts=$(( ${_fullParts} - ${_decimalParts} - 1 ))
 
-            if [[ ${itemType} = [cC][hH][aA][rR] || ${itemType} = [sS][tT][rR][iI][nN][gG] ]];then
-                create_string_item ${itemLength} ${_option}
+            # 項目タイプ別テストデータ作成
+            if [[ ${_itemType} = [cC][hH][aA][rR] || ${_itemType} = [sS][tT][rR][iI][nN][gG] ]];then
+                create_string_item ${_itemLength} ${_option}
                 if [[ ${_limitItemIndex} = ${itemIndex} ]];then
-                    limitFlg=1
+                    _limitFlg=1
                 fi
-            elif [[ ${itemType} = [bB][yY][tT][eE] || ${itemType} = [sS][hH][oO][rR][tT] || ${itemType} = [iI][nN][tT] || ${itemType} = [lL][oO][nN][gG] ]];then
+            elif [[ ${_itemType} = [bB][yY][tT][eE] || ${_itemType} = [sS][hH][oO][rR][tT] || ${_itemType} = [iI][nN][tT] || ${_itemType} = [lL][oO][nN][gG] ]];then
                 if [[ ${_limitItemIndex} = ${itemIndex} ]];then
-                    for ((i=1; i<=${itemLength}; i++)); do
+                    for ((i=1; i<=${_itemLength}; i++)); do
                         if [[ ${_number_limit} = 1 ]];then
                             _randomint=9
                         else
@@ -767,12 +849,13 @@ function create_number_limit_record() {
                         fi
                         item=${item}${_randomint}
                     done
+                    dataTargetItemNumber=${itemIndex}
                 else
-                    create_integer_item ${itemLength} ${_option}
+                    create_integer_item ${_itemLength} ${_option}
                 fi
-            elif [[ ${itemType} = [fF][lL][oO][aA][tT] || ${itemType} = [dD][oO][uU][bB][lL][eE] ]];then
+            elif [[ ${_itemType} = [fF][lL][oO][aA][tT] || ${_itemType} = [dD][oO][uU][bB][lL][eE] ]];then
                 if [[ ${_limitItemIndex} = ${itemIndex} ]];then
-                    for ((i=1; i<=${integerParts}; i++)); do
+                    for ((i=1; i<=${_integerParts}; i++)); do
                         if [[ ${_number_limit} = 1 ]];then
                             _randomint=9
                         else
@@ -781,7 +864,7 @@ function create_number_limit_record() {
                         item=${item}${_randomint}
                     done
                     item=${item}.
-                    for ((i=1; i<=${decimalParts}; i++)); do
+                    for ((i=1; i<=${_decimalParts}; i++)); do
                         if [[ ${_number_limit} = 1 ]];then
                             _randomint=9
                         else
@@ -789,23 +872,35 @@ function create_number_limit_record() {
                         fi
                         item=${item}${_randomint}
                     done
+                    dataTargetItemNumber=${itemIndex}
                 else
-                    create_float_item ${itemLength} ${_option}
+                    create_float_item ${_itemLength} ${_option}
                 fi
-            elif [[ ${itemType} =~ [dD][aA][tT][eE] ]];then
+            elif [[ ${_itemType} =~ [dD][aA][tT][eE] ]];then
                 if [[ ${_limitItemIndex} = ${itemIndex} ]];then
-                    limitFlg=1
+                    _limitFlg=1
                 else
-                    create_date_item ${itemType}
+                    create_date_item ${_itemType}
                 fi
             fi
             
-            if [[ ${limitFlg} = 1 ]];then
+            # リミットチェック対象ではない場合、省略
+            if [[ ${_limitFlg} = 1 ]];then
                 continue
+            else
+                if [[ ${itemIndex} = ${_limitItemIndex} ]];then
+                    dataNumber=$(( ${dataNumber} + 1))
+                    dataRecordLine=$(( ${dataRecordLine} + 1))
+                    if [[ ${_number_limit} = 1 ]];then
+                        dataExplanation="最大データ"
+                    elif [[ ${_number_limit} = 2 ]];then
+                        dataExplanation="最小データ"
+                    fi
+                    printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%-30s\n" "#" "${dataNumber}" "#" "${dataRecordLine}" "#" "${dataTargetItemNumber}" "#" "${dataExplanation}" >> ${filePath%/}/CreateTestData_Explan.txt
+                fi
             fi
-            echo "itemsCount=${itemsCount}, itemIndex=${itemIndex}"
-            echo "_limitItemIndex=${_limitItemIndex}"
-            echo
+
+            # 項目データ、囲み文字、区切り文字、改行コードから一時ファイル(文字コード設定ファイル)作成
             if [[ ${itemsCount} = ${itemIndex} ]];then
                 if [[ ${checked_data_outputType} = SQL ]];then
                     checked_data_enclosing=\'
@@ -828,8 +923,8 @@ function create_number_limit_record() {
                     _dataRecord=${_dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}${checked_data_delimiting}
                 fi
             fi
-            echo "_dataRecord=${_dataRecord}"
 
+            # レコード出力後項目変数初期化
             item=""
         done
 
@@ -839,6 +934,7 @@ function create_number_limit_record() {
             echo "INSERT INTO "${data_schema}.${data_outputName}" (${list_itemsName}) VALUES (${_dataRecord})" > ${_createFile}.sql
         fi
 
+        # 数値データを最大データ「9」で作成、最小データ「0」で作成
         if [[ ${_number_limit} = 2 ]];then
             _limitItemIndex=$(( ${_limitItemIndex} + 1 ))
             _number_limit=1
@@ -846,14 +942,17 @@ function create_number_limit_record() {
             _number_limit=2
         fi
 
+        # 全項目のデータ作成後終了
         if [[ ${_limitItemIndex} -gt ${itemsCount} ]];then
             break
         fi
-        _dataRecord=""
     done 
 
 }
 
+#--------------------------------------------#
+#   16. ヌル許可データ作成
+#--------------------------------------------#
 function create_not_null_record() {
     
     # 設定ファイルパス
@@ -862,25 +961,38 @@ function create_not_null_record() {
     local _option=${2}
     # 出力レコード
     local _dataRecord=""
-    number_not_null=1
-    notNullItemIndex=1
+    # 項目ノットヌル除外フラグ
+    local _limitFlg=""
+    # 対象項目番号
+    local _notNullItemIndex=1
+
     # データ作成処理
     while [ true ]; do
-        targetItemType=`echo ${list_itemsType} | sed 's/"//g' | awk -F, -v field=${notNullItemIndex} '{print $field}'`
-        notNullFlg=0
-        item=""
-        for ((itemIndex=1; itemIndex<=${itemsCount}; itemIndex++));do
-            itemNotNull=`echo ${list_itemsNotNull} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
-            itemType=`echo ${list_itemsType} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
-            itemName=`echo ${list_itemsName} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
-            itemLength=`echo ${list_itemsLength} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
-            fullParts=`echo ${itemLength} | awk -F. '{print $1}'`
 
-            if [[ ${itemType} = [cC][hH][aA][rR] || ${itemType} = [sS][tT][rR][iI][nN][gG] ]];then
-                if [[ ${notNullItemIndex} = ${itemIndex} ]];then
-                    if [[ ${itemNotNull} = 1 ]];then
+        # ノットヌルデータフラグ
+        _notNullFlg=0
+        # 項目変数初期化
+        item=""
+        _dataRecord=""
+
+        # ヌル許可の場合、ヌルでデータ作成
+        for ((itemIndex=1; itemIndex<=${itemsCount}; itemIndex++));do
+            # 設定ファイルから取得するノットヌル情報
+            _itemNotNull=`echo ${list_itemsNotNull} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
+            # 設定ファイルから取得する項目タイプ情報
+            _itemType=`echo ${list_itemsType} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
+            # 設定ファイルから取得する項目桁数情報
+            _itemLength=`echo ${list_itemsLength} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
+            # 設定ファイルから取得する小数情報
+            # 整数、「.」、小数　の総数
+            _fullParts=`echo ${_itemLength} | awk -F. '{print $1}'`
+
+            # 項目タイプ別テストデータ作成
+            if [[ ${_itemType} = [cC][hH][aA][rR] || ${_itemType} = [sS][tT][rR][iI][nN][gG] ]];then
+                if [[ ${_notNullItemIndex} = ${itemIndex} ]];then
+                    if [[ ${_itemNotNull} = 1 ]];then
                         if [[ ${checked_data_enclosing} = "" && ${checked_data_delimiting} = "" ]];then
-                            for ((i=1; i<=${itemLength}; i++)); do
+                            for ((i=1; i<=${_itemLength}; i++)); do
                                 _randomchar=" "
                                 item=${item}${_randomchar}
                             done
@@ -888,17 +1000,18 @@ function create_not_null_record() {
                             _randomchar=""
                             item=${item}${_randomchar}
                         fi
-                    elif [[ ${itemNotNull} = 0 ]];then
-                        notNullFlg=1
+                        dataTargetItemNumber=${itemIndex}
+                    elif [[ ${_itemNotNull} = 0 ]];then
+                        _notNullFlg=1
                     fi
                 else
-                    create_string_item ${itemLength} ${_option}
+                    create_string_item ${_itemLength} ${_option}
                 fi
-            elif [[ ${itemType} = [bB][yY][tT][eE] || ${itemType} = [sS][hH][oO][rR][tT] || ${itemType} = [iI][nN][tT] || ${itemType} = [lL][oO][nN][gG] ]];then
-                if [[ ${notNullItemIndex} = ${itemIndex} ]];then
-                    if [[ ${itemNotNull} = 1 ]];then
+            elif [[ ${_itemType} = [bB][yY][tT][eE] || ${_itemType} = [sS][hH][oO][rR][tT] || ${_itemType} = [iI][nN][tT] || ${_itemType} = [lL][oO][nN][gG] ]];then
+                if [[ ${_notNullItemIndex} = ${itemIndex} ]];then
+                    if [[ ${_itemNotNull} = 1 ]];then
                         if [[ ${checked_data_enclosing} = "" && ${checked_data_delimiting} = "" ]];then
-                            for ((i=1; i<=${itemLength}; i++)); do
+                            for ((i=1; i<=${_itemLength}; i++)); do
                                 _randomint=" "
                                 item=${item}${_randomint}
                             done
@@ -906,17 +1019,18 @@ function create_not_null_record() {
                             _randomint=""
                             item=${item}${_randomint}
                         fi
+                        dataTargetItemNumber=${itemIndex}
                     else
-                        notNullFlg=1
+                        _notNullFlg=1
                     fi
                 else
-                    create_integer_item ${itemLength} ${_option}
+                    create_integer_item ${_itemLength} ${_option}
                 fi
-            elif [[ ${itemType} = [fF][lL][oO][aA][tT] || ${itemType} = [dD][oO][uU][bB][lL][eE] ]];then
-                if [[ ${notNullItemIndex} = ${itemIndex} ]];then
-                    if [[ ${itemNotNull} = 1 ]];then
+            elif [[ ${_itemType} = [fF][lL][oO][aA][tT] || ${_itemType} = [dD][oO][uU][bB][lL][eE] ]];then
+                if [[ ${_notNullItemIndex} = ${itemIndex} ]];then
+                    if [[ ${_itemNotNull} = 1 ]];then
                         if [[ ${checked_data_enclosing} = "" && ${checked_data_delimiting} = "" ]];then
-                            for ((i=1; i<=${fullParts}; i++)); do
+                            for ((i=1; i<=${_fullParts}; i++)); do
                                 _randomint=" "
                                 item=${item}${_randomint}
                             done
@@ -924,17 +1038,18 @@ function create_not_null_record() {
                             _randomint=""
                             item=${item}${_randomint}
                         fi
+                        dataTargetItemNumber=${itemIndex}
                     else
-                        notNullFlg=1
+                        _notNullFlg=1
                     fi
                 else
-                    create_float_item ${itemLength} ${_option}
+                    create_float_item ${_itemLength} ${_option}
                 fi
-            elif [[ ${itemType} =~ [dD][aA][tT][eE] ]];then
-                if [[ ${notNullItemIndex} = ${itemIndex} ]];then
-                    if [[ ${itemNotNull} = 1 ]];then
+            elif [[ ${_itemType} =~ [dD][aA][tT][eE] ]];then
+                if [[ ${_notNullItemIndex} = ${itemIndex} ]];then
+                    if [[ ${_itemNotNull} = 1 ]];then
                         if [[ ${checked_data_enclosing} = "" && ${checked_data_delimiting} = "" ]];then
-                            for ((i=1; i<=${itemLength}; i++)); do
+                            for ((i=1; i<=${_itemLength}; i++)); do
                                 _randomDate=" "
                                 item=${item}${_randomDate}
                             done
@@ -942,17 +1057,28 @@ function create_not_null_record() {
                             _randomDate=""
                             item=${item}${_randomDate}
                         fi
+                        dataTargetItemNumber=${itemIndex}
                     else
-                        notNullFlg=1
+                        _notNullFlg=1
                     fi
                 else
-                    create_date_item ${itemType}
+                    create_date_item ${_itemType}
                 fi
             fi
-            if [[ ${notNullFlg} = 1 ]];then
+            
+            # ヌル許可対象ではない場合、省略
+            if [[ ${_notNullFlg} = 1 ]];then
                 continue
+            else
+                if [[ ${itemIndex} = ${_notNullItemIndex} ]];then
+                    dataNumber=$(( ${dataNumber} + 1))
+                    dataRecordLine=$(( ${dataRecordLine} + 1))
+                    dataExplanation="ヌルデータ設定"
+                    printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%-30s\n" "#" "${dataNumber}" "#" "${dataRecordLine}" "#" "${dataTargetItemNumber}" "#" "${dataExplanation}" >> ${filePath%/}/CreateTestData_Explan.txt
+                fi
             fi
 
+            # 項目データ、囲み文字、区切り文字、改行コードから一時ファイル(文字コード設定ファイル)作成
             if [[ ${itemsCount} = ${itemIndex} ]];then
                 if [[ ${checked_data_outputType} = SQL ]];then
                     checked_data_enclosing=\'
@@ -975,6 +1101,8 @@ function create_not_null_record() {
                     _dataRecord=${_dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}${checked_data_delimiting}
                 fi
             fi
+            
+            # レコード出力後項目変数初期化
             item=""
         done
 
@@ -984,12 +1112,13 @@ function create_not_null_record() {
             echo "INSERT INTO "${data_schema}.${data_outputName}" (${list_itemsName}) VALUES (${_dataRecord})" > ${_createFile}.sql
         fi
 
-        notNullItemIndex=$(( ${notNullItemIndex} + 1 ))
+        # ヌルデータ対象変更
+        _notNullItemIndex=$(( ${_notNullItemIndex} + 1 ))
 
-        if [[ ${notNullItemIndex} -gt ${itemsCount} ]];then
+        # 全項目のデータ作成後終了
+        if [[ ${_notNullItemIndex} -gt ${itemsCount} ]];then
             break
         fi
-        _dataRecord=""
     done 
 
 }
@@ -1023,16 +1152,26 @@ export `cat ${setFilePath} | grep list_itemsName`
 export `cat ${setFilePath} | grep list_itemsLength`
 export `cat ${setFilePath} | grep list_itemsNotNull`
 
+### ItemCounts / 항목수 / 項目数
 itemsCount=`echo ${list_itemsLength} | sed 's/"//g' | awk -F, '{print NF}'`
 
+### ExplanFile / 설명파일 / 説明ファイル
+dataNumber=""
+dataRecordLine=""
+dataTargetItemNumber=""
+dataExplanation=""
+printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%-30s\n" "#" "No" "#" "LINE" "#" "ITEM" "#" "PATTERN"> ${filePath%/}/CreateTestData_Explan.txt
+printf "%s\n" "######################################################################" >> ${filePath%/}/CreateTestData_Explan.txt
+
 ### Normal data
-#create_normal_record ${filePath%/}/tmp_${checked_data_outputName} ${checked_data_multiByteCharacter}
+create_normal_record ${filePath%/}/tmp_${checked_data_outputName} ${checked_data_multiByteCharacter}
 ### Trim data
-#create_trim_record ${filePath%/}/tmp_${checked_data_outputName} trim
+create_trim_record ${filePath%/}/tmp_${checked_data_outputName} trim
 ### Limit Number data
 create_number_limit_record ${filePath%/}/tmp_${checked_data_outputName} number_limit
 ### Not Null data
 create_not_null_record ${filePath%/}/tmp_${checked_data_outputName} not_null
+
 ### encoding change
 if [[ -e ${filePath%/}/tmp_${checked_data_outputName} ]];then
     if [[ ${checked_data_encoding} = UTF-8 ]];then
@@ -1049,9 +1188,12 @@ if [[ -e ${filePath%/}/tmp_${checked_data_outputName} ]];then
     rm -rfv ${filePath%/}/tmp_${checked_data_outputName}
 fi
 
-
-echo "_dataRecord=${_dataRecord}"
-
+### compressed file format
+if [[ ${checked_data_outputType} = .gz ]];then
+    gzip ${filePath%/}/${checked_data_outputName}
+elif [[ ${checked_data_outputType} = .Z ]];then
+    compress ${filePath%/}/${checked_data_outputName}
+fi
 
 
 
