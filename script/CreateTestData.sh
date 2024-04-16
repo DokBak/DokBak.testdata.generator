@@ -965,9 +965,16 @@ function create_not_null_record() {
     local _limitFlg=""
     # 対象項目番号
     local _notNullItemIndex=1
+    # ヌル件数対象
+    local _record_notNull_counts=`echo ${list_itemsNotNull} | sed 's/"//g' | grep "1"`
 
     # データ作成処理
     while [ true ]; do
+
+        # ヌル対象がない場合関数終了
+        if [[ ${_record_notNull_counts} = "" ]];then
+            break
+        fi
 
         # ノットヌルデータフラグ
         _notNullFlg=0
@@ -1124,6 +1131,173 @@ function create_not_null_record() {
 }
 
 #--------------------------------------------#
+#   17. 改行コードデータ作成
+#--------------------------------------------#
+function create_new_line_record() {
+    
+    # 設定ファイルパス
+    local _createFile=${1}
+    # 設定ファイルパス
+    local _option=${2}
+    # 出力レコード
+    local _dataRecord=""
+    # 改行レコードデータ除外フラグ
+    local _newLineFlg=""
+    # 対象項目番号
+    local _record_newLine_index=1
+    # 改行レコード項目
+    local _newLineIndex=1
+    # 対象レコード改行タイプ数
+    local _record_newLine_counts=`echo ${data_record_newLine_list} | awk -F, '{print NF}'`
+    # 対象レコード
+    local _record_newLine_item=""
+
+    # データ作成処理
+    while [ true ]; do
+
+        # 改行レコード作成対象外の場合関数終了
+        if [[ ${_record_newLine_counts} -eq 0 ]];then
+            break
+        fi
+
+        # 改行レコードデータフラグ
+        _newLineFlg=0
+        # 項目変数初期化
+        item=""
+        _dataRecord=""
+
+        _record_newLine_item=`echo ${data_record_newLine_list} | awk -F, -v field=${_newLineIndex} '{print $field}' | sed 's/"//g'`
+
+        # 改行レコード許可の場合、改行レコードでデータ作成
+        for ((itemIndex=1; itemIndex<=${itemsCount}; itemIndex++));do
+            # 設定ファイルから取得する項目タイプ情報
+            _itemType=`echo ${list_itemsType} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
+            # 設定ファイルから取得する項目桁数情報
+            _itemLength=`echo ${list_itemsLength} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
+            # 設定ファイルから取得する小数情報
+            # 整数、「.」、小数　の総数
+            _fullParts=`echo ${_itemLength} | awk -F. '{print $1}'`
+
+            # 項目タイプ別テストデータ作成
+            if [[ ${_itemType} = [cC][hH][aA][rR] || ${_itemType} = [sS][tT][rR][iI][nN][gG] ]];then
+                if [[ ${_record_newLine_index} = ${itemIndex} ]];then
+                    if [[ ${_record_newLine_item} = [cC][rR][lL][fF] ]];then
+                        if [[ ${_itemLength} -gt 2 ]];then
+                            item=${item}"!?" # " !=\r, ?=\n " 
+                            _itemLength=$(( ${_itemLength} -2 ))
+                            dataTargetItemNumber=${itemIndex}
+                        else
+                            _newLineFlg=1
+                        fi
+                    elif [[ ${_record_newLine_item} = [cC][rR] ]];then
+                        if [[ ${_itemLength} -gt 1 ]];then
+                            item=${item}"!" # " !=\r, ?=\n " 
+                            _itemLength=$(( ${_itemLength} -1 ))
+                            dataTargetItemNumber=${itemIndex}
+                        else
+                            _newLineFlg=1
+                        fi
+                    elif [[ ${_record_newLine_item} = [lL][fF] ]];then
+                        if [[ ${_itemLength} -gt 1 ]];then
+                            item=${item}"?" # " !=\r, ?=\n " 
+                            _itemLength=$(( ${_itemLength} -1 ))
+                            dataTargetItemNumber=${itemIndex}
+                        else
+                            _newLineFlg=1
+                        fi
+                    fi
+                    create_string_item ${_itemLength} ${_option}
+                else
+                    create_string_item ${_itemLength} ${_option}
+                fi
+            elif [[ ${_itemType} = [bB][yY][tT][eE] || ${_itemType} = [sS][hH][oO][rR][tT] || ${_itemType} = [iI][nN][tT] || ${_itemType} = [lL][oO][nN][gG] ]];then
+                if [[ ${_record_newLine_index} = ${itemIndex} ]];then
+                    _newLineFlg=1
+                else
+                    create_integer_item ${_itemLength} ${_option}
+                fi
+            elif [[ ${_itemType} = [fF][lL][oO][aA][tT] || ${_itemType} = [dD][oO][uU][bB][lL][eE] ]];then
+                if [[ ${_record_newLine_index} = ${itemIndex} ]];then
+                    _newLineFlg=1
+                else
+                    create_float_item ${_itemLength} ${_option}
+                fi
+            elif [[ ${_itemType} =~ [dD][aA][tT][eE] ]];then
+                if [[ ${_record_newLine_index} = ${itemIndex} ]];then
+                    _newLineFlg=1
+                else
+                    create_date_item ${_itemType}
+                fi
+            fi
+            
+            # 改行レコードデータ許可対象ではない場合、省略
+            if [[ ${_newLineFlg} = 1 ]];then
+                continue
+            else
+                if [[ ${itemIndex} = ${_record_newLine_index} ]];then
+                    dataNumber=$(( ${dataNumber} + 1))
+                    dataRecordLine=$(( ${dataRecordLine} + 1))
+                    dataRecordLine2=$(( ${dataRecordLine} + 1))
+                    dataExplanation="改行レコードデータ"
+                    printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%-30s\n" "#" "${dataNumber}" "#" "${dataRecordLine}-${dataRecordLine2}" "#" "${dataTargetItemNumber}" "#" "${dataExplanation}" >> ${filePath%/}/CreateTestData_Explan.txt
+                    dataRecordLine=$(( ${dataRecordLine} + 1))
+                fi
+            fi
+
+            # 項目データ、囲み文字、区切り文字、改行コードから一時ファイル(文字コード設定ファイル)作成
+            if [[ ${itemsCount} = ${itemIndex} ]];then
+                if [[ ${checked_data_outputType} = SQL ]];then
+                    checked_data_enclosing=\'
+                    _dataRecord=${_dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}
+                else
+                    _dataRecord=${_dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}
+                    if [[ ${checked_data_newLine} = CRLF ]];then
+                    #    printf "${_dataRecord}$(printf \\$(printf '%03o' 13 ))\n" | sed 's/!/\r/' | sed 's/?/\n/' >> ${_createFile}
+                        printf "${_dataRecord}$(printf \\$(printf '%03o' 13 ))\n" >> ${_createFile}
+                    elif  [[ ${checked_data_newLine} = CR ]];then
+                    #    printf "${_dataRecord}$(printf \\$(printf '%03o' 13 ))" | sed 's/?/\r/' | sed 's/?/\n/' >> ${_createFile}
+                        printf "${_dataRecord}$(printf \\$(printf '%03o' 13 ))" >> ${_createFile}
+                    else # LF
+                    #    printf "${_dataRecord}\n" | sed 's/?/\r/' | sed 's/?/\n/' >> ${_createFile}
+                        printf "${_dataRecord}\n" >> ${_createFile}
+                    fi
+                fi
+            else
+                if [[ ${checked_data_outputType} = SQL ]];then
+                    checked_data_enclosing=\'
+                    _dataRecord=${_dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}${checked_data_delimiting}
+                else
+                    _dataRecord=${_dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}${checked_data_delimiting}
+                fi
+            fi
+            
+            # レコード出力後項目変数初期化
+            item=""
+        done
+
+        # SQLの場合、クエリー形式に修正
+        if [[ ${checked_data_outputType} = SQL ]];then
+            list_itemsName=`echo ${list_itemsName} | sed 's/"//g'`
+            echo "INSERT INTO "${data_schema}.${data_outputName}" (${list_itemsName}) VALUES (${_dataRecord})" > ${_createFile}.sql
+        fi
+
+        # 改行レコードデータ対象変更
+        if [[ ${_record_newLine_counts} = ${_newLineIndex} ]];then
+            _record_newLine_index=$(( ${_record_newLine_index} + 1 ))
+            _newLineIndex=1
+        else
+            _newLineIndex=$(( ${_newLineIndex} + 1 ))
+        fi
+
+        # 全項目のデータ作成後終了
+        if [[ ${_record_newLine_index} -gt ${itemsCount} ]];then
+            break
+        fi
+    done 
+
+}
+
+#--------------------------------------------#
 #  メイン処理                                   #
 #--------------------------------------------#
 ### ShellScript relativePath / 쉘 스크립트 풀패스 / シェルスクリプトフルパス
@@ -1146,6 +1320,7 @@ check_data_outputName ${setFilePath}
 check_data_multiByteCharacter ${setFilePath} jp
 
 export `cat ${setFilePath} | grep data_escapeCode_list`
+export `cat ${setFilePath} | grep data_record_newLine_list`
 export `cat ${setFilePath} | grep list_itemsTrim`
 export `cat ${setFilePath} | grep list_itemsType`
 export `cat ${setFilePath} | grep list_itemsName`
@@ -1171,6 +1346,8 @@ create_trim_record ${filePath%/}/tmp_${checked_data_outputName} trim
 create_number_limit_record ${filePath%/}/tmp_${checked_data_outputName} number_limit
 ### Not Null data
 create_not_null_record ${filePath%/}/tmp_${checked_data_outputName} not_null
+### New Line data
+create_new_line_record ${filePath%/}/tmp_${checked_data_outputName} new_line
 
 ### encoding change
 if [[ -e ${filePath%/}/tmp_${checked_data_outputName} ]];then
@@ -1194,8 +1371,6 @@ if [[ ${checked_data_outputType} = .gz ]];then
 elif [[ ${checked_data_outputType} = .Z ]];then
     compress ${filePath%/}/${checked_data_outputName}
 fi
-
-
 
 #printf "%s" "testああvv" | iconv -t SJIS >> ./filename.txt
 #printf "%s" "testああvv" | iconv -t SJIS | tr "\n" "\r" >> ./filename.txt
