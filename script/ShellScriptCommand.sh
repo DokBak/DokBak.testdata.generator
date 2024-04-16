@@ -1,47 +1,47 @@
 #!/bin/sh
 
 ###################################################################################
-#                                                                                 #
-#  Shell Name  : Reference Shell                                                  #
-#                                                                                 #
-#  Creater     : DokBak                                                           #
-#  Create Date : 2024/2/21          New                                           #
-#  Modify Date :                                                                  #
-#                                                                                 #
-#  Processing Overview : Reference Shell for Writing a Shell Script               #
-#                                                                                 #
-#  Parameter   :                                                                  #
-#     Parameter1  (optional) : Command                                            #
-#     Parameter2  (optional) : Language                                           #
-#                                                                                 #
+#
+#  Shell Name  : Reference Shell
+#
+#  Creater     : DokBak
+#  Create Date : 2024/2/21          New
+#  Modify Date :
+#
+#  Processing Overview : Reference Shell for Writing a Shell Script
+#
+#  Parameter   :
+#     Parameter1  (optional) : Command
+#     Parameter2  (optional) : Language
+#
 ###################################################################################
-#                                                                                 #
-#  쉘  이름      : 참조 쉘                                                           #
-#                                                                                 #
-#  작 성 자      : DokBak                                                           #
-#  작 성 일      : 2024/2/21          신규 작성                                       #
-#  수 정 일      :                                                                  #
-#                                                                                 #
-#  처리 개요      : 쉘 스크립트 작성을 위한 참조 쉘                                         #
-#                                                                                 #
-#  파라미터       :                                                                 #
-#     파라미터1  (옵션) : 명령어                                                       #
-#     파라미터2  (옵션) : 언어                                                         #
-#                                                                                 #
+#
+#  쉘  이름      : 참조 쉘
+#
+#  작 성 자      : DokBak
+#  작 성 일      : 2024/2/21          신규 작성
+#  수 정 일      :
+#
+#  처리 개요      : 쉘 스크립트 작성을 위한 참조 쉘
+#
+#  파라미터       :
+#     파라미터1  (옵션) : 명령어
+#     파라미터2  (옵션) : 언어
+#
 ###################################################################################
-#                                                                                 #
-#  スクリプト名    : 参照シェル                                                         #
-#                                                                                 #
-#  作成者        : DokBak                                                           #
-#  作成日        : 2024/2/21          新規作成                                        #
-#  修正日        :                                                                  #
-#                                                                                 #
-#  処理概要      : シェルスクリプト作成に参考できる参照シェル                                  #
-#                                                                                 #
-#  パラメータ     :                                                                  #
-#     パラメータ1  (任意) : 言語                                                       #
-#     パラメータ2  (任意) : 命令語                                                     #
-#                                                                                 #
+#
+#  スクリプト名    : 参照シェル
+#
+#  作成者        : DokBak
+#  作成日        : 2024/2/21          新規作成
+#  修正日        :
+#
+#  処理概要      : シェルスクリプト作成に参考できる参照シェル
+#
+#  パラメータ     :
+#     パラメータ1  (任意) : 言語
+#     パラメータ2  (任意) : 命令語
+# 
 ###################################################################################
 
 #--------------------------------------------#
@@ -812,6 +812,9 @@ function func_linuxCommandExample() {
             ;;
         locale)
             func_command_locale ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
+            ;;
+        compress)
+            func_command_compress ${ouputLanguageParam} ${filePath} ${commandDescriptionEn[${commandItemIndex}]} ${commandDescriptionKr[${commandItemIndex}]} ${commandDescriptionJp[${commandItemIndex}]} ${commandList[${commandItemIndex}]}
             ;;
         *)  echo ; 
             if [[ ${ouputLanguageParam} == [kK][rR] ]];then
@@ -22736,6 +22739,126 @@ function func_command_locale() {
 }
 
 #--------------------------------------------#
+# Command : compress                         #
+#--------------------------------------------#
+function func_command_compress() {
+    
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### English Command Description Parameter / 영어 명령어 설명 파라미터 / 英語コマンド説明パラメータ
+    local commandDescriptionEnParam=$3
+    ### Korean Command Description Parameter / 한국어 명령어 설명 파라미터 / 韓国語コマンド説明パラメータ
+    local commandDescriptionKrParam=$4
+    ### Japense Command Description Parameter / 일본어 명령어 설명 파라미터 / 日本語コマンド説明パラメータ
+    local commandDescriptionJpParam=$5
+    ### Command / 명령어 / コマンド
+    local commandItem=$6
+    ### Count / 번호 / 番号 
+    local countNumber=0
+
+    mkdir -p ${filePathParam%/}/tmp/${commandItem}/
+    echo "testFile1,Command,data" > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+    old_LC_ALL=${LC_ALL}
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${commandItem}
+    printf "##############################################################################################\n" > ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        printf "  %-16s %s %s\n" "명령어" ":" "${commandItem}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-17s %s %s\n" "기본설명" ":" "${commandDescriptionKrParam}" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-18s %s %s\n" "※사용법" ":" "${commandItem}_[인수]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-17s %s %s\n" "※인수" ":" "[압축 대상 파일 경로]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        printf "  %-17s %s %s\n" "コマンド" ":" "${commandItem}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-17s %s %s\n" "基本説明" ":" "${commandDescriptionJpParam}" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-18s %s %s\n" "※使用法" ":" "${commandItem}_[引数]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-17s %s %s\n" "※引数" ":" "[圧縮対象ファイルパス]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    else
+        printf "  %-13s %s %s\n" "Command" ":" "${commandItem}" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-13s %s %s\n" "Description" ":" "${commandDescriptionEnParam}" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-15s %s %s\n" "※HowToUse" ":" "${commandItem}_[argument]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-15s %s %s\n" "※argument" ":" "[compressed_file_path]" | sed 's/_/ /g' >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    fi
+    echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    printf "##############################################################################################\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        export LC_ALL="ko_KR.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "예상출력결과" ":" "파일압축(.Z)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" "compress ${filePathParam%/}/tmp/${commandItem}/directory/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            compress ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+            ls -l ${filePathParam%/}/tmp/${commandItem}/ >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        export LC_ALL="ja_JP.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-14s %s %-15s\n" "サンプル${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "予想出力結果" ":" "ファイル圧縮(.Z)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" "zip ${filePathParam%/}/tmp/${commandItem}/directory/${commandItem}_TestFile.zip ${filePathParam%/}/tmp/${commandItem}/directory/test1/${commandItem}_TestFile1.txt ${filePathParam%/}/tmp/${commandItem}/directory/${commandItem}_TestFile2.txt"
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            compress ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+            ls -l ${filePathParam%/}/tmp/${commandItem}/ >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    else
+        export LC_ALL="en_US.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "  %-10s %s %-15s\n" "Sample${countNumber}" "" "" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-15s %s %s\n" "ExpectedOutput" ":" "File_Compress(.Z)" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo "${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "    %-15s %s %s\n" "HowToUse" ":" "zip ${filePathParam%/}/tmp/${commandItem}/directory/${commandItem}_TestFile.zip ${filePathParam%/}/tmp/${commandItem}/directory/test1/ ${filePathParam%/}/tmp/${commandItem}/directory/${commandItem}_TestFile2.txt" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            compress ${filePathParam%/}/tmp/${commandItem}/${commandItem}_TestFile1.txt
+            ls -l ${filePathParam%/}/tmp/${commandItem}/ >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+        
+    fi
+    echo >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    printf "##############################################################################################\n" >> ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    
+    export LC_ALL=${old_LC_ALL}
+    less ${filePathParam%/}/tmp/${commandItem}/${commandItem}_SampleText.txt
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    rm -rf ${filePathParam%/}/tmp/${commandItem}/
+
+    func_basicSetting_LogFileName_Path ${PID} "1" ${commandItem}
+    echo 
+    
+}
+
+#--------------------------------------------#
 # Linux Script Tip List                      #
 #  : Linux Script Tip List                   #
 #  : 리눅스 스크립트 팁 리스트                     #
@@ -27405,6 +27528,9 @@ readonly chownJp="ファイルやディレクトリの所有者を変更する�
 readonly clearEn="Clear_the_terminal_screen_to_provide_a_clean_workspace"
 readonly clearKr="터미널_화면을_지워_깨끗한_작업_공간을_제공"
 readonly clearJp="ターミナル画面を消してきれいな作業スペースを提供"
+readonly compressEn="Compressing_a_file_in_.Z_format"
+readonly compressKr=".Z형식의_파일압축"
+readonly compressJp=".Z形式のファイル圧縮です"
 readonly cpEn="The_command_in_Unix/Linux_is_used_to_copy_files_or_directories"
 readonly cpKr="파일_또는_디렉토리를_복사하는데_사용"
 readonly cpJp="ファイルやディレクトリをコピーするため使用"
@@ -27585,10 +27711,10 @@ readonly whoamiJp="現在ログインしているユーザーの名前を表示"
 readonly zipEn="Command_is_used_to_compress_files_and_directories_creating_a_compressed_archive.It_is_primarily_used_to_save_space_by_compressing_files_or_when_transferring_files"
 readonly zipKr="파일_및_디렉터리를_압축하고_압축_파일을_만드는데_사용됩니다.주로_파일을_압축하여_용량을_절약하거나_파일을_전송할_때_활용"
 readonly zipJp="ファイルやディレクトリを圧縮し、圧縮ファイルを作成するのに使用されます。主にファイルを圧縮して容量を節約しファイルを転送する際に利用"
-declare -a commandList=("alias" "awk" "cal" "cat" "cd" "chgrp" "chmod" "chown" "clear" "cp" "cut" "date" "dd" "declare" "df" "diff" "du" "echo" "egrep" "env" "exit" "export" "expr" "fc" "find" "grep" "gunzip" "gzip" "head" "history" "id" "less" "ln" "locale" "ls" "lsof" "man" "mkdir" "more" "mv" "nkf" "paste" "ping" "printf" "ps" "pwd" "read" "readonly" "rename" "rm" "rmdir" "sed" "sh" ""shift "sleep" "sort" "tail" "tar" "top" "touch" "tr" "umask" "uname" "uniq" "unzip" "uptime" "wc" "whoami" "zip")
-declare -a commandDescriptionEn=("${aliasEn}" "${awkEn}" "${calEn}" "${catEn}" "${cdEn}" "${chgrpEn}" "${chmodEn}" "${chownEn}" "${clearEn}" "${cpEn}" "${cutEn}" "${dateEn}" "${ddEn}" "${declareEn}" "${dfEn}" "${diffEn}" "${duEn}" "${echoEn}" "${egrepEn}" "${envEn}" "${exitEn}" "${exportEn}" "${exprEn}" "${fcEn}" "${findEn}" "${grepEn}" "${gunzipEn}" "${gzipEn}" "${headEn}" "${historyEn}" "${idEn}" "${lessEn}" "${lnEn}" "${localeEn}" "${lsEn}" "${lsofEn}" "${manEn}" "${mkdirEn}" "${moreEn}" "${mvEn}" "${nkfEn}" "${pasteEn}" "${pingEn}" "${printfEn}" "${psEn}" "${pwdEn}" "${readEn}" "${readonlyEn}" "${renameEn}" "${rmEn}" "${rmdirEn}" "${sedEn}" "${shEn}" "${shiftEn}" "${sleepEn}" "${sortEn}" "${tailEn}" "${tarEn}" "${topEn}" "${touchEn}" "${trEn}" "${umaskEn}" "${unameEn}" "${uniqEn}" "${unzipEn}" "${uptimeEn}" "${wcEn}" "${whoamiEn}" "${zipEn}")
-declare -a commandDescriptionKr=("${aliasKr}" "${awkKr}" "${calKr}" "${catKr}" "${cdKr}" "${chgrpKr}" "${chmodKr}" "${chownKr}" "${clearKr}" "${cpKr}" "${cutKr}" "${dateKr}" "${ddKr}" "${declareKr}" "${dfKr}" "${diffKr}" "${duKr}" "${echoKr}" "${egrepKr}" "${envKr}" "${exitKr}" "${exportKr}" "${exprKr}" "${fcKr}" "${findKr}" "${grepKr}" "${gunzipKr}" "${gzipKr}" "${headKr}" "${historyKr}" "${idKr}" "${lessKr}" "${lnKr}" "${localeKr}" "${lsKr}" "${lsofKr}" "${manKr}" "${mkdirKr}" "${moreKr}" "${mvKr}" "${nkfKr}" "${pasteKr}" "${pingKr}" "${printfKr}" "${psKr}" "${pwdKr}" "${readKr}" "${readonlyKr}" "${renameKr}" "${rmKr}" "${rmdirKr}" "${sedKr}" "${shKr}" "${shiftKr}" "${sleepKr}" "${sortKr}" "${tailKr}" "${tarKr}" "${topKr}" "${touchKr}" "${trKr}" "${umaskKr}" "${unameKr}" "${uniqKr}" "${unzipKr}" "${uptimeKr}" "${wcKr}" "${whoamiKr}" "${zipKr}")
-declare -a commandDescriptionJp=("${aliasJp}" "${awkJp}" "${calJp}" "${catJp}" "${cdJp}" "${chgrpJp}" "${chmodJp}" "${chownJp}" "${clearJp}" "${cpJp}" "${cutJp}" "${dateJp}" "${ddJp}" "${declareJp}" "${dfJp}" "${diffJp}" "${duJp}" "${echoJp}" "${egrepJp}" "${envJp}" "${exitJp}" "${exportJp}" "${exprJp}" "${fcJp}" "${findJp}" "${grepJp}" "${gunzipJp}" "${gzipJp}" "${headJp}" "${historyJp}" "${idJp}" "${lessJp}" "${lnJp}" "${localeJp}" "${lsJp}" "${lsofJp}" "${manJp}" "${mkdirJp}" "${moreJp}" "${mvJp}" "${nkfJp}" "${pasteJp}" "${pingJp}" "${printfJp}" "${psJp}" "${pwdJp}" "${readJp}" "${readonlyJp}" "${renameJp}" "${rmJp}" "${rmdirJp}" "${sedJp}" "${shJp}" "${shiftJp}" "${sleepJp}" "${sortJp}" "${tailJp}" "${tarJp}" "${topJp}" "${touchJp}" "${trJp}" "${umaskJp}" "${unameJp}" "${uniqJp}" "${unzipJp}" "${uptimeJp}" "${wcJp}" "${whoamiJp}" "${zipJp}")
+declare -a commandList=("alias" "awk" "cal" "cat" "cd" "chgrp" "chmod" "chown" "clear" "compress" "cp" "cut" "date" "dd" "declare" "df" "diff" "du" "echo" "egrep" "env" "exit" "export" "expr" "fc" "find" "grep" "gunzip" "gzip" "head" "history" "id" "less" "ln" "locale" "ls" "lsof" "man" "mkdir" "more" "mv" "nkf" "paste" "ping" "printf" "ps" "pwd" "read" "readonly" "rename" "rm" "rmdir" "sed" "sh" ""shift "sleep" "sort" "tail" "tar" "top" "touch" "tr" "umask" "uname" "uniq" "unzip" "uptime" "wc" "whoami" "zip")
+declare -a commandDescriptionEn=("${aliasEn}" "${awkEn}" "${calEn}" "${catEn}" "${cdEn}" "${chgrpEn}" "${chmodEn}" "${chownEn}" "${clearEn}" "${compressEn}" "${cpEn}" "${cutEn}" "${dateEn}" "${ddEn}" "${declareEn}" "${dfEn}" "${diffEn}" "${duEn}" "${echoEn}" "${egrepEn}" "${envEn}" "${exitEn}" "${exportEn}" "${exprEn}" "${fcEn}" "${findEn}" "${grepEn}" "${gunzipEn}" "${gzipEn}" "${headEn}" "${historyEn}" "${idEn}" "${lessEn}" "${lnEn}" "${localeEn}" "${lsEn}" "${lsofEn}" "${manEn}" "${mkdirEn}" "${moreEn}" "${mvEn}" "${nkfEn}" "${pasteEn}" "${pingEn}" "${printfEn}" "${psEn}" "${pwdEn}" "${readEn}" "${readonlyEn}" "${renameEn}" "${rmEn}" "${rmdirEn}" "${sedEn}" "${shEn}" "${shiftEn}" "${sleepEn}" "${sortEn}" "${tailEn}" "${tarEn}" "${topEn}" "${touchEn}" "${trEn}" "${umaskEn}" "${unameEn}" "${uniqEn}" "${unzipEn}" "${uptimeEn}" "${wcEn}" "${whoamiEn}" "${zipEn}")
+declare -a commandDescriptionKr=("${aliasKr}" "${awkKr}" "${calKr}" "${catKr}" "${cdKr}" "${chgrpKr}" "${chmodKr}" "${chownKr}" "${clearKr}" "${compressKr}" "${cpKr}" "${cutKr}" "${dateKr}" "${ddKr}" "${declareKr}" "${dfKr}" "${diffKr}" "${duKr}" "${echoKr}" "${egrepKr}" "${envKr}" "${exitKr}" "${exportKr}" "${exprKr}" "${fcKr}" "${findKr}" "${grepKr}" "${gunzipKr}" "${gzipKr}" "${headKr}" "${historyKr}" "${idKr}" "${lessKr}" "${lnKr}" "${localeKr}" "${lsKr}" "${lsofKr}" "${manKr}" "${mkdirKr}" "${moreKr}" "${mvKr}" "${nkfKr}" "${pasteKr}" "${pingKr}" "${printfKr}" "${psKr}" "${pwdKr}" "${readKr}" "${readonlyKr}" "${renameKr}" "${rmKr}" "${rmdirKr}" "${sedKr}" "${shKr}" "${shiftKr}" "${sleepKr}" "${sortKr}" "${tailKr}" "${tarKr}" "${topKr}" "${touchKr}" "${trKr}" "${umaskKr}" "${unameKr}" "${uniqKr}" "${unzipKr}" "${uptimeKr}" "${wcKr}" "${whoamiKr}" "${zipKr}")
+declare -a commandDescriptionJp=("${aliasJp}" "${awkJp}" "${calJp}" "${catJp}" "${cdJp}" "${chgrpJp}" "${chmodJp}" "${chownJp}" "${clearJp}" "${compressJp}" "${cpJp}" "${cutJp}" "${dateJp}" "${ddJp}" "${declareJp}" "${dfJp}" "${diffJp}" "${duJp}" "${echoJp}" "${egrepJp}" "${envJp}" "${exitJp}" "${exportJp}" "${exprJp}" "${fcJp}" "${findJp}" "${grepJp}" "${gunzipJp}" "${gzipJp}" "${headJp}" "${historyJp}" "${idJp}" "${lessJp}" "${lnJp}" "${localeJp}" "${lsJp}" "${lsofJp}" "${manJp}" "${mkdirJp}" "${moreJp}" "${mvJp}" "${nkfJp}" "${pasteJp}" "${pingJp}" "${printfJp}" "${psJp}" "${pwdJp}" "${readJp}" "${readonlyJp}" "${renameJp}" "${rmJp}" "${rmdirJp}" "${sedJp}" "${shJp}" "${shiftJp}" "${sleepJp}" "${sortJp}" "${tailJp}" "${tarJp}" "${topJp}" "${touchJp}" "${trJp}" "${umaskJp}" "${unameJp}" "${uniqJp}" "${unzipJp}" "${uptimeJp}" "${wcJp}" "${whoamiJp}" "${zipJp}")
 scriptTipList=()
 scriptTipList+=(Loop_for,반복문_for,繰り返し文_for)
 scriptTipList+=(Conditional_case,조건문_case,条件文_case)
