@@ -2,7 +2,7 @@
 
 ###################################################################################
 #
-#  Shell Name  : Reference Shell
+#  Shell Name  : Command Reference Shell
 #
 #  Creater     : DokBak
 #  Create Date : 2024/2/21          New
@@ -16,7 +16,7 @@
 #
 ###################################################################################
 #
-#  쉘  이름      : 참조 쉘
+#  쉘  이름      : 명령어 참조 쉘
 #
 #  작 성 자      : DokBak
 #  작 성 일      : 2024/2/21          신규 작성
@@ -30,7 +30,7 @@
 #
 ###################################################################################
 #
-#  スクリプト名    : 参照シェル
+#  スクリプト名    : コマンド参照シェル
 #
 #  作成者        : DokBak
 #  作成日        : 2024/2/21          新規作成
@@ -39,16 +39,16 @@
 #  処理概要      : シェルスクリプト作成に参考できる参照シェル
 #
 #  パラメータ     :
-#     パラメータ1  (任意) : 言語
-#     パラメータ2  (任意) : 命令語
+#     パラメータ1  (任意) : 命令語
+#     パラメータ2  (任意) : 言語
 # 
 ###################################################################################
 
 #--------------------------------------------#
-# Basic Setting(Start Run Time)              #
-#  : Shell Start Running Time                #
-#  : 쉘 기동 시작 시간 출력                       #
-#  : シェル起動開始時間出力                        #
+# Basic Setting(Start Run Time)
+#  : Shell Start Running Time
+#  : 쉘 기동 시작 시간 출력
+#  : シェル起動開始時間出力
 #--------------------------------------------#
 function func_basicSetting_StartingRunTime() {
     
@@ -83,10 +83,10 @@ function func_basicSetting_StartingRunTime() {
 }
 
 #--------------------------------------------#
-# Basic Setting(LogFileName_Path)            #
-#  : LogFile Name & Path Set                 #
-#  : 로그 파일 이름 및 경로 설정                   #
-#  : ログファイル名及びパス設定                     #
+# Basic Setting(LogFileName_Path)
+#  : LogFile Name & Path Set
+#  : 로그 파일 이름 및 경로 설정
+#  : ログファイル名及びパス設定
 #--------------------------------------------#
 function func_basicSetting_LogFileName_Path() {
     
@@ -137,10 +137,10 @@ function func_basicSetting_LogFileName_Path() {
 }
 
 #--------------------------------------------#
-# Main Menu                                  #
-#  : Main Menu Print                         #
-#  : 메인 메뉴 출력                            　#
-#  : メインメニュー出力                           #
+# Main Menu
+#  : Main Menu Print
+#  : 메인 메뉴 출력
+#  : メインメニュー出力
 #--------------------------------------------#
 function func_mainMenu() {
 
@@ -231,10 +231,10 @@ function func_mainMenu() {
 }
 
 #--------------------------------------------#
-# How To Use                                 #
-#  : How to use                              #
-#  : 사용법                                  　#
-#  : 使用法                                    #
+# How To Use
+#  : How to use
+#  : 사용법
+#  : 使用法
 #--------------------------------------------#
 function func_howToUse() {
 
@@ -285,10 +285,10 @@ function func_howToUse() {
 }
 
 #--------------------------------------------#
-# Support Language                           #
-#  : support language                        #
-#  : 지원 언어                                  #
-#  : 支援言語                                   #
+# Support Language
+#  : support language
+#  : 지원 언어
+#  : 支援言語
 #--------------------------------------------#
 function func_supportLanguage() {
 
@@ -304,10 +304,10 @@ function func_supportLanguage() {
 }
 
 #--------------------------------------------#
-# Script End                                 #
-#  : Shell Script Close                      #
-#  : 쉘 스크립트 종료                           　#
-#  : シェルスクリプト終了                          #
+# Script End
+#  : Shell Script Close
+#  : 쉘 스크립트 종료
+#  : シェルスクリプト終了
 #--------------------------------------------#
 function func_scriptEnd() {
 
@@ -352,10 +352,10 @@ function func_scriptEnd() {
 }
 
 #--------------------------------------------#
-# Select Language                            #
-#  : Output Language Select                  #
-#  : 출력 언어 선택                            　#
-#  : 出力言語出力                               #
+# Select Language
+#  : Output Language Select
+#  : 출력 언어 선택
+#  : 出力言語出力
 #--------------------------------------------#
 function func_selectLanguage() {
 
@@ -449,10 +449,10 @@ function func_selectLanguage() {
 }
 
 #--------------------------------------------#
-# Linux Commands List                        #
-#  : Included Linux Commands List            #
-#  : 포함된 리눅스 명령어 리스트                    #
-#  : 含まれているLinuxコマンドリスト                 #
+# Linux Commands List
+#  : Included Linux Commands List
+#  : 포함된 리눅스 명령어 리스트
+#  : 含まれているLinuxコマンドリスト
 #--------------------------------------------#
 function func_linuxCommandsList() {
     
@@ -518,10 +518,10 @@ function func_linuxCommandsList() {
 }
 
 #--------------------------------------------#
-# Linux Commands Exist Check                 #
-#  : Included Linux Commands Exist Check     #
-#  : 포함된 리눅스 명령어 존재 체크                 #
-#  : 含まれているLinuxコマンド存在チェック            #
+# Linux Commands Exist Check
+#  : Included Linux Commands Exist Check
+#  : 포함된 리눅스 명령어 존재 체크
+#  : 含まれているLinuxコマンド存在チェック
 #--------------------------------------------#
 function func_linuxCommandsExistCheck() {
 
@@ -550,10 +550,10 @@ function func_linuxCommandsExistCheck() {
 }
 
 #--------------------------------------------#
-# Not Exist Command                          #
-#  : Not Exist Command                       #
-#  : 존재하지 않는 명령어                         #
-#  : 存在しないコマンド                           #
+# Not Exist Command
+#  : Not Exist Command
+#  : 존재하지 않는 명령어
+#  : 存在しないコマンド
 #--------------------------------------------#
 function func_notExistCommand() {
     
@@ -589,10 +589,10 @@ function func_notExistCommand() {
 }
 
 #--------------------------------------------#
-# Linux Command Example                      #
-#  : Linux Command Example                   #
-#  : 리눅스 명령어 예                            #
-#  : Linuxコマンド例                            #
+# Linux Command Example
+#  : Linux Command Example
+#  : 리눅스 명령어 예
+#  : Linuxコマンド例
 #--------------------------------------------#
 function func_linuxCommandExample() {
 
@@ -22859,10 +22859,10 @@ function func_command_compress() {
 }
 
 #--------------------------------------------#
-# Linux Script Tip List                      #
-#  : Linux Script Tip List                   #
-#  : 리눅스 스크립트 팁 리스트                     #
-#  : Linuxスクリプトヒントリスト                   #
+# Linux Script Tip List
+#  : Linux Script Tip List
+#  : 리눅스 스크립트 팁 리스트
+#  : Linuxスクリプトヒントリスト
 #--------------------------------------------#
 function func_linuxScriptTipList() {
     
@@ -22920,10 +22920,10 @@ function func_linuxScriptTipList() {
 }
 
 #--------------------------------------------#
-# Linux Script Tip Example                   #
-#  : Linux Script Tip Example                #
-#  : 리눅스 스크립트 팁 예                        #
-#  : Linuxスクリプトヒント例                      #
+# Linux Script Tip Example
+#  : Linux Script Tip Example
+#  : 리눅스 스크립트 팁 예
+#  : Linuxスクリプトヒント例
 #--------------------------------------------#
 function func_linuxScriptTipExample() {
 
@@ -22994,7 +22994,7 @@ function func_linuxScriptTipExample() {
 }
 
 #--------------------------------------------#
-# Command : for                              #
+# Tip : for                           　　　   #
 #--------------------------------------------#
 function func_script_for() {
     
@@ -23462,7 +23462,7 @@ function func_script_for() {
 }
 
 #--------------------------------------------#
-# Command : case                             #
+# Tip : case                                 #
 #--------------------------------------------#
 function func_script_case() {
     
@@ -23650,7 +23650,7 @@ function func_script_case() {
 }
 
 #--------------------------------------------#
-# Command : while                            #
+# Tip : while                                #
 #--------------------------------------------#
 function func_script_while() {
     
@@ -23857,7 +23857,7 @@ function func_script_while() {
 }
 
 #--------------------------------------------#
-# Command : until                            #
+# Tip : until                                #
 #--------------------------------------------#
 function func_script_until() {
     
@@ -24070,7 +24070,7 @@ function func_script_until() {
 }
 
 #--------------------------------------------#
-# Command : break                            #
+# Tip : break                                #
 #--------------------------------------------#
 function func_script_break() {
     
@@ -24283,7 +24283,7 @@ function func_script_break() {
 }
 
 #--------------------------------------------#
-# Command : continue                         #
+# Tip : continue                             #
 #--------------------------------------------#
 function func_script_continue() {
     
@@ -24538,7 +24538,7 @@ function func_script_continue() {
 }
 
 #--------------------------------------------#
-# Command : if                               #
+# Tip : if                                   #
 #--------------------------------------------#
 function func_script_if() {
     
@@ -25546,7 +25546,7 @@ function func_script_if() {
 }
 
 #--------------------------------------------#
-# Command : Calculate_Bracket                #
+# Tip : Calculate_Bracket                    #
 #--------------------------------------------#
 function func_script_Calculate_Bracket() {
     
@@ -25765,7 +25765,7 @@ function func_script_Calculate_Bracket() {
 }
 
 #--------------------------------------------#
-# Command : Quotation_Marks                  #
+# Tip : Quotation_Marks                      #
 #--------------------------------------------#
 function func_script_Quotation_Marks() {
     
@@ -25882,7 +25882,7 @@ function func_script_Quotation_Marks() {
 }
 
 #--------------------------------------------#
-# Command : Variables_Modifiy                #
+# Tip : Variables_Modifiy                    #
 #--------------------------------------------#
 function func_script_Variables_Modifiy() {
     
@@ -26337,7 +26337,7 @@ function func_script_Variables_Modifiy() {
 }
 
 #--------------------------------------------#
-# Command : IFS                              #
+# Tip : IFS                                  #
 #--------------------------------------------#
 function func_script_IFS() {
     
@@ -26580,9 +26580,8 @@ function func_script_IFS() {
     
 }
 
-
 #--------------------------------------------#
-# Command : Parameter_Using                  #
+# Tip : Parameter_Using                      #
 #--------------------------------------------#
 function func_script_Parameter_Using() {
     
@@ -26747,7 +26746,7 @@ function func_script_Parameter_Using() {
 }
 
 #--------------------------------------------#
-# Command : File_Input_Output                #
+# Tip : File_Input_Output                    #
 #--------------------------------------------#
 function func_script_File_Input_Output() {
 
@@ -27035,10 +27034,10 @@ function func_script_File_Input_Output() {
 }
 
 #--------------------------------------------#
-# Show Helper Shell                          #
-#  : Helper Shell                            #
-#  : 보조 쉘                                 　#
-#  : 手伝いシェル                               #
+# Show Helper Shell
+#  : Helper Shell
+#  : 보조 쉘
+#  : 手伝いシェル
 #--------------------------------------------#
 function func_showHelperShell() {
 
@@ -27109,10 +27108,10 @@ function func_showHelperShell() {
 }
 
 #--------------------------------------------#
-# Select Editor                              #
-#  : List of Editor                          #
-#  : 편집기 리스트                             　#
-#  : エディターリスト                             #
+# Select Editor
+#  : List of Editor
+#  : 편집기 리스트
+#  : エディターリスト
 #--------------------------------------------#
 function func_selectEditor() {
 
@@ -27195,7 +27194,7 @@ function func_selectEditor() {
 }
 
 #--------------------------------------------#
-# Command : vim                              #
+# Editor : vim                               #
 #--------------------------------------------#
 function func_editor_vim() {
     
@@ -27436,7 +27435,7 @@ function func_editor_vim() {
 }
 
 #--------------------------------------------#
-# Command : nano                             #
+# Editor : nano                              #
 #--------------------------------------------#
 function func_editor_nano() {
     
@@ -27497,9 +27496,9 @@ function func_editor_nano() {
 }
 
 #--------------------------------------------#
-# Command List                               #
-#  : 명령어 리스트                               #
-#  : コマンドリスト                              #
+# Command List
+#  : 명령어 리스트
+#  : コマンドリスト
 #--------------------------------------------#
 readonly aliasEn="Used_to_list_information_about_files_left_open_by_various_processes_running_on_the_system"
 readonly aliasKr="시스템에서_실행_중인_다양한_프로세스가_열어_둔_파일에_대한_정보를_나열하는데_사용"
@@ -27715,6 +27714,12 @@ declare -a commandList=("alias" "awk" "cal" "cat" "cd" "chgrp" "chmod" "chown" "
 declare -a commandDescriptionEn=("${aliasEn}" "${awkEn}" "${calEn}" "${catEn}" "${cdEn}" "${chgrpEn}" "${chmodEn}" "${chownEn}" "${clearEn}" "${compressEn}" "${cpEn}" "${cutEn}" "${dateEn}" "${ddEn}" "${declareEn}" "${dfEn}" "${diffEn}" "${duEn}" "${echoEn}" "${egrepEn}" "${envEn}" "${exitEn}" "${exportEn}" "${exprEn}" "${fcEn}" "${findEn}" "${grepEn}" "${gunzipEn}" "${gzipEn}" "${headEn}" "${historyEn}" "${idEn}" "${lessEn}" "${lnEn}" "${localeEn}" "${lsEn}" "${lsofEn}" "${manEn}" "${mkdirEn}" "${moreEn}" "${mvEn}" "${nkfEn}" "${pasteEn}" "${pingEn}" "${printfEn}" "${psEn}" "${pwdEn}" "${readEn}" "${readonlyEn}" "${renameEn}" "${rmEn}" "${rmdirEn}" "${sedEn}" "${shEn}" "${shiftEn}" "${sleepEn}" "${sortEn}" "${tailEn}" "${tarEn}" "${topEn}" "${touchEn}" "${trEn}" "${umaskEn}" "${unameEn}" "${uniqEn}" "${unzipEn}" "${uptimeEn}" "${wcEn}" "${whoamiEn}" "${zipEn}")
 declare -a commandDescriptionKr=("${aliasKr}" "${awkKr}" "${calKr}" "${catKr}" "${cdKr}" "${chgrpKr}" "${chmodKr}" "${chownKr}" "${clearKr}" "${compressKr}" "${cpKr}" "${cutKr}" "${dateKr}" "${ddKr}" "${declareKr}" "${dfKr}" "${diffKr}" "${duKr}" "${echoKr}" "${egrepKr}" "${envKr}" "${exitKr}" "${exportKr}" "${exprKr}" "${fcKr}" "${findKr}" "${grepKr}" "${gunzipKr}" "${gzipKr}" "${headKr}" "${historyKr}" "${idKr}" "${lessKr}" "${lnKr}" "${localeKr}" "${lsKr}" "${lsofKr}" "${manKr}" "${mkdirKr}" "${moreKr}" "${mvKr}" "${nkfKr}" "${pasteKr}" "${pingKr}" "${printfKr}" "${psKr}" "${pwdKr}" "${readKr}" "${readonlyKr}" "${renameKr}" "${rmKr}" "${rmdirKr}" "${sedKr}" "${shKr}" "${shiftKr}" "${sleepKr}" "${sortKr}" "${tailKr}" "${tarKr}" "${topKr}" "${touchKr}" "${trKr}" "${umaskKr}" "${unameKr}" "${uniqKr}" "${unzipKr}" "${uptimeKr}" "${wcKr}" "${whoamiKr}" "${zipKr}")
 declare -a commandDescriptionJp=("${aliasJp}" "${awkJp}" "${calJp}" "${catJp}" "${cdJp}" "${chgrpJp}" "${chmodJp}" "${chownJp}" "${clearJp}" "${compressJp}" "${cpJp}" "${cutJp}" "${dateJp}" "${ddJp}" "${declareJp}" "${dfJp}" "${diffJp}" "${duJp}" "${echoJp}" "${egrepJp}" "${envJp}" "${exitJp}" "${exportJp}" "${exprJp}" "${fcJp}" "${findJp}" "${grepJp}" "${gunzipJp}" "${gzipJp}" "${headJp}" "${historyJp}" "${idJp}" "${lessJp}" "${lnJp}" "${localeJp}" "${lsJp}" "${lsofJp}" "${manJp}" "${mkdirJp}" "${moreJp}" "${mvJp}" "${nkfJp}" "${pasteJp}" "${pingJp}" "${printfJp}" "${psJp}" "${pwdJp}" "${readJp}" "${readonlyJp}" "${renameJp}" "${rmJp}" "${rmdirJp}" "${sedJp}" "${shJp}" "${shiftJp}" "${sleepJp}" "${sortJp}" "${tailJp}" "${tarJp}" "${topJp}" "${touchJp}" "${trJp}" "${umaskJp}" "${unameJp}" "${uniqJp}" "${unzipJp}" "${uptimeJp}" "${wcJp}" "${whoamiJp}" "${zipJp}")
+
+#--------------------------------------------#
+# Tip List
+#  : 스크립트 팁 리스트
+#  : Linuxスクリプトヒントリスト
+#--------------------------------------------#
 scriptTipList=()
 scriptTipList+=(Loop_for,반복문_for,繰り返し文_for)
 scriptTipList+=(Conditional_case,조건문_case,条件文_case)
@@ -27731,9 +27736,9 @@ scriptTipList+=(Parameter_utilization_\$,파라미터활용_\$,パラメータ�
 scriptTipList+=(File_input_output_\>_\>\>_\<,파일입출력_\>_\>\>_\<,ファイル入出力_\>_\>\>_\<)
 
 #--------------------------------------------#
-# Script Basic Variable Setting              #
-#  : 스크립트 기본 변수 설정                       #
-#  : スクリプトの基本変数設定                      #
+# Script Basic Variable Setting
+#  : 스크립트 기본 변수 설정
+#  : スクリプトの基本変数設定
 #--------------------------------------------#
 ### parameterCount / 파라미터 수 / パラメータ数
 paramCount=$#
@@ -27747,9 +27752,9 @@ ouputLanguage=$2
 startedFlg=0
 
 #--------------------------------------------#
-# Main Logic                                 #
-#  : 메인 처리                                  #
-#  : メイン処理                                 #
+# Main Logic
+#  : 메인 처리
+#  : メイン処理
 #--------------------------------------------#
 ### Parameter Check / 파라미터 체크 / パラメータチェック
 if [[ ! -z ${searchCommand} ]] || [[ ${startedFlg} == 0 ]];then 
