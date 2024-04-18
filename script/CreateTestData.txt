@@ -38,18 +38,17 @@ data_outputType=0
 ### 2 : .gz
 ### 3 : .Z
 
-### エスケープ文字
-data_escapeCode_list="0","1","2"
-### 0 : \
-### 1 : "
-### 2 : '
-
 ### 改行コード
 data_record_newLine_list="CRLF","CR","LF"
 ### CRLF : \r\n
 ### CR : \r
 ### LF : \n
 
+### エスケープ文字
+data_escapeCode_list="0","1","2"
+### 0 : "
+### 1 : '
+### 2 : \(¥)
 
 ### 出力タイプ名
 data_outputName=createfile_YYYYMMDD.txt

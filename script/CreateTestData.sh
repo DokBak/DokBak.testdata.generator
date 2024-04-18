@@ -1174,9 +1174,6 @@ function create_new_line_record() {
             _itemType=`echo ${list_itemsType} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
             # 設定ファイルから取得する項目桁数情報
             _itemLength=`echo ${list_itemsLength} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
-            # 設定ファイルから取得する小数情報
-            # 整数、「.」、小数　の総数
-            _fullParts=`echo ${_itemLength} | awk -F. '{print $1}'`
 
             # 項目タイプ別テストデータ作成
             if [[ ${_itemType} = [cC][hH][aA][rR] || ${_itemType} = [sS][tT][rR][iI][nN][gG] ]];then
@@ -1239,7 +1236,7 @@ function create_new_line_record() {
                     dataRecordLine=$(( ${dataRecordLine} + 1))
                     dataRecordLine2=$(( ${dataRecordLine} + 1))
                     dataExplanation="改行レコードデータ"
-                    printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%-30s\n" "#" "${dataNumber}" "#" "${dataRecordLine}-${dataRecordLine2}" "#" "${dataTargetItemNumber}" "#" "${dataExplanation}" >> ${filePath%/}/CreateTestData_Explan.txt
+                    printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%-30s\n" "#" "${dataNumber}" "#" "${dataRecordLine}-${dataRecordLine2}" "#" "${dataTargetItemNumber}" "#" "${dataExplanation}(${_record_newLine_item})" >> ${filePath%/}/CreateTestData_Explan.txt
                     dataRecordLine=$(( ${dataRecordLine} + 1))
                 fi
             fi
@@ -1252,14 +1249,11 @@ function create_new_line_record() {
                 else
                     _dataRecord=${_dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}
                     if [[ ${checked_data_newLine} = CRLF ]];then
-                    #    printf "${_dataRecord}$(printf \\$(printf '%03o' 13 ))\n" | sed 's/!/\r/' | sed 's/?/\n/' >> ${_createFile}
-                        printf "${_dataRecord}$(printf \\$(printf '%03o' 13 ))\n" >> ${_createFile}
+                        printf "${_dataRecord}$(printf \\$(printf '%03o' 13 ))\n" | sed 's/!/\r/' | sed 's/?/\n/' >> ${_createFile}
                     elif  [[ ${checked_data_newLine} = CR ]];then
-                    #    printf "${_dataRecord}$(printf \\$(printf '%03o' 13 ))" | sed 's/?/\r/' | sed 's/?/\n/' >> ${_createFile}
-                        printf "${_dataRecord}$(printf \\$(printf '%03o' 13 ))" >> ${_createFile}
+                        printf "${_dataRecord}$(printf \\$(printf '%03o' 13 ))" | sed 's/?/\r/' | sed 's/?/\n/' >> ${_createFile}
                     else # LF
-                    #    printf "${_dataRecord}\n" | sed 's/?/\r/' | sed 's/?/\n/' >> ${_createFile}
-                        printf "${_dataRecord}\n" >> ${_createFile}
+                        printf "${_dataRecord}\n" | sed 's/?/\r/' | sed 's/?/\n/' >> ${_createFile}
                     fi
                 fi
             else
@@ -1291,6 +1285,169 @@ function create_new_line_record() {
 
         # 全項目のデータ作成後終了
         if [[ ${_record_newLine_index} -gt ${itemsCount} ]];then
+            break
+        fi
+    done 
+
+}
+
+#--------------------------------------------#
+#   18. エスケープ文字データ作成
+#--------------------------------------------#
+function create_escape_record() {
+    
+    # 設定ファイルパス
+    local _createFile=${1}
+    # 設定ファイルパス
+    local _option=${2}
+    # 出力レコード
+    local _dataRecord=""
+    # エスケープ文字データ除外フラグ
+    local _escapeFlg=""
+    # 対象項目番号
+    local _record_escape_index=1
+    # エスケープ文字項目
+    local _escapeIndex=1
+    # 対象レコード改行タイプ数
+    local _record_escape_counts=`echo ${data_escapeCode_list} | awk -F, '{print NF}'`
+    # 対象レコード
+    local _record_escape_item=""
+
+    # データ作成処理
+    while [ true ]; do
+
+        # エスケープ文字作成対象外の場合関数終了
+        if [[ ${_record_escape_counts} -eq 0 ]];then
+            break
+        fi
+
+        # エスケープ文字データフラグ
+        _escapeFlg=0
+        # 項目変数初期化
+        item=""
+        _dataRecord=""
+        _escape=""
+        
+        _record_escape_item=`echo ${data_escapeCode_list} | awk -F, -v field=${_escapeIndex} '{print $field}' | sed 's/"//g'`
+
+        # エスケープ文字許可の場合、改行レコードでデータ作成
+        for ((itemIndex=1; itemIndex<=${itemsCount}; itemIndex++));do
+            # 設定ファイルから取得する項目タイプ情報
+            _itemType=`echo ${list_itemsType} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
+            # 設定ファイルから取得する項目桁数情報
+            _itemLength=`echo ${list_itemsLength} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
+
+            # 項目タイプ別テストデータ作成
+            if [[ ${_itemType} = [cC][hH][aA][rR] || ${_itemType} = [sS][tT][rR][iI][nN][gG] ]];then
+                if [[ ${_record_escape_index} = ${itemIndex} ]];then
+                    if [[ ${_record_escape_item} = 0 ]];then
+                        if [[ ${_itemLength} -gt 2 ]];then
+                            _escapeString="\""
+                            item=${item}${_escapeString}
+                            _itemLength=$(( ${_itemLength} -2 ))
+                            dataTargetItemNumber=${itemIndex}
+                        else
+                            _escapeFlg=1
+                        fi
+                    elif [[ ${_record_escape_item} = 1 ]];then
+                        if [[ ${_itemLength} -gt 2 ]];then
+                            _escapeString="\'"
+                            item=${item}${_escapeString}
+                            _itemLength=$(( ${_itemLength} -2 ))
+                            dataTargetItemNumber=${itemIndex}
+                        else
+                            _escapeFlg=1
+                        fi
+                    elif [[ ${_record_escape_item} = 2 ]];then
+                        if [[ ${_itemLength} -gt 2 ]];then
+                            _escapeString="\\"
+                            item=${item}${_escapeString}
+                            _itemLength=$(( ${_itemLength} -2 ))
+                            dataTargetItemNumber=${itemIndex}
+                        else
+                            _escapeFlg=1
+                        fi
+                    fi
+                    create_string_item ${_itemLength} ${_option}
+                else
+                    create_string_item ${_itemLength} ${_option}
+                fi
+            elif [[ ${_itemType} = [bB][yY][tT][eE] || ${_itemType} = [sS][hH][oO][rR][tT] || ${_itemType} = [iI][nN][tT] || ${_itemType} = [lL][oO][nN][gG] ]];then
+                if [[ ${_record_escape_index} = ${itemIndex} ]];then
+                    _escapeFlg=1
+                else
+                    create_integer_item ${_itemLength} ${_option}
+                fi
+            elif [[ ${_itemType} = [fF][lL][oO][aA][tT] || ${_itemType} = [dD][oO][uU][bB][lL][eE] ]];then
+                if [[ ${_record_escape_index} = ${itemIndex} ]];then
+                    _escapeFlg=1
+                else
+                    create_float_item ${_itemLength} ${_option}
+                fi
+            elif [[ ${_itemType} =~ [dD][aA][tT][eE] ]];then
+                if [[ ${_record_escape_index} = ${itemIndex} ]];then
+                    _escapeFlg=1
+                else
+                    create_date_item ${_itemType}
+                fi
+            fi
+            
+            # エスケープ文字データ許可対象ではない場合、省略
+            if [[ ${_escapeFlg} = 1 ]];then
+                continue
+            else
+                if [[ ${itemIndex} = ${_record_escape_index} ]];then
+                    dataNumber=$(( ${dataNumber} + 1))
+                    dataRecordLine=$(( ${dataRecordLine} + 1))
+                    dataExplanation="エスケープ文字データ"
+                    printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%-30s\n" "#" "${dataNumber}" "#" "${dataRecordLine}" "#" "${dataTargetItemNumber}" "#" "${dataExplanation}(${_escapeString})" >> ${filePath%/}/CreateTestData_Explan.txt
+                fi
+            fi
+
+            # 項目データ、囲み文字、区切り文字、改行コードから一時ファイル(文字コード設定ファイル)作成
+            if [[ ${itemsCount} = ${itemIndex} ]];then
+                if [[ ${checked_data_outputType} = SQL ]];then
+                    checked_data_enclosing=\'
+                    _dataRecord=${_dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}
+                else
+                    _dataRecord=${_dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}
+                    if [[ ${checked_data_escape} = CRLF ]];then
+                        printf "${_dataRecord}$(printf \\$(printf '%03o' 13 ))\n" >> ${_createFile}
+                    elif  [[ ${checked_data_escape} = CR ]];then
+                        printf "${_dataRecord}$(printf \\$(printf '%03o' 13 ))" >> ${_createFile}
+                    else # LF
+                        printf "${_dataRecord}\n" >> ${_createFile}
+                    fi
+                fi
+            else
+                if [[ ${checked_data_outputType} = SQL ]];then
+                    checked_data_enclosing=\'
+                    _dataRecord=${_dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}${checked_data_delimiting}
+                else
+                    _dataRecord=${_dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}${checked_data_delimiting}
+                fi
+            fi
+            
+            # レコード出力後項目変数初期化
+            item=""
+        done
+
+        # SQLの場合、クエリー形式に修正
+        if [[ ${checked_data_outputType} = SQL ]];then
+            list_itemsName=`echo ${list_itemsName} | sed 's/"//g'`
+            echo "INSERT INTO "${data_schema}.${data_outputName}" (${list_itemsName}) VALUES (${_dataRecord})" > ${_createFile}.sql
+        fi
+
+        # エスケープ文字データ対象変更
+        if [[ ${_record_escape_counts} = ${_escapeIndex} ]];then
+            _record_escape_index=$(( ${_record_escape_index} + 1 ))
+            _escapeIndex=1
+        else
+            _escapeIndex=$(( ${_escapeIndex} + 1 ))
+        fi
+
+        # 全項目のデータ作成後終了
+        if [[ ${_record_escape_index} -gt ${itemsCount} ]];then
             break
         fi
     done 
@@ -1338,6 +1495,7 @@ dataExplanation=""
 printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%-30s\n" "#" "No" "#" "LINE" "#" "ITEM" "#" "PATTERN"> ${filePath%/}/CreateTestData_Explan.txt
 printf "%s\n" "######################################################################" >> ${filePath%/}/CreateTestData_Explan.txt
 
+### 正常系
 ### Normal data
 create_normal_record ${filePath%/}/tmp_${checked_data_outputName} ${checked_data_multiByteCharacter}
 ### Trim data
@@ -1348,6 +1506,9 @@ create_number_limit_record ${filePath%/}/tmp_${checked_data_outputName} number_l
 create_not_null_record ${filePath%/}/tmp_${checked_data_outputName} not_null
 ### New Line data
 create_new_line_record ${filePath%/}/tmp_${checked_data_outputName} new_line
+### Escape data
+create_escape_record ${filePath%/}/tmp_${checked_data_outputName} escape
+
 
 ### encoding change
 if [[ -e ${filePath%/}/tmp_${checked_data_outputName} ]];then
