@@ -507,7 +507,7 @@ function create_normal_record() {
     dataRecordLine=$(( ${dataRecordLine} + 1))
     dataTargetItemNumber="A"
     dataExplanation="Normal Data"
-    printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%-30s\n" "#" "${dataNumber}" "#" "${dataRecordLine}" "#" "${dataTargetItemNumber}" "#" "${dataExplanation}" >> ${filePath%/}/CreateTestData_Explan.txt
+    printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%-30s\n" "#" "${dataNumber}" "#" "${dataRecordLine}" "#" "${dataTargetItemNumber}" "#" "${dataExplanation}" >> ${filePath%/}/TestData/01/CreateTestData_Explan.txt
 
 }
 
@@ -708,7 +708,7 @@ function create_trim_record() {
                     elif [[ ${_targetItemTrim} = BK ]];then
                         dataExplanation="後列全角スペーストリム（${_targetItemTrim}）"
                     fi
-                    printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%-30s\n" "#" "${dataNumber}" "#" "${dataRecordLine}" "#" "${dataTargetItemNumber}" "#" "${dataExplanation}" >> ${filePath%/}/CreateTestData_Explan.txt
+                    printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%-30s\n" "#" "${dataNumber}" "#" "${dataRecordLine}" "#" "${dataTargetItemNumber}" "#" "${dataExplanation}" >> ${filePath%/}/TestData/01/CreateTestData_Explan.txt
                 fi
             fi
 
@@ -896,7 +896,7 @@ function create_number_limit_record() {
                     elif [[ ${_number_limit} = 2 ]];then
                         dataExplanation="最小データ"
                     fi
-                    printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%-30s\n" "#" "${dataNumber}" "#" "${dataRecordLine}" "#" "${dataTargetItemNumber}" "#" "${dataExplanation}" >> ${filePath%/}/CreateTestData_Explan.txt
+                    printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%-30s\n" "#" "${dataNumber}" "#" "${dataRecordLine}" "#" "${dataTargetItemNumber}" "#" "${dataExplanation}" >> ${filePath%/}/TestData/01/CreateTestData_Explan.txt
                 fi
             fi
 
@@ -1081,7 +1081,7 @@ function create_not_null_record() {
                     dataNumber=$(( ${dataNumber} + 1))
                     dataRecordLine=$(( ${dataRecordLine} + 1))
                     dataExplanation="ヌルデータ設定"
-                    printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%-30s\n" "#" "${dataNumber}" "#" "${dataRecordLine}" "#" "${dataTargetItemNumber}" "#" "${dataExplanation}" >> ${filePath%/}/CreateTestData_Explan.txt
+                    printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%-30s\n" "#" "${dataNumber}" "#" "${dataRecordLine}" "#" "${dataTargetItemNumber}" "#" "${dataExplanation}" >> ${filePath%/}/TestData/01/CreateTestData_Explan.txt
                 fi
             fi
 
@@ -1236,7 +1236,7 @@ function create_new_line_record() {
                     dataRecordLine=$(( ${dataRecordLine} + 1))
                     dataRecordLine2=$(( ${dataRecordLine} + 1))
                     dataExplanation="改行レコードデータ"
-                    printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%-30s\n" "#" "${dataNumber}" "#" "${dataRecordLine}-${dataRecordLine2}" "#" "${dataTargetItemNumber}" "#" "${dataExplanation}(${_record_newLine_item})" >> ${filePath%/}/CreateTestData_Explan.txt
+                    printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%-30s\n" "#" "${dataNumber}" "#" "${dataRecordLine}-${dataRecordLine2}" "#" "${dataTargetItemNumber}" "#" "${dataExplanation}(${_record_newLine_item})" >> ${filePath%/}/TestData/01/CreateTestData_Explan.txt
                     dataRecordLine=$(( ${dataRecordLine} + 1))
                 fi
             fi
@@ -1400,7 +1400,7 @@ function create_escape_record() {
                     dataNumber=$(( ${dataNumber} + 1))
                     dataRecordLine=$(( ${dataRecordLine} + 1))
                     dataExplanation="エスケープ文字データ"
-                    printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%-30s\n" "#" "${dataNumber}" "#" "${dataRecordLine}" "#" "${dataTargetItemNumber}" "#" "${dataExplanation}(${_escapeString})" >> ${filePath%/}/CreateTestData_Explan.txt
+                    printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%-30s\n" "#" "${dataNumber}" "#" "${dataRecordLine}" "#" "${dataTargetItemNumber}" "#" "${dataExplanation}(${_escapeString})" >> ${filePath%/}/TestData/01/CreateTestData_Explan.txt
                 fi
             fi
 
@@ -1455,6 +1455,297 @@ function create_escape_record() {
 }
 
 #--------------------------------------------#
+#   19. 項目暗号化データ作成
+#--------------------------------------------#
+function create_item_encrypt_record() {
+    
+    # 設定ファイルパス
+    local _createFile=${1}
+    # 設定ファイルパス
+    local _option=${2}
+    # 出力レコード
+    local _dataRecord=""
+    # 項目ノットヌル除外フラグ
+    local _limitFlg=""
+    # 対象項目番号
+    local _encryptItemIndex=1
+    # ヌル件数対象
+    local _record_encrypt_counts=`echo ${list_itemsEncrypt} | sed 's/"//g' | awk -F, '{print NF}'`
+
+    # データ作成処理
+    while [ true ]; do
+
+        # ヌル対象がない場合関数終了
+        if [[ ${_record_encrypt_counts} = "" ]];then
+            break
+        fi
+
+        # ノットヌルデータフラグ
+        _encryptFlg=0
+        # 項目変数初期化
+        item=""
+        _dataRecord=""
+
+        # ヌル許可の場合、ヌルでデータ作成
+        for ((itemIndex=1; itemIndex<=${itemsCount}; itemIndex++));do
+            # 設定ファイルから取得するノットヌル情報
+            _itemEncrypt=`echo ${list_itemsEncrypt} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
+            # 設定ファイルから取得する項目タイプ情報
+            _itemType=`echo ${list_itemsType} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
+            # 設定ファイルから取得する項目桁数情報
+            _itemLength=`echo ${list_itemsLength} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
+            # 設定ファイルから取得する小数情報
+            # 整数、「.」、小数　の総数
+            _fullParts=`echo ${_itemLength} | awk -F. '{print $1}'`
+
+            # 項目タイプ別テストデータ作成
+            if [[ ${_itemType} = [cC][hH][aA][rR] || ${_itemType} = [sS][tT][rR][iI][nN][gG] ]];then
+                if [[ ${_encryptItemIndex} = ${itemIndex} ]];then
+                    if [[ ${_itemEncrypt} = 0 ]];then
+                        _encryptFlg=1
+                    else
+                        create_string_item ${_itemLength} ${_option}
+                        dataTargetItemNumber=${itemIndex}
+                    fi
+                else
+                    create_string_item ${_itemLength} ${_option}
+                fi
+            elif [[ ${_itemType} = [bB][yY][tT][eE] || ${_itemType} = [sS][hH][oO][rR][tT] || ${_itemType} = [iI][nN][tT] || ${_itemType} = [lL][oO][nN][gG] ]];then
+                if [[ ${_encryptItemIndex} = ${itemIndex} ]];then
+                    if [[ ${_itemEncrypt} = 0 ]];then
+                        _encryptFlg=1
+                    else
+                        create_integer_item ${_itemLength} ${_option}
+                        dataTargetItemNumber=${itemIndex}
+                    fi
+                else
+                    create_integer_item ${_itemLength} ${_option}
+                fi
+            elif [[ ${_itemType} = [fF][lL][oO][aA][tT] || ${_itemType} = [dD][oO][uU][bB][lL][eE] ]];then
+                if [[ ${_encryptItemIndex} = ${itemIndex} ]];then
+                    if [[ ${_itemEncrypt} = 0 ]];then
+                        _encryptFlg=1
+                    else
+                        create_float_item ${_itemLength} ${_option}
+                        dataTargetItemNumber=${itemIndex}
+                    fi
+                else
+                    create_float_item ${_itemLength} ${_option}
+                fi
+            elif [[ ${_itemType} =~ [dD][aA][tT][eE] ]];then
+                if [[ ${_encryptItemIndex} = ${itemIndex} ]];then
+                    if [[ ${_itemEncrypt} = 0 ]];then
+                        _encryptFlg=1
+                    else
+                        create_date_item ${_itemType}
+                        dataTargetItemNumber=${itemIndex}
+                    fi
+                else
+                    create_date_item ${_itemType}
+                fi
+            fi
+            
+            # ヌル許可対象ではない場合、省略
+            if [[ ${_encryptFlg} = 1 ]];then
+                continue
+            else
+                if [[ ${itemIndex} = ${_encryptItemIndex} ]];then
+                    dataNumber=$(( ${dataNumber} + 1))
+                    dataRecordLine=$(( ${dataRecordLine} + 1))
+                    dataExplanation="項目暗号化設定"
+                    printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%-30s\n" "#" "${dataNumber}" "#" "${dataRecordLine}" "#" "${dataTargetItemNumber}" "#" "${dataExplanation}" >> ${filePath%/}/TestData/01/CreateTestData_Explan.txt
+                fi
+            fi
+
+            # 項目データ、囲み文字、区切り文字、改行コードから一時ファイル(文字コード設定ファイル)作成
+            if [[ ${itemsCount} = ${itemIndex} ]];then
+                if [[ ${checked_data_outputType} = SQL ]];then
+                    checked_data_enclosing=\'
+                    _dataRecord=${_dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}
+                else
+                    _dataRecord=${_dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}
+                    if [[ ${checked_data_newLine} = CRLF ]];then
+                        printf "${_dataRecord}$(printf \\$(printf '%03o' 13 ))\n" >> ${_createFile}
+                    elif  [[ ${checked_data_newLine} = CR ]];then
+                        printf "${_dataRecord}$(printf \\$(printf '%03o' 13 ))" >> ${_createFile}
+                    else # LF
+                        printf "${_dataRecord}\n" >> ${_createFile}
+                    fi
+                fi
+            else
+                if [[ ${checked_data_outputType} = SQL ]];then
+                    checked_data_enclosing=\'
+                    _dataRecord=${_dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}${checked_data_delimiting}
+                else
+                    _dataRecord=${_dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}${checked_data_delimiting}
+                fi
+            fi
+            
+            # レコード出力後項目変数初期化
+            item=""
+        done
+
+        # SQLの場合、クエリー形式に修正
+        if [[ ${checked_data_outputType} = SQL ]];then
+            list_itemsName=`echo ${list_itemsName} | sed 's/"//g'`
+            echo "INSERT INTO "${data_schema}.${data_outputName}" (${list_itemsName}) VALUES (${_dataRecord})" > ${_createFile}.sql
+        fi
+
+        # ヌルデータ対象変更
+        _encryptItemIndex=$(( ${_encryptItemIndex} + 1 ))
+
+        # 全項目のデータ作成後終了
+        if [[ ${_encryptItemIndex} -gt ${itemsCount} ]];then
+            break
+        fi
+    done 
+
+}
+
+#--------------------------------------------#
+#   20. 項目ハッシュ化データ作成
+#--------------------------------------------#
+function create_item_hash_record() {
+    
+    # 設定ファイルパス
+    local _createFile=${1}
+    # 設定ファイルパス
+    local _option=${2}
+    # 出力レコード
+    local _dataRecord=""
+    # 項目ノットヌル除外フラグ
+    local _limitFlg=""
+    # 対象項目番号
+    local _hashItemIndex=1
+    # ヌル件数対象
+    local _record_hash_counts=`echo ${list_itemsHash} | sed 's/"//g' | awk -F, '{print NF}'`
+
+    # データ作成処理
+    while [ true ]; do
+
+        # ヌル対象がない場合関数終了
+        if [[ ${_record_hash_counts} = "" ]];then
+            break
+        fi
+
+        # ノットヌルデータフラグ
+        _hashFlg=0
+        # 項目変数初期化
+        item=""
+        _dataRecord=""
+
+        # ヌル許可の場合、ヌルでデータ作成
+        for ((itemIndex=1; itemIndex<=${itemsCount}; itemIndex++));do
+            # 設定ファイルから取得するノットヌル情報
+            _itemHash=`echo ${list_itemsHash} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
+            # 設定ファイルから取得する項目タイプ情報
+            _itemType=`echo ${list_itemsType} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
+            # 設定ファイルから取得する項目桁数情報
+            _itemLength=`echo ${list_itemsLength} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
+            # 設定ファイルから取得する小数情報
+            # 整数、「.」、小数　の総数
+            _fullParts=`echo ${_itemLength} | awk -F. '{print $1}'`
+
+            # 項目タイプ別テストデータ作成
+            if [[ ${_itemType} = [cC][hH][aA][rR] || ${_itemType} = [sS][tT][rR][iI][nN][gG] ]];then
+                if [[ ${_hashItemIndex} = ${itemIndex} ]];then
+                    if [[ ${_itemHash} = 0 ]];then
+                        _hashFlg=1
+                    else
+                        sampleHashDataCounts=`echo ${sampleHashData} | sed 's/"//g' | awk -F, '{print NF}'`
+                        for ((i=1; i<=${sampleHashDataCounts}; i++));do
+                            _hashItemCheckLength=`echo ${sampleHashData} | sed 's/"//g' | awk -F, -v field=${i} '{print $field}' | awk -F"-" '{print $1}'`
+                            if [[ ${_itemLength} = ${_hashItemCheckLength} ]];then
+                                _hashItemCheckData=`echo ${sampleHashData} | sed 's/"//g' | awk -F, -v field=${i} '{print $field}' | awk -F"-" '{print $2}'`
+                                dataTargetItemNumber=${itemIndex}
+                                break
+                            else
+                                _hashItemCheckData=""
+                            fi
+                        done
+                        item=${item}${_hashItemCheckData}
+                    fi
+                else
+                    create_string_item ${_itemLength} ${_option}
+                fi
+            elif [[ ${_itemType} = [bB][yY][tT][eE] || ${_itemType} = [sS][hH][oO][rR][tT] || ${_itemType} = [iI][nN][tT] || ${_itemType} = [lL][oO][nN][gG] ]];then
+                if [[ ${_hashItemIndex} = ${itemIndex} ]];then
+                    _hashFlg=1
+                else
+                    create_integer_item ${_itemLength} ${_option}
+                fi
+            elif [[ ${_itemType} = [fF][lL][oO][aA][tT] || ${_itemType} = [dD][oO][uU][bB][lL][eE] ]];then
+                if [[ ${_hashItemIndex} = ${itemIndex} ]];then
+                    _hashFlg=1
+                else
+                    create_float_item ${_itemLength} ${_option}
+                fi
+            elif [[ ${_itemType} =~ [dD][aA][tT][eE] ]];then
+                if [[ ${_hashItemIndex} = ${itemIndex} ]];then
+                    _hashFlg=1
+                else
+                    create_date_item ${_itemType}
+                fi
+            fi
+            
+            # ヌル許可対象ではない場合、省略
+            if [[ ${_hashFlg} = 1 ]];then
+                continue
+            else
+                if [[ ${itemIndex} = ${_hashItemIndex} ]];then
+                    dataNumber=$(( ${dataNumber} + 1))
+                    dataRecordLine=$(( ${dataRecordLine} + 1))
+                    dataExplanation="ハッシュ化設定"
+                    printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%-30s\n" "#" "${dataNumber}" "#" "${dataRecordLine}" "#" "${dataTargetItemNumber}" "#" "${dataExplanation}" >> ${filePath%/}/TestData/01/CreateTestData_Explan.txt
+                fi
+            fi
+
+            # 項目データ、囲み文字、区切り文字、改行コードから一時ファイル(文字コード設定ファイル)作成
+            if [[ ${itemsCount} = ${itemIndex} ]];then
+                if [[ ${checked_data_outputType} = SQL ]];then
+                    checked_data_enclosing=\'
+                    _dataRecord=${_dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}
+                else
+                    _dataRecord=${_dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}
+                    if [[ ${checked_data_newLine} = CRLF ]];then
+                        printf "${_dataRecord}$(printf \\$(printf '%03o' 13 ))\n" >> ${_createFile}
+                    elif  [[ ${checked_data_newLine} = CR ]];then
+                        printf "${_dataRecord}$(printf \\$(printf '%03o' 13 ))" >> ${_createFile}
+                    else # LF
+                        printf "${_dataRecord}\n" >> ${_createFile}
+                    fi
+                fi
+            else
+                if [[ ${checked_data_outputType} = SQL ]];then
+                    checked_data_enclosing=\'
+                    _dataRecord=${_dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}${checked_data_delimiting}
+                else
+                    _dataRecord=${_dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}${checked_data_delimiting}
+                fi
+            fi
+            
+            # レコード出力後項目変数初期化
+            item=""
+        done
+
+        # SQLの場合、クエリー形式に修正
+        if [[ ${checked_data_outputType} = SQL ]];then
+            list_itemsName=`echo ${list_itemsName} | sed 's/"//g'`
+            echo "INSERT INTO "${data_schema}.${data_outputName}" (${list_itemsName}) VALUES (${_dataRecord})" > ${_createFile}.sql
+        fi
+
+        # ヌルデータ対象変更
+        _hashItemIndex=$(( ${_hashItemIndex} + 1 ))
+
+        # 全項目のデータ作成後終了
+        if [[ ${_hashItemIndex} -gt ${itemsCount} ]];then
+            break
+        fi
+    done 
+
+}
+
+#--------------------------------------------#
 #  メイン処理                                   #
 #--------------------------------------------#
 ### ShellScript relativePath / 쉘 스크립트 풀패스 / シェルスクリプトフルパス
@@ -1467,6 +1758,11 @@ scriptName=$(basename $0)
 filePath=${fileAbsolutePath%/*}/
 ### SetFile / 설정파일 / 設定ファイル
 setFilePath=${filePath%/}/CreateTestData.txt
+
+### Normal System Data / 정상계 데이터 / 正常系データ
+mkdir -p ${filePath%/}/TestData/01/
+### Abnormal System Data / 이상계 데이터 / 異常系データ
+mkdir -p ${filePath%/}/TestData/02/
 
 check_data_encoding ${setFilePath}
 check_data_newLine ${setFilePath}
@@ -1483,6 +1779,9 @@ export `cat ${setFilePath} | grep list_itemsType`
 export `cat ${setFilePath} | grep list_itemsName`
 export `cat ${setFilePath} | grep list_itemsLength`
 export `cat ${setFilePath} | grep list_itemsNotNull`
+export `cat ${setFilePath} | grep list_itemsEncrypt`
+export `cat ${setFilePath} | grep list_itemsHash`
+export `cat ${setFilePath} | grep sampleHashData`
 
 ### ItemCounts / 항목수 / 項目数
 itemsCount=`echo ${list_itemsLength} | sed 's/"//g' | awk -F, '{print NF}'`
@@ -1492,47 +1791,46 @@ dataNumber=""
 dataRecordLine=""
 dataTargetItemNumber=""
 dataExplanation=""
-printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%-30s\n" "#" "No" "#" "LINE" "#" "ITEM" "#" "PATTERN"> ${filePath%/}/CreateTestData_Explan.txt
-printf "%s\n" "######################################################################" >> ${filePath%/}/CreateTestData_Explan.txt
+printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%-30s\n" "#" "No" "#" "LINE" "#" "ITEM" "#" "PATTERN"> ${filePath%/}/TestData/01/CreateTestData_Explan.txt
+printf "%s\n" "######################################################################" >> ${filePath%/}/TestData/01/CreateTestData_Explan.txt
 
 ### 正常系
 ### Normal data
-create_normal_record ${filePath%/}/tmp_${checked_data_outputName} ${checked_data_multiByteCharacter}
+ create_normal_record ${filePath%/}/TestData/01/tmp_${checked_data_outputName} ${checked_data_multiByteCharacter}
 ### Trim data
-create_trim_record ${filePath%/}/tmp_${checked_data_outputName} trim
+ create_trim_record ${filePath%/}/TestData/01/tmp_${checked_data_outputName} trim
 ### Limit Number data
-create_number_limit_record ${filePath%/}/tmp_${checked_data_outputName} number_limit
+ create_number_limit_record ${filePath%/}/TestData/01/tmp_${checked_data_outputName} number_limit
 ### Not Null data
-create_not_null_record ${filePath%/}/tmp_${checked_data_outputName} not_null
+ create_not_null_record ${filePath%/}/TestData/01/tmp_${checked_data_outputName} not_null
 ### New Line data
-create_new_line_record ${filePath%/}/tmp_${checked_data_outputName} new_line
+ create_new_line_record ${filePath%/}/TestData/01/tmp_${checked_data_outputName} new_line
 ### Escape data
-create_escape_record ${filePath%/}/tmp_${checked_data_outputName} escape
-
+ create_escape_record ${filePath%/}/TestData/01/tmp_${checked_data_outputName} escape
+### Item Encrypt data
+ create_item_encrypt_record ${filePath%/}/TestData/01/tmp_${checked_data_outputName} item_encrypt
+### Item Hash data
+ create_item_hash_record ${filePath%/}/TestData/01/tmp_${checked_data_outputName} item_hash
 
 ### encoding change
-if [[ -e ${filePath%/}/tmp_${checked_data_outputName} ]];then
+if [[ -e ${filePath%/}/TestData/01/tmp_${checked_data_outputName} ]];then
     if [[ ${checked_data_encoding} = UTF-8 ]];then
-        nkf -w ${filePath%/}/tmp_${checked_data_outputName} > ${filePath%/}/${checked_data_outputName}
+        nkf -w ${filePath%/}/TestData/01/tmp_${checked_data_outputName} > ${filePath%/}/TestData/01/${checked_data_outputName}
     elif [[ ${checked_data_encoding} = EUC ]];then
-        nkf -e ${filePath%/}/tmp_${checked_data_outputName} > ${filePath%/}/${checked_data_outputName}
+        nkf -e ${filePath%/}/TestData/01/tmp_${checked_data_outputName} > ${filePath%/}/TestData/01/${checked_data_outputName}
     elif [[ ${checked_data_encoding} = JIS ]];then
-        nkf -j ${filePath%/}/tmp_${checked_data_outputName} > ${filePath%/}/${checked_data_outputName}
+        nkf -j ${filePath%/}/TestData/01/tmp_${checked_data_outputName} > ${filePath%/}/TestData/01/${checked_data_outputName}
     elif [[ ${checked_data_encoding} = SJIS ]];then
-        nkf -s ${filePath%/}/tmp_${checked_data_outputName} > ${filePath%/}/${checked_data_outputName}
+        nkf -s ${filePath%/}/TestData/01/tmp_${checked_data_outputName} > ${filePath%/}/TestData/01/${checked_data_outputName}
     elif [[ ${checked_data_encoding} = "UTF-8(BOM)" ]];then
-        nkf --oc=UTF-8-BOM ${filePath%/}/tmp_${checked_data_outputName} > ${filePath%/}/${checked_data_outputName}
+        nkf --oc=UTF-8-BOM ${filePath%/}/TestData/01/tmp_${checked_data_outputName} > ${filePath%/}/TestData/01/${checked_data_outputName}
     fi
-    rm -rfv ${filePath%/}/tmp_${checked_data_outputName}
+    rm -rfv ${filePath%/}/TestData/01/tmp_${checked_data_outputName}
 fi
 
 ### compressed file format
 if [[ ${checked_data_outputType} = .gz ]];then
-    gzip ${filePath%/}/${checked_data_outputName}
+    gzip ${filePath%/}/TestData/01/${checked_data_outputName}
 elif [[ ${checked_data_outputType} = .Z ]];then
-    compress ${filePath%/}/${checked_data_outputName}
+    compress ${filePath%/}/TestData/01/${checked_data_outputName}
 fi
-
-#printf "%s" "testああvv" | iconv -t SJIS >> ./filename.txt
-#printf "%s" "testああvv" | iconv -t SJIS | tr "\n" "\r" >> ./filename.txt
-#nkf --guess ./filename.txt
