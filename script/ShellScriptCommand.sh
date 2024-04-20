@@ -22976,6 +22976,9 @@ function func_linuxScriptTipExample() {
         13)
             func_script_File_Input_Output ${ouputLanguageParam} ${filePath} File_Input_Output
             ;;
+        14)
+            func_script_Create_Random_Data ${ouputLanguageParam} ${filePath} Create_Random_Data
+            ;;
         *)  echo ; 
             if [[ ${ouputLanguageParam} == [kK][rR] ]];then
                 echo " 에러 : 스크립트 팁 리스트에 존재하는 번호를 입력해주세요"; 
@@ -27034,6 +27037,316 @@ function func_script_File_Input_Output() {
 }
 
 #--------------------------------------------#
+# Tip : Create_Random_Data                   #
+#--------------------------------------------#
+function func_script_Create_Random_Data() {
+
+    ### Language Parameter / 언어 파라미터 / 言語パラメータ
+    local ouputLanguageParam=$1
+    ### File Path Parameter / 파일 패스 파라미터 / ファイルパスパラメータ
+    local filePathParam=$2
+    ### Command / 명령어 / コマンド
+    local scriptItem=$3
+    ### Count / 번호 / 番号 
+    local countNumber=0
+
+    mkdir -p ${filePathParam%/}/tmp/${scriptItem}/
+    old_LC_ALL=${LC_ALL}
+    echo
+    clear
+    func_basicSetting_LogFileName_Path ${PID} "0" ${scriptItem}
+    printf "##############################################################################################\n" > ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    printf "  %-16s %s %s\n" "" "" "${scriptItem} : RANDOM" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    printf "##############################################################################################\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    if [[ ${ouputLanguageParam} == [kK][rR] ]];then
+        export LC_ALL="ko_KR.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "예상출력결과" ":" "대문자 랜덤 문자열" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "10자리 대문자 랜덤 문자열 출력" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'item=""' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'itemLength=10' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'for ((i=1; i<=${itemLength}; i++)); do' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    randomAscii=$((RANDOM % 26 + 65))' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    randomChar=$(printf \\$(printf '%03o' ${randomAscii}))' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    item=${item}${randomChar}' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'done' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            item=""
+            itemLength=10
+            for ((i=1; i<=${itemLength}; i++)); do
+                randomAscii=$((RANDOM % 26 + 65))
+                randomChar=$(printf \\$(printf '%03o' ${randomAscii}))
+                item=${item}${randomChar}
+            done
+            echo "item=${item}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "예상출력결과" ":" "소문자 랜덤 문자열" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "10자리 소문자 랜덤 문자열 출력" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'item=""' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'itemLength=10' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'for ((i=1; i<=${itemLength}; i++)); do' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    randomAscii=$((RANDOM % 26 + 97))' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    randomChar=$(printf \\$(printf '%03o' ${randomAscii}))' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    item=${item}${randomChar}' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'done' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            item=""
+            itemLength=10
+            for ((i=1; i<=${itemLength}; i++)); do
+                randomAscii=$((RANDOM % 26 + 97))
+                randomChar=$(printf \\$(printf '%03o' ${randomAscii}))
+                item=${item}${randomChar}
+            done
+            echo "item=${item}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "샘플${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "예상출력결과" ":" "숫자 랜덤 문자열" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "10자리 숫자 랜덤 문자열 출력" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'item=""' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'itemLength=10' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'for ((i=1; i<=${itemLength}; i++)); do' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    randomInt=$((RANDOM % 10))' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" '    item=${item}${randomInt}' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "사용법" ":" 'done' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            item=""
+            itemLength=10
+            for ((i=1; i<=${itemLength}; i++)); do
+                randomInt=$((RANDOM % 10))
+                item=${item}${randomInt}
+            done
+            echo "item=${item}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    elif [[ ${ouputLanguageParam} == [jJ][pP] ]];then
+        export LC_ALL="ja_JP.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "サンプル${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "予想出力結果" ":" "大文字ランダム文字列" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "10桁の大文字ランダム文字列出力" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'item=""' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'itemLength=10' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'for ((i=1; i<=${itemLength}; i++)); do' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    randomAscii=$((RANDOM % 26 + 65))' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    randomChar=$(printf \\$(printf '%03o' ${randomAscii}))' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    item=${item}${randomChar}' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'done' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            item=""
+            itemLength=10
+            for ((i=1; i<=${itemLength}; i++)); do
+                randomAscii=$((RANDOM % 26 + 65))
+                randomChar=$(printf \\$(printf '%03o' ${randomAscii}))
+                item=${item}${randomChar}
+            done
+            echo "item=${item}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "サンプル${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "予想出力結果" ":" "小文字ランダム文字列" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "10桁の小文字ランダム文字列出力" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'item=""' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'itemLength=10' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'for ((i=1; i<=${itemLength}; i++)); do' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    randomAscii=$((RANDOM % 26 + 97))' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    randomChar=$(printf \\$(printf '%03o' ${randomAscii}))' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    item=${item}${randomChar}' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'done' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            item=""
+            itemLength=10
+            for ((i=1; i<=${itemLength}; i++)); do
+                randomAscii=$((RANDOM % 26 + 97))
+                randomChar=$(printf \\$(printf '%03o' ${randomAscii}))
+                item=${item}${randomChar}
+            done
+            echo "item=${item}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "サンプル${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "予想出力結果" ":" "数字ランダム文字列" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "10桁の数字ランダム文字列出力" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'item=""' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'itemLength=10' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'for ((i=1; i<=${itemLength}; i++)); do' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    randomInt=$((RANDOM % 10))' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" '    item=${item}${randomInt}' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "使い方" ":" 'done' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            item=""
+            itemLength=10
+            for ((i=1; i<=${itemLength}; i++)); do
+                randomInt=$((RANDOM % 10))
+                item=${item}${randomInt}
+            done
+            echo "item=${item}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    else
+        export LC_ALL="en_US.UTF-8"
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "Sample${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" "uppercase random string" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "10-digit uppercase random string output" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'item=""' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'itemLength=10' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'for ((i=1; i<=${itemLength}; i++)); do' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    randomAscii=$((RANDOM % 26 + 65))' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    randomChar=$(printf \\$(printf '%03o' ${randomAscii}))' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    item=${item}${randomChar}' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'done' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            item=""
+            itemLength=10
+            for ((i=1; i<=${itemLength}; i++)); do
+                randomAscii=$((RANDOM % 26 + 65))
+                randomChar=$(printf \\$(printf '%03o' ${randomAscii}))
+                item=${item}${randomChar}
+            done
+            echo "item=${item}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "Sample${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" "lowercase random string" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "10-digit lowercase random string output" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'item=""' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'itemLength=10' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'for ((i=1; i<=${itemLength}; i++)); do' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    randomAscii=$((RANDOM % 26 + 97))' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    randomChar=$(printf \\$(printf '%03o' ${randomAscii}))' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    item=${item}${randomChar}' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'done' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            item=""
+            itemLength=10
+            for ((i=1; i<=${itemLength}; i++)); do
+                randomAscii=$((RANDOM % 26 + 97))
+                randomChar=$(printf \\$(printf '%03o' ${randomAscii}))
+                item=${item}${randomChar}
+            done
+            echo "item=${item}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        countNumber=$((${countNumber}+1))
+        printf "#============================================================================================#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "  %-12s %s %-15s\n" "Sample${countNumber}" "" "" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" "random number" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo "10-digit random number output" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'item=""' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'itemLength=10' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'for ((i=1; i<=${itemLength}; i++)); do' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    randomInt=$((RANDOM % 10))' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" '    item=${item}${randomInt}' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "    %-21s %s %s\n" "HowToUse" ":" 'done' >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            item=""
+            itemLength=10
+            for ((i=1; i<=${itemLength}; i++)); do
+                randomInt=$((RANDOM % 10))
+                item=${item}${randomInt}
+            done
+            echo "item=${item}" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+            echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+        printf "#--------------------------------------------------------------------------------------------#\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    fi
+    echo >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    printf "##############################################################################################\n" >> ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    
+    export LC_ALL=${old_LC_ALL}
+    less ${filePathParam%/}/tmp/${scriptItem}/${scriptItem}_SampleText.txt
+    ### tmp Directory Delete / 임시 디렉토리 삭제 / 作業ディレクトリ削除
+    rm -rf ${filePathParam%/}/tmp/${scriptItem}/
+    
+    func_basicSetting_LogFileName_Path ${PID} "1" ${scriptItem}
+    echo 
+    
+}
+
+
+#--------------------------------------------#
 # Show Helper Shell
 #  : Helper Shell
 #  : 보조 쉘
@@ -27734,6 +28047,7 @@ scriptTipList+=(Variables_Modifiy,변수편집,変数編集)
 scriptTipList+=(Field_Separator_IFS,필드_구분자_IFS,フィールド区切り文字_IFS)
 scriptTipList+=(Parameter_utilization_\$,파라미터활용_\$,パラメータ活用_\$)
 scriptTipList+=(File_input_output_\>_\>\>_\<,파일입출력_\>_\>\>_\<,ファイル入出力_\>_\>\>_\<)
+scriptTipList+=(Create_random_data,랜덤데이터작성,ランダムデータ作成)
 
 #--------------------------------------------#
 # Script Basic Variable Setting
