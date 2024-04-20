@@ -27345,7 +27345,6 @@ function func_script_Create_Random_Data() {
     
 }
 
-
 #--------------------------------------------#
 # Show Helper Shell
 #  : Helper Shell
