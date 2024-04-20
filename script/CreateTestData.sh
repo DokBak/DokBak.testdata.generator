@@ -418,13 +418,13 @@ function check_data_outputName() {
 }
 
 #--------------------------------------------#
-#   12. ノーマルデータ作成（マルチバイトデータ作成）
+#   12. 正常系_ノーマルデータ作成（マルチバイトデータ作成）
 #--------------------------------------------#
 function create_normal_record() {
     
     # 設定ファイルパス
     local _createFile=${1}
-    # 設定ファイルパス
+    # データ作成オプション
     local _option=${2}
     # 出力レコード
     local _dataRecord=""
@@ -543,13 +543,13 @@ function create_trim_data() {
 }
 
 #--------------------------------------------#
-#   14. トリムデータ作成
+#   14. 正常系_トリムデータ作成
 #--------------------------------------------#
 function create_trim_record() {
     
     # 設定ファイルパス
     local _createFile=${1}
-    # 設定ファイルパス
+    # データ作成オプション
     local _option=${2}
     # 出力レコード
     local _dataRecord=""
@@ -793,13 +793,13 @@ function create_trim_record() {
 }
 
 #--------------------------------------------#
-#   15. 数値タイプのリミットデータ作成(陰數除外)
+#   15. 正常系_数値タイプのリミットデータ作成(陰數除外)
 #--------------------------------------------#
 function create_number_limit_record() {
     
     # 設定ファイルパス
     local _createFile=${1}
-    # 設定ファイルパス
+    # データ作成オプション
     local _option=${2}
     # 出力レコード
     local _dataRecord=""
@@ -951,13 +951,13 @@ function create_number_limit_record() {
 }
 
 #--------------------------------------------#
-#   16. ヌル許可データ作成
+#   16. 正常系_ヌル許可データ作成
 #--------------------------------------------#
 function create_not_null_record() {
     
     # 設定ファイルパス
     local _createFile=${1}
-    # 設定ファイルパス
+    # データ作成オプション
     local _option=${2}
     # 出力レコード
     local _dataRecord=""
@@ -1131,13 +1131,13 @@ function create_not_null_record() {
 }
 
 #--------------------------------------------#
-#   17. 改行コードデータ作成
+#   17. 正常系_改行コードデータ作成
 #--------------------------------------------#
 function create_new_line_record() {
     
     # 設定ファイルパス
     local _createFile=${1}
-    # 設定ファイルパス
+    # データ作成オプション
     local _option=${2}
     # 出力レコード
     local _dataRecord=""
@@ -1292,13 +1292,13 @@ function create_new_line_record() {
 }
 
 #--------------------------------------------#
-#   18. エスケープ文字データ作成
+#   18. 正常系_エスケープ文字データ作成
 #--------------------------------------------#
 function create_escape_record() {
     
     # 設定ファイルパス
     local _createFile=${1}
-    # 設定ファイルパス
+    # データ作成オプション
     local _option=${2}
     # 出力レコード
     local _dataRecord=""
@@ -1455,13 +1455,13 @@ function create_escape_record() {
 }
 
 #--------------------------------------------#
-#   19. 項目暗号化データ作成
+#   19. 正常系_項目暗号化データ作成
 #--------------------------------------------#
 function create_item_encrypt_record() {
     
     # 設定ファイルパス
     local _createFile=${1}
-    # 設定ファイルパス
+    # データ作成オプション
     local _option=${2}
     # 出力レコード
     local _dataRecord=""
@@ -1603,13 +1603,13 @@ function create_item_encrypt_record() {
 }
 
 #--------------------------------------------#
-#   20. 項目ハッシュ化データ作成
+#   20. 正常系_項目ハッシュ化データ作成
 #--------------------------------------------#
 function create_item_hash_record() {
     
     # 設定ファイルパス
     local _createFile=${1}
-    # 設定ファイルパス
+    # データ作成オプション
     local _option=${2}
     # 出力レコード
     local _dataRecord=""
@@ -1746,7 +1746,139 @@ function create_item_hash_record() {
 }
 
 #--------------------------------------------#
-#  メイン処理                                   #
+#   21. 異常系_項目桁数超過データ作成
+#--------------------------------------------#
+function create_abnormal_length_record() {
+    
+    # 設定ファイルパス
+    local _createFile=${1}
+    # データ作成オプション
+    local _option=${2}
+    # 出力レコード
+    local _dataRecord=""
+    # 項目桁数超過データフラグ
+    local _abnormalLengthFlg=""
+    # 対象項目番号
+    local _abnormalLengthItemIndex=1
+    
+    # データ作成処理
+    while [ true ]; do
+
+        # 項目桁数超過データフラグ
+        _abnormalLengthFlg=0
+        # 項目変数初期化
+        item=""
+        _dataRecord=""
+        
+        # 項目桁数超過データ作成
+        for ((itemIndex=1; itemIndex<=${itemsCount}; itemIndex++));do
+            # 設定ファイルから取得する項目タイプ情報
+            _itemType=`echo ${list_itemsType} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
+            # 設定ファイルから取得する項目桁数情報
+            _itemLength=`echo ${list_itemsLength} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
+            # 設定ファイルから取得する小数情報
+            # 整数、「.」、小数　の総数
+            _fullParts=`echo ${_itemLength} | awk -F. '{print $1}'`
+            # 小数部分の桁数
+            _decimalParts=`echo ${_itemLength} | awk -F. '{print $2}'`
+            # 整数部分の桁数
+            _integerParts=$(( ${_fullParts} - ${_decimalParts} - 1 ))
+            
+            # 項目タイプ別テストデータ作成
+            if [[ ${_itemType} = [cC][hH][aA][rR] || ${_itemType} = [sS][tT][rR][iI][nN][gG] ]];then
+                if [[ ${_abnormalLengthItemIndex} = ${itemIndex} ]];then
+                    _itemLength=$(( ${_itemLength} + 1 ))
+                    create_string_item ${_itemLength} ${_option}
+                    dataTargetItemNumber=${itemIndex}
+                else
+                    create_string_item ${_itemLength} ${_option}
+                fi
+            elif [[ ${_itemType} = [bB][yY][tT][eE] || ${_itemType} = [sS][hH][oO][rR][tT] || ${_itemType} = [iI][nN][tT] || ${_itemType} = [lL][oO][nN][gG] ]];then
+                if [[ ${_abnormalLengthItemIndex} = ${itemIndex} ]];then
+                    _itemLength=$(( ${_itemLength} + 1 ))
+                    create_integer_item ${_itemLength} ${_option}
+                    dataTargetItemNumber=${itemIndex}
+                else
+                    create_integer_item ${_itemLength} ${_option}
+                fi
+            elif [[ ${_itemType} = [fF][lL][oO][aA][tT] || ${_itemType} = [dD][oO][uU][bB][lL][eE] ]];then
+                if [[ ${_abnormalLengthItemIndex} = ${itemIndex} ]];then
+                    _itemLength=$(( ${_fullParts} + 1 )).${_decimalParts}
+                    create_float_item ${_itemLength} ${_option}
+                    dataTargetItemNumber=${itemIndex}
+                else
+                    create_float_item ${_itemLength} ${_option}
+                fi
+            elif [[ ${_itemType} =~ [dD][aA][tT][eE] ]];then
+                if [[ ${_abnormalLengthItemIndex} = ${itemIndex} ]];then
+                    create_date_item ${_itemType}
+                    item=${item}1
+                    dataTargetItemNumber=${itemIndex}
+                else
+                    create_date_item ${_itemType}
+                fi
+            fi
+
+            # 項目桁数超過データ作成外は省略
+            if [[ ${_abnormalLengthFlg} = 1 ]];then
+                continue
+            else
+                if [[ ${itemIndex} = ${_abnormalLengthItemIndex} ]];then
+                    dataNumber=$(( ${dataNumber} + 1))
+                    dataRecordLine=$(( ${dataRecordLine} + 1))
+                    dataExplanation="項目桁数超過データ"
+                    printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%-30s\n" "#" "${dataNumber}" "#" "${dataRecordLine}" "#" "${dataTargetItemNumber}" "#" "${dataExplanation}" >> ${filePath%/}/TestData/02/CreateTestData_Explan.txt
+                fi
+            fi
+
+            # 項目データ、囲み文字、区切り文字、改行コードから一時ファイル(文字コード設定ファイル)作成
+            if [[ ${itemsCount} = ${itemIndex} ]];then
+                if [[ ${checked_data_outputType} = SQL ]];then
+                    checked_data_enclosing=\'
+                    _dataRecord=${_dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}
+                else
+                    _dataRecord=${_dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}
+                    if [[ ${checked_data_newLine} = CRLF ]];then
+                        printf "${_dataRecord}$(printf \\$(printf '%03o' 13 ))\n" >> ${_createFile}
+                    elif  [[ ${checked_data_newLine} = CR ]];then
+                        printf "${_dataRecord}$(printf \\$(printf '%03o' 13 ))" >> ${_createFile}
+                    else # LF
+                        printf "${_dataRecord}\n" >> ${_createFile}
+                    fi
+                fi
+            else
+                if [[ ${checked_data_outputType} = SQL ]];then
+                    checked_data_enclosing=\'
+                    _dataRecord=${_dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}${checked_data_delimiting}
+                else
+                    _dataRecord=${_dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}${checked_data_delimiting}
+                fi
+            fi
+
+            # レコード出力後項目変数初期化
+            item=""
+        done
+
+        # SQLの場合、クエリー形式に修正
+        if [[ ${checked_data_outputType} = SQL ]];then
+            list_itemsName=`echo ${list_itemsName} | sed 's/"//g'`
+            echo "INSERT INTO "${data_schema}.${data_outputName}" (${list_itemsName}) VALUES (${_dataRecord})" > ${_createFile}.sql
+        fi
+
+        # 次の項目桁数超過データ作成
+        _abnormalLengthItemIndex=$(( ${_abnormalLengthItemIndex} + 1 ))
+
+        # 全項目のデータ作成後終了
+        if [[ ${_abnormalLengthItemIndex} -gt ${itemsCount} ]];then
+            break
+        fi
+    done 
+
+}
+
+
+#--------------------------------------------#
+#  メイン処理(正常系)
 #--------------------------------------------#
 ### ShellScript relativePath / 쉘 스크립트 풀패스 / シェルスクリプトフルパス
 fileRelativePath=$0
@@ -1786,6 +1918,9 @@ export `cat ${setFilePath} | grep sampleHashData`
 ### ItemCounts / 항목수 / 項目数
 itemsCount=`echo ${list_itemsLength} | sed 's/"//g' | awk -F, '{print NF}'`
 
+
+### 正常系
+
 ### ExplanFile / 설명파일 / 説明ファイル
 dataNumber=""
 dataRecordLine=""
@@ -1794,23 +1929,22 @@ dataExplanation=""
 printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%-30s\n" "#" "No" "#" "LINE" "#" "ITEM" "#" "PATTERN"> ${filePath%/}/TestData/01/CreateTestData_Explan.txt
 printf "%s\n" "######################################################################" >> ${filePath%/}/TestData/01/CreateTestData_Explan.txt
 
-### 正常系
 ### Normal data
  create_normal_record ${filePath%/}/TestData/01/tmp_${checked_data_outputName} ${checked_data_multiByteCharacter}
 ### Trim data
- create_trim_record ${filePath%/}/TestData/01/tmp_${checked_data_outputName} trim
+# create_trim_record ${filePath%/}/TestData/01/tmp_${checked_data_outputName} trim
 ### Limit Number data
- create_number_limit_record ${filePath%/}/TestData/01/tmp_${checked_data_outputName} number_limit
+# create_number_limit_record ${filePath%/}/TestData/01/tmp_${checked_data_outputName} number_limit
 ### Not Null data
- create_not_null_record ${filePath%/}/TestData/01/tmp_${checked_data_outputName} not_null
+# create_not_null_record ${filePath%/}/TestData/01/tmp_${checked_data_outputName} not_null
 ### New Line data
- create_new_line_record ${filePath%/}/TestData/01/tmp_${checked_data_outputName} new_line
+# create_new_line_record ${filePath%/}/TestData/01/tmp_${checked_data_outputName} new_line
 ### Escape data
- create_escape_record ${filePath%/}/TestData/01/tmp_${checked_data_outputName} escape
+# create_escape_record ${filePath%/}/TestData/01/tmp_${checked_data_outputName} escape
 ### Item Encrypt data
- create_item_encrypt_record ${filePath%/}/TestData/01/tmp_${checked_data_outputName} item_encrypt
+# create_item_encrypt_record ${filePath%/}/TestData/01/tmp_${checked_data_outputName} item_encrypt
 ### Item Hash data
- create_item_hash_record ${filePath%/}/TestData/01/tmp_${checked_data_outputName} item_hash
+# create_item_hash_record ${filePath%/}/TestData/01/tmp_${checked_data_outputName} item_hash
 
 ### encoding change
 if [[ -e ${filePath%/}/TestData/01/tmp_${checked_data_outputName} ]];then
@@ -1833,4 +1967,40 @@ if [[ ${checked_data_outputType} = .gz ]];then
     gzip ${filePath%/}/TestData/01/${checked_data_outputName}
 elif [[ ${checked_data_outputType} = .Z ]];then
     compress ${filePath%/}/TestData/01/${checked_data_outputName}
+fi
+
+### 異常系
+
+### ExplanFile / 설명파일 / 説明ファイル
+dataNumber=""
+dataRecordLine=""
+dataTargetItemNumber=""
+dataExplanation=""
+printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%-30s\n" "#" "No" "#" "LINE" "#" "ITEM" "#" "PATTERN"> ${filePath%/}/TestData/02/CreateTestData_Explan.txt
+printf "%s\n" "######################################################################" >> ${filePath%/}/TestData/02/CreateTestData_Explan.txt
+
+### Abnormal length data
+ create_abnormal_length_record ${filePath%/}/TestData/02/tmp_${checked_data_outputName} abnormal_length
+
+### encoding change
+if [[ -e ${filePath%/}/TestData/02/tmp_${checked_data_outputName} ]];then
+    if [[ ${checked_data_encoding} = UTF-8 ]];then
+        nkf -w ${filePath%/}/TestData/02/tmp_${checked_data_outputName} > ${filePath%/}/TestData/02/${checked_data_outputName}
+    elif [[ ${checked_data_encoding} = EUC ]];then
+        nkf -e ${filePath%/}/TestData/02/tmp_${checked_data_outputName} > ${filePath%/}/TestData/02/${checked_data_outputName}
+    elif [[ ${checked_data_encoding} = JIS ]];then
+        nkf -j ${filePath%/}/TestData/02/tmp_${checked_data_outputName} > ${filePath%/}/TestData/02/${checked_data_outputName}
+    elif [[ ${checked_data_encoding} = SJIS ]];then
+        nkf -s ${filePath%/}/TestData/02/tmp_${checked_data_outputName} > ${filePath%/}/TestData/02/${checked_data_outputName}
+    elif [[ ${checked_data_encoding} = "UTF-8(BOM)" ]];then
+        nkf --oc=UTF-8-BOM ${filePath%/}/TestData/02/tmp_${checked_data_outputName} > ${filePath%/}/TestData/02/${checked_data_outputName}
+    fi
+    rm -rfv ${filePath%/}/TestData/02/tmp_${checked_data_outputName}
+fi
+
+### compressed file format
+if [[ ${checked_data_outputType} = .gz ]];then
+    gzip ${filePath%/}/TestData/02/${checked_data_outputName}
+elif [[ ${checked_data_outputType} = .Z ]];then
+    compress ${filePath%/}/TestData/02/${checked_data_outputName}
 fi
