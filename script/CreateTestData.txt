@@ -15,13 +15,13 @@ data_newLine=0
 ### 2 : LF
 
 ### 囲み文字
-data_enclosing=1
+data_enclosing=0
 ### 0 : 
 ### 1 : "
 ### 2 : '
 
 ### 区切り文字
-data_delimiting=1
+data_delimiting=0
 ### 0 : 
 ### 1 : ,
 ### 2 : \t
@@ -115,3 +115,38 @@ sampleHashData="1-9-X","6-123456-f9d8s7"
 
 ### 項目別名情報リスト
 list_itemsName="test1","test2","test3","test4","test5","test6","test7","test8","test9"
+
+
+
+### 文字コード
+output_data_encoding=3
+### 0 : UTF-8
+### 1 : EUC
+### 2 : JIS
+### 3 : SJIS
+### 4 : UTF-8(BOM)
+
+### 改行コード
+output_data_newLine=2
+### 0 : CRLF
+### 1 : CR
+### 2 : LF
+
+### 囲み文字
+output_data_enclosing=0
+### 0 : 
+### 1 : "
+### 2 : '
+
+### 区切り文字
+output_data_delimiting=0
+### 0 : 
+### 1 : ,
+### 2 : \t
+
+### 出力タイプ
+output_data_outputType=0
+### 0 : FILE
+### 1 : SQL
+### 2 : .gz
+### 3 : .Z
