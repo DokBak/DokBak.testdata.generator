@@ -21,7 +21,7 @@ data_enclosing=0
 ### 2 : '
 
 ### 区切り文字
-data_delimiting=0
+data_delimiting=2
 ### 0 : 
 ### 1 : ,
 ### 2 : \t

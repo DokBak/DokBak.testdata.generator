@@ -1102,7 +1102,7 @@ function create_not_null_record() {
             if [[ ${_itemType} = [cC][hH][aA][rR] || ${_itemType} = [sS][tT][rR][iI][nN][gG] ]];then
                 if [[ ${_notNullItemIndex} = ${itemIndex} ]];then
                     if [[ ${_itemNotNull} = 1 ]];then
-                        if [[ ${checked_data_enclosing} = "" && ${checked_data_delimiting} = "" ]];then
+                        if [[ ${checked_data_enclosing} = "" && ${checked_data_delimiting} = "" || ${checked_data_delimiting} = "\t" ]];then
                             for ((i=1; i<=${_itemLength}; i++)); do
                                 _randomchar=" "
                                 item=${item}${_randomchar}
@@ -1121,7 +1121,7 @@ function create_not_null_record() {
             elif [[ ${_itemType} = [bB][yY][tT][eE] || ${_itemType} = [sS][hH][oO][rR][tT] || ${_itemType} = [iI][nN][tT] || ${_itemType} = [lL][oO][nN][gG] ]];then
                 if [[ ${_notNullItemIndex} = ${itemIndex} ]];then
                     if [[ ${_itemNotNull} = 1 ]];then
-                        if [[ ${checked_data_enclosing} = "" && ${checked_data_delimiting} = "" ]];then
+                        if [[ ${checked_data_enclosing} = "" && ${checked_data_delimiting} = "" || ${checked_data_delimiting} = "\t" ]];then
                             for ((i=1; i<=${_itemLength}; i++)); do
                                 _randomint=" "
                                 item=${item}${_randomint}
@@ -1140,7 +1140,7 @@ function create_not_null_record() {
             elif [[ ${_itemType} = [fF][lL][oO][aA][tT] || ${_itemType} = [dD][oO][uU][bB][lL][eE] ]];then
                 if [[ ${_notNullItemIndex} = ${itemIndex} ]];then
                     if [[ ${_itemNotNull} = 1 ]];then
-                        if [[ ${checked_data_enclosing} = "" && ${checked_data_delimiting} = "" ]];then
+                        if [[ ${checked_data_enclosing} = "" && ${checked_data_delimiting} = "" || ${checked_data_delimiting} = "\t" ]];then
                             for ((i=1; i<=${_fullParts}; i++)); do
                                 _randomint=" "
                                 item=${item}${_randomint}
@@ -1159,7 +1159,7 @@ function create_not_null_record() {
             elif [[ ${_itemType} =~ [dD][aA][tT][eE] ]];then
                 if [[ ${_notNullItemIndex} = ${itemIndex} ]];then
                     if [[ ${_itemNotNull} = 1 ]];then
-                        if [[ ${checked_data_enclosing} = "" && ${checked_data_delimiting} = "" ]];then
+                        if [[ ${checked_data_enclosing} = "" && ${checked_data_delimiting} = "" || ${checked_data_delimiting} = "\t" ]];then
                             for ((i=1; i<=${_itemLength}; i++)); do
                                 _randomDate=" "
                                 item=${item}${_randomDate}
@@ -1455,7 +1455,7 @@ function create_escape_record() {
                         fi
                     elif [[ ${_record_escape_item} = 1 ]];then
                         if [[ ${_itemLength} -gt 2 ]];then
-                            _escapeString="\'"
+                            _escapeString="'"
                             item=${item}${_escapeString}
                             _itemLength=$(( ${_itemLength} -2 ))
                             dataTargetItemNumber=${itemIndex}
@@ -2508,14 +2508,6 @@ function create_output_data() {
     export `cat ${setFilePath} | grep list_itemsLength`
     export `cat ${setFilePath} | grep list_itemsType`
 
-    echo "checked_data_enclosing=${checked_data_enclosing}"
-    echo "checked_data_delimiting=${checked_data_delimiting}"
-    echo "checked_output_data_encoding=${checked_output_data_encoding}"
-    echo "checked_output_data_newLine=${checked_output_data_newLine}"
-    echo "checked_output_data_enclosing=${checked_output_data_enclosing}"
-    echo "checked_output_data_delimiting=${checked_output_data_delimiting}"
-    echo "checked_output_data_outputType=${checked_output_data_outputType}"
-
     while true
     do
         item=""
@@ -2661,17 +2653,23 @@ function create_output_data() {
             if [[ ${checked_data_enclosing} = "" && ${checked_data_delimiting} = "" ]];then
                 itemCountOld=1
                 itemCountNew=0
-                increaseValue=0
+                normalIncreaseValue=0
+                targetIncreaseValue=0
+                startIncreaseValue=1
             elif [[ ${checked_data_enclosing} = "" && ${checked_data_delimiting} != "" ]];then
                 itemCountOld=1
                 itemCountNew=0
-                increaseValue=1
+                normalIncreaseValue=1
+                targetIncreaseValue=0
+                startIncreaseValue=1
             elif [[ ${checked_data_enclosing} != "" && ${checked_data_delimiting} != "" ]];then
                 itemCountOld=2
                 itemCountNew=1
-                increaseValue=3
+                normalIncreaseValue=3
+                targetIncreaseValue=2
+                startIncreaseValue=1
             fi
-            echo
+
             for ((itemIndex=1; itemIndex<=${itemsCount}; itemIndex++));do
                 # 設定ファイルから取得する項目タイプ情報
                 _itemType=`echo ${list_itemsType} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
@@ -2683,26 +2681,81 @@ function create_output_data() {
                 fi
                 
                 if [[ ${targetItem} = ${itemIndex} ]];then
-                    itemCountNew=$(( ${itemCountNew} + 1 ))
+                    itemCountNew=$(( ${itemCountNew} + ${startIncreaseValue} ))
                     item=""
                     for ((spaceIndex=1; spaceIndex<=${_itemLength}; spaceIndex++));do
                         spaceData=" "
                         item=${item}${spaceData}                       
                     done
-                    echo "itemCountOld=${itemCountOld},itemCountNew=${itemCountNew},_itemLength=${_itemLength}"
-                    itemCountOld=$(( ${itemCountOld} + ${increaseValue} ))
-                    itemCountNew=$(( ${itemCountNew} + ${increaseValue} - 1 ))
 
+                    if [[ ${normalIncreaseValue} = 0 && ${targetIncreaseValue} = 0 ]];then
+                        itemCountOld=$(( ${itemCountOld} + ${_itemLength} ))
+                        itemCountNew=$(( ${itemCountNew} + ${_itemLength} - 1 ))
+                    else
+                        itemCountOld=$(( ${itemCountOld} + ${normalIncreaseValue} ))
+                        itemCountNew=$(( ${itemCountNew} + ${targetIncreaseValue} ))
+                    fi
                 else
                     itemCountNew=$(( ${itemCountNew} + ${_itemLength} ))
-                    item=`cat ${dataPath} | head -n ${inputLineNumber} | tail -n 1 | cut -b ${itemCountOld}-${itemCountNew}`
+                    if [[ ${checked_data_delimiting} = "\t" ]];then
+                        item=`cat ${dataPath} | head -n ${inputLineNumber} | tail -n 1 | sed 's/ //g' | sed 's/\t/,/g' | cut -b ${itemCountOld}-${itemCountNew}`
+                    else
+                        item=`cat ${dataPath} | head -n ${inputLineNumber} | tail -n 1 | cut -b ${itemCountOld}-${itemCountNew}`
+                    fi
                     itemCountOld=$(( ${itemCountOld} + ${_itemLength} ))
-                    itemCountOld=$(( ${itemCountOld} + ${increaseValue} ))
-                    itemCountNew=$(( ${itemCountNew} + ${increaseValue}  ))
+                    itemCountOld=$(( ${itemCountOld} + ${normalIncreaseValue} ))
+                    itemCountNew=$(( ${itemCountNew} + ${normalIncreaseValue} ))
                 fi
-                echo "item=${item}"
-                echo
 
+                # 項目データ、囲み文字、区切り文字、改行コードから一時ファイル(文字コード設定ファイル)作成
+                if [[ ${itemsCount} = ${itemIndex} ]];then
+                    _dataRecord=${_dataRecord}${checked_output_data_enclosing}${item}${checked_output_data_enclosing}
+                    
+                    if [[ ${checked_output_data_newLine} = CRLF ]];then
+                        printf "${_dataRecord}$(printf \\$(printf '%03o' 13 ))\n" >>  ${filePath%/}/OutputData/01/${checked_data_outputName}
+                    elif  [[ ${checked_output_data_newLine} = CR ]];then
+                        printf "${_dataRecord}$(printf \\$(printf '%03o' 13 ))" >>  ${filePath%/}/OutputData/01/${checked_data_outputName}
+                    else # LF
+                        printf "${_dataRecord}\n" >>  ${filePath%/}/OutputData/01/${checked_data_outputName}
+                    fi
+                else
+                    _dataRecord=${_dataRecord}${checked_output_data_enclosing}${item}${checked_output_data_enclosing}${checked_output_data_delimiting}
+                fi
+            done
+        elif [[ ${explanText} =~ 改行レコードデータ ]];then
+            if [[ ${checked_data_enclosing} = "" && ${checked_data_delimiting} = "" ]];then
+                itemCountOld=1
+                itemCountNew=0
+                increaseValue=0
+            elif [[ ${checked_data_enclosing} = "" && ${checked_data_delimiting} != "" ]];then
+                itemCountOld=1
+                itemCountNew=0
+                increaseValue=1
+            elif [[ ${checked_data_enclosing} != "" && ${checked_data_delimiting} != "" ]];then
+                itemCountOld=2
+                itemCountNew=1
+                increaseValue=3
+            fi
+            inputLineNumber=`echo ${inputLineNumber} | awk -F"-" '{print $2}'`
+
+            for ((itemIndex=1; itemIndex<=${itemsCount}; itemIndex++));do
+                # 設定ファイルから取得する項目タイプ情報
+                _itemType=`echo ${list_itemsType} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
+                # 設定ファイルから取得する項目桁数情報
+                _itemLength=`echo ${list_itemsLength} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
+                if [[ ${_itemType} = [fF][lL][oO][aA][tT] || ${_itemType} = [dD][oO][uU][bB][lL][eE] ]];then
+                    _fullParts=`echo ${_itemLength} | awk -F. '{print $1}'`
+                    _itemLength=${_fullParts}
+                fi
+                itemCountNew=$(( ${itemCountNew} + ${_itemLength} ))
+                echo "inputLineNumber=${inputLineNumber}"
+                item=""
+                cat ${dataPath} | head -n ${inputLineNumber} | tail -n 2 | sed 's/\r/@/' | sed 's/\n/@/' | sed 's/@/ /g'
+                #item=`cat ${dataPath} | head -n ${inputLineNumber} | tail -n 2 | sed 's/\r/@/' | sed 's/\n/@/' | sed 's/@/ /g' | cut -b ${itemCountOld}-${itemCountNew}`
+                echo "item=${item}"
+                itemCountOld=$(( ${itemCountOld} + ${_itemLength} ))
+                itemCountOld=$(( ${itemCountOld} + ${increaseValue} ))
+                itemCountNew=$(( ${itemCountNew} + ${increaseValue} ))
                 # 項目データ、囲み文字、区切り文字、改行コードから一時ファイル(文字コード設定ファイル)作成
                 if [[ ${itemsCount} = ${itemIndex} ]];then
                     _dataRecord=${_dataRecord}${checked_output_data_enclosing}${item}${checked_output_data_enclosing}
@@ -3132,9 +3185,48 @@ scriptName=$(basename $0)
 ### FilePath / 파일 패스 / ファイルパス
 filePath=${fileAbsolutePath%/*}/
 
+while true
+do
+    clear
+    func_mainMenu ${ouputLanguage}
 
+    if [[ ${selectMenu} = 1 ]];then
+        clear
+        func_selectLanguage ${ouputLanguage}
+    elif [[ ${selectMenu} = 2 ]];then
+        if [[ -f ${filePath%/}/CreateTestData.txt ]];then
+            if [[ ${ouputLanguage} = [kK][rR] ]];then
+                echo "기존 설정 파일 있음"
+            elif [[ ${ouputLanguage} = [jJ][pP] ]];then
+                echo "既存の構成ファイルが有り"
+            else
+                echo "Existing configuration file exists"
+            fi
+        else 
+            func_dataSettingFile
+            if [[ ${ouputLanguage} = [kK][rR] ]];then
+                echo "설정 파일 작성완료!"
+                echo `ls -l ${filePath%/}/CreateTestData.txt`
+            elif [[ ${ouputLanguage} = [jJ][pP] ]];then
+                echo "設定ファイルの作成完了!"
+                echo `ls -l ${filePath%/}/CreateTestData.txt`
+            else
+                echo "Configuration file creation complete!"
+                echo `ls -l ${filePath%/}/CreateTestData.txt`
+            fi
+        fi
+        sleep 2
+    elif [[ ${selectMenu} = 3 ]];then
+        create_data
+    elif [[ ${selectMenu} = 4 ]];then
+        create_output_data
+    elif [[ ${selectMenu} = 5 ]];then
+        echo
+    elif [[ ${selectMenu} = 9 ]];then
+        func_scriptEnd ${ouputLanguage}
+    fi
 
-create_output_data
+done
 
 nkf --guess ${filePath%/}/TestData/01/${checked_data_outputName}
 nkf --guess ${filePath%/}/OutputData/01/${checked_data_outputName}
