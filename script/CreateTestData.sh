@@ -1,5 +1,47 @@
 #!/bin/bash
 
+###################################################################################
+#
+#  Shell Name  : Create TestData Shell
+#
+#  Creater     : DokBak
+#  Create Date : 2024/5/29          New
+#  Modify Date :
+#
+#  Processing Overview : Create Test Data Shell
+#
+#  Parameter   :
+#     Parameter1  (optional) : Language
+#
+###################################################################################
+#
+#  쉘  이름      : 테스트 데이터 작성 쉘
+#
+#  작 성 자      : DokBak
+#  작 성 일      : 2024/5/29          신규 작성
+#  수 정 일      :
+#
+#  처리 개요      : 테스트 데이터 작성 쉘
+#
+#  파라미터       :
+#     파라미터1  (옵션) : 언어
+#
+###################################################################################
+#
+#  スクリプト名    : テストデータ作成シェル
+#
+#  作成者        : DokBak
+#  作成日        : 2024/5/29          新規作成
+#  修正日        :
+#
+#  処理概要      : テストデータ作成シェル
+#
+#  パラメータ     :
+#     パラメータ1  (任意) : 言語
+# 
+###################################################################################
+
+
 #--------------------------------------------#
 #   01. 設定ファイルから文字コード情報を取得
 #--------------------------------------------#
@@ -2296,7 +2338,7 @@ function create_number_item_in_string_record() {
                     _dataRecord=${_dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}
                 else
                     if [[ ${motoItemsCount} -eq ${itemsCount} ]];then
-                        _dataRecord=${_dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}${checked_data_delimiting}${checked_data_enclosing}"EXTRADATA"${checked_data_enclosing}
+                        _dataRecord=${_dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}
                     else
                         _dataRecord=${_dataRecord}${checked_data_enclosing}${item}${checked_data_enclosing}
 
@@ -2495,9 +2537,13 @@ function create_output_data() {
     itemsCount=`echo ${list_itemsLength} | sed 's/"//g' | awk -F, '{print NF}'`
 
     explanLine=3
-    totalCase=`cat ${filePath%/}/TestData/01/CreateTestData_Explan.txt | wc -l`
-    totalCase=$(( ${totalCase} -2 ))
-
+    totalCase=`cat ${filePath%/}/TestData/01/CreateTestData_Explan.txt | tail -n 1 | awk '{print $4}'`
+    if [[ ${totalCase} =~ - ]];then 
+        totalCase=`echo ${totalCase} | awk -F"-" '{print $2}'`
+    else
+        totalCase=${totalCase}
+    fi
+    
     check_data_enclosing ${setFilePath} data_enclosing
     check_data_delimiting ${setFilePath} data_delimiting
     check_data_encoding ${setFilePath} output_data_encoding
@@ -2723,21 +2769,85 @@ function create_output_data() {
                 fi
             done
         elif [[ ${explanText} =~ 改行レコードデータ ]];then
-            if [[ ${checked_data_enclosing} = "" && ${checked_data_delimiting} = "" ]];then
-                itemCountOld=1
-                itemCountNew=0
-                increaseValue=0
-            elif [[ ${checked_data_enclosing} = "" && ${checked_data_delimiting} != "" ]];then
-                itemCountOld=1
-                itemCountNew=0
-                increaseValue=1
-            elif [[ ${checked_data_enclosing} != "" && ${checked_data_delimiting} != "" ]];then
-                itemCountOld=2
-                itemCountNew=1
-                increaseValue=3
-            fi
-            inputLineNumber=`echo ${inputLineNumber} | awk -F"-" '{print $2}'`
+            inputLineNumberStrat=`echo ${inputLineNumber} | awk -F"-" '{print $1}'`
+            inputLineNumberEnd=`echo ${inputLineNumber} | awk -F"-" '{print $2}'`
+            targetIndex=0
+            for ((itemIndex=1; itemIndex<=${itemsCount}; itemIndex++));do
+                # 設定ファイルから取得する項目タイプ情報
+                _itemType=`echo ${list_itemsType} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
+                # 設定ファイルから取得する項目桁数情報
+                _itemLength=`echo ${list_itemsLength} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
+                
+                if [[ ${targetItem} -gt ${itemIndex} ]];then
+                    targetIndex=${itemIndex}
+                    item=`cat ${dataPath} | head -n ${inputLineNumberStrat} | tail -n 1 | awk -F${checked_data_delimiting} -v field=${targetIndex} '{print $field}'`
+                elif [[ ${targetItem} -eq ${itemIndex} ]];then
+                    if [[ ${explanText} = "改行レコードデータ(CRLF)" ]];then
+                        item="@@"
+                    elif [[ ${explanText} = "改行レコードデータ(CR)" ]];then
+                        item="@"
+                    elif [[ ${explanText} = "改行レコードデータ(LF)" ]];then
+                        item="@"
+                    fi
+                    targetIndex=1
+                    item=${item}`cat ${dataPath} | head -n ${inputLineNumberEnd} | tail -n 1 | awk -F${checked_data_delimiting} -v field=${targetIndex} '{print $field}'`
+                else
+                    targetIndex=$(( ${targetIndex} + 1 ))
+                    item=`cat ${dataPath} | head -n ${inputLineNumberEnd} | tail -n 1 | awk -F${checked_data_delimiting} -v field=${targetIndex} '{print $field}'`
+                fi
 
+                # 項目データ、囲み文字、区切り文字、改行コードから一時ファイル(文字コード設定ファイル)作成
+                if [[ ${itemsCount} = ${itemIndex} ]];then
+                    _dataRecord=${_dataRecord}${checked_output_data_enclosing}${item}${checked_output_data_enclosing}
+                    _dataRecord=`echo ${_dataRecord} | sed 's/@/ /g' `
+                    if [[ ${checked_output_data_newLine} = CRLF ]];then
+                        printf "${_dataRecord}$(printf \\$(printf '%03o' 13 ))\n" >>  ${filePath%/}/OutputData/01/${checked_data_outputName}
+                    elif  [[ ${checked_output_data_newLine} = CR ]];then
+                        printf "${_dataRecord}$(printf \\$(printf '%03o' 13 ))" >>  ${filePath%/}/OutputData/01/${checked_data_outputName}
+                    else # LF
+                        printf "${_dataRecord}\n" >>  ${filePath%/}/OutputData/01/${checked_data_outputName}
+                    fi
+                else
+                    _dataRecord=${_dataRecord}${checked_output_data_enclosing}${item}${checked_output_data_enclosing}${checked_output_data_delimiting}
+                fi
+            done
+        elif [[ ${explanText} =~ エスケープ文字データ ]];then
+            for ((itemIndex=1; itemIndex<=${itemsCount}; itemIndex++));do
+                # 設定ファイルから取得する項目タイプ情報
+                _itemType=`echo ${list_itemsType} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
+                # 設定ファイルから取得する項目桁数情報
+                _itemLength=`echo ${list_itemsLength} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
+
+                if [[ ${targetItem} = ${itemIndex} ]];then
+                    if [[ ${explanText} = 'エスケープ文字データ(")' ]];then
+                        item=`cat ${dataPath} | head -n ${inputLineNumber} | tail -n 1 | awk -F${checked_data_delimiting} -v field=${itemIndex} '{print $field}' | sed 's/"/""/g'`
+                    elif [[ ${explanText} = "エスケープ文字データ(')" ]];then
+                        item=`cat ${dataPath} | head -n ${inputLineNumber} | tail -n 1 | awk -F${checked_data_delimiting} -v field=${itemIndex} '{print $field}' | sed "s/'/''/g"`
+                    elif [[ ${explanText} = "エスケープ文字データ(\)" ]];then
+                        item='\\'
+                        item=${item}`cat ${dataPath} | head -n ${inputLineNumber} | tail -n 1 | awk -F${checked_data_delimiting} -v field=${itemIndex} '{print $field}'`
+                    fi
+                else
+                    item=`cat ${dataPath} | head -n ${inputLineNumber} | tail -n 1 | awk -F${checked_data_delimiting} -v field=${itemIndex} '{print $field}'`
+                fi
+
+                # 項目データ、囲み文字、区切り文字、改行コードから一時ファイル(文字コード設定ファイル)作成
+                if [[ ${itemsCount} = ${itemIndex} ]];then
+                    _dataRecord=${_dataRecord}${checked_output_data_enclosing}${item}${checked_output_data_enclosing}
+                    
+                    if [[ ${checked_output_data_newLine} = CRLF ]];then
+                        printf "${_dataRecord}$(printf \\$(printf '%03o' 13 ))\n" >>  ${filePath%/}/OutputData/01/${checked_data_outputName}
+                    elif  [[ ${checked_output_data_newLine} = CR ]];then
+                        printf "${_dataRecord}$(printf \\$(printf '%03o' 13 ))" >>  ${filePath%/}/OutputData/01/${checked_data_outputName}
+                    else # LF
+                        printf "${_dataRecord}\n" >>  ${filePath%/}/OutputData/01/${checked_data_outputName}
+                    fi
+                else
+                    _dataRecord=${_dataRecord}${checked_output_data_enclosing}${item}${checked_output_data_enclosing}${checked_output_data_delimiting}
+                fi
+            done
+        elif [[ ${explanText} =~ 項目暗号化設定 ]];then
+            targetIndex=0
             for ((itemIndex=1; itemIndex<=${itemsCount}; itemIndex++));do
                 # 設定ファイルから取得する項目タイプ情報
                 _itemType=`echo ${list_itemsType} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
@@ -2747,18 +2857,58 @@ function create_output_data() {
                     _fullParts=`echo ${_itemLength} | awk -F. '{print $1}'`
                     _itemLength=${_fullParts}
                 fi
-                itemCountNew=$(( ${itemCountNew} + ${_itemLength} ))
-                echo "inputLineNumber=${inputLineNumber}"
+
                 item=""
-                cat ${dataPath} | head -n ${inputLineNumber} | tail -n 2 | sed 's/\r/@/' | sed 's/\n/@/' | sed 's/@/ /g'
-                #item=`cat ${dataPath} | head -n ${inputLineNumber} | tail -n 2 | sed 's/\r/@/' | sed 's/\n/@/' | sed 's/@/ /g' | cut -b ${itemCountOld}-${itemCountNew}`
-                echo "item=${item}"
-                itemCountOld=$(( ${itemCountOld} + ${_itemLength} ))
-                itemCountOld=$(( ${itemCountOld} + ${increaseValue} ))
-                itemCountNew=$(( ${itemCountNew} + ${increaseValue} ))
+                if [[ ${targetItem} = ${itemIndex} ]];then
+                    for ((targetIndex=1; targetIndex<=${_itemLength}; targetIndex++));do
+                        encryption="@"
+                        item=${item}${encryption}
+                    done
+                else
+                    item=`cat ${dataPath} | head -n ${inputLineNumber} | tail -n 1 | awk -F${checked_data_delimiting} -v field=${itemIndex} '{print $field}'`
+                fi
+                
                 # 項目データ、囲み文字、区切り文字、改行コードから一時ファイル(文字コード設定ファイル)作成
                 if [[ ${itemsCount} = ${itemIndex} ]];then
                     _dataRecord=${_dataRecord}${checked_output_data_enclosing}${item}${checked_output_data_enclosing}
+                    
+                    if [[ ${checked_output_data_newLine} = CRLF ]];then
+                        printf "${_dataRecord}$(printf \\$(printf '%03o' 13 ))\n" >>  ${filePath%/}/OutputData/01/${checked_data_outputName}
+                    elif  [[ ${checked_output_data_newLine} = CR ]];then
+                        printf "${_dataRecord}$(printf \\$(printf '%03o' 13 ))" >>  ${filePath%/}/OutputData/01/${checked_data_outputName}
+                    else # LF
+                        printf "${_dataRecord}\n" >>  ${filePath%/}/OutputData/01/${checked_data_outputName}
+                    fi
+                else
+                    _dataRecord=${_dataRecord}${checked_output_data_enclosing}${item}${checked_output_data_enclosing}${checked_output_data_delimiting}
+                fi
+            done
+        elif [[ ${explanText} =~ ハッシュ化設定 ]];then
+            targetIndex=0
+            for ((itemIndex=1; itemIndex<=${itemsCount}; itemIndex++));do
+                # 設定ファイルから取得する項目タイプ情報
+                _itemType=`echo ${list_itemsType} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
+                # 設定ファイルから取得する項目桁数情報
+                _itemLength=`echo ${list_itemsLength} | sed 's/"//g' | awk -F, -v field=${itemIndex} '{print $field}'`
+                if [[ ${_itemType} = [fF][lL][oO][aA][tT] || ${_itemType} = [dD][oO][uU][bB][lL][eE] ]];then
+                    _fullParts=`echo ${_itemLength} | awk -F. '{print $1}'`
+                    _itemLength=${_fullParts}
+                fi
+
+                item=""
+                if [[ ${targetItem} = ${itemIndex} ]];then
+                    for ((targetIndex=1; targetIndex<=${_itemLength}; targetIndex++));do
+                        hashData="&"
+                        item=${item}${hashData}
+                    done
+                else
+                    item=`cat ${dataPath} | head -n ${inputLineNumber} | tail -n 1 | awk -F${checked_data_delimiting} -v field=${itemIndex} '{print $field}'`
+                fi
+
+                # 項目データ、囲み文字、区切り文字、改行コードから一時ファイル(文字コード設定ファイル)作成
+                if [[ ${itemsCount} = ${itemIndex} ]];then
+                    _dataRecord=${_dataRecord}${checked_output_data_enclosing}${item}${checked_output_data_enclosing}
+                    
                     if [[ ${checked_output_data_newLine} = CRLF ]];then
                         printf "${_dataRecord}$(printf \\$(printf '%03o' 13 ))\n" >>  ${filePath%/}/OutputData/01/${checked_data_outputName}
                     elif  [[ ${checked_output_data_newLine} = CR ]];then
@@ -2772,7 +2922,7 @@ function create_output_data() {
             done
         fi
 
-        if [[ ${explanLine} -gt ${totalCase} ]];then
+        if [[ ${explanLine} -eq ${totalCase} ]];then
             break
         else
             explanLine=$(( ${explanLine} + 1 ))
@@ -2828,7 +2978,6 @@ function func_mainMenu() {
             printf "  * %s\n"                                     "2. 설정파일 샘플 작성"
             printf "  * %s\n"                                     "3. 입력 데이터 작성"
             printf "  * %s\n"                                     "4. 출력 데이터 작성"
-            printf "  * %s\n"                                     "5. 입출력 데이터 비교"
             printf "  *\n"
             printf "  * %s\n"                                     "9. 종료"
             printf "  ****************************************\n"
@@ -2844,7 +2993,6 @@ function func_mainMenu() {
             printf "  * %s\n"                                     "2. 設定ファイルサンプル作成"
             printf "  * %s\n"                                     "3. 入力データ作成"
             printf "  * %s\n"                                     "4. 出力データ作成"
-            printf "  * %s\n"                                     "5. 入出力データ比較"
             printf "  *\n"
             printf "  * %s\n"                                     "9. 終了"
             printf "  ****************************************\n"
@@ -2860,7 +3008,6 @@ function func_mainMenu() {
             printf "  * %s\n"                                     "2. Sample Configuration Files"
             printf "  * %s\n"                                     "3. Input Data Creation"
             printf "  * %s\n"                                     "4. Output Data Creation"
-            printf "  * %s\n"                                     "5. Input-Output Data Comparison"
             printf "  *\n"
             printf "  * %s\n"                                     "9. End"
             printf "  ****************************************\n"
@@ -2878,21 +3025,19 @@ function func_mainMenu() {
             break
         elif [[ ${selectMenu} == 4 ]]; then
             break
-        elif [[ ${selectMenu} == 5 ]]; then
-            break
         elif [[ ${selectMenu} == 9 ]]; then
             break
         else
             clear
             if [[ ${languageParam} == [kK][rR] ]]; then
                 echo
-                printf "%s\n" "### 선택 가능한 메뉴(번호) : 1, 2, 3, 4, 5, 9 ###"
+                printf "%s\n" "### 선택 가능한 메뉴(번호) : 1, 2, 3, 4, 9 ###"
             elif [[ ${languageParam} == [jJ][pP] ]]; then
                 echo
-                printf "%s\n" "### 選択可能なメニュー(番号) : 1, 2, 3, 4, 5, 9 ###"
+                printf "%s\n" "### 選択可能なメニュー(番号) : 1, 2, 3, 4, 9 ###"
             else
                 echo
-                printf "%s\n" "### Selectable menu (number): 1, 2, 3, 4, 5, 9 ###"
+                printf "%s\n" "### Selectable menu (number): 1, 2, 3, 4, 9 ###"
             fi
         fi
     done
@@ -3047,7 +3192,7 @@ function func_dataSettingFile() {
     echo '### 改行コード' >> ${filePath%/}/CreateTestData.txt
     echo 'data_record_newLine_list="CRLF","CR","LF"' >> ${filePath%/}/CreateTestData.txt
     echo '### CRLF : \\r\\n' >> ${filePath%/}/CreateTestData.txt
-    echo '### CR : \\r' >> ${filePath%/}/CreateTestData.txt
+    echo '### CR : \\r   ### MAC環境では CR改行コードの変換処理ができません。' >> ${filePath%/}/CreateTestData.txt
     echo '### LF : \\n' >> ${filePath%/}/CreateTestData.txt
     echo '' >> ${filePath%/}/CreateTestData.txt
     echo '### エスケープ文字' >> ${filePath%/}/CreateTestData.txt
@@ -3107,13 +3252,14 @@ function func_dataSettingFile() {
     echo 'list_itemsEncrypt="1","1","1","1","1","1","1","1","1"' >> ${filePath%/}/CreateTestData.txt
     echo '### 0          : 項目暗号化なし' >> ${filePath%/}/CreateTestData.txt
     echo '### 1          : 暗号化方式1' >> ${filePath%/}/CreateTestData.txt
-    echo '### 2          : 暗号化方式2(暗号化方式が多数ある場合)' >> ${filePath%/}/CreateTestData.txt
+    echo '### 暗号化方式別に追加機能作成必要：共通出力値：@' >> ${filePath%/}/CreateTestData.txt
     echo '' >> ${filePath%/}/CreateTestData.txt
     echo '### 項目ハッシュ情報リスト' >> ${filePath%/}/CreateTestData.txt
     echo 'list_itemsHash="1","1","0","0","0","0","0","0","0"' >> ${filePath%/}/CreateTestData.txt
     echo '### 0          : ハッシュ化なし' >> ${filePath%/}/CreateTestData.txt
     echo '### 1          : ハッシュ' >> ${filePath%/}/CreateTestData.txt
-    echo 'sampleHashData="1-9-X","6-123456-f9d8s7"' >> ${filePath%/}/CreateTestData.txt
+    echo '### ハッシュ方式別に追加機能作成必要：共通出力値：&' >> ${filePath%/}/CreateTestData.txt
+    echo '### sampleHashData="1-9-X","6-123456-f9d8s7"' >> ${filePath%/}/CreateTestData.txt
     echo '### データ区分(-)' >> ${filePath%/}/CreateTestData.txt
     echo '### 1番：桁数' >> ${filePath%/}/CreateTestData.txt
     echo '### 2番：入力値' >> ${filePath%/}/CreateTestData.txt
@@ -3121,6 +3267,41 @@ function func_dataSettingFile() {
     echo '' >> ${filePath%/}/CreateTestData.txt
     echo '### 項目別名情報リスト' >> ${filePath%/}/CreateTestData.txt
     echo 'list_itemsName="test1","test2","test3","test4","test5","test6","test7","test8","test9"' >> ${filePath%/}/CreateTestData.txt
+    echo '' >> ${filePath%/}/CreateTestData.txt
+    echo '### 文字コード' >> ${filePath%/}/CreateTestData.txt
+    echo 'output_data_encoding=3' >> ${filePath%/}/CreateTestData.txt
+    echo '### 0 : UTF-8' >> ${filePath%/}/CreateTestData.txt
+    echo '### 1 : EUC' >> ${filePath%/}/CreateTestData.txt
+    echo '### 2 : JIS' >> ${filePath%/}/CreateTestData.txt
+    echo '### 3 : SJIS' >> ${filePath%/}/CreateTestData.txt
+    echo '### 4 : UTF-8(BOM)' >> ${filePath%/}/CreateTestData.txt
+    echo '' >> ${filePath%/}/CreateTestData.txt
+    echo '### 改行コード' >> ${filePath%/}/CreateTestData.txt
+    echo 'output_data_newLine=2' >> ${filePath%/}/CreateTestData.txt
+    echo '### 0 : CRLF' >> ${filePath%/}/CreateTestData.txt
+    echo '### 1 : CR' >> ${filePath%/}/CreateTestData.txt
+    echo '### 2 : LF' >> ${filePath%/}/CreateTestData.txt
+    echo '' >> ${filePath%/}/CreateTestData.txt
+    echo '### 囲み文字' >> ${filePath%/}/CreateTestData.txt
+    echo 'output_data_enclosing=0' >> ${filePath%/}/CreateTestData.txt
+    echo '### 0 : ' >> ${filePath%/}/CreateTestData.txt
+    echo '### 1 : "' >> ${filePath%/}/CreateTestData.txt
+    echo "### 2 : '" >> ${filePath%/}/CreateTestData.txt
+    echo '' >> ${filePath%/}/CreateTestData.txt
+    echo '### 区切り文字' >> ${filePath%/}/CreateTestData.txt
+    echo 'output_data_delimiting=0' >> ${filePath%/}/CreateTestData.txt
+    echo '### 0 : ' >> ${filePath%/}/CreateTestData.txt
+    echo '### 1 : ,' >> ${filePath%/}/CreateTestData.txt
+    echo '### 2 : \t' >> ${filePath%/}/CreateTestData.txt
+    echo '' >> ${filePath%/}/CreateTestData.txt
+    echo '### 出力タイプ' >> ${filePath%/}/CreateTestData.txt
+    echo 'output_data_outputType=0' >> ${filePath%/}/CreateTestData.txt
+    echo '### 0 : FILE' >> ${filePath%/}/CreateTestData.txt
+    echo '### 1 : SQL' >> ${filePath%/}/CreateTestData.txt
+    echo '### 2 : .gz' >> ${filePath%/}/CreateTestData.txt
+    echo '### 3 : .Z' >> ${filePath%/}/CreateTestData.txt
+    echo '' >> ${filePath%/}/CreateTestData.txt
+
 }
 
 #--------------------------------------------#
@@ -3217,11 +3398,31 @@ do
         fi
         sleep 2
     elif [[ ${selectMenu} = 3 ]];then
-        create_data
+        if [[ -f ${filePath%/}/CreateTestData.txt ]];then
+            create_data
+        else 
+            if [[ ${ouputLanguage} = [kK][rR] ]];then
+                echo "설정 파일 없음"
+            elif [[ ${ouputLanguage} = [jJ][pP] ]];then
+                echo "構成ファイルが無し"
+            else
+                echo "No configuration file"
+            fi
+        fi
+        sleep 2
     elif [[ ${selectMenu} = 4 ]];then
-        create_output_data
-    elif [[ ${selectMenu} = 5 ]];then
-        echo
+        if [[ -f ${filePath%/}/CreateTestData.txt ]];then
+            create_output_data
+        else 
+            if [[ ${ouputLanguage} = [kK][rR] ]];then
+                echo "설정 파일 없음"
+            elif [[ ${ouputLanguage} = [jJ][pP] ]];then
+                echo "構成ファイルが無し"
+            else
+                echo "No configuration file"
+            fi
+        fi
+        sleep 2
     elif [[ ${selectMenu} = 9 ]];then
         func_scriptEnd ${ouputLanguage}
     fi

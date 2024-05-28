@@ -15,13 +15,13 @@ data_newLine=0
 ### 2 : LF
 
 ### 囲み文字
-data_enclosing=0
+data_enclosing=1
 ### 0 : 
 ### 1 : "
 ### 2 : '
 
 ### 区切り文字
-data_delimiting=2
+data_delimiting=1
 ### 0 : 
 ### 1 : ,
 ### 2 : \t
@@ -41,7 +41,7 @@ data_outputType=0
 ### 改行コード
 data_record_newLine_list="CRLF","CR","LF"
 ### CRLF : \r\n
-### CR : \r
+### CR : \r   ### MAC環境では CR改行コードの変換処理ができません。
 ### LF : \n
 
 ### エスケープ文字
@@ -101,13 +101,14 @@ list_itemsNotNull="1","1","1","1","1","1","1","1","1"
 list_itemsEncrypt="1","1","1","1","1","1","1","1","1"
 ### 0          : 項目暗号化なし
 ### 1          : 暗号化方式1
-### 2          : 暗号化方式2(暗号化方式が多数ある場合)
+### 暗号化方式別に追加機能作成必要：共通出力値：@
 
 ### 項目ハッシュ情報リスト
 list_itemsHash="1","1","0","0","0","0","0","0","0"
 ### 0          : ハッシュ化なし
 ### 1          : ハッシュ
-sampleHashData="1-9-X","6-123456-f9d8s7"
+### ハッシュ方式別に追加機能作成必要：共通出力値：&
+### sampleHashData="1-9-X","6-123456-f9d8s7"
 ### データ区分(-)
 ### 1番：桁数
 ### 2番：入力値
@@ -115,8 +116,6 @@ sampleHashData="1-9-X","6-123456-f9d8s7"
 
 ### 項目別名情報リスト
 list_itemsName="test1","test2","test3","test4","test5","test6","test7","test8","test9"
-
-
 
 ### 文字コード
 output_data_encoding=3
@@ -142,7 +141,7 @@ output_data_enclosing=0
 output_data_delimiting=0
 ### 0 : 
 ### 1 : ,
-### 2 : \t
+### 2 : 	
 
 ### 出力タイプ
 output_data_outputType=0
@@ -150,3 +149,4 @@ output_data_outputType=0
 ### 1 : SQL
 ### 2 : .gz
 ### 3 : .Z
+
