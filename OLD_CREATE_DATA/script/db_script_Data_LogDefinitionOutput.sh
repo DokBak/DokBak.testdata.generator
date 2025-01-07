@@ -5,7 +5,7 @@
 #  Shell Name  : Log Definition And Output Shell
 #
 #  Creater     : DokBak
-#  Create Date : 2024/8/30          New
+#  Create Date : 2024/09/01          New
 #  Modify Date :
 #
 #  Processing Overview : Log definition, output 
@@ -21,7 +21,7 @@
 #  쉘  이름      : 로그 정의 및 출력 쉘
 #
 #  작 성 자      : DokBak
-#  작 성 일      : 2024/8/30          신규 작성
+#  작 성 일      : 2024/09/01          신규 작성
 #  수 정 일      :
 #
 #  처리 개요      : 로그 정의 및 출력
@@ -37,7 +37,7 @@
 #  スクリプト名    : ログの定義と出力シェル
 #
 #  作成者        : DokBak
-#  作成日        : 2024/8/30          新規作成
+#  作成日        : 2024/09/01          新規作成
 #  修正日        :
 #
 #  処理概要      : ログの定義と出力
@@ -143,6 +143,28 @@ for _testNum in {1..2};do
                 _processCodeOutput="인코딩 처리"
             elif [[ ${_language} == [jJ][pP] ]];then
                 _processCodeOutput="エンコーディング処理"
+            fi
+        fi
+    elif [[ ${_scriptCode} == "62" ]];then
+        _scriptName="db_script_Data_ConfigurationCheck"
+        if [[ ${_processCode} == "01" ]];then # Shell Explanation / 쉘 설명 / シェル説明
+            if [[ ${_language} == [eE][nN] ]];then
+                _processCodeOutput="Configuration File Check"
+            elif [[ ${_language} == [kK][rR] ]];then
+                _processCodeOutput="설정 파일 체크"
+            elif [[ ${_language} == [jJ][pP] ]];then
+                _processCodeOutput="設定ファイルチェック"
+            fi
+        fi
+    elif [[ ${_scriptCode} == "63" ]];then
+        _scriptName="db_script_Data_NormalDataCreate"
+        if [[ ${_processCode} == "01" ]];then # Shell Explanation / 쉘 설명 / シェル説明
+            if [[ ${_language} == [eE][nN] ]];then
+                _processCodeOutput="Normal Data Create"
+            elif [[ ${_language} == [kK][rR] ]];then
+                _processCodeOutput="정상계 데이터 작성"
+            elif [[ ${_language} == [jJ][pP] ]];then
+                _processCodeOutput="正常系データ作成"
             fi
         fi
     fi

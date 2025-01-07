@@ -504,7 +504,7 @@ function check_data_outputName() {
     export `cat ${_settingFile} | grep data_outputName`
     export `cat ${_settingFile} | grep data_schema`
     checked_data_outputName=""
-    
+
     # 取得情報選別
     if [[ ${data_outputName} =~ YYYYMMDDhhmmss ]];then
         YYYYMMDDhhmmss=`date +"%Y%m%d%H%M%S"`
@@ -560,6 +560,13 @@ function check_data_outputName() {
         checked_data_outputName=`echo ${checked_data_outputName} | sed "s/?/0/g"`
     fi
 
+    #圧縮ファイルの場合の処理
+    if [[ ${checked_data_outputType} =~ ".gz" ]];then
+        checked_data_outputName=`echo ${checked_data_outputName} | sed "s/.gz//g"`
+    elif [[ ${checked_data_outputType} =~ ".Z" ]];then
+        checked_data_outputName=`echo ${checked_data_outputName} | sed "s/.Z//g"`
+    fi
+
     # echo "取得出力結果名：${checked_data_outputName}、取得ファイル番号：${_data_fileCounts}"
 }
 
@@ -595,10 +602,10 @@ function create_normal_record() {
         if [[ ${checked_data_multiByteCharacter} = "" ]];then
             item=${item}
         else 
-            if [[ ${_itemType} = [sS][tT][rR][iI][nN][gG] && ${_itemLength} -gt 3 && ${checked_data_encoding} =~ UTF-8 ]];then
+            if [[ ${_itemType} = [sS][tT][rR][iI][nN][gG] && ${_itemLength} -gt 3 && ${checked_output_data_encoding} =~ UTF-8 ]];then
                 item=${item}${checked_data_multiByteCharacter}
                 _itemLength=$(( ${_itemLength} - 3 ))
-            elif [[ ${_itemType} = [sS][tT][rR][iI][nN][gG] && ${_itemLength} -gt 2 && ${checked_data_encoding} =~ JIS || ${checked_data_encoding} =~ EUC ]];then
+            elif [[ ${_itemType} = [sS][tT][rR][iI][nN][gG] && ${_itemLength} -gt 2 && ${checked_output_data_encoding} =~ JIS || ${checked_output_data_encoding} =~ EUC ]];then
                 item=${item}${checked_data_multiByteCharacter}
                 _itemLength=$(( ${_itemLength} - 2 ))
             elif [[ ${_itemType} = [sS][tT][rR][iI][nN][gG] ]];then
@@ -652,8 +659,12 @@ function create_normal_record() {
     dataNumber=$(( ${dataNumber} + 1))
     dataRecordLine=$(( ${dataRecordLine} + 1))
     dataTargetItemNumber="A"
-    dataExplanation="NormalData"
-    printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%-30s\n" "#" "${dataNumber}" "#" "${dataRecordLine}" "#" "${dataTargetItemNumber}" "#" "${dataExplanation}" >> ${filePath%/}/TestData/01/CreateTestData_Explan.txt
+    if [[ ${checked_data_multiByteCharacter} = "" ]];then
+        dataExplanation="NormalData(マルチバイト無し)"
+    else 
+        dataExplanation="NormalData(マルチバイト有り)"
+    fi
+    printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%s\n" "#" "${dataNumber}" "#" "${dataRecordLine}" "#" "${dataTargetItemNumber}" "#" "${dataExplanation}" >> ${filePath%/}/TestData/01/CreateTestData_Explan.txt
 
 }
 
@@ -854,7 +865,7 @@ function create_trim_record() {
                     elif [[ ${_targetItemTrim} = BK ]];then
                         dataExplanation="後列全角スペーストリム（${_targetItemTrim}）"
                     fi
-                    printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%-30s\n" "#" "${dataNumber}" "#" "${dataRecordLine}" "#" "${dataTargetItemNumber}" "#" "${dataExplanation}" >> ${filePath%/}/TestData/01/CreateTestData_Explan.txt
+                    printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%s\n" "#" "${dataNumber}" "#" "${dataRecordLine}" "#" "${dataTargetItemNumber}" "#" "${dataExplanation}" >> ${filePath%/}/TestData/01/CreateTestData_Explan.txt
                 fi
             fi
 
@@ -1038,11 +1049,11 @@ function create_number_limit_record() {
                     dataNumber=$(( ${dataNumber} + 1))
                     dataRecordLine=$(( ${dataRecordLine} + 1))
                     if [[ ${_number_limit} = 1 ]];then
-                        dataExplanation="最大データ"
+                        dataExplanation="最大データ（${item}）"
                     elif [[ ${_number_limit} = 2 ]];then
-                        dataExplanation="最小データ"
+                        dataExplanation="最小データ（${item}）"
                     fi
-                    printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%-30s\n" "#" "${dataNumber}" "#" "${dataRecordLine}" "#" "${dataTargetItemNumber}" "#" "${dataExplanation}" >> ${filePath%/}/TestData/01/CreateTestData_Explan.txt
+                    printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%s\n" "#" "${dataNumber}" "#" "${dataRecordLine}" "#" "${dataTargetItemNumber}" "#" "${dataExplanation}" >> ${filePath%/}/TestData/01/CreateTestData_Explan.txt
                 fi
             fi
 
@@ -1226,8 +1237,8 @@ function create_not_null_record() {
                 if [[ ${itemIndex} = ${_notNullItemIndex} ]];then
                     dataNumber=$(( ${dataNumber} + 1))
                     dataRecordLine=$(( ${dataRecordLine} + 1))
-                    dataExplanation="ヌルデータ設定"
-                    printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%-30s\n" "#" "${dataNumber}" "#" "${dataRecordLine}" "#" "${dataTargetItemNumber}" "#" "${dataExplanation}" >> ${filePath%/}/TestData/01/CreateTestData_Explan.txt
+                    dataExplanation="ヌルデータ設定（null）"
+                    printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%s\n" "#" "${dataNumber}" "#" "${dataRecordLine}" "#" "${dataTargetItemNumber}" "#" "${dataExplanation}" >> ${filePath%/}/TestData/01/CreateTestData_Explan.txt
                 fi
             fi
 
@@ -1382,7 +1393,7 @@ function create_new_line_record() {
                     dataRecordLine=$(( ${dataRecordLine} + 1))
                     dataRecordLine2=$(( ${dataRecordLine} + 1))
                     dataExplanation="改行レコードデータ"
-                    printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%-30s\n" "#" "${dataNumber}" "#" "${dataRecordLine}-${dataRecordLine2}" "#" "${dataTargetItemNumber}" "#" "${dataExplanation}(${_record_newLine_item})" >> ${filePath%/}/TestData/01/CreateTestData_Explan.txt
+                    printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%s\n" "#" "${dataNumber}" "#" "${dataRecordLine}-${dataRecordLine2}" "#" "${dataTargetItemNumber}" "#" "${dataExplanation}(${_record_newLine_item})" >> ${filePath%/}/TestData/01/CreateTestData_Explan.txt
                     dataRecordLine=$(( ${dataRecordLine} + 1))
                 fi
             fi
@@ -1546,7 +1557,7 @@ function create_escape_record() {
                     dataNumber=$(( ${dataNumber} + 1))
                     dataRecordLine=$(( ${dataRecordLine} + 1))
                     dataExplanation="エスケープ文字データ"
-                    printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%-30s\n" "#" "${dataNumber}" "#" "${dataRecordLine}" "#" "${dataTargetItemNumber}" "#" "${dataExplanation}(${_escapeString})" >> ${filePath%/}/TestData/01/CreateTestData_Explan.txt
+                    printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%s\n" "#" "${dataNumber}" "#" "${dataRecordLine}" "#" "${dataTargetItemNumber}" "#" "${dataExplanation}(${_escapeString})" >> ${filePath%/}/TestData/01/CreateTestData_Explan.txt
                 fi
             fi
 
@@ -1699,7 +1710,7 @@ function create_item_encrypt_record() {
                     dataNumber=$(( ${dataNumber} + 1))
                     dataRecordLine=$(( ${dataRecordLine} + 1))
                     dataExplanation="項目暗号化設定"
-                    printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%-30s\n" "#" "${dataNumber}" "#" "${dataRecordLine}" "#" "${dataTargetItemNumber}" "#" "${dataExplanation}" >> ${filePath%/}/TestData/01/CreateTestData_Explan.txt
+                    printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%s\n" "#" "${dataNumber}" "#" "${dataRecordLine}" "#" "${dataTargetItemNumber}" "#" "${dataExplanation}" >> ${filePath%/}/TestData/01/CreateTestData_Explan.txt
                 fi
             fi
 
@@ -1842,7 +1853,7 @@ function create_item_hash_record() {
                     dataNumber=$(( ${dataNumber} + 1))
                     dataRecordLine=$(( ${dataRecordLine} + 1))
                     dataExplanation="ハッシュ化設定"
-                    printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%-30s\n" "#" "${dataNumber}" "#" "${dataRecordLine}" "#" "${dataTargetItemNumber}" "#" "${dataExplanation}" >> ${filePath%/}/TestData/01/CreateTestData_Explan.txt
+                    printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%s\n" "#" "${dataNumber}" "#" "${dataRecordLine}" "#" "${dataTargetItemNumber}" "#" "${dataExplanation}" >> ${filePath%/}/TestData/01/CreateTestData_Explan.txt
                 fi
             fi
 
@@ -1959,6 +1970,7 @@ function create_abnormal_length_record() {
                 if [[ ${_abnormalLengthItemIndex} = ${itemIndex} ]];then
                     create_date_item ${_itemType}
                     item=${item}1
+                    _itemLength=$(( ${_itemLength} + 1 ))
                     dataTargetItemNumber=${itemIndex}
                 else
                     create_date_item ${_itemType}
@@ -1972,8 +1984,8 @@ function create_abnormal_length_record() {
                 if [[ ${itemIndex} = ${_abnormalLengthItemIndex} ]];then
                     dataNumber=$(( ${dataNumber} + 1))
                     dataRecordLine=$(( ${dataRecordLine} + 1))
-                    dataExplanation="項目桁数超過データ"
-                    printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%-30s\n" "#" "${dataNumber}" "#" "${dataRecordLine}" "#" "${dataTargetItemNumber}" "#" "${dataExplanation}" >> ${filePath%/}/TestData/02/CreateTestData_Explan.txt
+                    dataExplanation="項目桁数超過データ（指定桁数：${_itemLength}）"
+                    printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%s\n" "#" "${dataNumber}" "#" "${dataRecordLine}" "#" "${dataTargetItemNumber}" "#" "${dataExplanation}" >> ${filePath%/}/TestData/02/CreateTestData_Explan.txt
                 fi
             fi
 
@@ -2074,9 +2086,9 @@ function create_less_data_record() {
             if [[ ${itemIndex} -eq 1 ]];then
                 dataNumber=$(( ${dataNumber} + 1))
                 dataRecordLine=$(( ${dataRecordLine} + 1))
-                dataExplanation="項目桁数不足データ"
+                dataExplanation="項目桁数不足データ（指定桁数：${_itemLength}）"
                 dataTargetItemNumber="-1"
-                printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%-30s\n" "#" "${dataNumber}" "#" "${dataRecordLine}" "#" "${dataTargetItemNumber}" "#" "${dataExplanation}" >> ${filePath%/}/TestData/02/CreateTestData_Explan.txt
+                printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%s\n" "#" "${dataNumber}" "#" "${dataRecordLine}" "#" "${dataTargetItemNumber}" "#" "${dataExplanation}" >> ${filePath%/}/TestData/02/CreateTestData_Explan.txt
             fi
 
             # 項目データ、囲み文字、区切り文字、改行コードから一時ファイル(文字コード設定ファイル)作成
@@ -2192,12 +2204,12 @@ function create_item_counts_check_record() {
                     dataRecordLine=$(( ${dataRecordLine} + 1))
                     if [[ ${motoItemsCount} -eq ${itemsCount} ]];then
                         dataTargetItemNumber=$((${itemsCount} + 1))
-                        dataExplanation="項目数超過($((${itemsCount} + 1)))"
+                        dataExplanation="項目数超過（出力項目数：$((${itemsCount} + 1))）"
                     else
                         dataTargetItemNumber=${itemsCount}
-                        dataExplanation="項目数不足(${itemsCount})"
+                        dataExplanation="項目数不足（出力項目数：${itemsCount}）"
                     fi
-                    printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%-30s\n" "#" "${dataNumber}" "#" "${dataRecordLine}" "#" "${dataTargetItemNumber}" "#" "${dataExplanation}" >> ${filePath%/}/TestData/02/CreateTestData_Explan.txt
+                    printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%s\n" "#" "${dataNumber}" "#" "${dataRecordLine}" "#" "${dataTargetItemNumber}" "#" "${dataExplanation}" >> ${filePath%/}/TestData/02/CreateTestData_Explan.txt
                 fi
             fi
 
@@ -2327,7 +2339,7 @@ function create_number_item_in_string_record() {
                     dataNumber=$(( ${dataNumber} + 1))
                     dataRecordLine=$(( ${dataRecordLine} + 1))
                     dataExplanation="数値項目に文字列"
-                    printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%-30s\n" "#" "${dataNumber}" "#" "${dataRecordLine}" "#" "${dataTargetItemNumber}" "#" "${dataExplanation}" >> ${filePath%/}/TestData/02/CreateTestData_Explan.txt
+                    printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%s\n" "#" "${dataNumber}" "#" "${dataRecordLine}" "#" "${dataTargetItemNumber}" "#" "${dataExplanation}" >> ${filePath%/}/TestData/02/CreateTestData_Explan.txt
                 fi
             fi
 
@@ -2400,6 +2412,7 @@ function create_data() {
     check_data_outputType ${setFilePath} data_outputType
     check_data_outputName ${setFilePath}
     check_data_multiByteCharacter ${setFilePath} jp
+    check_data_encoding ${setFilePath} output_data_encoding
 
     export `cat ${setFilePath} | grep data_escapeCode_list`
     export `cat ${setFilePath} | grep data_record_newLine_list`
@@ -2421,7 +2434,7 @@ function create_data() {
     dataRecordLine=""
     dataTargetItemNumber=""
     dataExplanation=""
-    printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%-30s\n" "#" "No" "#" "LINE" "#" "ITEM" "#" "PATTERN"> ${filePath%/}/TestData/01/CreateTestData_Explan.txt
+    printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%s\n" "#" "No" "#" "LINE" "#" "ITEM" "#" "PATTERN"> ${filePath%/}/TestData/01/CreateTestData_Explan.txt
     printf "%s\n" "######################################################################" >> ${filePath%/}/TestData/01/CreateTestData_Explan.txt
 
     ### Normal data
@@ -2470,7 +2483,7 @@ function create_data() {
     dataRecordLine=""
     dataTargetItemNumber=""
     dataExplanation=""
-    printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%-30s\n" "#" "No" "#" "LINE" "#" "ITEM" "#" "PATTERN"> ${filePath%/}/TestData/02/CreateTestData_Explan.txt
+    printf "%-3s%-10s%-3s%-10s%-3s%-10s%-3s%s\n" "#" "No" "#" "LINE" "#" "ITEM" "#" "PATTERN"> ${filePath%/}/TestData/02/CreateTestData_Explan.txt
     printf "%s\n" "######################################################################" >> ${filePath%/}/TestData/02/CreateTestData_Explan.txt
 
     ### Abnormal length data
@@ -2543,7 +2556,7 @@ function create_output_data() {
     else
         totalCase=${totalCase}
     fi
-    
+
     check_data_enclosing ${setFilePath} data_enclosing
     check_data_delimiting ${setFilePath} data_delimiting
     check_data_encoding ${setFilePath} output_data_encoding
@@ -3151,7 +3164,7 @@ function func_dataSettingFile() {
 
     echo '### テストデータ作成設定一覧' > ${filePath%/}/CreateTestData.txt
     echo '' >> ${filePath%/}/CreateTestData.txt
-    echo '### 文字コード' >> ${filePath%/}/CreateTestData.txt
+    echo '### 入力ファイル：文文字コード' >> ${filePath%/}/CreateTestData.txt
     echo 'data_encoding=0' >> ${filePath%/}/CreateTestData.txt
     echo '### 0 : UTF-8' >> ${filePath%/}/CreateTestData.txt
     echo '### 1 : EUC' >> ${filePath%/}/CreateTestData.txt
@@ -3159,55 +3172,55 @@ function func_dataSettingFile() {
     echo '### 3 : SJIS' >> ${filePath%/}/CreateTestData.txt
     echo '### 4 : UTF-8(BOM)' >> ${filePath%/}/CreateTestData.txt
     echo '' >> ${filePath%/}/CreateTestData.txt
-    echo '### 改行コード' >> ${filePath%/}/CreateTestData.txt
+    echo '### 入力ファイル：文改行コード' >> ${filePath%/}/CreateTestData.txt
     echo 'data_newLine=0' >> ${filePath%/}/CreateTestData.txt
     echo '### 0 : CRLF' >> ${filePath%/}/CreateTestData.txt
     echo '### 1 : CR' >> ${filePath%/}/CreateTestData.txt
     echo '### 2 : LF' >> ${filePath%/}/CreateTestData.txt
     echo '' >> ${filePath%/}/CreateTestData.txt
-    echo '### 囲み文字' >> ${filePath%/}/CreateTestData.txt
+    echo '### 入力ファイル：文囲み文字' >> ${filePath%/}/CreateTestData.txt
     echo 'data_enclosing=1' >> ${filePath%/}/CreateTestData.txt
     echo '### 0 : ' >> ${filePath%/}/CreateTestData.txt
     echo '### 1 : "' >> ${filePath%/}/CreateTestData.txt
     echo "### 2 : '" >> ${filePath%/}/CreateTestData.txt
     echo '' >> ${filePath%/}/CreateTestData.txt
-    echo '### 区切り文字' >> ${filePath%/}/CreateTestData.txt
+    echo '### 入力ファイル：文区切り文字' >> ${filePath%/}/CreateTestData.txt
     echo 'data_delimiting=1' >> ${filePath%/}/CreateTestData.txt
     echo '### 0 : ' >> ${filePath%/}/CreateTestData.txt
     echo '### 1 : ,' >> ${filePath%/}/CreateTestData.txt
     echo '### 2 : \\t' >> ${filePath%/}/CreateTestData.txt
     echo '' >> ${filePath%/}/CreateTestData.txt
-    echo '### マルチバイトチェックフラグ' >> ${filePath%/}/CreateTestData.txt
+    echo '### 入力ファイル：文マルチバイトチェックフラグ' >> ${filePath%/}/CreateTestData.txt
     echo 'data_multiByteCharacter=1' >> ${filePath%/}/CreateTestData.txt
     echo '### 0 : Not multiByteCharacter' >> ${filePath%/}/CreateTestData.txt
     echo '### 1 : multiByteCharacter' >> ${filePath%/}/CreateTestData.txt
     echo '' >> ${filePath%/}/CreateTestData.txt
-    echo '### 出力タイプ' >> ${filePath%/}/CreateTestData.txt
+    echo '### 入力ファイル：データタイプ' >> ${filePath%/}/CreateTestData.txt
     echo 'data_outputType=0' >> ${filePath%/}/CreateTestData.txt
     echo '### 0 : FILE' >> ${filePath%/}/CreateTestData.txt
     echo '### 1 : SQL' >> ${filePath%/}/CreateTestData.txt
     echo '### 2 : .gz' >> ${filePath%/}/CreateTestData.txt
     echo '### 3 : .Z' >> ${filePath%/}/CreateTestData.txt
     echo '' >> ${filePath%/}/CreateTestData.txt
-    echo '### 改行コード' >> ${filePath%/}/CreateTestData.txt
+    echo '### 入力ファイル：項目内改行コード' >> ${filePath%/}/CreateTestData.txt
     echo 'data_record_newLine_list="CRLF","CR","LF"' >> ${filePath%/}/CreateTestData.txt
     echo '### CRLF : \\r\\n' >> ${filePath%/}/CreateTestData.txt
     echo '### CR : \\r   ### MAC環境では CR改行コードの変換処理ができません。' >> ${filePath%/}/CreateTestData.txt
     echo '### LF : \\n' >> ${filePath%/}/CreateTestData.txt
     echo '' >> ${filePath%/}/CreateTestData.txt
-    echo '### エスケープ文字' >> ${filePath%/}/CreateTestData.txt
+    echo '### 入力ファイル：エスケープ文字' >> ${filePath%/}/CreateTestData.txt
     echo 'data_escapeCode_list="0","1","2"' >> ${filePath%/}/CreateTestData.txt
     echo "### 0 : \"" >> ${filePath%/}/CreateTestData.txt
     echo "### 1 : '" >> ${filePath%/}/CreateTestData.txt
     echo '### 2 : \(¥)' >> ${filePath%/}/CreateTestData.txt
     echo '' >> ${filePath%/}/CreateTestData.txt
-    echo '### 出力タイプ名' >> ${filePath%/}/CreateTestData.txt
+    echo '### 入力ファイル：ファイル名' >> ${filePath%/}/CreateTestData.txt
     echo 'data_outputName=createfile_YYYYMMDD.txt' >> ${filePath%/}/CreateTestData.txt
     echo '' >> ${filePath%/}/CreateTestData.txt
     echo '### SQLタイプ出力の場合、スキーマ名' >> ${filePath%/}/CreateTestData.txt
     echo 'data_schema=TEST_SCHEMA' >> ${filePath%/}/CreateTestData.txt
     echo '' >> ${filePath%/}/CreateTestData.txt
-    echo '### 項目別トリム情報リスト' >> ${filePath%/}/CreateTestData.txt
+    echo '### 項目別トリム情報リスト　⭐️（項目数分作成要）' >> ${filePath%/}/CreateTestData.txt
     echo 'list_itemsTrim="ftbkFTBK,"ftbkFTBK","ftbkFTBK","ftbkFTBK","ftbkFTBK","ftbkFTBK","ftbkFTBK","ftbkFTBK",""' >> ${filePath%/}/CreateTestData.txt
     echo '### ft       : (Front_HalfSpace)' >> ${filePath%/}/CreateTestData.txt
     echo '### bk       : (Back_HalfSpace)' >> ${filePath%/}/CreateTestData.txt
@@ -3219,7 +3232,7 @@ function func_dataSettingFile() {
     echo '### ftbkFTBK : (ALL_FullSpace)' >> ${filePath%/}/CreateTestData.txt
     echo '### Type date is only ""(NotTrim)' >> ${filePath%/}/CreateTestData.txt
     echo '' >> ${filePath%/}/CreateTestData.txt
-    echo '### 項目別タイプ情報リスト' >> ${filePath%/}/CreateTestData.txt
+    echo '### 項目別タイプ情報リスト　⭐️（項目数分作成要）' >> ${filePath%/}/CreateTestData.txt
     echo 'list_itemsType="char","string","byte","short","int","long","float","double","date:YYYYMMDD"' >> ${filePath%/}/CreateTestData.txt
     echo '### char          : (1byte string)' >> ${filePath%/}/CreateTestData.txt
     echo '### string        : (nbyte string)' >> ${filePath%/}/CreateTestData.txt
@@ -3231,7 +3244,7 @@ function func_dataSettingFile() {
     echo '### double        : (1.7 X 10-308) ~ (1.7 X 10308)' >> ${filePath%/}/CreateTestData.txt
     echo '### date:YYYYMMDD : (date:format / [format_ex] YYYYMMDD, YYYYMMDDhhmmss)' >> ${filePath%/}/CreateTestData.txt
     echo '' >> ${filePath%/}/CreateTestData.txt
-    echo '### 項目別桁数情報リスト' >> ${filePath%/}/CreateTestData.txt
+    echo '### 項目別桁数情報リスト　⭐️（項目数分作成要）' >> ${filePath%/}/CreateTestData.txt
     echo 'list_itemsLength="1","6","5","3","4","9","7.3","7.3","8"' >> ${filePath%/}/CreateTestData.txt
     echo '### char          : only 1' >> ${filePath%/}/CreateTestData.txt
     echo '### string        : n' >> ${filePath%/}/CreateTestData.txt
@@ -3243,18 +3256,18 @@ function func_dataSettingFile() {
     echo '### double        : max 308' >> ${filePath%/}/CreateTestData.txt
     echo '### date:YYYYMMDD : max 14' >> ${filePath%/}/CreateTestData.txt
     echo '' >> ${filePath%/}/CreateTestData.txt
-    echo '### 項目別ヌル情報リスト' >> ${filePath%/}/CreateTestData.txt
+    echo '### 項目別ヌル情報リスト　⭐️（項目数分作成要）' >> ${filePath%/}/CreateTestData.txt
     echo 'list_itemsNotNull="1","1","1","1","1","1","1","1","1"' >> ${filePath%/}/CreateTestData.txt
     echo '### 0 : Not Null ' >> ${filePath%/}/CreateTestData.txt
     echo '### 1 : Null Allow' >> ${filePath%/}/CreateTestData.txt
     echo '' >> ${filePath%/}/CreateTestData.txt
-    echo '### 項目暗号化情報リスト' >> ${filePath%/}/CreateTestData.txt
+    echo '### 項目暗号化情報リスト　⭐️（項目数分作成要）' >> ${filePath%/}/CreateTestData.txt
     echo 'list_itemsEncrypt="1","1","1","1","1","1","1","1","1"' >> ${filePath%/}/CreateTestData.txt
     echo '### 0          : 項目暗号化なし' >> ${filePath%/}/CreateTestData.txt
     echo '### 1          : 暗号化方式1' >> ${filePath%/}/CreateTestData.txt
     echo '### 暗号化方式別に追加機能作成必要：共通出力値：@' >> ${filePath%/}/CreateTestData.txt
     echo '' >> ${filePath%/}/CreateTestData.txt
-    echo '### 項目ハッシュ情報リスト' >> ${filePath%/}/CreateTestData.txt
+    echo '### 項目ハッシュ情報リスト　⭐️（項目数分作成要）' >> ${filePath%/}/CreateTestData.txt
     echo 'list_itemsHash="1","1","0","0","0","0","0","0","0"' >> ${filePath%/}/CreateTestData.txt
     echo '### 0          : ハッシュ化なし' >> ${filePath%/}/CreateTestData.txt
     echo '### 1          : ハッシュ' >> ${filePath%/}/CreateTestData.txt
@@ -3265,10 +3278,10 @@ function func_dataSettingFile() {
     echo '### 2番：入力値' >> ${filePath%/}/CreateTestData.txt
     echo '### 3番：ハッシュ化値' >> ${filePath%/}/CreateTestData.txt
     echo '' >> ${filePath%/}/CreateTestData.txt
-    echo '### 項目別名情報リスト' >> ${filePath%/}/CreateTestData.txt
+    echo '### 項目別名情報リスト　⭐️（項目数分作成要）' >> ${filePath%/}/CreateTestData.txt
     echo 'list_itemsName="test1","test2","test3","test4","test5","test6","test7","test8","test9"' >> ${filePath%/}/CreateTestData.txt
     echo '' >> ${filePath%/}/CreateTestData.txt
-    echo '### 文字コード' >> ${filePath%/}/CreateTestData.txt
+    echo '### 出力ファイル：文字コード' >> ${filePath%/}/CreateTestData.txt
     echo 'output_data_encoding=3' >> ${filePath%/}/CreateTestData.txt
     echo '### 0 : UTF-8' >> ${filePath%/}/CreateTestData.txt
     echo '### 1 : EUC' >> ${filePath%/}/CreateTestData.txt
@@ -3276,25 +3289,25 @@ function func_dataSettingFile() {
     echo '### 3 : SJIS' >> ${filePath%/}/CreateTestData.txt
     echo '### 4 : UTF-8(BOM)' >> ${filePath%/}/CreateTestData.txt
     echo '' >> ${filePath%/}/CreateTestData.txt
-    echo '### 改行コード' >> ${filePath%/}/CreateTestData.txt
+    echo '### 出力ファイル：改行コード' >> ${filePath%/}/CreateTestData.txt
     echo 'output_data_newLine=2' >> ${filePath%/}/CreateTestData.txt
     echo '### 0 : CRLF' >> ${filePath%/}/CreateTestData.txt
     echo '### 1 : CR' >> ${filePath%/}/CreateTestData.txt
     echo '### 2 : LF' >> ${filePath%/}/CreateTestData.txt
     echo '' >> ${filePath%/}/CreateTestData.txt
-    echo '### 囲み文字' >> ${filePath%/}/CreateTestData.txt
+    echo '### 出力ファイル：囲み文字' >> ${filePath%/}/CreateTestData.txt
     echo 'output_data_enclosing=0' >> ${filePath%/}/CreateTestData.txt
     echo '### 0 : ' >> ${filePath%/}/CreateTestData.txt
     echo '### 1 : "' >> ${filePath%/}/CreateTestData.txt
     echo "### 2 : '" >> ${filePath%/}/CreateTestData.txt
     echo '' >> ${filePath%/}/CreateTestData.txt
-    echo '### 区切り文字' >> ${filePath%/}/CreateTestData.txt
+    echo '### 出力ファイル：区切り文字' >> ${filePath%/}/CreateTestData.txt
     echo 'output_data_delimiting=0' >> ${filePath%/}/CreateTestData.txt
     echo '### 0 : ' >> ${filePath%/}/CreateTestData.txt
     echo '### 1 : ,' >> ${filePath%/}/CreateTestData.txt
     echo '### 2 : \t' >> ${filePath%/}/CreateTestData.txt
     echo '' >> ${filePath%/}/CreateTestData.txt
-    echo '### 出力タイプ' >> ${filePath%/}/CreateTestData.txt
+    echo '### 出力ファイル：データタイプ' >> ${filePath%/}/CreateTestData.txt
     echo 'output_data_outputType=0' >> ${filePath%/}/CreateTestData.txt
     echo '### 0 : FILE' >> ${filePath%/}/CreateTestData.txt
     echo '### 1 : SQL' >> ${filePath%/}/CreateTestData.txt

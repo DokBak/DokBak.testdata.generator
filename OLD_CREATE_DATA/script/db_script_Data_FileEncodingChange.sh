@@ -5,23 +5,23 @@
 #  Shell Name  : File Encoding Change Shell
 #
 #  Creater     : DokBak
-#  Create Date : 2024/8/30          New
+#  Create Date : 2024/09/01          New
 #  Modify Date :
 #
 #  Processing Overview : Modify the file encoding of the target file
 #
 #  Parameter   :
 #     Parameter1  (Essential) : Setting　file　path
-#     Parameter1  (Essential) : File path of the file to be modified
-#     Parameter1  (Essential) : Preservation of the original file flag(0:Preservation,1:Delete)
-#     Parameter2  (optional ) : Language
+#     Parameter2  (Essential) : File path of the file to be modified
+#     Parameter3  (Essential) : Preservation of the original file flag(0:Preservation,1:Delete)
+#     Parameter4  (optional ) : Language
 #
 ###################################################################################
 #
 #  쉘  이름      : 파일 인코딩 변경 쉘
 #
 #  작 성 자      : DokBak
-#  작 성 일      : 2024/8/30          신규 작성
+#  작 성 일      : 2024/09/01          신규 작성
 #  수 정 일      :
 #
 #  처리 개요      : 대상 파일의 파일 인코딩 수정
@@ -37,16 +37,16 @@
 #  スクリプト名    : ファイルエンコーディング変更シェル
 #
 #  作成者        : DokBak
-#  作成日        : 2024/8/30          新規作成
+#  作成日        : 2024/09/01          新規作成
 #  修正日        :
 #
 #  処理概要      : 対象ファイルのファイルエンコーディングを修正
 #
 #  パラメータ     :
 #     パラメータ1  (必須) : 設定ファイル格納パス
-#     パラメータ1  (必須) : 修正対象ファイルのパス
-#     パラメータ1  (必須) : 元ファイルの保存フラグ(0:保存,1:削除)
-#     パラメータ2  (任意) : 言語
+#     パラメータ2  (必須) : 修正対象ファイルのパス
+#     パラメータ3  (必須) : 元ファイルの保存フラグ(0:保存,1:削除)
+#     パラメータ4  (任意) : 言語
 # 
 ###################################################################################
 
@@ -141,7 +141,16 @@ if [[ ${_endFlg} == [0] ]];then
             echo "`date +%Y/%m/%d-%H:%M:%S` [${_processId}] ${_settingFilePath} : 設定ファイル有り" >> ${_logFilePath}${_logFile}
         fi
 
-        for TargetItem in {inputDataEncoding,inputDataFileName,inputDataType,outputDataEncoding,outputDataFileName,outputDataType};do
+        requiredItems=(
+            "inputDataEncoding"
+            "inputDataType"
+            "inputDataFileName"
+            "outputDataEncoding"
+            "outputDataType"
+            "outputDataFileName"
+        )
+
+        for TargetItem in "${requiredItems[@]}";do
             checkItem=""
             checkItem=`cat ${_settingFilePath} | grep ${TargetItem}`
             if [[ ${checkItem} == "" ]];then
