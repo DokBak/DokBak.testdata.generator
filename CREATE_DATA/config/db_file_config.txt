@@ -1,0 +1,29 @@
+#出力ファイル名関連
+FILE_NAME="testFile001"
+  ##説明：出力ファイル名を記載
+FILE_EXTENSION=".csv"
+  ##説明：出力ファイルの拡張子を指定
+  ##設定可能値："", ".csv", ".tsv", ".txt" 
+FILE_COMPRESSION=".gz"
+  ##説明：出力ファイルの圧縮有無を指定
+  ##設定可能値："", ".gz", ".zip", ".Z", ".tar", ".7z"
+FILE_CHARSET="UTF-8"
+  ##説明：出力ファイルの文字コード
+  ##設定可能値："UTF-8", "UTF-16", "EUC-JP", "SJIS", "CP932" "EUC-KR"
+  ##　※UTF-16で設定時、UTF-16 BE (BOM) で表示
+  ##　※CP932で設定時、SJISと同じ表示、文字化けされる漢字まで出力可能
+FILE_LINE_BREAK="LF"
+  ##説明：出力ファイルの改行コード
+  ##設定可能値："CRLF", "LF"
+
+#データ項目の関連
+FILE_FIELD_SEPARATOR="COMMA"
+  ##説明：項目の区切り文字
+  ##設定可能値："", "COMMA", "TAB"
+FILE_ENCLOSING_CHAR="DOUBLE_QUOTE"
+  ##説明：項目の囲み文字
+  ##設定可能値："", "DOUBLE_QUOTE", "SINGLE_QUOTE"
+
+#データ件数関連
+ROW_COUNTS="2"
+  ##説明：正常系のノーマルデータ件数を指定

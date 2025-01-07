@@ -1,0 +1,37 @@
+・ 作成日：2024/12/12
+
+・ 開発環境：Mac OS Sonma 14.4.1
+
+・ 使用シェル確認コマンド：echo $SHELL
+　  結果例1(Bashシェル)：/bin/bash
+　  結果例2(Zshシェル)：/bin/zsh
+
+・ 使用可能なシェル確認コマンド：cat /etc/shells
+　  結果例：/bin/csh
+         /bin/dash
+         /bin/ksh
+         /bin/sh
+         /bin/tcsh
+         /bin/zsh
+
+・ 基本シェル変更コマンド
+　  コマンド1(Bashシェル選択)：chsh -s /bin/bash
+　  コマンド2(Zshシェル選択) ：chsh -s /bin/zsh
+
+・ 使用シェル変更コマンド
+　  コマンド1(Bashシェル使用時)：bash
+　  コマンド2(Zshシェル使用時) ：zsh
+　　
+・ 使用シェルバージョン確認コマンド
+　  コマンド1(Bashシェルバージョン)：bash --version (Update前：GNU bash, version 3.2.57(1)-release (x86_64-apple-darwin23))
+　  コマンド2(Zshシェルバージョン) ：zsh --version  (Update前：zsh 5.9 (x86_64-apple-darwin23.0))
+
+・ シェルバージョンアップコマンド
+　  コマンド1(Bashシェルバージョンアップ)：brew install bash
+　  コマンド2(Zshシェルバージョンアップ) ：brew install zsh
+
+・ 使用シェルバージョン確認コマンド
+　  コマンド1(Bashシェルバージョン)：bash --version (Update後：GNU bash, version 5.2.37(1)-release (x86_64-apple-darwin23.4.0))
+　  コマンド2(Zshシェルバージョン) ：zsh --version  (Update後：zsh 5.9 (x86_64-apple-darwin23.0.0))
+
+

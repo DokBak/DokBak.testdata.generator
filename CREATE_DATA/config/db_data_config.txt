@@ -1,0 +1,28 @@
+#項目情報関連
+COLUMN_COUNTS="10"
+  ##説明：出力する項目数を指定
+COLUMN_DATA_TYPE="char","string","byte","short","int","long","float","double","boolean","date"
+  ##説明：各項目のデータタイプを指定
+COLUMN_DATA_LENGTH="1","100","2","3","4","5","4.3","11.4","1","YYYYMMDDhhmmss"
+  ##説明：各項目の桁数を指定。実数の場合、整数部桁数.小数部桁数に構成。日付は出力形式記載
+
+#日付関連
+DATE_SEPARATOR="/"
+  ##説明：日付の区分文字
+  ##設定可能値："/", "-", " "
+TIME_SEPARATOR=":"
+  ##説明：時間の区分文字
+  ##設定可能値：":", " "
+DATE_TIME_SEPARATOR=" "
+  ##説明：日付と時間の間の文字
+  ##設定可能値："", " "
+REFERENCE_DATE="2024/12/31"
+  ##説明：固定日付を設定する場合指定　※DATE_SEPARATORは"/"に固定
+  ##設定可能値："YYYY/MM/DD" 
+
+#文字列関連
+CASE_MODE=" "
+  ##説明：文字列データを作成する時、大文字、小文字、混在タイプを指定
+  ##設定可能値："UPPER", "LOWER", " "
+
+
