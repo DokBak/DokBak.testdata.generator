@@ -1,16 +1,16 @@
 #DB共通
-DBMS_NAME="PostgreSQL"
+DBMS_NAME="MySQL"
   ##説明：作成するDBMS種類を指定
   ##設定可能値(RDBMS)："MySQL", "MariaDB", "PostgreSQL", "SQLite", "Oracle", "Microsoft_SQL_Server"
   ##設定可能値(NoSQL DBMS)："MongoDB", "DynamoDB"
 DATABASE_NAME="testdatabase"
   ##説明：データベース名
-DATABASE_CHARACTER_SET="UTF8"
+DATABASE_CHARACTER_SET="utf8mb4"
   ##説明：データベースの文字コード
   ##設定可能値(MySQL))："utf8mb4", "utf8", "sjis", "euckr"
   ##　※utf8mb4の"mb4"は絵文字などの特殊文字の許容
   ##設定可能値(PostgreSQL))："UTF8", "SJIS"
-DATABASE_COLLATE="C"
+DATABASE_COLLATE="utf8mb4_unicode_ci"
   ##説明：文字データの並び順と比較方法を決定する設定
   ##設定可能値(MySQL)："utf8mb4_unicode_ci", "utf8mb4_general_ci", "utf8mb4_bin"
   ##　※"unicode"は国際的な並び順ルールに従う
@@ -25,10 +25,10 @@ DATABASE_PASSWORD="TESTpw01#"
 DATABASE_USERRIGHT="ALL PRIVILEGES"
   ##説明：データベースに接続するユーザ名のパスワード
   ##設定可能値(MySQL)："ALL PRIVILEGES"(全権限), "SELECT,INSERT,UPDATE,DELETE,CREATE,DROP"
-  ##設定可能値(MySQL)："Superuser"(全権限), "Createrole,CreateDB,Replication,BypassRLS"
+  ##設定可能値(PostgreSQL)："Superuser"(全権限), "Createrole,CreateDB,Replication,BypassRLS"
 DATABASE_TABLENAME="*"
   ##説明：データベースに接続するユーザ名のパスワード
-  ##設定可能値(MySQL)："*"(全テーブル), "指定したいテーブル名"
+  ##設定可能値(MySQL)："*"(全テーブル), "指定したいテーブル名:${SET_TABLENAME}"
 SET_TABLENAME="test_table"
   ##説明：作成するテーブル名
 FOREIGN_TABLENAME="foreign_table"
@@ -46,7 +46,7 @@ COLUMN_COMMENT="CMT1","CMT2","CMT3","CMT4","CMT5","CMT6","CMT7","CMT8","CMT9","C
 ## MYSQL/MARIADB関連
 SQL_SET_HOST="%"
   ##説明：接続ホスト
-  ##設定可能値(MySQL)："", "localhost", "127.0.0.1", "指定ホスト", "%"(全てのIPからの接続を許可)
+  ##設定可能値(MySQL)："localhost", "127.0.0.1", "指定ホスト", "%"(全てのIPからの接続を許可)
 
 ## PostgreSQL関連
 POSTGRESQL_TEMPLATE="template1"
@@ -57,4 +57,4 @@ POSTGRESQL_CONNECTION_LIMIT="-1"
   ##設定可能値(PostgreSQL))："-1", "1以上の値"
 POSTGRESQL_ALLOW_CONNECTIONS="true"
   ##説明：データベースの接続許可
-  ##設定可能値(PostgreSQL))："true", "true"
+  ##設定可能値(PostgreSQL))："true", "false"

@@ -62,10 +62,10 @@ case "${DBMS_NAME}" in
         echo "" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
 
         echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--ユーザ権限設定" >> ${LOG_DIR}/data_generator.log
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  GRANT '${DATABASE_USERRIGHT}' ON '${DATABASE_NAME}'.'${DATABASE_TABLENAME}' TO '${DATABASE_USERNAME}'@'${SQL_SET_HOST}';" >> ${LOG_DIR}/data_generator.log
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  GRANT ${DATABASE_USERRIGHT} ON ${DATABASE_NAME}.${DATABASE_TABLENAME} TO '${DATABASE_USERNAME}'@'${SQL_SET_HOST}';" >> ${LOG_DIR}/data_generator.log
         echo "--ユーザ権限設定" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "GRANT '${DATABASE_USERRIGHT}' " >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "  ON '${DATABASE_NAME}'.'${DATABASE_TABLENAME}' " >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+        echo "GRANT ${DATABASE_USERRIGHT} " >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+        echo "  ON ${DATABASE_NAME}.${DATABASE_TABLENAME} " >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
         echo "  TO '${DATABASE_USERNAME}'@'${SQL_SET_HOST}';" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
         echo "" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
 
@@ -82,10 +82,10 @@ case "${DBMS_NAME}" in
         echo "" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
 
         echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--ユーザ権限取り消し" >> ${LOG_DIR}/data_generator.log
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  REVOKE '${DATABASE_USERRIGHT}' ON '${DATABASE_NAME}'.'${DATABASE_TABLENAME}' FROM '${DATABASE_USERNAME}'@'${SQL_SET_HOST}';" >> ${LOG_DIR}/data_generator.log
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  REVOKE ${DATABASE_USERRIGHT} ON ${DATABASE_NAME}.${DATABASE_TABLENAME} FROM '${DATABASE_USERNAME}'@'${SQL_SET_HOST}';" >> ${LOG_DIR}/data_generator.log
         echo "--ユーザ権限限取り消し" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "REVOKE '${DATABASE_USERRIGHT}' " >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "  ON '${DATABASE_NAME}'.'${DATABASE_TABLENAME}' " >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+        echo "REVOKE ${DATABASE_USERRIGHT} " >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+        echo "  ON ${DATABASE_NAME}.${DATABASE_TABLENAME} " >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
         echo "  FROM '${DATABASE_USERNAME}'@'${SQL_SET_HOST}';" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
         echo "" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
 
@@ -315,8 +315,6 @@ case "${DBMS_NAME}" in
         echo "" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
         
         ;;
-
-        
 
     "PostgreSQL")
         # 作成対象のファイルが既に存在する場合、バックアップ処理

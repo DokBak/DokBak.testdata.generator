@@ -76,12 +76,47 @@ logCode List
     [230107]エラー: FILE_FIELD_SEPARATORは '', 'COMMA', 'TAP' のいずれかで指定してください。
     [230108]エラー: FILE_ENCLOSING_CHAR '', 'DOUBLE_QUOTE', 'SINGLE_QUOTE' のいずれかで指定してください。
     [230109]エラー: ROW_COUNTSを1以上の値に指定してください。"
-    [230110]ワーニング: FILE_EXTENSIONが '.csv' の場合、FILE_FIELD_SEPARATORは 'COMMA' に指定してください。
-    [230111]ワーニング: FILE_EXTENSIONが '.tsv' の場合、FILE_FIELD_SEPARATORは 'TAB' に指定してください。
+    [230201]ワーニング: FILE_EXTENSIONが '.csv' の場合、FILE_FIELD_SEPARATORは 'COMMA' に指定してください。
+    [230202]ワーニング: FILE_EXTENSIONが '.tsv' の場合、FILE_FIELD_SEPARATORは 'TAB' に指定してください。
 
 [24]db_check_sql_validate_config.sh
     [240001]設定ファイルの内容問題なし。
+    [240101]エラー: 設定ファイル ${_config_file} が存在しません。
+    [240102]エラー: '${DBMS_NAME}' は許可されていない値です。
+    [240103]エラー: 'DATABASE_NAME' は空白の値を指定できません。
+    [240104]エラー: '${DATABASE_CHARACTER_SET}' は${DBMS_NAME}で許可されている文字セットではありません。
+    [240105]エラー: '${DATABASE_CHARACTER_SET}' は${DBMS_NAME}で許可されている文字セットではありません。
+    [240106]エラー: '${DBMS_NAME}' はサポートされていないDBMSです。
+    [240107]エラー: '${DATABASE_COLLATE}' は${DBMS_NAME}で許可されている文字セットではありません。
+    [240108]エラー: '${DATABASE_COLLATE}' は${DBMS_NAME}で許可されている文字セットではありません。
+    [240109]エラー: '${DBMS_NAME}' はサポートされていないDBMSです。
+    [240110]エラー: 'DATABASE_USERNAME' は空白の値を指定できません。
+    [240111]エラー: 'DATABASE_PASSWORD' は空白の値を指定できません。
+    [240112]エラー: 'ALL PRIVILEGES' が指定されている場合、他の権限を指定することはできません。
+    [240113]エラー: '${right}' は${DBMS_NAME}で許可されている権限ではありません。
+    [240114]エラー: '${DBMS_NAME}' はサポートされていないDBMSです。
+    [240115]エラー: 'SET_TABLENAME' は空白の値を指定できません。
+    [240116]エラー: 'DATABASE_TABLENAME' は '*' または '\${SET_TABLENAME}' (${SET_TABLENAME}) のいずれかでなければなりません。
+    [240117]エラー: COLUMN_DATA_NAME の項目数 (${#DATA_NAMES[@]}) が COLUMN_COUNTS (${COLUMN_COUNTS}) と一致しません。
+    [240118]エラー: COLUMN_PRIMARY_KEY の項目数 (${#PRIMARY_KEYS}) が COLUMN_COUNTS (${COLUMN_COUNTS}) と一致しません。
+    [240119]エラー: COLUMN_UNIQUE_KEY の項目数 (${#UNIQUE_KEYS}) が COLUMN_COUNTS (${COLUMN_COUNTS}) と一致しません。
+    [240120]エラー: COLUMN_FOREIGN_KEY の項目数 (${#FOREIGN_KEYS}) が COLUMN_COUNTS (${COLUMN_COUNTS}) と一致しません。
+    [240121]エラー: COLUMN_INDEX_KEY の項目数 (${#INDEX_KEYS}) が COLUMN_COUNTS (${COLUMN_COUNTS}) と一致しません。
+    [240122]エラー: COLUMN_NOT_NULL の項目数 (${#NOT_NULLS}) が COLUMN_COUNTS (${COLUMN_COUNTS}) と一致しません。
+    [240123]エラー: COLUMN_AUTO_INCREMENT の項目数 (${#AUTO_INCREMENTS}) が COLUMN_COUNTS (${COLUMN_COUNTS}) と一致しません。
+    [240124]エラー: COLUMN_DEFAULT_VALUE の項目数 (${#DEFAULT_VALUES}) が COLUMN_COUNTS (${COLUMN_COUNTS}) と一致しません。
+    [240125]エラー: COLUMN_COMMENT の項目数 (${#COMMENTS}) が COLUMN_COUNTS (${COLUMN_COUNTS}) と一致しません。
+    [240126]エラー: COLUMN_FOREIGN_KEY に 'true' が1つ以上含まれている場合、FOREIGN_TABLENAME の値を指定する必要があります。
+    [240127]エラー: '${SQL_SET_HOST}' は無効なIPアドレスです。
+    [240128]エラー: '${SQL_SET_HOST}' は許可されていない値です。
+    [240129]エラー: '${POSTGRESQL_TEMPLATE}' は許可されていない値です。
+    [240130]エラー: 'template1' を使用する場合、DATABASE_COLLATE は 'C' のみ許可されます。
+    [240131]エラー: '${POSTGRESQL_CONNECTION_LIMIT}' は -1 または 1以上の値でなければなりません。
+    [240132]エラー: '${POSTGRESQL_ALLOW_CONNECTIONS}' は許可されていない値です。
 
+    [240201]ワーニング: PRIMARY KEY として設定されている '${COLUMN_DATA_NAME[i]}' は NOT NULL としても設定されています。
+    [240202]ワーニング: PRIMARY KEY として設定されている '${COLUMN_UNIQUE_KEY[i]}' は UNIQUE KEY としても設定されています。
+    [240203]ワーニング: PRIMARY KEY として設定されている '${COLUMN_INDEX_KEY[i]}' は INDEX KEY としても設定されています。
 
 
 [41]db_assemble_normal_data.sh
@@ -132,4 +167,5 @@ logCode List
 
 {00}正常終了
 {01}異常終了
+{02}WARN
 (01~99)格ログ

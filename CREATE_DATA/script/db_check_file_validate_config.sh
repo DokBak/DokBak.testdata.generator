@@ -114,10 +114,10 @@ fi
 
 # FILE_EXTENSION と FILE_FIELD_SEPARATOR の関係を確認
 if [[ "${FILE_EXTENSION}" == ".csv" && "${FILE_FIELD_SEPARATOR}" != "COMMA" ]]; then
-    echo "[230110]ワーニング: FILE_EXTENSIONが '.csv' の場合、FILE_FIELD_SEPARATORは 'COMMA' に指定してください。"
+    echo "[230201]ワーニング: FILE_EXTENSIONが '.csv' の場合、FILE_FIELD_SEPARATORは 'COMMA' に指定してください。"
     echo "$(date '+%Y/%m/%d %H:%M:%S') [WARN]  [$(basename $0)] [230110]ワーニング: FILE_EXTENSIONが '.csv' の場合、FILE_FIELD_SEPARATORは 'COMMA' に指定してください。" >> ${LOG_DIR}/data_generator.log
 elif [[ "${FILE_EXTENSION}" == ".tsv" && "${FILE_FIELD_SEPARATOR}" != "TAB" ]]; then
-    echo "[230111]ワーニング: FILE_EXTENSIONが '.tsv' の場合、FILE_FIELD_SEPARATORは 'TAB' に指定してください。"
+    echo "[230202]ワーニング: FILE_EXTENSIONが '.tsv' の場合、FILE_FIELD_SEPARATORは 'TAB' に指定してください。"
     echo "$(date '+%Y/%m/%d %H:%M:%S') [WARN]  [$(basename $0)] [230111]ワーニング: FILE_EXTENSIONが '.tsv' の場合、FILE_FIELD_SEPARATORは 'TAB' に指定してください。" >> ${LOG_DIR}/data_generator.log
 fi
 
