@@ -37,7 +37,7 @@ export SQLS_DIR="${_parent_dir}/output/sqls"
 export LOG_DIR="${_parent_dir}/output/log"
 
 # ログファイルが存在する場合、既存ログファイルバックアップ
-if [ -f "${LOG_DIR}/data_generator.log" ]; then
+if [[ -f "${LOG_DIR}/data_generator.log" ]]; then
     mv "${LOG_DIR}/data_generator.log" "${LOG_DIR}/data_generator_"$(date '+%Y%m%d%H%M%S')".log"
 fi
 
@@ -45,7 +45,7 @@ echo "$(date '+%Y/%m/%d %H:%M:%S') [INFO]  [$(basename $0)] START" >> ${LOG_DIR}
 
 # 必要なスクリプトと設定ファイルの存在をチェック
 bash "${SCRIPT_DIR}/db_check_files_exist.sh"
-if [ $? -ne 0 ]; then
+if [[ $? -ne 0 ]]; then
     echo "[910101]エラー: 必要なスクリプトまたは設定ファイルが不足しています。処理を中断します。"
     echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [910101]エラー: 必要なスクリプトまたは設定ファイルが不足しています。処理を中断します。" >> ${LOG_DIR}/data_generator.log
     exit 1
@@ -169,6 +169,7 @@ export DATABASE_USERNAME=""
 export DATABASE_PASSWORD=""
 export DATABASE_USERRIGHT=""
 export DATABASE_TABLENAME=""
+export SET_SCHEMA=""
 export SET_TABLENAME=""
 export FOREIGN_TABLENAME=""
 export COLUMN_DATA_NAME=""
@@ -210,6 +211,9 @@ while IFS="=" read -r _key _value; do
             ;;
         DATABASE_PASSWORD)
             DATABASE_PASSWORD="${_value//\"/}"
+            ;;
+        SET_SCHEMA)
+            SET_SCHEMA="${_value//\"/}"
             ;;
         SET_TABLENAME)
             SET_TABLENAME="${_value//\"/}"
@@ -268,6 +272,7 @@ echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] DATABASE_USERNAME=${
 echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] DATABASE_PASSWORD=${DATABASE_PASSWORD}" >> ${LOG_DIR}/data_generator.log
 echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] DATABASE_USERRIGHT=${DATABASE_USERRIGHT}" >> ${LOG_DIR}/data_generator.log
 echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] DATABASE_TABLENAME=${DATABASE_TABLENAME}" >> ${LOG_DIR}/data_generator.log
+echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SET_SCHEMA=${SET_SCHEMA}" >> ${LOG_DIR}/data_generator.log
 echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SET_TABLENAME=${SET_TABLENAME}" >> ${LOG_DIR}/data_generator.log
 echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] FOREIGN_TABLENAME=${FOREIGN_TABLENAME}" >> ${LOG_DIR}/data_generator.log
 echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] COLUMN_DATA_NAME=${COLUMN_DATA_NAME}" >> ${LOG_DIR}/data_generator.log
@@ -286,7 +291,7 @@ echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] POSTGRESQL_ALLOW_CON
 
 # 設定ファイルの内容を検証
 bash "${SCRIPT_DIR}/db_check_data_validate_config.sh"
-if [ $? -ne 0 ]; then
+if [[ $? -ne 0 ]]; then
     echo "[910102]エラー: 設定ファイルの検証中に問題が発生しました。処理を中断します。"
     echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [910102]エラー: 設定ファイルの検証中に問題が発生しました。処理を中断します。" >> ${LOG_DIR}/data_generator.log
     exit 1
@@ -295,7 +300,7 @@ echo
 
 # 設定ファイルの内容を検証
 bash "${SCRIPT_DIR}/db_check_file_validate_config.sh"
-if [ $? -ne 0 ]; then
+if [[ $? -ne 0 ]]; then
     echo "[910103]エラー: 設定ファイルの検証中に問題が発生しました。処理を中断します。"
     echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [910103]エラー: 設定ファイルの検証中に問題が発生しました。処理を中断します。" >> ${LOG_DIR}/data_generator.log
     exit 1
@@ -304,7 +309,7 @@ echo
 
 # 設定ファイルの内容を検証
 bash "${SCRIPT_DIR}/db_check_sql_validate_config.sh"
-if [ $? -ne 0 ]; then
+if [[ $? -ne 0 ]]; then
     echo "[910104]エラー: 設定ファイルの検証中に問題が発生しました。処理を中断します。"
     echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [910104]エラー: 設定ファイルの検証中に問題が発生しました。処理を中断します。" >> ${LOG_DIR}/data_generator.log
     exit 1
@@ -317,54 +322,54 @@ if [[ -f "${FILES_DIR}/${FILE_NAME}${FILE_EXTENSION}" ]];then
 fi
 
 for ((_i=1; _i<=${ROW_COUNTS}; _i++)); do
-    if [ ${ROW_COUNTS} -ne 1 ];then
+    if [[ ${ROW_COUNTS} -ne 1 ]];then
         echo "これは ${_i} 回目の処理です。"
         echo "$(date '+%Y/%m/%d %H:%M:%S') [INFO]  [$(basename $0)] これは ${_i} 回目の処理です。" >> ${LOG_DIR}/data_generator.log
     fi
 
-    echo "ノーマルデータ生成シェル作成中..."
+    echo "  ノーマルデータ生成シェル作成中..."
     # ノーマルのフル桁のデータ作成
     _gen_data=$(bash "${SCRIPT_DIR}/db_assemble_normal_data.sh")
-    if [ $? -ne 0 ]; then
+    if [[ $? -ne 0 ]]; then
         echo "[910105]エラー: データ作成中に問題が発生しました。処理を中断します。"
         echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [910105]エラー: データ作成中に問題が発生しました。処理を中断します。" >> ${LOG_DIR}/data_generator.log
         exit 1
     # _gen_data の値が空の場合エラー
-    elif [ -z "${_gen_data}" ]; then
+    elif [[ -z "${_gen_data}" ]]; then
         echo "[910106]エラー: 空の変数。db_assemble_normal_data.sh処理中に問題が発生しました。"
         echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [910106]エラー: 空の変数。db_assemble_normal_data.sh処理中に問題が発生しました。" >> ${LOG_DIR}/data_generator.log
         exit 1
     else
-        echo "ノーマルデータ作成完了"
+        echo "  ノーマルデータ作成完了"
     fi
     echo
 
-    echo "データフォーマット変更中..."
+    echo "  データフォーマット変更中..."
     # データフォーマット変更
     _formatted_data=$(bash "${SCRIPT_DIR}/db_output_record_format.sh" "${_gen_data}")
-    if [ $? -ne 0 ]; then
+    if [[ $? -ne 0 ]]; then
         echo "[910107]エラー: データフォーマット変更中に問題が発生しました。処理を中断します。"
         echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [910107]エラー: データフォーマット変更中に問題が発生しました。処理を中断します。" >> ${LOG_DIR}/data_generator.log
         exit 1
     # _formatted_data の値が空の場合エラー
-    elif [ -z "${_formatted_data}" ]; then
+    elif [[ -z "${_formatted_data}" ]]; then
         echo "[910108]エラー: 空の変数。db_output_record_format.sh処理中に問題が発生しました。"
         echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [910108]エラー: 空の変数。db_output_record_format.sh処理中に問題が発生しました。" >> ${LOG_DIR}/data_generator.log
         exit 1
     else
-        echo "データフォーマット変更完了"
+        echo "  データフォーマット変更完了"
     fi
     echo
 
-    echo "出力ファイルフォーマット変更中..."
+    echo "  出力ファイルフォーマット変更中..."
     # 出力ファイルフォーマット変更
     bash "${SCRIPT_DIR}/db_output_file_format.sh" ${_formatted_data}
-    if [ $? -ne 0 ]; then
+    if [[ $? -ne 0 ]]; then
         echo "[910109]エラー: 出力ファイルフォーマット変更中に問題が発生しました。処理を中断します。"
         echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [910109]エラー: 出力ファイルフォーマット変更中に問題が発生しました。処理を中断します。" >> ${LOG_DIR}/data_generator.log
         exit 1
     else
-        echo "出力ファイルフォーマット変更完了"
+        echo "  出力ファイルフォーマット変更完了"
     fi
     echo
 
@@ -374,7 +379,7 @@ done
 
 # ファイル圧縮処理
 bash "${SCRIPT_DIR}/db_output_compression_format.sh"
-if [ $? -ne 0 ]; then
+if [[ $? -ne 0 ]]; then
     echo "[910110]エラー: ファイル圧縮処理中に問題が発生しました。処理を中断します。"
     echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [910110]エラー: ファイル圧縮処理中に問題が発生しました。処理を中断します。" >> ${LOG_DIR}/data_generator.log
     exit 1
@@ -383,7 +388,7 @@ echo
 
 # ファイル圧縮処理
 bash "${SCRIPT_DIR}/db_sql_base_script.sh"
-if [ $? -ne 0 ]; then
+if [[ $? -ne 0 ]]; then
     echo "[910111]エラー: データベース作成、ユーザ設定コマンド作成中に問題が発生しました。処理を中断します。"
     echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [910111]エラー: データベース作成、ユーザ設定コマンド作成中に問題が発生しました。処理を中断します。" >> ${LOG_DIR}/data_generator.log
     exit 1

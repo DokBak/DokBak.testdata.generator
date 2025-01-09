@@ -26,7 +26,7 @@ echo "$(date '+%Y/%m/%d %H:%M:%S') [INFO]  [$(basename $0)] START" >> ${LOG_DIR}
 _config_file="${CONFIG_DIR}/db_file_config.txt"
 
 # 設定ファイルの存在確認
-if [ ! -f "${_config_file}" ]; then
+if [[ ! -f "${_config_file}" ]]; then
     echo "[230101]エラー: 設定ファイル ${_config_file} が存在しません。"
     echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [230101]エラー: 設定ファイル ${_config_file} が存在しません。" >> ${LOG_DIR}/data_generator.log
     exit 1

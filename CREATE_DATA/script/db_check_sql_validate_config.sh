@@ -26,7 +26,7 @@ echo "$(date '+%Y/%m/%d %H:%M:%S') [INFO]  [$(basename $0)] START" >> ${LOG_DIR}
 _config_file="${CONFIG_DIR}/db_sql_config.txt"
 
 # 設定ファイルの存在確認
-if [ ! -f "${_config_file}" ]; then
+if [[ ! -f "${_config_file}" ]]; then
     echo "[240101]エラー: 設定ファイル ${_config_file} が存在しません。"
     echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [240101]エラー: 設定ファイル ${_config_file} が存在しません。" >> ${LOG_DIR}/data_generator.log
     exit 1
@@ -172,6 +172,13 @@ else
     exit 1
 fi
 
+# SET_SCHEMA の確認
+if [[ -z "${SET_SCHEMA}" ]]; then
+    echo "[240133]エラー: 'SET_SCHEMA' は空白の値を指定できません。"
+    echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [240133]エラー: 'SET_SCHEMA' は空白の値を指定できません。" >> ${LOG_DIR}/data_generator.log
+    exit 1
+fi
+
 # SET_TABLENAME の確認
 if [[ -z "${SET_TABLENAME}" ]]; then
     echo "[240115]エラー: 'SET_TABLENAME' は空白の値を指定できません。"
@@ -302,7 +309,7 @@ if [[ "$POSTGRESQL_TEMPLATE" != "template0" && "$POSTGRESQL_TEMPLATE" != "templa
 fi
 
 # POSTGRESQL_TEMPLATE が template1 の場合、DATABASE_COLLATE を検証
-if [[ "$POSTGRESQL_TEMPLATE" == "template1" && "$DATABASE_COLLATE" != "C" ]]; then
+if [[ "${DBMS_NAME}" == "PostgreSQL" && "$POSTGRESQL_TEMPLATE" == "template1" && "$DATABASE_COLLATE" != "C" ]]; then
     echo "[240130]エラー: 'template1' を使用する場合、DATABASE_COLLATE は 'C' のみ許可されます。"
     echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [240130]エラー: 'template1' を使用する場合、DATABASE_COLLATE は 'C' のみ許可されます。" >> ${LOG_DIR}/data_generator.log
     exit 1

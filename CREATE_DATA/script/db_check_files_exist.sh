@@ -27,14 +27,14 @@ echo "$(date '+%Y/%m/%d %H:%M:%S') [INFO]  [$(basename $0)] START" >> ${LOG_DIR}
 _output_dir="$(dirname "${SCRIPT_DIR}")/output"
 
 # スクリプトディレクトリの確認
-if [ ! -d "${SCRIPT_DIR}" ]; then
+if [[ ! -d "${SCRIPT_DIR}" ]]; then
     echo "[210101]エラー: スクリプトディレクトリ ${SCRIPT_DIR} が存在しません。"
     echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [210101]エラー: スクリプトディレクトリ ${SCRIPT_DIR} が存在しません。" >> ${LOG_DIR}/data_generator.log
     exit 1
 fi
 
 # 設定ファイルディレクトリの確認
-if [ ! -d "${CONFIG_DIR}" ]; then
+if [[ ! -d "${CONFIG_DIR}" ]]; then
     echo "[210102]エラー: 設定ファイルディレクトリ ${CONFIG_DIR} が存在しません。"
     echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [210102]エラー: 設定ファイルディレクトリ ${CONFIG_DIR} が存在しません。" >> ${LOG_DIR}/data_generator.log
     exit 1
@@ -53,7 +53,7 @@ _config_files=("db_data_config.txt" "db_file_config.txt" "db_sql_config.txt")
 
 # スクリプトファイルの存在チェック
 for _script_file in "${_script_files[@]}"; do
-    if [ ! -f "${SCRIPT_DIR}/${_script_file}" ]; then
+    if [[ ! -f "${SCRIPT_DIR}/${_script_file}" ]]; then
         echo "[210103]エラー: ファイル ${_script_file} が存在しません。"
         echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [210103]エラー: ファイル ${_script_file} が存在しません。" >> ${LOG_DIR}/data_generator.log
         exit 1
@@ -62,7 +62,7 @@ done
 
 # 設定ファイルの存在チェック
 for _config_file in "${_config_files[@]}"; do
-    if [ ! -f "${CONFIG_DIR}/${_config_file}" ]; then
+    if [[ ! -f "${CONFIG_DIR}/${_config_file}" ]]; then
         echo "[210104]エラー: 設定ファイル ${_config_file} が存在しません。"
         echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [210104]エラー: 設定ファイル ${_config_file} が存在しません。" >> ${LOG_DIR}/data_generator.log
         exit 1

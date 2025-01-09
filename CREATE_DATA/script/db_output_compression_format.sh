@@ -32,7 +32,7 @@ fi
 # 圧縮処理
 case "${FILE_COMPRESSION}" in
     "")  # 圧縮しない
-        echo "出力ファイルの中身確認"
+        echo "  出力ファイルの中身確認"
         cat "${FILES_DIR}/${FILE_NAME}${FILE_EXTENSION}${FILE_COMPRESSION}"
         echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] 圧縮形式が指定されていないため、処理をスキップします。" >> ${LOG_DIR}/data_generator.log
         echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] 最終出力ファイル確認 " >> ${LOG_DIR}/data_generator.log
@@ -50,7 +50,7 @@ case "${FILE_COMPRESSION}" in
         gzip "${FILES_DIR}/${FILE_NAME}${FILE_EXTENSION}"
         
         # 圧縮ファイル中身確認
-        echo "出力ファイルの中身確認"
+        echo "  出力ファイルの中身確認"
         # OS環境別.gzファイル確認コマンド指定
         if command -v gzcat > /dev/null 2>&1; then
             # MacOSでは gzcatで .gzファイル中身確認
@@ -80,7 +80,7 @@ case "${FILE_COMPRESSION}" in
         zip -qm "${FILES_DIR}/${FILE_NAME}${FILE_EXTENSION}.zip" "${FILES_DIR}/${FILE_NAME}${FILE_EXTENSION}"
 
         # 圧縮ファイル中身確認
-        echo "出力ファイルの中身確認：zipファイルは圧縮された状態では内容を直接確認することはできません。"
+        echo "  出力ファイルの中身確認：zipファイルは圧縮された状態では内容を直接確認することはできません。"
         echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] ファイルを .zip 形式で圧縮しました。" >> ${LOG_DIR}/data_generator.log
         echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] 最終出力ファイル確認 " >> ${LOG_DIR}/data_generator.log
         echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] " `ls -l "${FILES_DIR}/${FILE_NAME}${FILE_EXTENSION}${FILE_COMPRESSION}"` >> ${LOG_DIR}/data_generator.log
@@ -96,7 +96,7 @@ case "${FILE_COMPRESSION}" in
         compress "${FILES_DIR}/${FILE_NAME}${FILE_EXTENSION}"
 
         # 圧縮ファイル中身確認
-        echo "出力ファイルの中身確認"
+        echo "  出力ファイルの中身確認"
         # OS環境別.gzファイル確認コマンド指定
         if command -v gzcat > /dev/null 2>&1; then
             # MacOSでは gzcatで .Zファイル中身確認
@@ -129,7 +129,7 @@ case "${FILE_COMPRESSION}" in
         rm -f "${FILES_DIR}/${FILE_NAME}${FILE_EXTENSION}"
 
         # 圧縮ファイル中身確認 (-t : アーカイブファイルリスト表示, -f : アーカイブファイル指定)
-        echo "出力ファイルの中身確認：tarファイルは圧縮された状態では内容を直接確認することはできません。"
+        echo "  出力ファイルの中身確認：tarファイルは圧縮された状態では内容を直接確認することはできません。"
         echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] ファイルを .tar 形式で圧縮しました。" >> ${LOG_DIR}/data_generator.log
         echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] 最終出力ファイル確認 " >> ${LOG_DIR}/data_generator.log
         echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] " `ls -l "${FILES_DIR}/${FILE_NAME}${FILE_EXTENSION}${FILE_COMPRESSION}"` >> ${LOG_DIR}/data_generator.log
@@ -146,7 +146,7 @@ case "${FILE_COMPRESSION}" in
             7z a "${FILES_DIR}/${FILE_NAME}${FILE_EXTENSION}${FILE_COMPRESSION}" "${FILES_DIR}/${FILE_NAME}${FILE_EXTENSION}${FILE_COMPRESSION}"
 
             # 圧縮ファイル中身確認
-            echo "出力ファイルの中身確認：7zファイルは圧縮された状態では内容を直接確認することはできません。"
+            echo "  出力ファイルの中身確認：7zファイルは圧縮された状態では内容を直接確認することはできません。"
             cat "${FILES_DIR}/${FILE_NAME}${FILE_EXTENSION}${FILE_COMPRESSION}"
             echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] ファイルを .7z 形式で圧縮しました。" >> ${LOG_DIR}/data_generator.log
             echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] 最終出力ファイル確認 " >> ${LOG_DIR}/data_generator.log

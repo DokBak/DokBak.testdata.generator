@@ -26,21 +26,21 @@ echo "$(date '+%Y/%m/%d %H:%M:%S') [INFO]  [$(basename $0)] START" >> ${LOG_DIR}
 _config_file="${CONFIG_DIR}/db_data_config.txt"
 
 # 設定ファイルの存在確認
-if [ ! -f "${_config_file}" ]; then
+if [[ ! -f "${_config_file}" ]]; then
     echo "[220101]エラー: 設定ファイル ${_config_file} が存在しません。"
     echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220101]エラー: 設定ファイル ${_config_file} が存在しません。" >> ${LOG_DIR}/data_generator.log
     exit 1
 fi
 
 # COLUMN_COUNTS の確認
-if [[ -z "${COLUMN_COUNTS}" ]] || ! [[ "${COLUMN_COUNTS}" =~ ^[0-9]+$ ]]; then
+if [[ -z "${COLUMN_COUNTS}" || ! "${COLUMN_COUNTS}" =~ ^[0-9]+$ ]]; then
     echo "[220102]エラー: COLUMN_COUNTS は正の整数で指定してください。"
     echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220102]エラー: COLUMN_COUNTS は正の整数で指定してください。" >> ${LOG_DIR}/data_generator.log
     exit 1
 fi
 
 # COLUMN_COUNTS が 1 以上であることを確認
-if [ "${COLUMN_COUNTS}" -lt 1 ]; then
+if [[ "${COLUMN_COUNTS}" -lt 1 ]]; then
     echo "[220103]エラー: COLUMN_COUNTS は 1 以上でなければなりません。"
     echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220103]エラー: COLUMN_COUNTS は 1 以上でなければなりません。" >> ${LOG_DIR}/data_generator.log
     exit 1
@@ -57,13 +57,13 @@ fi
 IFS=',' read -ra DATA_TYPES <<< "${COLUMN_DATA_TYPE//\"/}"
 IFS=',' read -ra DATA_LENGTHS <<< "${COLUMN_DATA_LENGTH//\"/}"
 
-if [ "${#DATA_TYPES[@]}" -ne "${COLUMN_COUNTS}" ]; then
+if [[ "${#DATA_TYPES[@]}" -ne "${COLUMN_COUNTS}" ]]; then
     echo "[220105]エラー: COLUMN_DATA_TYPE の項目数が COLUMN_COUNTS と一致しません。"
     echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220105]エラー: COLUMN_DATA_TYPE の項目数が COLUMN_COUNTS と一致しません。" >> ${LOG_DIR}/data_generator.log
     exit 1
 fi
 
-if [ "${#DATA_LENGTHS[@]}" -ne "${COLUMN_COUNTS}" ]; then
+if [[ "${#DATA_LENGTHS[@]}" -ne "${COLUMN_COUNTS}" ]]; then
     echo "[220106]エラー: COLUMN_DATA_LENGTH の項目数が COLUMN_COUNTS と一致しません。"
     echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220106]エラー: COLUMN_DATA_LENGTH の項目数が COLUMN_COUNTS と一致しません。" >> ${LOG_DIR}/data_generator.log
     exit 1
@@ -92,7 +92,7 @@ for _i in "${!DATA_TYPES[@]}"; do
                 echo "[220108]エラー: 第${_item_number}項目 - データ型 byte の長さ ${_length} は無効です。整数のみを指定してください。"
                 echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220108]エラー: 第${_item_number}項目 - データ型 byte の長さ ${_length} は無効です。整数のみを指定してください。" >> ${LOG_DIR}/data_generator.log
                 exit 1
-            elif [ "${_length}" -gt 3 ]; then
+            elif [[ "${_length}" -gt 3 ]]; then
                 echo "[220109]エラー: 第${_item_number}項目 - データ型 byte の長さ ${_length} は最大 3 桁までしか指定できません。"
                 echo "許容範囲：( 0 ~ 255 )：最大3桁"
                 echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220109]エラー: 第${_item_number}項目 - データ型 byte の長さ ${_length} は最大 3 桁までしか指定できません。" >> ${LOG_DIR}/data_generator.log
@@ -105,7 +105,7 @@ for _i in "${!DATA_TYPES[@]}"; do
                 echo "[220110]エラー: 第${_item_number}項目 - データ型 short の長さ ${_length} は無効です。整数のみを指定してください。"
                 echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220110]エラー: 第${_item_number}項目 - データ型 short の長さ ${_length} は無効です。整数のみを指定してください。" >> ${LOG_DIR}/data_generator.log
                 exit 1
-            elif [ "${_length}" -gt 5 ]; then
+            elif [[ "${_length}" -gt 5 ]]; then
                 echo "[220111]エラー: 第${_item_number}項目 - データ型 short の長さ ${_length} は最大 5 桁までしか指定できません。"
                 echo "許容範囲：( -32,768 ~ 32,767 )：最大5桁"
                 echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220111]エラー: 第${_item_number}項目 - データ型 short の長さ ${_length} は最大 5 桁までしか指定できません。" >> ${LOG_DIR}/data_generator.log
@@ -118,7 +118,7 @@ for _i in "${!DATA_TYPES[@]}"; do
                 echo "[220112]エラー: 第${_item_number}項目 - データ型 int の長さ ${_length} は無効です。整数のみを指定してください。"
                 echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220112]エラー: 第${_item_number}項目 - データ型 int の長さ ${_length} は無効です。整数のみを指定してください。" >> ${LOG_DIR}/data_generator.log
                 exit 1
-            elif [ "${_length}" -gt 10 ]; then
+            elif [[ "${_length}" -gt 10 ]]; then
                 echo "[220113]エラー: 第${_item_number}項目 - データ型 int の長さ ${_length} は最大 10 桁までしか指定できません。"
                 echo "許容範囲：( -2,147,483,648 ~ 2,147,483,647 )：最大10桁"
                 echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220113]エラー: 第${_item_number}項目 - データ型 int の長さ ${_length} は最大 10 桁までしか指定できません。" >> ${LOG_DIR}/data_generator.log
@@ -131,7 +131,7 @@ for _i in "${!DATA_TYPES[@]}"; do
                 echo "[220114]エラー: 第${_item_number}項目 - データ型 long の長さ ${_length} は無効です。整数のみを指定してください。"
                 echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220114]エラー: 第${_item_number}項目 - データ型 long の長さ ${_length} は無効です。整数のみを指定してください。" >> ${LOG_DIR}/data_generator.log
                 exit 1 
-            elif [ "${_length}" -gt 19 ]; then
+            elif [[ "${_length}" -gt 19 ]]; then
                 echo "[220115]エラー: 第${_item_number}項目 - データ型 long の長さ ${_length} は最大 19 桁までしか指定できません。"
                 echo "許容範囲：( -9,223,372,036,854,775,808 ~ 9,223,372,036,854,775,807 )：最大19桁"
                 echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220115]エラー: 第${_item_number}項目 - データ型 long の長さ ${_length} は最大 19 桁までしか指定できません。" >> ${LOG_DIR}/data_generator.log
@@ -145,8 +145,8 @@ for _i in "${!DATA_TYPES[@]}"; do
             _integer_part=$(echo "${_length}" | cut -d'.' -f1) # 整数部
             _fractional_part=$(echo "${_length}" | cut -d'.' -f2) # 小数部
 
-            if [ -z "${_integer_part}" ] || ! [[ "${_integer_part}" =~ ^[0-9]+$ ]] || 
-               ([ -n "${_fractional_part}" ] && ! [[ "${_fractional_part}" =~ ^[0-9]+$ ]]); then
+            if [[ -z "${_integer_part}" || ! "${_integer_part}" =~ ^[0-9]+$ ]] || 
+               ([[ -n "${_fractional_part}" && ! "${_fractional_part}" =~ ^[0-9]+$ ]]); then
                 echo "[220122]エラー: 第${_item_number}項目 - データ型 float の長さ ${_length} は無効です。整数または '整数.小数' の形式で指定してください。"
                 echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220122]エラー: 第${_item_number}項目 - データ型 float の長さ ${_length} は無効です。整数または '整数.小数' の形式で指定してください。" >> ${LOG_DIR}/data_generator.log
                 exit 1
@@ -154,7 +154,7 @@ for _i in "${!DATA_TYPES[@]}"; do
 
             _total_length=$(( ${_integer_part} + ${_fractional_part} ))
 
-            if [ "${_total_length}" -gt 7 ]; then
+            if [[ "${_total_length}" -gt 7 ]]; then
                 echo "[220123]エラー: 第${_item_number}項目 - データ型 float の長さ ${_length} は最大 7 桁までしか指定できません。"
                 echo "許容範囲：( ±1.17549e-38 ~ ±3.402823e+38 )：最大7桁"
                 echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220123]エラー: 第${_item_number}項目 - データ型 float の長さ ${_length} は最大 7 桁までしか指定できません。" >> ${LOG_DIR}/data_generator.log
@@ -166,8 +166,8 @@ for _i in "${!DATA_TYPES[@]}"; do
             _integer_part=$(echo "${_length}" | cut -d'.' -f1)
             _fractional_part=$(echo "${_length}" | cut -d'.' -f2)
 
-            if [ -z "${_integer_part}" ] || ! [[ "${_integer_part}" =~ ^[0-9]+$ ]] || 
-               ([ -n "${_fractional_part}" ] && ! [[ "${_fractional_part}" =~ ^[0-9]+$ ]]); then
+            if [[ -z "${_integer_part}" || ! "${_integer_part}" =~ ^[0-9]+$ ]] || 
+               ([[ -n "${_fractional_part}" && ! "${_fractional_part}" =~ ^[0-9]+$ ]]); then
                 echo "[220124]エラー: 第${_item_number}項目 - データ型 double の長さ ${_length} は無効です。整数または '整数.小数' の形式で指定してください。"
                 echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220124]エラー: 第${_item_number}項目 - データ型 double の長さ ${_length} は無効です。整数または '整数.小数' の形式で指定してください。" >> ${LOG_DIR}/data_generator.log
                 exit 1
@@ -175,7 +175,7 @@ for _i in "${!DATA_TYPES[@]}"; do
 
             _total_length=$(( ${_integer_part} + ${_fractional_part} ))
 
-            if [ "${_total_length}" -gt 15 ]; then
+            if [[ "${_total_length}" -gt 15 ]]; then
                 echo "[220125]エラー: 第${_item_number}項目 - データ型 double の長さ ${_length} は最大 15 桁までしか指定できません。"
                 echo "許容範囲：( ±2.2250738585072014e-308 ~ ±1.7976931348623157e+308 )：最大15桁"
                 echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220125]エラー: 第${_item_number}項目 - データ型 double の長さ ${_length} は最大 15 桁までしか指定できません。" >> ${LOG_DIR}/data_generator.log
@@ -189,7 +189,7 @@ for _i in "${!DATA_TYPES[@]}"; do
                 echo "[220116]エラー: 第${_item_number}項目 - データ型 char の長さ ${_length} は無効です。整数のみを指定してください。"
                 echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220116]エラー: 第${_item_number}項目 - データ型 char の長さ ${_length} は無効です。整数のみを指定してください。" >> ${LOG_DIR}/data_generator.log
                 exit 1
-            elif [ "${_length}" -ne 1 ]; then
+            elif [[ "${_length}" -ne 1 ]]; then
                 echo "[220117]エラー: 第${_item_number}項目 - データ型 char の長さ ${_length} は常に 1 桁である必要があります。"
                 echo "許容範囲：最大1桁"
                 echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220117]エラー: 第${_item_number}項目 - データ型 char の長さ ${_length} は常に 1 桁である必要があります。" >> ${LOG_DIR}/data_generator.log
@@ -208,7 +208,7 @@ for _i in "${!DATA_TYPES[@]}"; do
             ;;
         # その他のデータ型 (boolean, date など) の検証はそのまま維持
         boolean)
-            if [ "${_length}" -ne 1 ]; then
+            if [[ "${_length}" -ne 1 ]]; then
                 echo "[220119]エラー: 第${_item_number}項目 - データ型 boolean の長さは常に '1' でなければなりません。"
                 echo "許容範囲：固定値(1)"
                 echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220119]エラー: 第${_item_number}項目 - データ型 boolean の長さは常に '1' でなければなりません。" >> ${LOG_DIR}/data_generator.log

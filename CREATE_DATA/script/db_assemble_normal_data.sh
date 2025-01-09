@@ -29,7 +29,7 @@ IFS=',' read -ra DATA_TYPES <<< "${COLUMN_DATA_TYPE//\"/}"
 IFS=',' read -ra DATA_LENGTHS <<< "${COLUMN_DATA_LENGTH//\"/}"
 
 # COLUMN_COUNTS が正しいか確認
-if [ "${#DATA_TYPES[@]}" -ne "${COLUMN_COUNTS}" ] || [ "${#DATA_LENGTHS[@]}" -ne "${COLUMN_COUNTS}" ]; then
+if [[ "${#DATA_TYPES[@]}" -ne "${COLUMN_COUNTS}" || "${#DATA_LENGTHS[@]}" -ne "${COLUMN_COUNTS}" ]]; then
     echo "[410101]エラー: COLUMN_COUNTS と DATA_TYPE、または DATA_LENGTH の項目数が一致しません。"
     echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [410101]エラー: COLUMN_COUNTS と DATA_TYPE、または DATA_LENGTH の項目数が一致しません。" >> ${LOG_DIR}/data_generator.log
     exit 1
@@ -74,7 +74,7 @@ for _i in "${!DATA_TYPES[@]}"; do
             # 0 または 1 をランダムに生成 (0: FALSE, 1: TRUE)
             _random_value=$((RANDOM % 2))
             # ランダム値に基づいて結果を出力
-            if [ "${_random_value}" -eq 0 ]; then
+            if [[ "${_random_value}" -eq 0 ]]; then
                 _item="FALSE"
             else
                 _item="TRUE"

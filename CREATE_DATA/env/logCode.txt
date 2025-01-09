@@ -113,6 +113,7 @@ logCode List
     [240130]エラー: 'template1' を使用する場合、DATABASE_COLLATE は 'C' のみ許可されます。
     [240131]エラー: '${POSTGRESQL_CONNECTION_LIMIT}' は -1 または 1以上の値でなければなりません。
     [240132]エラー: '${POSTGRESQL_ALLOW_CONNECTIONS}' は許可されていない値です。
+    [240133]エラー: 'SET_SCHEMA' は空白の値を指定できません。
 
     [240201]ワーニング: PRIMARY KEY として設定されている '${COLUMN_DATA_NAME[i]}' は NOT NULL としても設定されています。
     [240202]ワーニング: PRIMARY KEY として設定されている '${COLUMN_UNIQUE_KEY[i]}' は UNIQUE KEY としても設定されています。
@@ -147,6 +148,7 @@ logCode List
 
 
 [81]db_sql_base_script.sh
+    [810001]データベース、ユーザ、テーブル関連sql作成処理が正常に完了しました。
 
 
 

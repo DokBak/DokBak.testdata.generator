@@ -24,10 +24,10 @@
 echo "$(date '+%Y/%m/%d %H:%M:%S') [INFO]  [$(basename $0)] START" >> ${LOG_DIR}/data_generator.log
 
 # 入力されたパラメータの個数を確認
-if [ "${FILE_FIELD_SEPARATOR}" = "TAB" ];then
+if [[ "${FILE_FIELD_SEPARATOR}" = "TAB" ]];then
     _field_separator=$'\t'
     # パラメータチェック
-    if [ "${#}" -ne "${COLUMN_COUNTS}" ]; then
+    if [[ "${#}" -ne "${COLUMN_COUNTS}" ]]; then
         echo "[620101]エラー: パラメータの数が COLUMN_COUNTS (${COLUMN_COUNTS}) と一致しません。"
         echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [620101]エラー: パラメータの数が COLUMN_COUNTS (${COLUMN_COUNTS}) と一致しません。" >> ${LOG_DIR}/data_generator.log
         exit 1
@@ -35,7 +35,7 @@ if [ "${FILE_FIELD_SEPARATOR}" = "TAB" ];then
         # パラメータを区切り文字で結合して _output_content に保存
         _output_content=""
         for _param in "${@}"; do
-            if [ -z "${_output_content}" ]; then
+            if [[ -z "${_output_content}" ]]; then
                 _output_content="${_param}"
             else
                 _output_content="${_output_content}${_field_separator}${_param}"
@@ -44,7 +44,7 @@ if [ "${FILE_FIELD_SEPARATOR}" = "TAB" ];then
     fi
 else
     # パラメータチェック
-    if [ -z "${1}" ]; then
+    if [[ -z "${1}" ]]; then
         echo "[620102]エラー: パラメータ1が指定されていません。"
         echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [620102]エラー: パラメータ1が指定されていません。" >> ${LOG_DIR}/data_generator.log
         exit 1
@@ -71,17 +71,17 @@ fi
 if command -v iconv >/dev/null 2>&1; then
     # 文字コードを変換
     # iconvコマンドで変更可能文字コード確認方法：iconv --list
-    if [ "${FILE_CHARSET}" = "UTF-8" ]; then
+    if [[ "${FILE_CHARSET}" = "UTF-8" ]]; then
         iconv -f UTF-8 -t UTF-8 "${FILES_DIR}/${FILE_NAME}.tmp" >> "${FILES_DIR}/${FILE_NAME}${FILE_EXTENSION}"
-    elif [ "${FILE_CHARSET}" = "UTF-16" ]; then
+    elif [[ "${FILE_CHARSET}" = "UTF-16" ]]; then
        iconv -f UTF-8 -t UTF-16 "${FILES_DIR}/${FILE_NAME}.tmp" >> "${FILES_DIR}/${FILE_NAME}${FILE_EXTENSION}"
-    elif [ "${FILE_CHARSET}" = "EUC-JP" ]; then
+    elif [[ "${FILE_CHARSET}" = "EUC-JP" ]]; then
         iconv -f UTF-8 -t EUC-JP "${FILES_DIR}/${FILE_NAME}.tmp" >> "${FILES_DIR}/${FILE_NAME}${FILE_EXTENSION}"
-    elif [ "${FILE_CHARSET}" = "SJIS" ]; then
+    elif [[ "${FILE_CHARSET}" = "SJIS" ]]; then
         iconv -f UTF-8 -t SJIS "${FILES_DIR}/${FILE_NAME}.tmp" >> "${FILES_DIR}/${FILE_NAME}${FILE_EXTENSION}"
-    elif [ "${FILE_CHARSET}" = "CP932" ]; then
+    elif [[ "${FILE_CHARSET}" = "CP932" ]]; then
         iconv -f UTF-8 -t CP932 "${FILES_DIR}/${FILE_NAME}.tmp" >> "${FILES_DIR}/${FILE_NAME}${FILE_EXTENSION}"
-    elif [ "${FILE_CHARSET}" = "EUC-KR" ]; then
+    elif [[ "${FILE_CHARSET}" = "EUC-KR" ]]; then
         iconv -f UTF-8 -t EUC-KR "${FILES_DIR}/${FILE_NAME}.tmp" >> "${FILES_DIR}/${FILE_NAME}${FILE_EXTENSION}"
     else
         echo "[620104]エラー: 設定ファイルの文字コード値(FILE_CHARSET)が無効です。'UTF-8' または 'UTF-16' 'EUC-JP' 'SJIS' 'CP932' 'EUC-KR' を指定してください。"

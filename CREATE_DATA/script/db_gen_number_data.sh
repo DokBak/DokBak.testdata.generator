@@ -39,7 +39,7 @@
 echo "$(date '+%Y/%m/%d %H:%M:%S') [INFO]  [$(basename $0)] START" >> ${LOG_DIR}/data_generator.log
 
 # パラメータチェック：パラメータが2つ以上あるかを確認
-if [ ${#} -gt 2 ]; then
+if [[ ${#} -gt 2 ]]; then
     echo "[020101]エラー: パラメータは2つまでしか指定できません。"
     echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [020101]エラー: パラメータは2つまでしか指定できません。" >> ${LOG_DIR}/data_generator.log
     exit 1
@@ -57,35 +57,35 @@ if ! [[ "${_item_length}" =~ ^[0-9]+$ ]]; then
 fi
 
 # パラメータ2が数字かどうかを確認
-if [ -n "${_decimal_places}" ] && ! [[ "${_decimal_places}" =~ ^[0-9]+$ ]]; then
+if [[ -n "${_decimal_places}" && ! "${_decimal_places}" =~ ^[0-9]+$ ]]; then
     echo "[020103]エラー: パラメータ2は数字でなければなりません。"
     echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [020103]エラー: パラメータ2は数字でなければなりません。" >> ${LOG_DIR}/data_generator.log
     exit 1
 fi
 
 # パラメータ1が0かつパラメータ2が空白の場合はエラー
-if [ "${_item_length}" -eq 0 ] && [ -z "${_decimal_places}" ]; then
+if [[ "${_item_length}" -eq 0 && -z "${_decimal_places}" ]]; then
     echo "[020104]エラー: 整数部が0の場合、小数部の桁数（パラメータ2）を指定してください。"
     echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [020104]エラー: 整数部が0の場合、小数部の桁数（パラメータ2）を指定してください。" >> ${LOG_DIR}/data_generator.log
     exit 1
 fi
 
 # 整数部と小数部の両方が0の場合は無効
-if [ "${_item_length}" -eq 0 ] && [ "${_decimal_places}" -eq 0 ]; then
+if [[ "${_item_length}" -eq 0 && "${_decimal_places}" -eq 0 ]]; then
     echo "[020105]エラー: 整数部と小数部の桁数がどちらも0の場合、無効です。"
     echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [020105]エラー: 整数部と小数部の桁数がどちらも0の場合、無効です。" >> ${LOG_DIR}/data_generator.log
     exit 1
 fi
 
 # パラメータ1が0の場合、小数点以下のみを生成
-if [ "${_item_length}" -eq 0 ]; then
+if [[ "${_item_length}" -eq 0 ]]; then
     _generated_number="0."
     for ((i=1; i<=${_decimal_places}; i++)); do
         _random_digit=$((RANDOM % 10))  # 0から9のランダムな数字を生成
         _generated_number="${_generated_number}${_random_digit}"
     done
     # 小数部分の最後の桁が0にならないように修正
-    if [ "${_generated_number: -1}" -eq 0 ]; then
+    if [[ "${_generated_number: -1}" -eq 0 ]]; then
         _generated_number="${_generated_number%0}$(($RANDOM % 9 + 1))"
     fi
     echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] [020003]生成された小数: ${_generated_number}" >> ${LOG_DIR}/data_generator.log
@@ -94,11 +94,11 @@ if [ "${_item_length}" -eq 0 ]; then
     exit 0
 
 # パラメータ2が空白の場合、整数のみを生成
-elif [ -z "${_decimal_places}" ] || [ "${_decimal_places}" -eq 0 ]; then
+elif [[ -z "${_decimal_places}" || "${_decimal_places}" -eq 0 ]]; then
     _generated_number=""
     for ((i=1; i<=${_item_length}; i++)); do
         _random_digit=$((RANDOM % 10))  # 0から9のランダムな数字を生成
-        if [ ${i} -eq 1 ] && [ ${_random_digit} -eq 0 ]; then
+        if [[ ${i} -eq 1 && ${_random_digit} -eq 0 ]]; then
             _random_digit=$((RANDOM % 9 + 1))  # 最初の桁が0の場合は1から9までの数字で再生成
         fi
         _generated_number="${_generated_number}${_random_digit}"
@@ -113,7 +113,7 @@ else
     _generated_number=""
     for ((i=1; i<=${_item_length}; i++)); do
         _random_digit=$((RANDOM % 10))  # 0から9のランダムな数字を生成
-        if [ ${i} -eq 1 ] && [ ${_random_digit} -eq 0 ]; then
+        if [[ ${i} -eq 1 && ${_random_digit} -eq 0 ]]; then
             _random_digit=$((RANDOM % 9 + 1))  # 最初の桁が0の場合は1から9までの数字で再生成
         fi
         _generated_number="${_generated_number}${_random_digit}"
@@ -124,7 +124,7 @@ else
         _generated_number="${_generated_number}${_random_digit}"
     done
     # 小数部分の最後の桁が0にならないように修正
-    if [ "${_generated_number: -1}" -eq 0 ]; then
+    if [[ "${_generated_number: -1}" -eq 0 ]]; then
         _generated_number="${_generated_number%0}$(($RANDOM % 9 + 1))"
     fi
     echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] [020001]生成された実数: ${_generated_number}" >> ${LOG_DIR}/data_generator.log

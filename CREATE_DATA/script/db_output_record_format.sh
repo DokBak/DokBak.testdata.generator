@@ -25,7 +25,7 @@
 echo "$(date '+%Y/%m/%d %H:%M:%S') [INFO]  [$(basename $0)] START" >> ${LOG_DIR}/data_generator.log
 
 # パラメータチェック
-if [ "$#" -ne 1 ]; then
+if [[ "$#" -ne 1 ]]; then
     echo "[610101]エラー: 1つのデータ文字列をパラメータとして指定してください。"
     echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [610101]エラー: 1つのデータ文字列をパラメータとして指定してください。" >> ${LOG_DIR}/data_generator.log
     exit 1
