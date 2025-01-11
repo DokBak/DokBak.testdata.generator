@@ -57,7 +57,7 @@ fi
 _generated_string=""
 
 # 指定された長さだけランダム文字を生成
-for ((i=1; i<=${_item_length}; i++)); do
+for ((_i=1; _i<=${_item_length}; _i++)); do
     case "${_option}" in
         UPPER|upper|U|u)  # 大文字のみ
             _randomAscii=$((RANDOM % 26 + 65))

@@ -2,7 +2,7 @@
 
 ###################################################################################
 #
-#  シェル名      : SQL実行コマンド作成シェル
+#  シェル名      : SQL実行コマンド(INSERT,SELECT)作成シェル
 #
 #  作成者        : DokBak
 #  作成日        : 2025/01/08
@@ -19,7 +19,6 @@
 #
 #  参照        : https://github.com/DokBak/DokBak_Shell_CMD
 #
-
 ###################################################################################
 
 echo "  INSERTデータ関連sql作成中..."
@@ -43,37 +42,37 @@ if [[ 1 -eq "${2}" && -f "${SQLS_DIR}/insert_${DBMS_NAME}.sql" ]];then
 fi
 
 # COLUMN_DATA_NAME を配列に変換
-IFS=',' read -r -a column_names <<< "${COLUMN_DATA_NAME}"
+IFS=',' read -r -a _column_names <<< "${COLUMN_DATA_NAME}"
 # パラメータ1を配列に変換
-IFS=',' read -r -a values <<< "$1"
+IFS=',' read -r -a _values <<< "$1"
 
 # COLUMN_DATA_NAMEとデータの数が一致しているか確認
-if [[ "${#column_names[@]}" -ne "${#values[@]}" ]]; then
+if [[ "${#_column_names[@]}" -ne "${#_values[@]}" ]]; then
     echo "    [820103]エラー: 入力データの項目数とCOLUMN_DATA_NAMEの項目数が一致しません。"
     echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [820103]エラー: 入力データの項目数とCOLUMN_DATA_NAMEの項目数が一致しません。" >> ${LOG_DIR}/data_generator.log
     exit 1
 fi
 
 # INSERT文を生成
-columns=$(IFS=','; echo "${column_names[*]}")
+_columns=$(IFS=','; echo "${_column_names[*]}")
 
 # INSERT文の形式に合わせてデータをクオートで囲む
-formatted_values=$(IFS=','; echo "${values[*]}" | sed "s/\([^,]*\)/'\1'/g")
+_formatted_values=$(IFS=','; echo "${_values[*]}" | sed "s/\([^,]*\)/'\1'/g")
 
-select_sql=""
+_select_sql=""
 case "${DBMS_NAME}" in
     "MySQL"|"MariaDB")
-    insert_sql="INSERT INTO ${DATABASE_NAME}.${SET_TABLENAME} (${columns}) VALUES (${formatted_values});"
+    _insert_sql="INSERT INTO ${DATABASE_NAME}.${SET_TABLENAME} (${_columns}) VALUES (${_formatted_values});"
     if [[ "${ROW_COUNTS}" -eq "${2}" ]]; then
-        select_sql="SELECT * FROM ${DATABASE_NAME}.${SET_TABLENAME};"
+        _select_sql="SELECT * FROM ${DATABASE_NAME}.${SET_TABLENAME};"
     fi
     ;;
 
     "PostgreSQL")
-    insert_sql="INSERT INTO ${SET_SCHEMA}.${SET_TABLENAME} (${columns}) VALUES (${formatted_values});"
+    _insert_sql="INSERT INTO ${SET_SCHEMA}.${SET_TABLENAME} (${_columns}) VALUES (${_formatted_values});"
     
     if [[ "${ROW_COUNTS}" -eq "${2}" ]]; then
-        select_sql="SELECT * FROM ${SET_SCHEMA}.${SET_TABLENAME};"
+        _select_sql="SELECT * FROM ${SET_SCHEMA}.${SET_TABLENAME};"
     fi
     ;;
 
@@ -84,9 +83,9 @@ case "${DBMS_NAME}" in
     ;;
 esac
 # 結果を表示
-echo "${insert_sql}" >> ${SQLS_DIR}/insert_${DBMS_NAME}.sql
-if [[ -f "${select_sql}" ]]; then
-    echo "${select_sql}" >> ${SQLS_DIR}/insert_${DBMS_NAME}.sql
+echo "${_insert_sql}" >> ${SQLS_DIR}/insert_${DBMS_NAME}.sql
+if [[ -f "${_select_sql}" ]]; then
+    echo "${_select_sql}" >> ${SQLS_DIR}/insert_${DBMS_NAME}.sql
 fi 
 
 echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] [820001]INSERTデータ関連SQLファイル作成が正常に完了しました。" >> ${LOG_DIR}/data_generator.log

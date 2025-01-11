@@ -80,7 +80,7 @@ fi
 # パラメータ1が0の場合、小数点以下のみを生成
 if [[ "${_item_length}" -eq 0 ]]; then
     _generated_number="0."
-    for ((i=1; i<=${_decimal_places}; i++)); do
+    for ((_i=1; _i<=${_decimal_places}; _i++)); do
         _random_digit=$((RANDOM % 10))  # 0から9のランダムな数字を生成
         _generated_number="${_generated_number}${_random_digit}"
     done
@@ -96,9 +96,9 @@ if [[ "${_item_length}" -eq 0 ]]; then
 # パラメータ2が空白の場合、整数のみを生成
 elif [[ -z "${_decimal_places}" || "${_decimal_places}" -eq 0 ]]; then
     _generated_number=""
-    for ((i=1; i<=${_item_length}; i++)); do
+    for ((_i=1; _i<=${_item_length}; _i++)); do
         _random_digit=$((RANDOM % 10))  # 0から9のランダムな数字を生成
-        if [[ ${i} -eq 1 && ${_random_digit} -eq 0 ]]; then
+        if [[ ${_i} -eq 1 && ${_random_digit} -eq 0 ]]; then
             _random_digit=$((RANDOM % 9 + 1))  # 最初の桁が0の場合は1から9までの数字で再生成
         fi
         _generated_number="${_generated_number}${_random_digit}"
@@ -111,15 +111,15 @@ elif [[ -z "${_decimal_places}" || "${_decimal_places}" -eq 0 ]]; then
 # 整数部と小数部を生成
 else
     _generated_number=""
-    for ((i=1; i<=${_item_length}; i++)); do
+    for ((_i=1; _i<=${_item_length}; _i++)); do
         _random_digit=$((RANDOM % 10))  # 0から9のランダムな数字を生成
-        if [[ ${i} -eq 1 && ${_random_digit} -eq 0 ]]; then
+        if [[ ${_i} -eq 1 && ${_random_digit} -eq 0 ]]; then
             _random_digit=$((RANDOM % 9 + 1))  # 最初の桁が0の場合は1から9までの数字で再生成
         fi
         _generated_number="${_generated_number}${_random_digit}"
     done
     _generated_number="${_generated_number}."
-    for ((i=1; i<=${_decimal_places}; i++)); do
+    for ((_i=1; _i<=${_decimal_places}; _i++)); do
         _random_digit=$((RANDOM % 10))
         _generated_number="${_generated_number}${_random_digit}"
     done

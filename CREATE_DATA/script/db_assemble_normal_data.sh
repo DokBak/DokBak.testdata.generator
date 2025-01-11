@@ -25,20 +25,20 @@ echo "$(date '+%Y/%m/%d %H:%M:%S') [INFO]  [$(basename $0)] START" >> ${LOG_DIR}
 _assemble_items=""
 
 # データ型と長さの項目数が COLUMN_COUNTS と一致しているか確認
-IFS=',' read -ra DATA_TYPES <<< "${COLUMN_DATA_TYPE//\"/}"
-IFS=',' read -ra DATA_LENGTHS <<< "${COLUMN_DATA_LENGTH//\"/}"
+IFS=',' read -ra _data_types <<< "${COLUMN_DATA_TYPE//\"/}"
+IFS=',' read -ra _data_lengths <<< "${COLUMN_DATA_LENGTH//\"/}"
 
 # COLUMN_COUNTS が正しいか確認
-if [[ "${#DATA_TYPES[@]}" -ne "${COLUMN_COUNTS}" || "${#DATA_LENGTHS[@]}" -ne "${COLUMN_COUNTS}" ]]; then
+if [[ "${#_data_types[@]}" -ne "${COLUMN_COUNTS}" || "${#_data_lengths[@]}" -ne "${COLUMN_COUNTS}" ]]; then
     echo "[410101]エラー: COLUMN_COUNTS と DATA_TYPE、または DATA_LENGTH の項目数が一致しません。"
     echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [410101]エラー: COLUMN_COUNTS と DATA_TYPE、または DATA_LENGTH の項目数が一致しません。" >> ${LOG_DIR}/data_generator.log
     exit 1
 fi
 
 # 順番に設定内容を確認し、対応するスクリプトを実行
-for _i in "${!DATA_TYPES[@]}"; do
-    _type="${DATA_TYPES[$_i]}"
-    _length="${DATA_LENGTHS[$_i]}"
+for _i in "${!_data_types[@]}"; do
+    _type="${_data_types[$_i]}"
+    _length="${_data_lengths[$_i]}"
     _item_number=$((_i + 1))
 
     echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] 処理中: 第${_item_number}項目 (データ型: ${_type}, 長さ: ${_length})" >> ${LOG_DIR}/data_generator.log

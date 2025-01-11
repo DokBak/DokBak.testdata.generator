@@ -2,7 +2,7 @@
 
 ###################################################################################
 #
-#  シェル名      : SQL実行コマンド作成シェル
+#  シェル名      : SQL実行コマンド(CREATE,SHOW,DROP)作成シェル
 #
 #  作成者        : DokBak
 #  作成日        : 2025/01/04
@@ -105,20 +105,20 @@ case "${DBMS_NAME}" in
         echo "" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
 
         # 順番に設定内容を確認し、対応するスクリプトを実行
-        IFS=',' read -ra DATA_TYPES <<< "${COLUMN_DATA_TYPE//\"/}"
-        IFS=',' read -ra DATA_LENGTHS <<< "${COLUMN_DATA_LENGTH//\"/}"
-        IFS=',' read -ra DATA_NAMES <<< "${COLUMN_DATA_NAME//\"/}"
-        IFS=',' read -ra PRIMARY_KEYS <<< "${COLUMN_PRIMARY_KEY//\"/}"
-        IFS=',' read -ra UNIQUE_KEYS <<< "${COLUMN_UNIQUE_KEY//\"/}"
-        IFS=',' read -ra FOREIGN_KEYS <<< "${COLUMN_FOREIGN_KEY//\"/}"
-        IFS=',' read -ra INDEX_KEYS <<< "${COLUMN_INDEX_KEY//\"/}"
-        IFS=',' read -ra NOT_NULLS <<< "${COLUMN_NOT_NULL//\"/}"
-        IFS=',' read -ra AUTO_INCREMENTS <<< "${COLUMN_AUTO_INCREMENT//\"/}"
-        IFS=',' read -ra DEFAULT_VALUES <<< "${COLUMN_DEFAULT_VALUE//\"/}"
-        IFS=',' read -ra COMMENTS <<< "${COLUMN_COMMENT//\"/}"
-        for _i in "${!DATA_TYPES[@]}"; do
-            _type="${DATA_TYPES[$_i]}"
-            _length="${DATA_LENGTHS[$_i]}"
+        IFS=',' read -ra _data_types <<< "${COLUMN_DATA_TYPE//\"/}"
+        IFS=',' read -ra _data_lengths <<< "${COLUMN_DATA_LENGTH//\"/}"
+        IFS=',' read -ra _data_names <<< "${COLUMN_DATA_NAME//\"/}"
+        IFS=',' read -ra _primary_keys <<< "${COLUMN_PRIMARY_KEY//\"/}"
+        IFS=',' read -ra _unique_keys <<< "${COLUMN_UNIQUE_KEY//\"/}"
+        IFS=',' read -ra _foreign_keys <<< "${COLUMN_FOREIGN_KEY//\"/}"
+        IFS=',' read -ra _index_keys <<< "${COLUMN_INDEX_KEY//\"/}"
+        IFS=',' read -ra _not_nulls <<< "${COLUMN_NOT_NULL//\"/}"
+        IFS=',' read -ra _auto_increments <<< "${COLUMN_AUTO_INCREMENT//\"/}"
+        IFS=',' read -ra _default_values <<< "${COLUMN_DEFAULT_VALUE//\"/}"
+        IFS=',' read -ra _comments <<< "${COLUMN_COMMENT//\"/}"
+        for _i in "${!_data_types[@]}"; do
+            _type="${_data_types[$_i]}"
+            _length="${_data_lengths[$_i]}"
             _item_number=$((_i + 1))
         done
         echo "  MySQL/MariaDB用のテーブル関連sql。"
@@ -127,18 +127,18 @@ case "${DBMS_NAME}" in
         echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  CREATE TABLE ${DATABASE_NAME}.${SET_TABLENAME}" >> ${LOG_DIR}/data_generator.log
         echo "--テーブル作成" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
         echo "CREATE TABLE ${DATABASE_NAME}.${SET_TABLENAME} ( " >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        for _i in "${!DATA_TYPES[@]}"; do
-            _type="${DATA_TYPES[$_i]}"
-            _length="${DATA_LENGTHS[$_i]}"
-            _data_name="${DATA_NAMES[$_i]}"
-            _primary_key="${PRIMARY_KEYS[$_i]}"
-            _unique_key="${UNIQUE_KEYS[$_i]}"
-            _foreign_key="${FOREIGN_KEYS[$_i]}"
-            _index_key="${INDEX_KEYS[$_i]}"
-            _not_null="${NOT_NULLS[$_i]}"
-            _auto_increment="${AUTO_INCREMENTS[$_i]}"
-            _default_value="${DEFAULT_VALUES[$_i]}"
-            _comment="${COMMENTS[$_i]}"
+        for _i in "${!_data_types[@]}"; do
+            _type="${_data_types[$_i]}"
+            _length="${_data_lengths[$_i]}"
+            _data_name="${_data_names[$_i]}"
+            _primary_key="${_primary_keys[$_i]}"
+            _unique_key="${_unique_keys[$_i]}"
+            _foreign_key="${_foreign_keys[$_i]}"
+            _index_key="${_index_keys[$_i]}"
+            _not_null="${_not_nulls[$_i]}"
+            _auto_increment="${_auto_increments[$_i]}"
+            _default_value="${_default_values[$_i]}"
+            _comment="${_comments[$_i]}"
             _item_number=$((_i + 1))
             _column=""
 
@@ -208,17 +208,17 @@ case "${DBMS_NAME}" in
 
             # PRIMARY KEY 抽出
             if [[ "${_primary_key}" = "true" ]]; then
-                primary_keys+=("${_data_name},")
+                _true_primary_keys+=("${_data_name},")
             fi
 
             # UNIQUE KEY 抽出
             if [[ "${_unique_key}" = "true" ]]; then
-                unique_keys+=("${_data_name},")
+                _true_unique_keys+=("${_data_name},")
             fi
 
             # FOREIGN KEY 抽出
             if [[ "${_foreign_key}" = "true" ]]; then
-                foreign_keys+=("${_data_name},")
+                _true_foreign_keys+=("${_data_name},")
             fi
 
             # COLUMN INDEX 抽出
@@ -227,8 +227,8 @@ case "${DBMS_NAME}" in
             fi
 
             # カンマの追加
-            if [[ ${_i} -eq $((${#DATA_TYPES[@]} - 1)) ]];then
-                if [[ "${#primary_keys[@]}" -ne 0 || "${#unique_keys[@]}" -ne 0 || "${#unique_keys[@]}" -ne 0 || "${#foreign_keys[@]}" -ne 0 ]];then
+            if [[ ${_i} -eq $((${#_data_types[@]} - 1)) ]];then
+                if [[ "${#_true_primary_keys[@]}" -ne 0 || "${#_true_unique_keys[@]}" -ne 0 || "${#_true_unique_keys[@]}" -ne 0 || "${#_true_foreign_keys[@]}" -ne 0 ]];then
                     _column="${_column},"
                 else
                     _column="${_column}"
@@ -243,54 +243,54 @@ case "${DBMS_NAME}" in
         done
 
         # PRIMARY KEY 追加
-        if [[ "${#primary_keys[@]}" -gt 0 ]]; then
-            primary_keys_string=$(IFS=; echo "${primary_keys[*]}" | sed 's/,$//')
+        if [[ "${#_true_primary_keys[@]}" -gt 0 ]]; then
+            _primary_keys_string=$(IFS=; echo "${_true_primary_keys[*]}" | sed 's/,$//')
 
             # カンマの追加
-            comma=","
-            if [[ "${#unique_keys[@]}" -eq 0 && "${#foreign_keys[@]}" -eq 0 && "${#index_keys[@]}" -eq 0 ]]; then
-                comma=""
+            _comma=","
+            if [[ "${#_true_unique_keys[@]}" -eq 0 && "${#_true_foreign_keys[@]}" -eq 0 && "${#index_keys[@]}" -eq 0 ]]; then
+                _comma=""
             fi
 
             # PRIMARY KEY の出力
-            echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：    PRIMARY KEY (${primary_keys_string})${comma}" >> ${LOG_DIR}/data_generator.log
-            echo "  PRIMARY KEY (${primary_keys_string})${comma}" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+            echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：    PRIMARY KEY (${_primary_keys_string})${_comma}" >> ${LOG_DIR}/data_generator.log
+            echo "  PRIMARY KEY (${_primary_keys_string})${_comma}" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
         fi
 
         # UNIQUE KEY 追加
-        if [[ "${#unique_keys[@]}" -gt 0 ]]; then
-            unique_keys_string=$(IFS=; echo "${unique_keys[*]}" | sed 's/,$//')
+        if [[ "${#_true_unique_keys[@]}" -gt 0 ]]; then
+            unique_keys_string=$(IFS=; echo "${_true_unique_keys[*]}" | sed 's/,$//')
 
             # カンマの追加
-            comma=","
-            if [[ "${#foreign_keys[@]}" -eq 0 && "${#index_keys[@]}" -eq 0 ]]; then
-                comma=""
+            _comma=","
+            if [[ "${#_true_foreign_keys[@]}" -eq 0 && "${#index_keys[@]}" -eq 0 ]]; then
+                _comma=""
             fi
 
             # UNIQUE KEY の出力
-            echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：    UNIQUE KEY (${unique_keys_string})${comma}" >> ${LOG_DIR}/data_generator.log
-            echo "  UNIQUE KEY (${unique_keys_string})${comma}" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+            echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：    UNIQUE KEY (${unique_keys_string})${_comma}" >> ${LOG_DIR}/data_generator.log
+            echo "  UNIQUE KEY (${unique_keys_string})${_comma}" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
         fi
 
         # FOREIGN KEY 追加
-        if [[ "${#foreign_keys[@]}" -gt 0 ]]; then
-            foreign_keys_string=$(IFS=; echo "${foreign_keys[*]}" | sed 's/,$//')
+        if [[ "${#_true_foreign_keys[@]}" -gt 0 ]]; then
+            _foreign_keys_string=$(IFS=; echo "${_true_foreign_keys[*]}" | sed 's/,$//')
 
-            total_keys=$(echo "${foreign_keys_string//,/ }" | wc -w)
-            current_index=1
+            _total_keys=$(echo "${_foreign_keys_string//,/ }" | wc -w)
+            _current_index=1
 
-            for foreign_key in ${foreign_keys_string//,/ }; do
+            for foreign_key in ${_foreign_keys_string//,/ }; do
                 # 最後の項目の場合、カンマを付けない
-                comma=","
-                if [[ ${current_index} -eq ${total_keys} && "${#index_keys[@]}" -eq 0 ]]; then
-                    comma=""
+                _comma=","
+                if [[ ${_current_index} -eq ${_total_keys} && "${#index_keys[@]}" -eq 0 ]]; then
+                    _comma=""
                 fi
 
                 # FOREIGN KEY の出力
-                echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：    FOREIGN KEY (${foreign_key}) REFERENCES ${FOREIGN_TABLENAME}(${foreign_key})${comma}" >> ${LOG_DIR}/data_generator.log
-                echo "  FOREIGN KEY (${foreign_key}) REFERENCES ${FOREIGN_TABLENAME}(${foreign_key})${comma}" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+                echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：    FOREIGN KEY (${foreign_key}) REFERENCES ${FOREIGN_TABLENAME}(${foreign_key})${_comma}" >> ${LOG_DIR}/data_generator.log
+                echo "  FOREIGN KEY (${foreign_key}) REFERENCES ${FOREIGN_TABLENAME}(${foreign_key})${_comma}" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
 
-                ((current_index++))
+                ((_current_index++))
             done
         fi
 
@@ -416,20 +416,20 @@ case "${DBMS_NAME}" in
         echo "" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
 
         # 順番に設定内容を確認し、対応するスクリプトを実行
-        IFS=',' read -ra DATA_TYPES <<< "${COLUMN_DATA_TYPE//\"/}"
-        IFS=',' read -ra DATA_LENGTHS <<< "${COLUMN_DATA_LENGTH//\"/}"
-        IFS=',' read -ra DATA_NAMES <<< "${COLUMN_DATA_NAME//\"/}"
-        IFS=',' read -ra PRIMARY_KEYS <<< "${COLUMN_PRIMARY_KEY//\"/}"
-        IFS=',' read -ra UNIQUE_KEYS <<< "${COLUMN_UNIQUE_KEY//\"/}"
-        IFS=',' read -ra FOREIGN_KEYS <<< "${COLUMN_FOREIGN_KEY//\"/}"
-        IFS=',' read -ra INDEX_KEYS <<< "${COLUMN_INDEX_KEY//\"/}"
-        IFS=',' read -ra NOT_NULLS <<< "${COLUMN_NOT_NULL//\"/}"
-        IFS=',' read -ra AUTO_INCREMENTS <<< "${COLUMN_AUTO_INCREMENT//\"/}"
-        IFS=',' read -ra DEFAULT_VALUES <<< "${COLUMN_DEFAULT_VALUE//\"/}"
-        IFS=',' read -ra COMMENTS <<< "${COLUMN_COMMENT//\"/}"
-        for _i in "${!DATA_TYPES[@]}"; do
-            _type="${DATA_TYPES[$_i]}"
-            _length="${DATA_LENGTHS[$_i]}"
+        IFS=',' read -ra _data_types <<< "${COLUMN_DATA_TYPE//\"/}"
+        IFS=',' read -ra _data_lengths <<< "${COLUMN_DATA_LENGTH//\"/}"
+        IFS=',' read -ra _data_names <<< "${COLUMN_DATA_NAME//\"/}"
+        IFS=',' read -ra _primary_keys <<< "${COLUMN_PRIMARY_KEY//\"/}"
+        IFS=',' read -ra _unique_keys <<< "${COLUMN_UNIQUE_KEY//\"/}"
+        IFS=',' read -ra _foreign_keys <<< "${COLUMN_FOREIGN_KEY//\"/}"
+        IFS=',' read -ra _index_keys <<< "${COLUMN_INDEX_KEY//\"/}"
+        IFS=',' read -ra _not_nulls <<< "${COLUMN_NOT_NULL//\"/}"
+        IFS=',' read -ra _auto_increments <<< "${COLUMN_AUTO_INCREMENT//\"/}"
+        IFS=',' read -ra _default_values <<< "${COLUMN_DEFAULT_VALUE//\"/}"
+        IFS=',' read -ra _comments <<< "${COLUMN_COMMENT//\"/}"
+        for _i in "${!_data_types[@]}"; do
+            _type="${_data_types[$_i]}"
+            _length="${_data_lengths[$_i]}"
             _item_number=$((_i + 1))
         done
         echo "  PostgreSQL用のテーブル関連sql。"
@@ -438,18 +438,18 @@ case "${DBMS_NAME}" in
         echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  CREATE TABLE ${DATABASE_NAME}.${SET_TABLENAME}" >> ${LOG_DIR}/data_generator.log
         echo "--テーブル作成" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
         echo "CREATE TABLE ${SET_SCHEMA}.${SET_TABLENAME} ( " >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        unique_key_count=0
-        for _i in "${!DATA_TYPES[@]}"; do
-            _type="${DATA_TYPES[$_i]}"
-            _length="${DATA_LENGTHS[$_i]}"
-            _data_name="${DATA_NAMES[$_i]}"
-            _primary_key="${PRIMARY_KEYS[$_i]}"
-            _unique_key="${UNIQUE_KEYS[$_i]}"
-            _foreign_key="${FOREIGN_KEYS[$_i]}"
-            _not_null="${NOT_NULLS[$_i]}"
-            _auto_increment="${AUTO_INCREMENTS[$_i]}"
-            _default_value="${DEFAULT_VALUES[$_i]}"
-            _comment="${COMMENTS[$_i]}"
+        _unique_key_count=0
+        for _i in "${!_data_types[@]}"; do
+            _type="${_data_types[$_i]}"
+            _length="${_data_lengths[$_i]}"
+            _data_name="${_data_names[$_i]}"
+            _primary_key="${_primary_keys[$_i]}"
+            _unique_key="${_unique_keys[$_i]}"
+            _foreign_key="${_foreign_keys[$_i]}"
+            _not_null="${_not_nulls[$_i]}"
+            _auto_increment="${_auto_increments[$_i]}"
+            _default_value="${_default_values[$_i]}"
+            _comment="${_comments[$_i]}"
             _item_number=$((_i + 1))
             _column=""
 
@@ -518,22 +518,22 @@ case "${DBMS_NAME}" in
 
             # PRIMARY KEY 抽出
             if [[ "${_primary_key}" = "true" ]]; then
-                primary_keys+=("${_data_name},")
+                _true_primary_keys+=("${_data_name},")
             fi
 
             # UNIQUE KEY のtrue のカウントを追加
             if [[ "${_unique_key}" = "true" ]]; then
-                unique_key_count=$((unique_key_count + 1)) 
+                _unique_key_count=$((_unique_key_count + 1)) 
             fi
 
             # FOREIGN KEY 抽出
             if [[ "${_foreign_key}" = "true" ]]; then
-                foreign_keys+=("${_data_name},")
+                _true_foreign_keys+=("${_data_name},")
             fi
 
             # カンマの追加
-            if [[ ${_i} -eq $((${#DATA_TYPES[@]} - 1)) ]];then
-                if [[ "${#primary_keys[@]}" -ne 0 || "${#unique_keys[@]}" -ne 0 || "${#unique_keys[@]}" -ne 0 || "${#foreign_keys[@]}" -ne 0 ]];then
+            if [[ ${_i} -eq $((${#_data_types[@]} - 1)) ]];then
+                if [[ "${#_true_primary_keys[@]}" -ne 0 || "${#_true_unique_keys[@]}" -ne 0 || "${#_true_unique_keys[@]}" -ne 0 || "${#_true_foreign_keys[@]}" -ne 0 ]];then
                     _column="${_column},"
                 else
                     _column="${_column}"
@@ -548,55 +548,55 @@ case "${DBMS_NAME}" in
         done
 
         # PRIMARY KEY 追加
-        if [[ "${#primary_keys[@]}" -gt 0 ]]; then
-            primary_keys_string=$(IFS=; echo "${primary_keys[*]}" | sed 's/,$//')
+        if [[ "${#_true_primary_keys[@]}" -gt 0 ]]; then
+            _primary_keys_string=$(IFS=; echo "${_true_primary_keys[*]}" | sed 's/,$//')
 
             # カンマの追加
-            comma=","
-            if [[ "${#unique_keys[@]}" -eq 0 && "${#foreign_keys[@]}" -eq 0 ]]; then
-                comma=""
+            _comma=","
+            if [[ "${#_true_unique_keys[@]}" -eq 0 && "${#_true_foreign_keys[@]}" -eq 0 ]]; then
+                _comma=""
             fi
 
             # PRIMARY KEY の出力
-            echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：    PRIMARY KEY (${primary_keys_string})${comma}" >> ${LOG_DIR}/data_generator.log
-            echo "  PRIMARY KEY (${primary_keys_string})${comma}" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+            echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：    PRIMARY KEY (${_primary_keys_string})${_comma}" >> ${LOG_DIR}/data_generator.log
+            echo "  PRIMARY KEY (${_primary_keys_string})${_comma}" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
         fi
 
         # UNIQUE KEY の出力
         current_count=0
-        for _i in "${!DATA_TYPES[@]}"; do
-            _data_name="${DATA_NAMES[$_i]}"
-            _unique_key="${UNIQUE_KEYS[$_i]}"
+        for _i in "${!_data_types[@]}"; do
+            _data_name="${_data_names[$_i]}"
+            _unique_key="${_unique_keys[$_i]}"
             if [[ "${_unique_key}" = "true" ]]; then
                 current_count=$((current_count + 1))
-                comma=","
-                if [[ "$current_count" -eq "$unique_key_count" && "${#foreign_keys[@]}" -eq 0 ]]; then
-                    comma=""
+                _comma=","
+                if [[ "$current_count" -eq "$_unique_key_count" && "${#_true_foreign_keys[@]}" -eq 0 ]]; then
+                    _comma=""
                 fi
-                echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：    UNIQUE (${_data_name})${comma}" >> ${LOG_DIR}/data_generator.log
-                echo "  UNIQUE (${_data_name})${comma}" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+                echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：    UNIQUE (${_data_name})${_comma}" >> ${LOG_DIR}/data_generator.log
+                echo "  UNIQUE (${_data_name})${_comma}" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
             fi
         done
 
         # FOREIGN KEY 追加
-        if [[ "${#foreign_keys[@]}" -gt 0 ]]; then
-            foreign_keys_string=$(IFS=; echo "${foreign_keys[*]}" | sed 's/,$//')
+        if [[ "${#_true_foreign_keys[@]}" -gt 0 ]]; then
+            _foreign_keys_string=$(IFS=; echo "${_true_foreign_keys[*]}" | sed 's/,$//')
 
-            total_keys=$(echo "${foreign_keys_string//,/ }" | wc -w)
-            current_index=1
+            _total_keys=$(echo "${_foreign_keys_string//,/ }" | wc -w)
+            _current_index=1
 
-            for foreign_key in ${foreign_keys_string//,/ }; do
+            for foreign_key in ${_foreign_keys_string//,/ }; do
                 # 最後の項目の場合、カンマを付けない
-                comma=","
-                if [[ ${current_index} -eq ${total_keys} ]]; then
-                    comma=""
+                _comma=","
+                if [[ ${_current_index} -eq ${_total_keys} ]]; then
+                    _comma=""
                 fi
 
                 # FOREIGN KEY の出力
-                echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：    FOREIGN KEY (${foreign_key}) REFERENCES ${SET_SCHEMA}.${FOREIGN_TABLENAME}(${foreign_key})${comma}" >> ${LOG_DIR}/data_generator.log
-                echo "  FOREIGN KEY (${foreign_key}) REFERENCES ${SET_SCHEMA}.${FOREIGN_TABLENAME}(${foreign_key})${comma}" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+                echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：    FOREIGN KEY (${foreign_key}) REFERENCES ${SET_SCHEMA}.${FOREIGN_TABLENAME}(${foreign_key})${_comma}" >> ${LOG_DIR}/data_generator.log
+                echo "  FOREIGN KEY (${foreign_key}) REFERENCES ${SET_SCHEMA}.${FOREIGN_TABLENAME}(${foreign_key})${_comma}" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
 
-                ((current_index++))
+                ((_current_index++))
             done
         fi
 
@@ -625,10 +625,9 @@ case "${DBMS_NAME}" in
 
         echo "  PostgreSQL用のインデックス関連sql。"
         echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] PostgreSQL用のインデックス関連sql。" >> ${LOG_DIR}/data_generator.log
-        unique_key_count=0
-        for _i in "${!DATA_TYPES[@]}"; do
-            _data_name="${DATA_NAMES[$_i]}"
-            _index_key="${INDEX_KEYS[$_i]}"
+        for _i in "${!_data_types[@]}"; do
+            _data_name="${_data_names[$_i]}"
+            _index_key="${_index_keys[$_i]}"
             _item_number=$((_i + 1))
             # COLUMN INDEX 抽出
             if [[ "${_index_key}" = "true" ]]; then
@@ -646,8 +645,8 @@ case "${DBMS_NAME}" in
         echo "\di ${SET_SCHEMA}.*;" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
         echo "" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
 
-        for _i in "${!DATA_TYPES[@]}"; do
-            _index_key="${INDEX_KEYS[$_i]}"
+        for _i in "${!_data_types[@]}"; do
+            _index_key="${_index_keys[$_i]}"
             _item_number=$((_i + 1))
             if [[ "${_index_key}" = "true" ]]; then
                 echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--インデックス削除" >> ${LOG_DIR}/data_generator.log

@@ -54,16 +54,16 @@ if [[ -z "${COLUMN_DATA_TYPE}" || -z "${COLUMN_DATA_LENGTH}" ]]; then
 fi
 
 # データ型と長さの項目数が COLUMN_COUNTS と一致しているか確認
-IFS=',' read -ra DATA_TYPES <<< "${COLUMN_DATA_TYPE//\"/}"
-IFS=',' read -ra DATA_LENGTHS <<< "${COLUMN_DATA_LENGTH//\"/}"
+IFS=',' read -ra _data_types <<< "${COLUMN_DATA_TYPE//\"/}"
+IFS=',' read -ra _data_lengths <<< "${COLUMN_DATA_LENGTH//\"/}"
 
-if [[ "${#DATA_TYPES[@]}" -ne "${COLUMN_COUNTS}" ]]; then
+if [[ "${#_data_types[@]}" -ne "${COLUMN_COUNTS}" ]]; then
     echo "[220105]エラー: COLUMN_DATA_TYPE の項目数が COLUMN_COUNTS と一致しません。"
     echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220105]エラー: COLUMN_DATA_TYPE の項目数が COLUMN_COUNTS と一致しません。" >> ${LOG_DIR}/data_generator.log
     exit 1
 fi
 
-if [[ "${#DATA_LENGTHS[@]}" -ne "${COLUMN_COUNTS}" ]]; then
+if [[ "${#_data_lengths[@]}" -ne "${COLUMN_COUNTS}" ]]; then
     echo "[220106]エラー: COLUMN_DATA_LENGTH の項目数が COLUMN_COUNTS と一致しません。"
     echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220106]エラー: COLUMN_DATA_LENGTH の項目数が COLUMN_COUNTS と一致しません。" >> ${LOG_DIR}/data_generator.log
     exit 1
@@ -71,7 +71,7 @@ fi
 
 # COLUMN_DATA_TYPE のサポートされているデータ型を確認
 _valid_data_types=("byte" "short" "int" "long" "float" "double" "char" "string" "boolean" "date")
-for _type in "${DATA_TYPES[@]}"; do
+for _type in "${_data_types[@]}"; do
     if [[ ! " ${_valid_data_types[@]} " =~ " ${_type} " ]]; then
         echo "[220107]エラー: 無効なデータ型 ${_type} が指定されています。"
         echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220107]エラー: 無効なデータ型 ${_type} が指定されています。" >> ${LOG_DIR}/data_generator.log
@@ -80,9 +80,9 @@ for _type in "${DATA_TYPES[@]}"; do
 done
 
 # COLUMN_DATA_LENGTH の値を検証
-for _i in "${!DATA_TYPES[@]}"; do
-    _type="${DATA_TYPES[$_i]}"
-    _length="${DATA_LENGTHS[$_i]}"
+for _i in "${!_data_types[@]}"; do
+    _type="${_data_types[$_i]}"
+    _length="${_data_lengths[$_i]}"
     _item_number=$((_i + 1)) # 配列インデックスを1から始める
 
     case "${_type}" in
