@@ -344,6 +344,17 @@ for ((_i=1; _i<=${ROW_COUNTS}; _i++)); do
     fi
     echo
 
+    bash "${SCRIPT_DIR}/db_sql_insert_script.sh" "${_gen_data}" "${_i}"
+    if [[ $? -ne 0 ]]; then
+        echo "[910112]エラー: INSERTのSQL文作成中に問題が発生しました。処理を中断します。"
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [910112]エラー: INSERTのSQL文作成中に問題が発生しました。処理を中断します。" >> ${LOG_DIR}/data_generator.log
+        exit 1
+    else
+        echo "  INSERTのSQL文作成完了"
+    fi
+    echo
+
+
     echo "  データフォーマット変更中..."
     # データフォーマット変更
     _formatted_data=$(bash "${SCRIPT_DIR}/db_output_record_format.sh" "${_gen_data}")

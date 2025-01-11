@@ -4,7 +4,7 @@ FILE_NAME="testFile001"
 FILE_EXTENSION=".csv"
   ##説明：出力ファイルの拡張子を指定
   ##設定可能値："", ".csv", ".tsv", ".txt" 
-FILE_COMPRESSION=".gz"
+FILE_COMPRESSION=""
   ##説明：出力ファイルの圧縮有無を指定
   ##設定可能値："", ".gz", ".zip", ".Z", ".tar", ".7z"
 FILE_CHARSET="UTF-8"

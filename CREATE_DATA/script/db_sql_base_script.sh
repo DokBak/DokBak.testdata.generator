@@ -8,7 +8,8 @@
 #  作成日        : 2025/01/04
 #
 #  処理概要      : 変数に基づいてデータベースを作成します。
-#                 DBMSがMySQLの場合、MySQLデータベースを作成します。その他のDBMSにも対応可能です。
+#                 DBMSがMySQLの場合、MySQLデータベース、ユーザ（権限）、テーブルを作成します。
+#                 その他のDBMSにも対応可能です。
 #
 #  パラメータ    　:
 #     なし
@@ -23,13 +24,14 @@
 echo "データベース、ユーザ、テーブル関連sql作成中..."
 echo "$(date '+%Y/%m/%d %H:%M:%S') [INFO]  [$(basename $0)] START" >> ${LOG_DIR}/data_generator.log
 
+# 作成対象のファイルが既に存在する場合、バックアップ処理
+if [[ -f "${SQLS_DIR}/base_${DBMS_NAME}.sql" ]];then
+    mv "${SQLS_DIR}/base_${DBMS_NAME}.sql" "${SQLS_DIR}/bk_$(date '+%Y%m%d%H%M%S')_base_${DBMS_NAME}.sql"
+fi
+
 # DBMSによる処理の分岐
 case "${DBMS_NAME}" in
     "MySQL"|"MariaDB")
-        # 作成対象のファイルが既に存在する場合、バックアップ処理
-        if [[ -f "${SQLS_DIR}/base_${DBMS_NAME}.sql" ]];then
-            mv "${SQLS_DIR}/base_${DBMS_NAME}.sql" "${SQLS_DIR}/bk_$(date '+%Y%m%d%H%M%S')_base_${DBMS_NAME}.sql"
-        fi
         # MySQL/MariaDBの場合
         echo "  MySQL/MariaDB用のデータベース関連sql。"
         echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] MySQL/MariaDB用のデータベース関連sql。" >> ${LOG_DIR}/data_generator.log
@@ -323,10 +325,6 @@ case "${DBMS_NAME}" in
         ;;
 
     "PostgreSQL")
-        # 作成対象のファイルが既に存在する場合、バックアップ処理
-        if [[ -f "${SQLS_DIR}/base_${DBMS_NAME}.sql" ]];then
-            mv "${SQLS_DIR}/base_${DBMS_NAME}.sql" "${SQLS_DIR}/bk_$(date '+%Y%m%d%H%M%S')_base_${DBMS_NAME}.sql"
-        fi
         # PostgreSQLの場合
         echo "  PostgreSQL用のユーザ関連sql。"
         echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] PostgreSQL用のユーザ関連sql。" >> ${LOG_DIR}/data_generator.log
@@ -710,7 +708,7 @@ EOF
         ;;
 esac
 
-echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] [810001]データベース、ユーザ、テーブル関連sql作成処理が正常に完了しました。" >> ${LOG_DIR}/data_generator.log
+echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] [810001]データベース、ユーザ、テーブル関連SQLファイル作成が正常に完了しました。" >> ${LOG_DIR}/data_generator.log
 echo "$(date '+%Y/%m/%d %H:%M:%S') [INFO]  [$(basename $0)] END" >> ${LOG_DIR}/data_generator.log
-echo "[810001]データベース、ユーザ、テーブル関連sql作成処理が正常に完了しました。"
+echo "[810001]データベース、ユーザ、テーブル関連SQLファイル作成が正常に完了しました。"
 exit 0

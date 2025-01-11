@@ -75,9 +75,31 @@ for _i in "${!DATA_TYPES[@]}"; do
             _random_value=$((RANDOM % 2))
             # ランダム値に基づいて結果を出力
             if [[ "${_random_value}" -eq 0 ]]; then
-                _item="FALSE"
+                case "${DBMS_NAME}" in
+                    "MySQL"|"MariaDB")
+                        _item="0"
+                        ;;
+                    "PostgreSQL")
+                        _item="FALSE"
+                        ;;
+                    *)
+                        echo "サポートされていないDBMSです。"
+                        exit 1 
+                        ;;
+                esac
             else
-                _item="TRUE"
+                case "${DBMS_NAME}" in
+                    "MySQL"|"MariaDB")
+                        _item="1"
+                        ;;
+                    "PostgreSQL")
+                        _item="TRUE"
+                        ;;
+                    *)
+                        echo "サポートされていないDBMSです。"
+                        exit 1 
+                        ;;
+                esac
             fi
             if [[ -n "$_assemble_items" ]]; then
                 _assemble_items+=",${_item}"  # 値が空でない場合、カンマを追加
