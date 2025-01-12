@@ -34,7 +34,7 @@ export FILES_DIR="${_parent_dir}/output/files"
 # 出力SQLファイルのディレクトリ
 export SQLS_DIR="${_parent_dir}/output/sqls"
 # 出力SQLファイルのディレクトリ
-export LOG_DIR="${_parent_dir}/output/log"
+export LOG_DIR="${_parent_dir}/output/logs"
 
 # ログファイルが存在する場合、既存ログファイルバックアップ
 if [[ -f "${LOG_DIR}/data_generator.log" ]]; then

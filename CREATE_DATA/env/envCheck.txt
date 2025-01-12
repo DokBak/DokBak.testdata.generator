@@ -3,7 +3,7 @@
 ・ 開発環境：Mac OS Sonma 14.4.1
 
 ・ 使用シェル確認コマンド：echo $SHELL
-　  結果例1(Bashシェル)：/bin/bash
+　  結果例1(Bashシェル)：/bin/bash  (※ 作成環境で使用したシェル)
 　  結果例2(Zshシェル)：/bin/zsh
 
 ・ 使用可能なシェル確認コマンド：cat /etc/shells
@@ -34,4 +34,79 @@
 　  コマンド1(Bashシェルバージョン)：bash --version (Update後：GNU bash, version 5.2.37(1)-release (x86_64-apple-darwin23.4.0))
 　  コマンド2(Zshシェルバージョン) ：zsh --version  (Update後：zsh 5.9 (x86_64-apple-darwin23.0.0))
 
+・ ディレクトリ構造(db_generator.sh)
+    /CREATE_DATA/
+    │
+    ├── config/    (※ 必須ファイル)
+    │   ├── db_data_config.txt
+    │   ├── db_file_config.txt
+    │   └── db_sql_config.txt
+    │
+    ├── env/    (※ 参考ファイル)
+    │   ├── envCheck.txt
+    │   └── logCode.txt
+    │
+    ├── output/    (※ 自動作成ファイル)
+    │   │
+    │   ├── files/
+    │   │   └── 出力ファイル
+    │   │
+    │   ├── logs/
+    │   │   └── data_generator.log
+    │   │
+    │   └── sqls/
+    │       └── base_[DBMS].txt
+    │
+    └── script/    (※ 必須ファイル)
+        ├── db_assemble_normal_data.sh
+        ├── db_check_data_validate_config.sh
+        ├── db_check_file_validate_config.sh
+        ├── db_check_files_exist.sh
+        ├── db_check_sql_validate_config.sh
+        ├── db_gen_date_data.sh
+        ├── db_gen_number_data.sh
+        ├── db_gen_string_data.sh
+        ├── db_generator.sh
+        ├── db_output_compression_format.sh
+        ├── db_output_file_format.sh
+        ├── db_output_record_format.sh
+        ├── db_sql_base_script.sh
+        └── db_sql_insert_script.sh
 
+・ Python 開発バージョン確認：
+　  コマンド(Python3がインストール済み)：python3 --version (Python 3.13.1)
+
+・ Excel連携Pythonライブラリ：
+　  pandas：データ分析作業向け(ファイル書き込みのみ可能)  (※ 作成環境で使用したライブラリ)
+　  openpyxl：書式、チャート、条件付き書式(ファイルの読み込み,書き込み可能)  (※ 作成環境で使用したライブラリ)
+　  xlsxwriter：書式、チャート、条件付き書式(ファイル書き込みのみ可能)
+　  xlrd：古いエクセルを処理するため(97-20003バージョン)
+
+・ Pythonライブラリのインストール(pip3利用)：
+　  (MAC OS:python3がインストールされている場合、pip3を使用。python3以外はpipを使用。)
+    コマンド：pip3 --version (pip 24.3.1 from /usr/local/lib/python3.13/site-packages/pip (python 3.13))
+
+・ ディレクトリ構造(db_doc_read_openpyxl.py)
+    /CREATE_DATA/
+    │
+    ├── env/    (※ 参考ファイル)
+    │   └── envCheck.txt
+    │
+    ├── documents/    (※ 参考ファイル)
+    │   └── 読み込み用Excelファイル
+    │
+    └── py/    (※ 必須ファイル)
+        ├── packages
+        │   ├── openpyxl    (※ EXCELファイルの読み込み,書き込み時、必須ライブラリ:MAIN)
+        │   └── et_xmlfile    (※ openpyxlライブラリ使用時)
+        │   │
+        │   ├── pandas    (※ EXCELファイルの読み込み時、必須ライブラリ:MAIN)
+        │   ├── numpy    (※ pandasライブラリ使用時)
+        │   ├── python_dateutil    (※ pandasライブラリ使用時)
+        │   ├── pytz    (※ pandasライブラリ使用時)
+        │   └── six    (※ pandasライブラリ使用時)
+        │
+        ├── db_doc_create_openpyxl.py
+        ├── db_doc_read_pandas.py
+        ├── db_doc_run.py
+        └── db_doc_set_history_openpyxl.py

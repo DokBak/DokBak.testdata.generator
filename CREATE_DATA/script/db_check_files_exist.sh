@@ -43,7 +43,7 @@ fi
 # 出力ファイルディレクトリの確認&作成
 mkdir -p ${_output_dir}/files/
 mkdir -p ${_output_dir}/sqls/
-mkdir -p ${_output_dir}/log/
+mkdir -p ${_output_dir}/logs/
 
 # 確認するスクリプトファイル
 _script_files=("db_gen_date_data.sh" "db_gen_number_data.sh" "db_gen_string_data.sh" "db_check_files_exist.sh" "db_check_data_validate_config.sh" "db_check_file_validate_config.sh" "db_check_sql_validate_config.sh" "db_assemble_normal_data.sh" "db_output_record_format.sh" "db_output_file_format.sh" "db_output_compression_format.sh" "db_sql_base_script.sh" "db_generator.sh")
