@@ -11,7 +11,7 @@ sys.path.append(os.path.join(current_dir, 'packages/openpyxl/'))
 sys.path.append(os.path.join(current_dir, 'packages/et_xmlfile/'))
 
 # ログファイルの設定
-log_dir = os.path.join(current_dir, '../output/log/')
+log_dir = os.path.join(current_dir, '../output/logs/')
 os.makedirs(log_dir, exist_ok=True)  # ログディレクトリが存在しない場合、作成
 
 # ログファイル名を設定

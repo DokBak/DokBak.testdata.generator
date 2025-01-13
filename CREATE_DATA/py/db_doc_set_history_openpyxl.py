@@ -16,7 +16,7 @@ from openpyxl.styles import Alignment, Border, Side, PatternFill, NamedStyle
 from openpyxl.worksheet.datavalidation import DataValidation
 
 # ログファイルの設定
-log_dir = os.path.join(current_dir, "../output/log/")
+log_dir = os.path.join(current_dir, "../output/logs/")
 os.makedirs(log_dir, exist_ok=True)  # ログディレクトリを作成
 
 # db_doc_set_history_openpyxl.py専用のログファイル名を設定

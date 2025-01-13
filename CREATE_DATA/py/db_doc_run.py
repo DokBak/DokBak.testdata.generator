@@ -6,10 +6,11 @@ from datetime import datetime
 # 現在のスクリプトのパスを基準にして、実行対象のスクリプトパスを取得
 current_dir = os.path.dirname(os.path.abspath(__file__))
 create_script = os.path.join(current_dir, "db_doc_create_openpyxl.py")
-set_history_script = os.path.join(current_dir, "db_doc_set_history_openpyxl.py")
+set_history = os.path.join(current_dir, "db_doc_set_history_openpyxl.py")
+set_common = os.path.join(current_dir, "db_doc_set_common_openpyxl.py")
 
 # ログファイルの設定
-log_dir = os.path.join(current_dir, "../output/log/")
+log_dir = os.path.join(current_dir, "../output/logs/")
 os.makedirs(log_dir, exist_ok=True)  # ログディレクトリを作成
 
 # db_doc_run.py専用のログファイル名を設定
@@ -69,10 +70,17 @@ else:
     exit(1)
 
 # db_doc_set_history_openpyxl.py の実行
-if run_script(set_history_script):
+if run_script(set_history):
     logging.info("db_doc_set_history_openpyxl.py の実行が完了しました")
 else:
     logging.error("db_doc_set_history_openpyxl.py の実行に失敗しました")
+    exit(1)
+
+# db_doc_set_common_openpyxl.py の実行
+if run_script(set_common):
+    logging.info("db_doc_set_common_openpyxl.py の実行が完了しました")
+else:
+    logging.error("db_doc_set_common_openpyxl.py の実行に失敗しました")
     exit(1)
 
 # ログ記録終了

@@ -27,7 +27,7 @@ DATABASE_USERRIGHT="Superuser"
   ##設定可能値(MySQL)："ALL PRIVILEGES"(全権限), "SELECT,INSERT,UPDATE,DELETE,CREATE,DROP"
   ##設定可能値(PostgreSQL)："Superuser"(全権限), "Createrole,CreateDB,Replication,BypassRLS"
 DATABASE_TABLENAME="*"
-  ##説明：データベースに接続するユーザ名のパスワード
+  ##説明：データベースに接続するテーブル指定
   ##設定可能値(MySQL)："*"(全テーブル), "指定したいテーブル名:${SET_TABLENAME}"
 SET_SCHEMA="test_schema"
   ##説明：作成するテーブル名
