@@ -37,6 +37,14 @@ logging.basicConfig(
     datefmt='%Y-%m-%d %H:%M:%S'
 )
 
+# 結合セルの罫線情報
+thin_border = Border(
+    left=Side(style="thin"),
+    right=Side(style="thin"),
+    top=Side(style="thin"),
+    bottom=Side(style="thin")
+)
+
 # ログ記録開始
 logging.info("db_doc_set_common_openpyxl.py 実行開始")
 
@@ -75,13 +83,6 @@ try:
     merged_cell.alignment = Alignment(horizontal="left", vertical="center")
     logging.info(f"シート 'Common Settings' のセル B2:F2 を中央揃えに設定しました")
 
-    # 結合セルの罫線情報
-    thin_border = Border(
-        left=Side(style="thin"),
-        right=Side(style="thin"),
-        top=Side(style="thin"),
-        bottom=Side(style="thin")
-    )
     # 結合セルの罫線と背景色設定
     for row in ws.iter_rows(min_row=2, max_row=2, min_col=2, max_col=6):
         for cell in row:
@@ -739,8 +740,6 @@ try:
             cell.fill = PatternFill(start_color="FFFFFF", end_color="FFFFFF", fill_type="solid")
     logging.info("シート 'Common Settings' のセル G17:M17 にテーブル枠線と背景色を設定しました")
 
-###########################
-
     # B18セルに '出力データ件数' を入力
     ws["B18"] = "出力データ件数"
     logging.info("B18 セルに '出力データ件数' を入力しました")
@@ -780,10 +779,6 @@ try:
             cell.border = thin_border
             cell.fill = PatternFill(start_color="FFFFFF", end_color="FFFFFF", fill_type="solid")
     logging.info("シート 'Common Settings' のセル G18:M18 にテーブル枠線と背景色を設定しました")
-
-###########################
-
-
 
     # Excelファイルを保存
     wb.save(excel_file_path)

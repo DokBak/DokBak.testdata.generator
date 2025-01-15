@@ -8,6 +8,7 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 create_script = os.path.join(current_dir, "db_doc_create_openpyxl.py")
 set_history = os.path.join(current_dir, "db_doc_set_history_openpyxl.py")
 set_common = os.path.join(current_dir, "db_doc_set_common_openpyxl.py")
+set_table = os.path.join(current_dir, "db_doc_set_table_openpyxl.py")
 
 # ログファイルの設定
 log_dir = os.path.join(current_dir, "../output/logs/")
@@ -81,6 +82,13 @@ if run_script(set_common):
     logging.info("db_doc_set_common_openpyxl.py の実行が完了しました")
 else:
     logging.error("db_doc_set_common_openpyxl.py の実行に失敗しました")
+    exit(1)
+
+# db_doc_set_table_openpyxl.py の実行
+if run_script(set_table):
+    logging.info("db_doc_set_table_openpyxl.py の実行が完了しました")
+else:
+    logging.error("db_doc_set_table_openpyxl.py の実行に失敗しました")
     exit(1)
 
 # ログ記録終了

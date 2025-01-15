@@ -37,6 +37,14 @@ logging.basicConfig(
     datefmt='%Y-%m-%d %H:%M:%S'
 )
 
+# 結合セルの罫線情報
+thin_border = Border(
+    left=Side(style="thin"),
+    right=Side(style="thin"),
+    top=Side(style="thin"),
+    bottom=Side(style="thin")
+)
+
 # ログ記録開始
 logging.info("db_doc_set_history_openpyxl.py 実行開始")
 
@@ -75,13 +83,6 @@ try:
     merged_cell.alignment = Alignment(horizontal="center", vertical="center")
     logging.info(f"シート 'Version History' のセル B2:V3 を中央揃えに設定しました")
 
-    # 結合セルの罫線情報
-    thin_border = Border(
-        left=Side(style="thin"),
-        right=Side(style="thin"),
-        top=Side(style="thin"),
-        bottom=Side(style="thin")
-    )
     # 結合セルの罫線と背景色設定
     for row in ws.iter_rows(min_row=2, max_row=3, min_col=2, max_col=22):
         for cell in row:

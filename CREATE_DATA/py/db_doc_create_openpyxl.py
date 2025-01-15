@@ -51,7 +51,7 @@ wb = openpyxl.Workbook()
 wb.remove(wb.active)
 
 # 新しいシートを作成
-sheet_names = ["Version History", "Common Settings", "table1", "table2"]
+sheet_names = ["Version History", "Common Settings", "Table Name"]
 
 for sheet_name in sheet_names:
     # 指定した名前のシートを作成
