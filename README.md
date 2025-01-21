@@ -34,5 +34,5 @@
 
 ### 1. リポジトリをクローン
 ```bash
-git clone https://github.com/ユーザー名/リポジトリ名.git
+git clone https://github.com/DokBak/DokBak.testdata.generator.git
 cd リポジトリ名
