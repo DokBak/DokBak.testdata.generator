@@ -2,12 +2,13 @@
 
 ###################################################################################
 #
-#  シェル名      : 設定ファイルチェックシェル
+#  シェル名      : ファイル関連の設定値を検証するシェル
 #
 #  作成者        : DokBak
 #  作成日        : 2025/01/03          新規作成
 #
 #  処理概要      : db_file_config.txt の内容をチェックし、必要な設定値の有効性を確認します。
+#                2025/03/26          コードリファクタリング
 #
 #  パラメータ    　:
 #     なし
@@ -41,22 +42,22 @@ fi
 
 # FILE_EXTENSION チェック
 case "${FILE_EXTENSION}" in
-    ""|".csv"|".tsv"|".txt")
+    "NONE"|".csv"|".tsv"|".txt")
         ;;
     *)
-        echo "[230103]エラー: FILE_EXTENSIONは '', '.csv', '.tsv', '.txt' のいずれかで指定してください。"
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [230103]エラー: FILE_EXTENSIONは '', '.csv', '.tsv', '.txt' のいずれかで指定してください。" >> ${LOG_DIR}/data_generator.log
+        echo "[230103]エラー: FILE_EXTENSIONは 'NONE', '.csv', '.tsv', '.txt' のいずれかで指定してください。"
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [230103]エラー: FILE_EXTENSIONは 'NONE', '.csv', '.tsv', '.txt' のいずれかで指定してください。" >> ${LOG_DIR}/data_generator.log
         exit 1
         ;;
 esac
 
 # FILE_COMPRESSION チェック
 case "${FILE_COMPRESSION}" in
-    ""|".gz"|".zip"|".Z"|".tar"|".7z")
+    "NONE"|".gz"|".zip"|".Z"|".tar"|".7z")
         ;;
     *)
-        echo "[230104]エラー: FILE_COMPRESSIONは '', '.gz', '.zip', '.Z', '.tar', '.7z' のいずれかで指定してください。"
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [230104]エラー: FILE_COMPRESSIONは '', '.gz', '.zip', '.Z', '.tar', '.7z' のいずれかで指定してください。" >> ${LOG_DIR}/data_generator.log
+        echo "[230104]エラー: FILE_COMPRESSIONは 'NONE', '.gz', '.zip', '.Z', '.tar', '.7z' のいずれかで指定してください。"
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [230104]エラー: FILE_COMPRESSIONは 'NONE', '.gz', '.zip', '.Z', '.tar', '.7z' のいずれかで指定してください。" >> ${LOG_DIR}/data_generator.log
         exit 1
         ;;
 esac
@@ -85,28 +86,28 @@ esac
 
 # FILE_FIELD_SEPARATOR チェック
 case "${FILE_FIELD_SEPARATOR}" in
-    ""|"COMMA"|"TAB")
+    "NONE"|"COMMA"|"TAB")
         ;;
     *)
-        echo "[230107]エラー: FILE_FIELD_SEPARATORは '', 'COMMA', 'TAB' のいずれかで指定してください。"
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [230107]エラー: FILE_FIELD_SEPARATORは '', 'COMMA', 'TAB' のいずれかで指定してください。" >> ${LOG_DIR}/data_generator.log
+        echo "[230107]エラー: FILE_FIELD_SEPARATORは 'NONE', 'COMMA', 'TAB' のいずれかで指定してください。"
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [230107]エラー: FILE_FIELD_SEPARATORは 'NONE', 'COMMA', 'TAB' のいずれかで指定してください。" >> ${LOG_DIR}/data_generator.log
         exit 1
         ;;
 esac
 
 # FILE_ENCLOSING_CHAR チェック
 case "${FILE_ENCLOSING_CHAR}" in
-    ""|"DOUBLE_QUOTE"|"SINGLE_QUOTE")
+    "NONE"|"DOUBLE_QUOTE"|"SINGLE_QUOTE")
         ;;
     *)
-        echo "[230108]エラー: FILE_ENCLOSING_CHAR '', 'DOUBLE_QUOTE', 'SINGLE_QUOTE' のいずれかで指定してください。"
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [230108]エラー: FILE_ENCLOSING_CHAR '', 'DOUBLE_QUOTE', 'SINGLE_QUOTE' のいずれかで指定してください。" >> ${LOG_DIR}/data_generator.log
+        echo "[230108]エラー: FILE_ENCLOSING_CHAR 'NONE', 'DOUBLE_QUOTE', 'SINGLE_QUOTE' のいずれかで指定してください。"
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [230108]エラー: FILE_ENCLOSING_CHAR 'NONE', 'DOUBLE_QUOTE', 'SINGLE_QUOTE' のいずれかで指定してください。" >> ${LOG_DIR}/data_generator.log
         exit 1
         ;;
 esac
 
 # ROW_COUNTS チェック
-if [[ 1 -ge "${ROW_COUNTS}" ]]; then
+if [[ 1 -gt "${ROW_COUNTS}" ]]; then
     echo "[230109]エラー: ROW_COUNTSを1以上の値に指定してください。"
     echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [230109]エラー: ROW_COUNTSを1以上の値に指定してください。" >> ${LOG_DIR}/data_generator.log
     exit 1
