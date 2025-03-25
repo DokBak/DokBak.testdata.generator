@@ -17,23 +17,23 @@
 #     パラメータ2 (任意) : 小数部の桁数
 #
 #  実行方法    　: 
-#     1. sh ./db_gen_string_data.sh 6
+#     1. sh ./script/db_gen_string_data.sh 6
 #        実行例1：整数のみを生成（パラメータ2なしの場合）
 #        出力例: 872364
 #     
-#     2. sh ./db_gen_string_data.sh 0 2
+#     2. sh ./script/db_gen_string_data.sh 0 2
 #        実行例2：小数点以下のみを生成
 #        出力例: 0.35
 #
-#     3. sh ./db_gen_string_data.sh 6 2
+#     3. sh ./script/db_gen_string_data.sh 6 2
 #        実行例3：整数部6桁、小数部2桁を生成
 #        出力例: 123456.78
 #
-#     4. sh ./db_gen_string_data.sh 6 0
+#     4. sh ./script/db_gen_string_data.sh 6 0
 #        実行例4：整数のみを生成（パラメータ2が0の場合）
 #        出力例: 492873
 #
-#  参照        :　https://github.com/DokBak/DokBak_Shell_CMD
+#  参照        :　https://github.com/DokBak/DokBak.testdata.generator
 #
 ###################################################################################
 

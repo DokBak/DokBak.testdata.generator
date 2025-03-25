@@ -17,15 +17,15 @@
 #                      空白の場合、実行日を基準にする。
 #
 #  実行方法    　:
-#     1. sh ./db_gen_date_data.sh "%Y-%m-%d %H:%M:%S"
+#     1. sh ./script/db_gen_date_data.sh "%Y-%m-%d %H:%M:%S"
 #        実行例1：実行日を基準に生
 #        出力例: 2024-12-31 07:01:40
 #
-#     2. sh ./db_gen_date_data.sh "%Y/%m/%d" "2024/12/06"
+#     2. sh ./script/db_gen_date_data.sh "%Y/%m/%d" "2024/12/06"
 #        実行例2：指定された日付を基準に生成
 #        出力例: 2024/12/06
 #
-#  参照        :　https://github.com/DokBak/DokBak_Shell_CMD
+#  参照        :　https://github.com/DokBak/DokBak.testdata.generator
 #
 ###################################################################################
 

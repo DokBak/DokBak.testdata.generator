@@ -17,19 +17,19 @@
 #     パラメータ2 (必須) : 大文字小文字オプション ('UPPER', 'LOWER', 'upper', 'lower', 'U', 'L', 'u', 'l', 空白の場合は大文字小文字混在)
 #
 #  実行方法    　: 
-#     1. sh ./db_gen_string_data.sh 7 upper
+#     1. sh ./script/db_gen_string_data.sh 7 upper
 #        実行例1：# 大文字のみ出力 (長さ 7)
 #        結果: QWERTYU
 #
-#     2. sh ./db_gen_string_data.sh 8 lower
+#     2. sh ./script/db_gen_string_data.sh 8 lower
 #        実行例2：小文字のみ出力 (長さ 8)
 #        結果: abcdefgx
 #
-#     3. sh ./db_gen_string_data.sh 10
+#     3. sh ./script/db_gen_string_data.sh 10
 #        実行例3：大文字小文字混在 (長さ 10)
 #        結果: aBcDeFgHkL
 #
-#  参照        :　https://github.com/DokBak/DokBak_Shell_CMD
+#  参照        :　https://github.com/DokBak/DokBak.testdata.generator
 #
 ###################################################################################
 

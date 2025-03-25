@@ -14,9 +14,9 @@
 #     なし
 #
 #  実行方法    　:
-#     sh ./db_check_file_validate_config.sh
+#     sh ./script/db_check_file_validate_config.sh
 #
-#  参照        :　https://github.com/DokBak/DokBak_Shell_CMD
+#  参照        :　https://github.com/DokBak/DokBak.testdata.generator
 #
 ###################################################################################
 
