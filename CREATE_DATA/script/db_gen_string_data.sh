@@ -54,10 +54,10 @@ if ! [[ "${_item_length}" =~ ^[0-9]+$ ]] || [ "${_item_length}" -le 0 ]; then
     exit 1
 fi
 
-if ! [[ "${_option}" =~ ^(UPPER|LOWER|upper|lower|U|L|u|l)$ ]]; then
-    echo "[010201]ワーニング: パラメータ2が「'UPPER','upper','U','u'」(大文字のみデータ),「'LOWER','lower','L','l'」(小文字のみデータ),以外文字列は大・小文字混在データ"
+if ! [[ "${_option}" =~ ^(NONE|UPPER|LOWER|upper|lower|U|L|u|l)$ ]]; then
+    echo "[010201]ワーニング: パラメータ2が「'NONE','UPPER','upper','U','u'」(大文字のみデータ),「'LOWER','lower','L','l'」(小文字のみデータ),以外文字列は大・小文字混在データ"
     echo "実行例: sh ./db_gen_string_data.sh 10 u" > /dev/null
-    echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [010201]ワーニング: パラメータ2が「'UPPER','upper','U','u'」(大文字のみデータ),「'LOWER','lower','L','l'」(小文字のみデータ),以外文字列は大・小文字混在データ" >> ${LOG_DIR}/data_generator.log
+    echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [010201]ワーニング: パラメータ2が「'NONE','UPPER','upper','U','u'」(大文字のみデータ),「'LOWER','lower','L','l'」(小文字のみデータ),以外文字列は大・小文字混在データ" >> ${LOG_DIR}/data_generator.log
 fi
 
 # 生成された文字列を格納する変数

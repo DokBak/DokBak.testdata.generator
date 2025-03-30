@@ -272,13 +272,13 @@ for _i in "${!_data_types[@]}"; do
             # _trim の値を検証し、_length の条件をチェック
             if [[ "${_trim}" =~ "FT" || "${_trim}" =~ "BT" ]]; then
                 if [[ "${_length}" -lt 3 ]]; then
-                    echo "[220131]エラー: 「FT」または「BT」を指定した場合、_lengthは3以上である必要があります。"
+                    echo "[220131]エラー: 第${_item_number}項目 - 「FT」または「BT」を指定した場合、_lengthは3以上である必要があります。"
                     echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220131]エラー: 「FT」または「BT」を指定した場合、_lengthは3以上である必要があります。" >> ${LOG_DIR}/data_generator.log
                     exit 1
                 fi
             elif [[ "${_trim}" =~ "ft" || "${_trim}" =~ "bt" ]]; then
                 if [[ "${_length}" -lt 2 ]]; then
-                    echo "[220132]エラー: 「ft」または「bt」を指定した場合、_lengthは2以上である必要があります。"
+                    echo "[220132]エラー: 第${_item_number}項目 - 「ft」または「bt」を指定した場合、_lengthは2以上である必要があります。"
                     echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220132]エラー: 「ft」または「bt」を指定した場合、_lengthは2以上である必要があります。" >> ${LOG_DIR}/data_generator.log
                     exit 1
                 fi
@@ -294,13 +294,13 @@ for _i in "${!_data_types[@]}"; do
             # _trim の値を検証し、_length の条件をチェック
             if [[ "${_trim}" =~ "FT" || "${_trim}" =~ "BT" ]]; then
                 if [[ "${_length}" -lt 3 ]]; then
-                    echo "[220134]エラー: 「FT」または「BT」を指定した場合、_lengthは3以上である必要があります。"
+                    echo "[220134]エラー: 第${_item_number}項目 - 「FT」または「BT」を指定した場合、_lengthは3以上である必要があります。"
                     echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220134]エラー: 「FT」または「BT」を指定した場合、_lengthは3以上である必要があります。" >> ${LOG_DIR}/data_generator.log
                     exit 1
                 fi
             elif [[ "${_trim}" =~ "ft" || "${_trim}" =~ "bt" ]]; then
                 if [[ "${_length}" -lt 2 ]]; then
-                    echo "[220135]エラー: 「ft」または「bt」を指定した場合、_lengthは2以上である必要があります。"
+                    echo "[220135]エラー: 第${_item_number}項目 - 「ft」または「bt」を指定した場合、_lengthは2以上である必要があります。"
                     echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220135]エラー: 「ft」または「bt」を指定した場合、_lengthは2以上である必要があります。" >> ${LOG_DIR}/data_generator.log
                     exit 1
                 fi
@@ -349,13 +349,13 @@ for _i in "${!_data_types[@]}"; do
             # _trim の値を検証し、_length の条件をチェック
             if [[ "${_trim}" =~ "FT" || "${_trim}" =~ "BT" ]]; then
                 if [[ "${_length}" -lt 3 ]]; then
-                    echo "[220140]エラー: 「FT」または「BT」を指定した場合、_lengthは3以上である必要があります。"
+                    echo "[220140]エラー: 第${_item_number}項目 - 「FT」または「BT」を指定した場合、_lengthは3以上である必要があります。"
                     echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220140]エラー: 「FT」または「BT」を指定した場合、_lengthは3以上である必要があります。" >> ${LOG_DIR}/data_generator.log
                     exit 1
                 fi
             elif [[ "${_trim}" =~ "ft" || "${_trim}" =~ "bt" ]]; then
                 if [[ "${_length}" -lt 2 ]]; then
-                    echo "[220141]エラー: 「ft」または「bt」を指定した場合、_lengthは2以上である必要があります。"
+                    echo "[220141]エラー: 第${_item_number}項目 - 「ft」または「bt」を指定した場合、_lengthは2以上である必要があります。"
                     echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220141]エラー: 「ft」または「bt」を指定した場合、_lengthは2以上である必要があります。" >> ${LOG_DIR}/data_generator.log
                     exit 1
                 fi
@@ -364,7 +364,7 @@ for _i in "${!_data_types[@]}"; do
             if [[ "${_signed}" = 1 && "${SIGN_DIGIT}" = 1 ]]; then
                 if [[ "${_trim}" =~ "ft" || "${_trim}" =~ "bt" ]]; then
                     if [[ "${_length}" -lt 3 ]]; then
-                        echo "[220142]エラー: 「ft」または「bt」を指定した場合、_lengthは3以上である必要があります。"
+                        echo "[220142]エラー: 第${_item_number}項目 - 「ft」または「bt」を指定した場合、_lengthは3以上である必要があります。"
                         echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220142]エラー: 「ft」または「bt」を指定した場合、_lengthは3以上である必要があります。" >> ${LOG_DIR}/data_generator.log
                         exit 1
                     fi
@@ -392,13 +392,13 @@ for _i in "${!_data_types[@]}"; do
             # _trim の値を検証し、_length の条件をチェック
             if [[ "${_trim}" =~ "FT" || "${_trim}" =~ "BT" ]]; then
                 if [[ "${_length}" -lt 3 ]]; then
-                    echo "[220145]エラー: 「FT」または「BT」を指定した場合、_lengthは3以上である必要があります。"
+                    echo "[220145]エラー: 第${_item_number}項目 - 「FT」または「BT」を指定した場合、_lengthは3以上である必要があります。"
                     echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220145]エラー: 「FT」または「BT」を指定した場合、_lengthは3以上である必要があります。" >> ${LOG_DIR}/data_generator.log
                     exit 1
                 fi
             elif [[ "${_trim}" =~ "ft" || "${_trim}" =~ "bt" ]]; then
                 if [[ "${_length}" -lt 2 ]]; then
-                    echo "[220146]エラー: 「ft」または「bt」を指定した場合、_lengthは2以上である必要があります。"
+                    echo "[220146]エラー: 第${_item_number}項目 - 「ft」または「bt」を指定した場合、_lengthは2以上である必要があります。"
                     echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220146]エラー: 「ft」または「bt」を指定した場合、_lengthは2以上である必要があります。" >> ${LOG_DIR}/data_generator.log
                     exit 1
                 fi
@@ -407,13 +407,13 @@ for _i in "${!_data_types[@]}"; do
             if [[ "${_signed}" = 1 && "${SIGN_DIGIT}" = 1 ]]; then
                 if [[ "${_trim}" =~ "FT" || "${_trim}" =~ "BT" ]]; then
                     if [[ "${_length}" -lt 4 ]]; then
-                        echo "[220147]エラー: 「FT」または「BT」を指定した場合、_lengthは4以上である必要があります。"
+                        echo "[220147]エラー: 第${_item_number}項目 - 「FT」または「BT」を指定した場合、_lengthは4以上である必要があります。"
                         echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220147]エラー: 「FT」または「BT」を指定した場合、_lengthは4以上である必要があります。" >> ${LOG_DIR}/data_generator.log
                         exit 1
                     fi
                 elif [[ "${_trim}" =~ "ft" || "${_trim}" =~ "bt" ]]; then
                     if [[ "${_length}" -lt 3 ]]; then
-                        echo "[220148]エラー: 「ft」または「bt」を指定した場合、_lengthは3以上である必要があります。"
+                        echo "[220148]エラー: 第${_item_number}項目 - 「ft」または「bt」を指定した場合、_lengthは3以上である必要があります。"
                         echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220148]エラー: 「ft」または「bt」を指定した場合、_lengthは3以上である必要があります。" >> ${LOG_DIR}/data_generator.log
                         exit 1
                     fi
@@ -441,13 +441,13 @@ for _i in "${!_data_types[@]}"; do
             # _trim の値を検証し、_length の条件をチェック
             if [[ "${_trim}" =~ "FT" || "${_trim}" =~ "BT" ]]; then
                 if [[ "${_length}" -lt 3 ]]; then
-                    echo "[220151]エラー: 「FT」または「BT」を指定した場合、_lengthは3以上である必要があります。"
+                    echo "[220151]エラー: 第${_item_number}項目 - 「FT」または「BT」を指定した場合、_lengthは3以上である必要があります。"
                     echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220151]エラー: 「FT」または「BT」を指定した場合、_lengthは3以上である必要があります。" >> ${LOG_DIR}/data_generator.log
                     exit 1
                 fi
             elif [[ "${_trim}" =~ "ft" || "${_trim}" =~ "bt" ]]; then
                 if [[ "${_length}" -lt 2 ]]; then
-                    echo "[220152]エラー: 「ft」または「bt」を指定した場合、_lengthは2以上である必要があります。"
+                    echo "[220152]エラー: 第${_item_number}項目 - 「ft」または「bt」を指定した場合、_lengthは2以上である必要があります。"
                     echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220152]エラー: 「ft」または「bt」を指定した場合、_lengthは2以上である必要があります。" >> ${LOG_DIR}/data_generator.log
                     exit 1
                 fi
@@ -456,13 +456,13 @@ for _i in "${!_data_types[@]}"; do
             if [[ "${_signed}" = 1 && "${SIGN_DIGIT}" = 1 ]]; then
                 if [[ "${_trim}" =~ "FT" || "${_trim}" =~ "BT" ]]; then
                     if [[ "${_length}" -lt 4 ]]; then
-                        echo "[220153]エラー: 「FT」または「BT」を指定した場合、_lengthは4以上である必要があります。"
+                        echo "[220153]エラー: 第${_item_number}項目 - 「FT」または「BT」を指定した場合、_lengthは4以上である必要があります。"
                         echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220153]エラー: 「FT」または「BT」を指定した場合、_lengthは4以上である必要があります。" >> ${LOG_DIR}/data_generator.log
                         exit 1
                     fi
                 elif [[ "${_trim}" =~ "ft" || "${_trim}" =~ "bt" ]]; then
                     if [[ "${_length}" -lt 3 ]]; then
-                        echo "[220154]エラー: 「ft」または「bt」を指定した場合、_lengthは3以上である必要があります。"
+                        echo "[220154]エラー: 第${_item_number}項目 - 「ft」または「bt」を指定した場合、_lengthは3以上である必要があります。"
                         echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220154]エラー: 「ft」または「bt」を指定した場合、_lengthは3以上である必要があります。" >> ${LOG_DIR}/data_generator.log
                         exit 1
                     fi
@@ -491,13 +491,13 @@ for _i in "${!_data_types[@]}"; do
             # _trim の値を検証し、_length の条件をチェック
             if [[ "${_trim}" =~ "FT" || "${_trim}" =~ "BT" ]]; then
                 if [[ "${_length}" -lt 3 ]]; then
-                    echo "[220158]エラー: 「FT」または「BT」を指定した場合、_lengthは3以上である必要があります。"
+                    echo "[220158]エラー: 第${_item_number}項目 - 「FT」または「BT」を指定した場合、_lengthは3以上である必要があります。"
                     echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220158]エラー: 「FT」または「BT」を指定した場合、_lengthは3以上である必要があります。" >> ${LOG_DIR}/data_generator.log
                     exit 1
                 fi
             elif [[ "${_trim}" =~ "ft" || "${_trim}" =~ "bt" ]]; then
                 if [[ "${_length}" -lt 2 ]]; then
-                    echo "[220159]エラー: 「ft」または「bt」を指定した場合、_lengthは2以上である必要があります。"
+                    echo "[220159]エラー: 第${_item_number}項目 - 「ft」または「bt」を指定した場合、_lengthは2以上である必要があります。"
                     echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220159]エラー: 「ft」または「bt」を指定した場合、_lengthは2以上である必要があります。" >> ${LOG_DIR}/data_generator.log
                     exit 1
                 fi
@@ -506,13 +506,13 @@ for _i in "${!_data_types[@]}"; do
             if [[ "${_signed}" = 1 && "${SIGN_DIGIT}" = 1 ]]; then
                 if [[ "${_trim}" =~ "FT" || "${_trim}" =~ "BT" ]]; then
                     if [[ "${_length}" -lt 4 ]]; then
-                        echo "[220160]エラー: 「FT」または「BT」を指定した場合、_lengthは4以上である必要があります。"
+                        echo "[220160]エラー: 第${_item_number}項目 - 「FT」または「BT」を指定した場合、_lengthは4以上である必要があります。"
                         echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220160]エラー: 「FT」または「BT」を指定した場合、_lengthは4以上である必要があります。" >> ${LOG_DIR}/data_generator.log
                         exit 1
                     fi
                 elif [[ "${_trim}" =~ "ft" || "${_trim}" =~ "bt" ]]; then
                     if [[ "${_length}" -lt 3 ]]; then
-                        echo "[220161]エラー: 「ft」または「bt」を指定した場合、_lengthは3以上である必要があります。"
+                        echo "[220161]エラー: 第${_item_number}項目 - 「ft」または「bt」を指定した場合、_lengthは3以上である必要があります。"
                         echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220161]エラー: 「ft」または「bt」を指定した場合、_lengthは3以上である必要があります。" >> ${LOG_DIR}/data_generator.log
                         exit 1
                     fi
@@ -523,7 +523,7 @@ for _i in "${!_data_types[@]}"; do
         float)
             # 実数であること確認
             if [[ ! "${_length}" =~ \. ]]; then
-                echo "[220162]エラー: _lengthの値が無効です。小数点(.)を含める必要があります。"
+                echo "[220162]エラー: 第${_item_number}項目 - _lengthの値が無効です。小数点(.)を含める必要があります。"
                 echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220162]エラー: _lengthの値が無効です。小数点(.)を含める必要があります。" >> ${LOG_DIR}/data_generator.log
                 exit 1
             fi
@@ -534,13 +534,13 @@ for _i in "${!_data_types[@]}"; do
 
             # 整数部と小数部が数値かどうかを確認し、両方が1未満ならエラー
             if [[ ! "${_integer_part}" =~ ^[0-9]+$ || ! "${_fractional_part}" =~ ^[0-9]+$ ]]; then
-                echo "[220163]エラー: _lengthの値が無効です。整数部および小数部には数値を指定してください。"
-                echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220163]エラー: _lengthの値が無効です。整数部および小数部には数値を指定してください。" >> ${LOG_DIR}/data_generator.log
+                echo "[220163]エラー: 第${_item_number}項目 - _lengthの値が無効です。整数部および小数部には数値を指定してください。"
+                echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220163]エラー: 第${_item_number}項目 - _lengthの値が無効です。整数部および小数部には数値を指定してください。" >> ${LOG_DIR}/data_generator.log
                 exit 1
             fi
 
             if [[ "${_integer_part}" -lt 1 && "${_fractional_part}" -lt 1 ]]; then
-                echo "[220164]エラー: _lengthの値が無効です。整数部または小数部のいずれかが1以上である必要があります。"
+                echo "[220164]エラー: 第${_item_number}項目 - _lengthの値が無効です。整数部または小数部のいずれかが1以上である必要があります。"
                 echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220164]エラー: _lengthの値が無効です。整数部または小数部のいずれかが1以上である必要があります。" >> ${LOG_DIR}/data_generator.log
                 exit 1
             fi
@@ -558,12 +558,43 @@ for _i in "${!_data_types[@]}"; do
                 echo "$(date '+%Y/%m/%d %H:%M:%S') [INFO]  [$(basename $0)] 許容範囲：( ±1.17549e-38 ~ ±3.402823e+38 )：最大7桁" >> ${LOG_DIR}/data_generator.log
                 exit 1
             fi
+
+            # _trim の値を検証し、_length の条件をチェック
+            if [[ "${_trim}" =~ "FT" && "${_integer_part}" -lt 3 ]]; then
+                echo "[220167]エラー: 第${_item_number}項目 - 「FT」または「BT」を指定した場合、_lengthは3以上である必要があります。"
+                echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220167]エラー: 「FT」または「BT」を指定した場合、_lengthは3以上である必要があります。" >> ${LOG_DIR}/data_generator.log
+                exit 1
+            elif [[ "${_trim}" =~ "BT" && "${_fractional_part}" -lt 3 ]]; then
+                echo "[220168]エラー: 第${_item_number}項目 - 「FT」または「BT」を指定した場合、_lengthは3以上である必要があります。"
+                echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220168]エラー: 「FT」または「BT」を指定した場合、_lengthは3以上である必要があります。" >> ${LOG_DIR}/data_generator.log
+                exit 1
+            elif [[ "${_trim}" =~ "ft" && "${_integer_part}" -lt 2 ]]; then
+                echo "[220169]エラー: 第${_item_number}項目 - 「ft」または「bt」を指定した場合、_lengthは2以上である必要があります。"
+                echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220169]エラー: 「ft」または「bt」を指定した場合、_lengthは2以上である必要があります。" >> ${LOG_DIR}/data_generator.log
+                exit 1
+            elif [[ "${_trim}" =~ "bt" &&"${_fractional_part}" -lt 2 ]]; then
+                echo "[220170]エラー: 第${_item_number}項目 - 「ft」または「bt」を指定した場合、_lengthは2以上である必要があります。"
+                echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220170]エラー: 「ft」または「bt」を指定した場合、_lengthは2以上である必要があります。" >> ${LOG_DIR}/data_generator.log
+                exit 1
+            fi
+
+            if [[ "${_signed}" = 1 && "${SIGN_DIGIT}" = 1 ]]; then
+                if [[ "${_trim}" =~ "FT" && "${_integer_part}" -lt 4 ]]; then
+                    echo "[220171]エラー: 第${_item_number}項目 - 「FT」または「BT」を指定した場合、_lengthは4以上である必要があります。"
+                    echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220171]エラー: 「FT」または「BT」を指定した場合、_lengthは4以上である必要があります。" >> ${LOG_DIR}/data_generator.log
+                    exit 1
+                elif [[ "${_trim}" =~ "ft" && "${_integer_part}" -lt 3 ]]; then
+                    echo "[220172]エラー: 第${_item_number}項目 - 「ft」または「bt」を指定した場合、_lengthは3以上である必要があります。"
+                    echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220172]エラー: 「ft」または「bt」を指定した場合、_lengthは3以上である必要があります。" >> ${LOG_DIR}/data_generator.log
+                    exit 1
+                fi
+            fi
             ;;
         double)
             # 実数であること確認
             if [[ ! "${_length}" =~ \. ]]; then
-                echo "[220160]エラー: _lengthの値が無効です。小数点(.)を含める必要があります。"
-                echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220160]エラー: _lengthの値が無効です。小数点(.)を含める必要があります。" >> ${LOG_DIR}/data_generator.log
+                echo "[220173]エラー: 第${_item_number}項目 - _lengthの値が無効です。小数点(.)を含める必要があります。"
+                echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220173]エラー: _lengthの値が無効です。小数点(.)を含める必要があります。" >> ${LOG_DIR}/data_generator.log
                 exit 1
             fi
 
@@ -573,29 +604,60 @@ for _i in "${!_data_types[@]}"; do
 
             # 整数部と小数部が数値かどうかを確認し、両方が1未満ならエラー
             if [[ ! "${_integer_part}" =~ ^[0-9]+$ || ! "${_fractional_part}" =~ ^[0-9]+$ ]]; then
-                echo "[220161]エラー: _lengthの値が無効です。整数部および小数部には数値を指定してください。"
-                echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220161]エラー: _lengthの値が無効です。整数部および小数部には数値を指定してください。" >> ${LOG_DIR}/data_generator.log
+                echo "[220174]エラー: _lengthの値が無効です。整数部および小数部には数値を指定してください。"
+                echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220174]エラー: _lengthの値が無効です。整数部および小数部には数値を指定してください。" >> ${LOG_DIR}/data_generator.log
                 exit 1
             fi
 
             if [[ "${_integer_part}" -lt 1 && "${_fractional_part}" -lt 1 ]]; then
-                echo "[220162]エラー: _lengthの値が無効です。整数部または小数部のいずれかが1以上である必要があります。"
-                echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220162]エラー: _lengthの値が無効です。整数部または小数部のいずれかが1以上である必要があります。" >> ${LOG_DIR}/data_generator.log
+                echo "[220175]エラー: _lengthの値が無効です。整数部または小数部のいずれかが1以上である必要があります。"
+                echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220175]エラー: _lengthの値が無効です。整数部または小数部のいずれかが1以上である必要があります。" >> ${LOG_DIR}/data_generator.log
                 exit 1
             fi
 
             if [[ "${_integer_part}" -gt 100 ]]; then
-                echo "[220163]エラー: 第${_item_number}項目 - データ型 double整数部の設定桁数は${_integer_part}です。最大100桁までしか指定できません。"
+                echo "[220176]エラー: 第${_item_number}項目 - データ型 double整数部の設定桁数は${_integer_part}です。最大100桁までしか指定できません。"
                 echo "許容範囲：( ±2.2250738585072014e-308 ~ ±1.7976931348623157e+308 )：最大100桁"
-                echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220163]エラー: 第${_item_number}項目 - データ型 double整数部の設定桁数は${_integer_part}です。最大100桁までしか指定できません。" >> ${LOG_DIR}/data_generator.log
+                echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220176]エラー: 第${_item_number}項目 - データ型 double整数部の設定桁数は${_integer_part}です。最大100桁までしか指定できません。" >> ${LOG_DIR}/data_generator.log
                 echo "$(date '+%Y/%m/%d %H:%M:%S') [INFO]  [$(basename $0)] 許容範囲：( ±2.2250738585072014e-308 ~ ±1.7976931348623157e+308 )：最大100桁" >> ${LOG_DIR}/data_generator.log
                 exit 1
             elif [[ "${_fractional_part}" -gt 15 ]]; then
-                echo "[220164]エラー: 第${_item_number}項目 - データ型 double小数部の設定桁数は${_fractional_part}です。最大15桁までしか指定できません。"
+                echo "[220177]エラー: 第${_item_number}項目 - データ型 double小数部の設定桁数は${_fractional_part}です。最大15桁までしか指定できません。"
                 echo "許容範囲：( ±2.2250738585072014e-308 ~ ±1.7976931348623157e+308 )：最大15桁"
-                echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220164]エラー: 第${_item_number}項目 - データ型 double小数部の設定桁数は${_fractional_part}です。最大15桁までしか指定できません。" >> ${LOG_DIR}/data_generator.log
+                echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220177]エラー: 第${_item_number}項目 - データ型 double小数部の設定桁数は${_fractional_part}です。最大15桁までしか指定できません。" >> ${LOG_DIR}/data_generator.log
                 echo "$(date '+%Y/%m/%d %H:%M:%S') [INFO]  [$(basename $0)] 許容範囲：( ±2.2250738585072014e-308 ~ ±1.7976931348623157e+308 )：最大15桁" >> ${LOG_DIR}/data_generator.log
                 exit 1
+            fi
+
+            # _trim の値を検証し、_length の条件をチェック
+            if [[ "${_trim}" =~ "FT" && "${_integer_part}" -lt 3 ]]; then
+                echo "[220178]エラー: 第${_item_number}項目 - 「FT」または「BT」を指定した場合、_lengthは3以上である必要があります。"
+                echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220178]エラー: 「FT」または「BT」を指定した場合、_lengthは3以上である必要があります。" >> ${LOG_DIR}/data_generator.log
+                exit 1
+            elif [[ "${_trim}" =~ "BT" && "${_fractional_part}" -lt 3 ]]; then
+                echo "[220179]エラー: 第${_item_number}項目 - 「FT」または「BT」を指定した場合、_lengthは3以上である必要があります。"
+                echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220179]エラー: 「FT」または「BT」を指定した場合、_lengthは3以上である必要があります。" >> ${LOG_DIR}/data_generator.log
+                exit 1
+            elif [[ "${_trim}" =~ "ft" && "${_integer_part}" -lt 2 ]]; then
+                echo "[220180]エラー: 第${_item_number}項目 - 「ft」または「bt」を指定した場合、_lengthは2以上である必要があります。"
+                echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220180]エラー: 「ft」または「bt」を指定した場合、_lengthは2以上である必要があります。" >> ${LOG_DIR}/data_generator.log
+                exit 1
+            elif [[ "${_trim}" =~ "bt" &&"${_fractional_part}" -lt 2 ]]; then
+                echo "[220181]エラー: 第${_item_number}項目 - 「ft」または「bt」を指定した場合、_lengthは2以上である必要があります。"
+                echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220181]エラー: 「ft」または「bt」を指定した場合、_lengthは2以上である必要があります。" >> ${LOG_DIR}/data_generator.log
+                exit 1
+            fi
+
+            if [[ "${_signed}" = 1 && "${SIGN_DIGIT}" = 1 ]]; then
+                if [[ "${_trim}" =~ "FT" && "${_integer_part}" -lt 4 ]]; then
+                    echo "[220182]エラー: 第${_item_number}項目 - 「FT」または「BT」を指定した場合、_lengthは4以上である必要があります。"
+                    echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220182]エラー: 「FT」または「BT」を指定した場合、_lengthは4以上である必要があります。" >> ${LOG_DIR}/data_generator.log
+                    exit 1
+                elif [[ "${_trim}" =~ "ft" && "${_integer_part}" -lt 3 ]]; then
+                    echo "[220183]エラー: 第${_item_number}項目 - 「ft」または「bt」を指定した場合、_lengthは3以上である必要があります。"
+                    echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220183]エラー: 「ft」または「bt」を指定した場合、_lengthは3以上である必要があります。" >> ${LOG_DIR}/data_generator.log
+                    exit 1
+                fi
             fi
             ;;
     esac
