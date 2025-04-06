@@ -3,175 +3,212 @@ logCode List
 [scriptFile]{endCode](logNumber)
 
 [01]db_gen_string_data.sh
-    [010001]生成された文字列: ${_item}
-    [010101]エラー: パラメータ1は0より大きい整数でなければなりません。
-    [010102]エラー: パラメータ2は 'UPPER', 'LOWER', 'upper', 'lower', 'U', 'L', 'u', 'l', 'mixed' でなければなりません。
+   [010001]生成された文字列: ${_generated_data}
+   [010101]エラー: 指定できるパラメータの数は最大2つまでです。
+   [010102]エラー: パラメータ1は1以上の整数でなければなりません。
+   [010201]ワーニング: パラメータ2が「'UPPER','upper','U','u'」(大文字のみデータ),「'LOWER','lower','L','l'」(小文字のみデータ),以外文字列は大・小文字混在データ
 
 [02]db_gen_number_data.sh
-    [020001]生成された実数: ${_random_number}
-    [020002]生成された整数: ${_random_number}
-    [020003]生成された小数: ${_random_number}
-    [020101]エラー: パラメータは2つまでしか指定できません。
-    [020102]エラー: パラメータ1は0以上の整数でなければなりません。
-    [020103]エラー: パラメータ2は数字でなければなりません。
-    [020104]エラー: 整数部が0の場合、小数部の桁数（パラメータ2）を指定してください。
-    [020105]エラー: 整数部と小数部の桁数がどちらも0の場合、無効です。
+   [020001]生成された実数: ${_generated_data}
+   [020002]生成された整数: ${_generated_data}
+   [020003]生成された小数: ${_generated_data}
+   [020101]エラー: 指定できるパラメータの数は最大2つまでです。
+   [020102]エラー: パラメータ1は0以上の整数でなければなりません。
+   [020103]エラー: パラメータ2は数字でなければなりません。
+   [020104]エラー: 整数部が0の場合、小数部の桁数（パラメータ2）を指定してください。
+   [020105]エラー: 整数部と小数部の桁数がどちらも0の場合、無効です。
 
 [03]db_gen_date_data.sh
-    [030001]生成された日付: ${_generated_date}
-    [030101]エラー: パラメータ2は 'YYYY/MM/DD' または 'YYYY-MM-DD' の形式で指定してください。
-    [030102]エラー: 入力された日付またはフォーマットが無効です。入力された日付が無効であるか、フォーマットが不正です。
-
+   [030001]生成された日付: ${_generated_data}
+   [030101]エラー: 指定できるパラメータの数は最大2つまでです。
+   [030102]エラー: 日付フォーマットには「%」を含める必要があります。例: %Y/%m/%d
+   [030103]エラー: パラメータ2は「YYYY/MM/DD」形式で指定してください。
+   [030104]エラー: 入力された日付またはフォーマットが無効です。日付の指定が誤っているか、フォーマットが正しくありません。
 
 
 [21]db_check_files_exist.sh
-    [210001]スクリプトと設定ファイルに問題なし。
-    [210101]エラー: スクリプトディレクトリ ${_script_dir} が存在しません。
-    [210102]エラー: 設定ファイルディレクトリ ${_config_dir} が存在しません。
-    [210103]エラー: ファイル ${script_file} が存在しません。
-    [210104]エラー: 設定ファイル ${config_file} が存在しません。
+   [210001]スクリプトと設定ファイルに問題なし。
+   [210101]エラー: 設定ファイルディレクトリ ${CONFIG_DIR} が存在しません。
+   [210102]エラー: スクリプトファイル ${_missing_scripts} が存在しません。
+   [210103]エラー: 設定ファイル ${_missing_configs} が存在しません。
 
 [22]db_check_data_validate_config.sh
-    [220001]設定ファイルの内容問題なし。
-    [220101]エラー: 設定ファイル ${_config_file} が存在しません。
-    [220102]エラー: COLUMN_COUNTS は正の整数で指定してください。
-    [220103]エラー: COLUMN_COUNTS は 1 以上でなければなりません。
-    [220104]エラー: COLUMN_DATA_TYPE または COLUMN_DATA_LENGTH が空です。
-    [220105]エラー: COLUMN_DATA_TYPE の項目数が COLUMN_COUNTS と一致しません。
-    [220106]エラー: COLUMN_DATA_LENGTH の項目数が COLUMN_COUNTS と一致しません。
-    [220107]エラー: 無効なデータ型 ${type} が指定されています。
-    [220108]エラー: 第${item_number}項目 - データ型 byte の長さ $length は無効です。整数のみを指定してください。
-    [220109]エラー: 第${item_number}項目 - データ型 byte の長さ $length は最大 3 桁までしか指定できません。
-    [220110]エラー: 第${item_number}項目 - データ型 short の長さ $length は無効です。整数のみを指定してください。
-    [220111]エラー: 第${item_number}項目 - データ型 short の長さ $length は最大 5 桁までしか指定できません。
-    [220112]エラー: 第${item_number}項目 - データ型 int の長さ $length は無効です。整数のみを指定してください。
-    [220113]エラー: 第${item_number}項目 - データ型 int の長さ $length は最大 10 桁までしか指定できません。
-    [220114]エラー: 第${item_number}項目 - データ型 long の長さ $length は無効です。整数のみを指定してください。
-    [220115]エラー: 第${item_number}項目 - データ型 long の長さ $length は最大 19 桁までしか指定できません。
-    [220122]エラー: 第${item_number}項目 - データ型 float の長さ $length は無効です。整数または '整数.小数' の形式で指定してください。
-    [220123]エラー: 第${item_number}項目 - データ型 float の長さ $length は最大 7 桁までしか指定できません。
-    [220124]エラー: 第${item_number}項目 - データ型 double の長さ $length は無効です。整数または '整数.小数' の形式で指定してください。
-    [220125]エラー: 第${item_number}項目 - データ型 double の長さ $length は最大 15 桁までしか指定できません。
-    [220116]エラー: 第${item_number}項目 - データ型 char の長さ $length は無効です。整数のみを指定してください。
-    [220117]エラー: 第${item_number}項目 - データ型 char の長さ $length は常に 1 桁である必要があります。
-    [220118]エラー: 第${item_number}項目 - データ型 string の長さ $length は無効です。整数のみを指定してください。
-    [220119]エラー: 第${item_number}項目 - データ型 boolean の長さは常に '1' でなければなりません。
-    [220120]エラー: 第${item_number}項目 - データ型 date の長さ $length は 'YYYYMMDD' または 'YYYYMMDDhhmmss' で指定してください。
-    [220121]エラー: 第${item_number}項目 - 不明なデータ型 $type が指定されています。
-    [220122]エラー: 無効な日付区切り文字です。- / または空白のみが許可されます。
-    [220123]エラー: 無効な時間区切り文字です。: または空白のみが許可されます。
-    [220124]エラー: 空白または空文字のみが許可されます。
-    [220125]エラー: 無効な日付です。${REFERENCE_DATE} は無効な日付です。(GNU date (Linux))
-    [220126]エラー: 無効な日付です。${REFERENCE_DATE} は無効な日付です。(BSD/macOS date)
-    [220127]エラー: 無効な CASE_MODE の値です。許可されている値は 'UPPER', 'LOWER', または空白のみです。
+   [220001]設定ファイルの内容問題なし。
+   [220101]エラー: 設定ファイル${_config_file}が存在しません。
+   [220102]エラー: COLUMN_COUNTSが設定されていません。
+   [220103]エラー: COLUMN_DATA_TYPEが設定されていません。
+   [220104]エラー: COLUMN_DATA_LENGTHが設定されていません。
+   [220105]エラー: COLUMN_DATA_TRIMが設定されていません。
+   [220106]エラー: COLUMN_DATA_SIGNEDが設定されていません。
+   [220107]エラー: SIGN_DIGITが設定されていません。
+   [220108]エラー: DATE_SEPARATORが設定されていません。
+   [220109]エラー: TIME_SEPARATORが設定されていません。
+   [220110]エラー: SEPARATOR_DATE_TIMEが設定されていません。
+   [220111]エラー: REFERENCE_DATEが設定されていません。
+   [220112]エラー: CASE_MODEが設定されていません。
+   [220113]エラー: MULTIBYTE_STRINGが設定されていません。
+   [220114]エラー: COLUMN_COUNTSは1以上の整数を指定してください。
+   [220115]エラー: COLUMN_DATA_TYPEの項目数がCOLUMN_COUNTSと異なります。
+   [220116]エラー: COLUMN_DATA_LENGTHの項目数がCOLUMN_COUNTSと異なります。
+   [220117]エラー: COLUMN_DATA_TRIMの項目数がCOLUMN_COUNTSと異なります。
+   [220118]エラー: COLUMN_DATA_SIGNEDの項目数がCOLUMN_COUNTSと異なります。
+   [220119]エラー: 無効なデータタイプ${_type}が指定されています。
+   [220120]エラー: 無効なトリム${_type}が指定されています。'NONE' または 'FT', 'BT', 'ft', 'bt' を含む文字列を指定してください。
+   [220121]エラー: 無効な値${_type}が指定されています。
+   [220122]エラー: SIGN_DIGITは「0」または「1」を指定してください。
+   [220123]エラー: 無効な日付区切り文字です。「/」、「-」、または「NONE」を指定してください。
+   [220124]エラー: 無効な時間区切り文字です。「:」または「NONE」を指定してください。
+   [220125]エラー: 無効な日付・時間区切り文字です。「NONE」または「SPACE」を指定してください。
+   [220126]エラー: 無効な日付です。${REFERENCE_DATE}は無効な日付です。(GNU date (Linux))
+   [220127]エラー: 無効な日付です。${REFERENCE_DATE}は無効な日付です。(BSD/macOS date)
+   [220128]エラー: 無効なCASE_MODEの値です。「UPPER」「LOWER」「NONE」のいずれかを指定してください。
+   [220129]エラー: マルチバイトの1文字を設定してください。
+   [220130]エラー: 第${_item_number}項目 - データ型 charの設定桁数は${_length}です。1以上の整数を指定してください。
+   [220131]エラー: 「FT」または「BT」を指定した場合、_lengthは3以上である必要があります。
+   [220132]エラー: 「ft」または「bt」を指定した場合、_lengthは2以上である必要があります。
+   [220133]エラー: 第${_item_number}項目 - データ型 stringの設定桁数は${_length}です。1以上の整数を指定してください。
+   [220134]エラー: 「FT」または「BT」を指定した場合、_lengthは3以上である必要があります。
+   [220135]エラー: 「ft」または「bt」を指定した場合、_lengthは2以上である必要があります。
+   [220136]エラー: 第${_item_number}項目 - データ型 booleanの設定桁数は${_length}です。常に'0'または'1'または'2'でなければなりません。
+   [220137]エラー: 第${_item_number}項目 - データ型 dateの設定桁数は${_length}です。'YYYYMMDDhhmmss','YYMMDDhhmmss','YYYY','YY'などの形式で指定してください。
+   [220138]エラー: 第${_item_number}項目 - データ型 byteの設定桁数は${_length}です。1以上の整数を指定してください。
+   [220139]エラー: 第${_item_number}項目 - データ型 byteの長さ${_length}は最大3桁までしか指定できません。
+   [220140]エラー: 「FT」または「BT」を指定した場合、_lengthは3以上である必要があります。
+   [220141]エラー: 「ft」または「bt」を指定した場合、_lengthは2以上である必要があります。
+   [220142]エラー: 「ft」または「bt」を指定した場合、_lengthは3以上である必要があります。
+   [220143]エラー: 第${_item_number}項目 - データ型 shortの設定桁数は${_length}です。1以上の整数を指定してください。
+   [220144]エラー: 第${_item_number}項目 - データ型 shortの長さ${_length}は最大5桁までしか指定できません。
+   [220145]エラー: 「FT」または「BT」を指定した場合、_lengthは3以上である必要があります。
+   [220146]エラー: 「ft」または「bt」を指定した場合、_lengthは2以上である必要があります。
+   [220147]エラー: 「ft」または「bt」を指定した場合、_lengthは4以上である必要があります。
+   [220148]エラー: 「ft」または「bt」を指定した場合、_lengthは3以上である必要があります。
+   [220149]エラー: 第${_item_number}項目 - データ型 intの設定桁数は${_length}です。1以上の整数を指定してください。
+   [220150]エラー: 第${_item_number}項目 - データ型 intの長さ${_length}は最大10桁までしか指定できません。
+   [220151]エラー: 「FT」または「BT」を指定した場合、_lengthは3以上である必要があります。
+   [220152]エラー: 「ft」または「bt」を指定した場合、_lengthは2以上である必要があります。
+   [220153]エラー: 「FT」または「BT」を指定した場合、_lengthは4以上である必要があります。
+   [220154]エラー: 「ft」または「bt」を指定した場合、_lengthは3以上である必要があります。
+   [220155]エラー: 第${_item_number}項目 - データ型 longの設定桁数は${_length}です。1以上の整数を指定してください。
+   [220156]エラー: 第${_item_number}項目 - データ型 longの長さ${_length}は最大20桁までしか指定できません。(無符号：整数のみ)
+   [220157]エラー: 第${_item_number}項目 - データ型 longの長さ${_length}は最大19桁までしか指定できません。(符号付き)
+   [220158]エラー: 「FT」または「BT」を指定した場合、_lengthは3以上である必要があります。
+   [220159]エラー: 「ft」または「bt」を指定した場合、_lengthは2以上である必要があります。
+   [220160]エラー: 「FT」または「BT」を指定した場合、_lengthは4以上である必要があります。
+   [220161]エラー: 「ft」または「bt」を指定した場合、_lengthは3以上である必要があります。
+   [220162]エラー: _lengthの値が無効です。小数点(.)を含める必要があります。
+   [220163]エラー: 第${_item_number}項目 - データ型 double整数部の設定桁数は${_integer_part}です。最大100桁までしか指定できません。
+   [220164]エラー: 第${_item_number}項目 - データ型 double小数部の設定桁数は${_fractional_part}です。最大15桁までしか指定できません。
 
 [23]db_check_file_validate_config.sh
-    [230001]設定ファイルの内容問題なし。
-    [230101]エラー: 設定ファイル ${_config_file} が存在しません。
-    [230102]エラー: FILE_NAMEを指定してください。
-    [230103]エラー: FILE_EXTENSIONは '', '.csv', '.tsv', '.txt' のいずれかで指定してください。
-    [230104]エラー: FILE_COMPRESSIONは '', '.gz', '.zip', '.Z', '.tar', '.7z' のいずれかで指定してください。
-    [230105]エラー: FILE_CHARSETは 'UTF-8', 'UTF-16', 'EUC-JP', 'SJIS', 'CP932', 'EUC-KR' のいずれかで指定してください。
-    [230106]エラー: FILE_LINE_BREAKは 'CRLF', 'LF' のいずれかで指定してください。
-    [230107]エラー: FILE_FIELD_SEPARATORは '', 'COMMA', 'TAP' のいずれかで指定してください。
-    [230108]エラー: FILE_ENCLOSING_CHAR '', 'DOUBLE_QUOTE', 'SINGLE_QUOTE' のいずれかで指定してください。
-    [230109]エラー: ROW_COUNTSを1以上の値に指定してください。"
-    [230201]ワーニング: FILE_EXTENSIONが '.csv' の場合、FILE_FIELD_SEPARATORは 'COMMA' に指定してください。
-    [230202]ワーニング: FILE_EXTENSIONが '.tsv' の場合、FILE_FIELD_SEPARATORは 'TAB' に指定してください。
+   [230001]設定ファイルの内容問題なし。
+   [230101]エラー: 設定ファイル ${_config_file} が存在しません。
+   [230102]エラー: FILE_NAMEを指定してください。
+   [230103]エラー: FILE_EXTENSIONは 'NONE', '.csv', '.tsv', '.txt' のいずれかで指定してください。
+   [230104]エラー: FILE_COMPRESSIONは 'NONE', '.gz', '.zip', '.Z', '.tar', '.7z' のいずれかで指定してください。
+   [230105]エラー: FILE_CHARSETは 'UTF-8', 'UTF-16', 'EUC-JP', 'SJIS', 'CP932', 'EUC-KR' のいずれかで指定してください。
+   [230106]エラー: FILE_LINE_BREAKは 'CRLF', 'LF' のいずれかで指定してください。
+   [230107]エラー: FILE_FIELD_SEPARATORは 'NONE', 'COMMA', 'TAB' のいずれかで指定してください。
+   [230108]エラー: FILE_ENCLOSING_CHAR 'NONE', 'DOUBLE_QUOTE', 'SINGLE_QUOTE' のいずれかで指定してください。
+   [230109]エラー: ROW_COUNTSを1以上の値に指定してください。
+   [230201]ワーニング: FILE_EXTENSIONが '.csv' の場合、FILE_FIELD_SEPARATORは 'COMMA' に指定してください。
+   [230202]FILE_EXTENSIONが '.tsv' の場合、FILE_FIELD_SEPARATORは 'TAB' に指定してください。
 
 [24]db_check_sql_validate_config.sh
-    [240001]設定ファイルの内容問題なし。
-    [240101]エラー: 設定ファイル ${_config_file} が存在しません。
-    [240102]エラー: '${DBMS_NAME}' は許可されていない値です。
-    [240103]エラー: 'DATABASE_NAME' は空白の値を指定できません。
-    [240104]エラー: '${DATABASE_CHARACTER_SET}' は${DBMS_NAME}で許可されている文字セットではありません。
-    [240105]エラー: '${DATABASE_CHARACTER_SET}' は${DBMS_NAME}で許可されている文字セットではありません。
-    [240106]エラー: '${DBMS_NAME}' はサポートされていないDBMSです。
-    [240107]エラー: '${DATABASE_COLLATE}' は${DBMS_NAME}で許可されている文字セットではありません。
-    [240108]エラー: '${DATABASE_COLLATE}' は${DBMS_NAME}で許可されている文字セットではありません。
-    [240109]エラー: '${DBMS_NAME}' はサポートされていないDBMSです。
-    [240110]エラー: 'DATABASE_USERNAME' は空白の値を指定できません。
-    [240111]エラー: 'DATABASE_PASSWORD' は空白の値を指定できません。
-    [240112]エラー: 'ALL PRIVILEGES' が指定されている場合、他の権限を指定することはできません。
-    [240113]エラー: '${right}' は${DBMS_NAME}で許可されている権限ではありません。
-    [240114]エラー: '${DBMS_NAME}' はサポートされていないDBMSです。
-    [240115]エラー: 'SET_TABLENAME' は空白の値を指定できません。
-    [240116]エラー: 'DATABASE_TABLENAME' は '*' または '\${SET_TABLENAME}' (${SET_TABLENAME}) のいずれかでなければなりません。
-    [240117]エラー: COLUMN_DATA_NAME の項目数 (${#DATA_NAMES[@]}) が COLUMN_COUNTS (${COLUMN_COUNTS}) と一致しません。
-    [240118]エラー: COLUMN_PRIMARY_KEY の項目数 (${#PRIMARY_KEYS}) が COLUMN_COUNTS (${COLUMN_COUNTS}) と一致しません。
-    [240119]エラー: COLUMN_UNIQUE_KEY の項目数 (${#UNIQUE_KEYS}) が COLUMN_COUNTS (${COLUMN_COUNTS}) と一致しません。
-    [240120]エラー: COLUMN_FOREIGN_KEY の項目数 (${#FOREIGN_KEYS}) が COLUMN_COUNTS (${COLUMN_COUNTS}) と一致しません。
-    [240121]エラー: COLUMN_INDEX_KEY の項目数 (${#INDEX_KEYS}) が COLUMN_COUNTS (${COLUMN_COUNTS}) と一致しません。
-    [240122]エラー: COLUMN_NOT_NULL の項目数 (${#NOT_NULLS}) が COLUMN_COUNTS (${COLUMN_COUNTS}) と一致しません。
-    [240123]エラー: COLUMN_AUTO_INCREMENT の項目数 (${#AUTO_INCREMENTS}) が COLUMN_COUNTS (${COLUMN_COUNTS}) と一致しません。
-    [240124]エラー: COLUMN_DEFAULT_VALUE の項目数 (${#DEFAULT_VALUES}) が COLUMN_COUNTS (${COLUMN_COUNTS}) と一致しません。
-    [240125]エラー: COLUMN_COMMENT の項目数 (${#COMMENTS}) が COLUMN_COUNTS (${COLUMN_COUNTS}) と一致しません。
-    [240126]エラー: COLUMN_FOREIGN_KEY に 'true' が1つ以上含まれている場合、FOREIGN_TABLENAME の値を指定する必要があります。
-    [240127]エラー: '${SQL_SET_HOST}' は無効なIPアドレスです。
-    [240128]エラー: '${SQL_SET_HOST}' は許可されていない値です。
-    [240129]エラー: '${POSTGRESQL_TEMPLATE}' は許可されていない値です。
-    [240130]エラー: 'template1' を使用する場合、DATABASE_COLLATE は 'C' のみ許可されます。
-    [240131]エラー: '${POSTGRESQL_CONNECTION_LIMIT}' は -1 または 1以上の値でなければなりません。
-    [240132]エラー: '${POSTGRESQL_ALLOW_CONNECTIONS}' は許可されていない値です。
-    [240133]エラー: 'SET_SCHEMA' は空白の値を指定できません。
-
-    [240201]ワーニング: PRIMARY KEY として設定されている '${COLUMN_DATA_NAME[i]}' は NOT NULL としても設定されています。
-    [240202]ワーニング: PRIMARY KEY として設定されている '${COLUMN_UNIQUE_KEY[i]}' は UNIQUE KEY としても設定されています。
-    [240203]ワーニング: PRIMARY KEY として設定されている '${COLUMN_INDEX_KEY[i]}' は INDEX KEY としても設定されています。
-
+   [240001]設定ファイルの内容問題なし。
+   [240101]エラー: 設定ファイル ${_config_file} が存在しません。
+   [240102]エラー: 'DATABASE_NAME' は空白の値を指定できません。
+   [240103]エラー: 'DATABASE_USERNAME' は空白の値を指定できません。
+   [240104]エラー: 'DATABASE_PASSWORD' は空白の値を指定できません。
+   [240105]エラー: 'SET_TABLENAME' は空白の値を指定できません。
+   [240106]エラー: COLUMN_DATA_NAME の項目数 (${#_data_names@]}) が COLUMN_COUNTS (${COLUMN_COUNTS}) と一致しません。
+   [240107]エラー: COLUMN_PRIMARY_KEY の項目数 (${#_primary_keys@]}) が COLUMN_COUNTS (${COLUMN_COUNTS}) と一致しません。
+   [240108]エラー: COLUMN_UNIQUE_KEY の項目数 (${#_unique_keys@]}) が COLUMN_COUNTS (${COLUMN_COUNTS}) と一致しません。
+   [240109]エラー: COLUMN_FOREIGN_KEY の項目数 (${#_foreign_keys@]}) が COLUMN_COUNTS (${COLUMN_COUNTS}) と一致しません。
+   [240110]エラー: COLUMN_INDEX_KEY の項目数 (${#_index_keys@]}) が COLUMN_COUNTS (${COLUMN_COUNTS}) と一致しません。
+   [240111]エラー: COLUMN_NOT_NULL の項目数 (${#_not_nulls@]}) が COLUMN_COUNTS (${COLUMN_COUNTS}) と一致しません。
+   [240112]エラー: COLUMN_AUTO_INCREMENT の項目数 (${#_auto_increments@]}) が COLUMN_COUNTS (${COLUMN_COUNTS}) と一致しません。
+   [240113]エラー: COLUMN_DEFAULT_VALUE の項目数 (${#_default_values@]}) が COLUMN_COUNTS (${COLUMN_COUNTS}) と一致しません。
+   [240114]エラー: COLUMN_COMMENT の項目数 (${#_comments@]}) が COLUMN_COUNTS (${COLUMN_COUNTS}) と一致しません。
+   [240115]エラー: COLUMN_PRIMARY_KEYの'${COLUMN_PRIMARY_KEY}' に許可されていない値があります。許可されている値: ${_valid_column*
+   [240116]エラー: COLUMN_UNIQUE_KEYの'${COLUMN_UNIQUE_KEY}' に許可されていない値があります。許可されている値: ${_valid_column*
+   [240117]エラー: COLUMN_FOREIGN_KEYの'${COLUMN_FOREIGN_KEY}' に許可されていない値があります。許可されている値: ${_valid_column*
+   [240118]エラー: COLUMN_INDEX_KEYの'${COLUMN_INDEX_KEY}' に許可されていない値があります。許可されている値: ${_valid_column*
+   [240119]エラー: COLUMN_NOT_NULLの'${COLUMN_NOT_NULL}' に許可されていない値があります。許可されている値: ${_valid_column*
+   [240120]エラー: COLUMN_AUTO_INCREMENTの'${COLUMN_AUTO_INCREMENT}' に許可されていない値があります。許可されている値: ${_valid_column*
+   [240121]エラー: COLUMN_FOREIGN_KEY に 'true' が1つ以上含まれている場合、FOREIGN_TABLENAME の値を指定する必要があります。
+   [240122]エラー: '${DATABASE_CHARACTER_SET}' は${DBMS_NAME}で許可されている文字セットではありません。
+   [240123]エラー: '${DATABASE_COLLATE}' は${DBMS_NAME}で許可されている文字セットではありません。
+   [240124]エラー: 'ALL PRIVILEGES' が指定されている場合、他の権限を指定することはできません。
+   [240125]エラー: 'DATABASE_USERRIGHT' は空白の値を指定できません。
+   [240126]エラー: '${_right}' はMySQLで許可されている権限ではありません。
+   [240127]エラー: 'DATABASE_TABLERIGHT' は '*' または '\${SET_TABLENAME}' (${SET_TABLENAME}) のいずれかでなければなりません。
+   [240128]エラー: '${SQL_SET_HOST}' は無効なIPアドレスです。
+   [240129]エラー: '${SQL_SET_HOST}' は許可されていない値です。
+   [240130]エラー: '${DATABASE_CHARACTER_SET}' は${DBMS_NAME}で許可されている文字セットではありません。
+   [240131]エラー: 'template1' を使用する場合、DATABASE_CHARACTER_SET は 'utf8' のみ許可されます。
+   [240132]エラー: '${DATABASE_COLLATE}' は${DBMS_NAME}で許可されている文字セットではありません。
+   [240133]エラー: 'template1' を使用する場合、DATABASE_COLLATE は 'C' のみ許可されます。
+   [240134]エラー: 'DATABASE_USERRIGHT' は空白の値を指定できません。
+   [240135]エラー: '${_right}' はPostgreSQLで許可されている権限ではありません。
+   [240136]エラー: 'SET_SCHEMA' は空白の値を指定できません。
+   [240137]エラー: '${POSTGRESQL_CONNECTION_LIMIT}' は -1 または 1以上の値でなければなりません。
+   [240138]エラー: '${POSTGRESQL_ALLOW_CONNECTIONS}' は許可されていない値です。
+   [240139]エラー: DBMS_NAMEの'${DBMS_NAME}' は許可されていない値です。
+   [240201]ワーニング: PRIMARY KEY として設定されている '${_data_names_i]}' は NOT NULL としても設定されています。
+   [240202]ワーニング: PRIMARY KEY として設定されている '${_data_names_i]}' は UNIQUE KEY としても設定されています。
+   [240203]ワーニング: PRIMARY KEY として設定されている '${_data_names_i]}' は INDEX KEY としても設定されています。
 
 
 [41]db_assemble_normal_data.sh
-    [410001]すべてのデータ生成が正常に完了しました。
-    [410101]エラー: COLUMN_COUNTS と DATA_TYPE、または DATA_LENGTH の項目数が一致しません。
-    [410102]エラー: データ型 ${_type} はサポートされていません。
-
+   [410001]すべてのデータ生成が正常に完了しました。
+   [410101]エラー: COLUMN_COUNTS と DATA_TYPE、または DATA_LENGTH の項目数が一致しません。
+   [410102]エラー: データ型 ${_type} はサポートされていません。
 
 
 [61]db_output_record_format.sh
-    [610001]フォーマット処理後レコード：${_formatted_data}
-    [610101]エラー: 1つのデータ文字列をパラメータとして指定してください。
+   [610001]フォーマット処理後レコード：${_formatted_data}
+   [610101]エラー: 1つのデータ文字列をパラメータとして指定してください。
 
 [62]db_output_file_format.sh
-    [620001]出力ファイルフォーマット確認： `nkf --guess "${FILES_DIR}/${FILE_NAME}"`
-    [620101]エラー: パラメータの数が COLUMN_COUNTS (${COLUMN_COUNTS}) と一致しません。
-    [620102]エラー: パラメータ1が指定されていません。
-    [620103]エラー: 設定ファイルの改行コード値(FILE_LINE_BREAK)が無効です。'LF' または 'CRLF' を指定してください。
-    [620104]エラー: 設定ファイルの文字コード値(FILE_CHARSET)が無効です。'UTF-8' または 'UTF-16' 'EUC-JP' 'SJIS' 'CP932' 'EUC-KR' を指定してください。
-    [620105]エラー: 設定ファイルの文字コード値(FILE_CHARSET)が無効です。'UTF-8' または 'UTF-16' 'EUC-JP' 'SJIS' 'CP932' 'EUC-KR' を指定してください。
+   [620001]出力ファイルフォーマット確認： `nkf --guess "${FILES_DIR}/${FILE_NAME}"`
+   [620101]エラー: パラメータの数が COLUMN_COUNTS (${COLUMN_COUNTS}) と一致しません。
+   [620102]エラー: パラメータ1が指定されていません。
+   [620103]エラー: 設定ファイルの改行コード値(FILE_LINE_BREAK)が無効です。'LF' または 'CRLF' を指定してください。
+   [620104]エラー: 設定ファイルの文字コード値(FILE_CHARSET)が無効です。'UTF-8' または 'UTF-16' 'EUC-JP' 'SJIS' 'CP932' 'EUC-KR' を指定してください。
+   [620105]エラー: 設定ファイルの文字コード値(FILE_CHARSET)が無効です。'UTF-8' または 'UTF-16' 'EUC-JP' 'SJIS' 'CP932' 'EUC-KR' を指定してください。
 
 [63]db_output_compression_format.sh
-    [630001]ファイル圧縮処理が正常に完了しました。
-    [630101]エラー: 圧縮対象ファイル ${FILES_DIR}/${FILE_NAME}${FILE_EXTENSION} が存在しません。
-    [630102]エラー: 7z コマンドが見つかりません。7zip をインストールしてください。
-    [630103]エラー: サポートされていない圧縮形式 ${FILE_COMPRESSION} が指定されました。
+   [630001]ファイル圧縮処理が正常に完了しました。
+   [630101]エラー: 圧縮対象ファイル ${FILES_DIR}/${FILE_NAME}${FILE_EXTENSION} が存在しません。
+   [630102]エラー: 7z コマンドが見つかりません。7zip をインストールしてください。
+   [630103]エラー: サポートされていない圧縮形式 ${FILE_COMPRESSION} が指定されました。
 
 
 
 [81]db_sql_base_script.sh
-    [810001]データベース、ユーザ、テーブル関連SQLファイル作成が正常に完了しました。
+   [810001]データベース、ユーザ、テーブル関連SQLファイル作成が正常に完了しました。
 
 [82]db_sql_insert_script.sh
-    [820001]INSERTデータ関連SQLファイル作成が正常に完了しました。
-    [820101]エラー: パラメータ1にカンマ区切りデータを指定してください。
-    [820102]エラー: 出力するINSERT文の数が指定されていません。
-    [820103]エラー: 入力データの項目数とCOLUMN_DATA_NAMEの項目数が一致しません。
-    [820104]エラー: サポートされていないDBMSです。
+   [820001]INSERTデータ関連SQLファイル作成が正常に完了しました。
+   [820101]エラー: パラメータ1にカンマ区切りデータを指定してください。
+   [820102]エラー: 出力するINSERT文の数が指定されていません。
+   [820103]エラー: 入力データの項目数とCOLUMN_DATA_NAMEの項目数が一致しません。
+   [820104]エラー: サポートされていないDBMSです。
 
 
 [91]db_generator.sh
-    [910101]エラー: 必要なスクリプトまたは設定ファイルが不足しています。処理を中断します。
-    [910102]エラー: 設定ファイルの検証中に問題が発生しました。処理を中断します。
-    [910103]エラー: 設定ファイルの検証中に問題が発生しました。処理を中断します。
-    [910104]エラー: 設定ファイルの検証中に問題が発生しました。処理を中断します。
-    [910105]エラー: データ作成中に問題が発生しました。処理を中断します。
-    [910106]エラー: 空の変数。db_assemble_normal_data.sh処理中に問題が発生しました。
-    [910107]エラー: データフォーマット変更中に問題が発生しました。処理を中断します。
-    [910108]エラー: 空の変数。db_output_record_format.sh処理中に問題が発生しました。
-    [910109]エラー: 出力ファイルフォーマット変更中に問題が発生しました。処理を中断します。
-    [910110]エラー: ファイル圧縮処理中に問題が発生しました。処理を中断します。
-    [910111]エラー: データベース作成、ユーザ設定コマンド作成中に問題が発生しました。処理を中断します。
-    [910112]エラー: INSERTのSQL文作成中に問題が発生しました。処理を中断します。
+   [910101]エラー: 必要なスクリプトまたは設定ファイルが不足しています。処理を中断します。
+   [910102]エラー: 設定ファイルの検証中に問題が発生しました。処理を中断します。
+   [910103]エラー: 設定ファイルの検証中に問題が発生しました。処理を中断します。
+   [910104]エラー: 設定ファイルの検証中に問題が発生しました。処理を中断します。
+   [910105]エラー: データ作成中に問題が発生しました。処理を中断します。
+   [910106]エラー: 空の変数。db_assemble_normal_data.sh処理中に問題が発生しました。
+   [910107]エラー: データフォーマット変更中に問題が発生しました。処理を中断します。
+   [910108]エラー: 空の変数。db_output_record_format.sh処理中に問題が発生しました。
+   [910109]エラー: 出力ファイルフォーマット変更中に問題が発生しました。処理を中断します。
+   [910110]エラー: ファイル圧縮処理中に問題が発生しました。処理を中断します。
+   [910111]エラー: データベース作成、ユーザ設定コマンド作成中に問題が発生しました。処理を中断します。
+   [910112]エラー: INSERTのSQL文作成中に問題が発生しました。処理を中断します。
 
 
 {00}正常終了

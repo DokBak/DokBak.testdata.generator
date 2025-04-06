@@ -3,10 +3,10 @@ FILE_NAME="testFile001"
   ##説明：出力ファイル名を記載
 FILE_EXTENSION=".csv"
   ##説明：出力ファイルの拡張子を指定
-  ##設定可能値："", ".csv", ".tsv", ".txt" 
-FILE_COMPRESSION=""
+  ##設定可能値："NONE", ".csv", ".tsv", ".txt" 
+FILE_COMPRESSION="NONE"
   ##説明：出力ファイルの圧縮有無を指定
-  ##設定可能値："", ".gz", ".zip", ".Z", ".tar", ".7z"
+  ##設定可能値："NONE", ".gz", ".zip", ".Z", ".tar", ".7z"
 FILE_CHARSET="UTF-8"
   ##説明：出力ファイルの文字コード
   ##設定可能値："UTF-8", "UTF-16", "EUC-JP", "SJIS", "CP932" "EUC-KR"
@@ -19,10 +19,10 @@ FILE_LINE_BREAK="LF"
 #データ項目の関連
 FILE_FIELD_SEPARATOR="COMMA"
   ##説明：項目の区切り文字
-  ##設定可能値："", "COMMA", "TAB"
+  ##設定可能値："NONE", "COMMA", "TAB"
 FILE_ENCLOSING_CHAR="DOUBLE_QUOTE"
   ##説明：項目の囲み文字
-  ##設定可能値："", "DOUBLE_QUOTE", "SINGLE_QUOTE"
+  ##設定可能値："NONE", "DOUBLE_QUOTE", "SINGLE_QUOTE"
 
 #データ件数関連
 ROW_COUNTS="2"

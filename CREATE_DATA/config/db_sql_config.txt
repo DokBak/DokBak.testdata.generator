@@ -1,49 +1,58 @@
 #DB共通
-DBMS_NAME="PostgreSQL"
+DBMS_NAME="MySQL"
   ##説明：作成するDBMS種類を指定
-  ##設定可能値(RDBMS)："MySQL", "MariaDB", "PostgreSQL", "SQLite", "Oracle", "Microsoft_SQL_Server"
-  ##設定可能値(NoSQL DBMS)："MongoDB", "DynamoDB"
+  ##設定可能値(RDBMS)："MySQL", "MariaDB", "PostgreSQL"
 DATABASE_NAME="testdatabase"
   ##説明：データベース名
-DATABASE_CHARACTER_SET="UTF8"
+DATABASE_CHARACTER_SET="utf8mb4"
   ##説明：データベースの文字コード
-  ##設定可能値(MySQL))："utf8mb4", "utf8", "sjis", "euckr"
+  ##設定可能値(MySQL)："utf8mb4", "utf8", "sjis", "euckr"
   ##　※utf8mb4の"mb4"は絵文字などの特殊文字の許容
-  ##設定可能値(PostgreSQL))："UTF8", "SJIS"
-DATABASE_COLLATE="C"
+  ##設定可能値(PostgreSQL)："utf8", "sjis"
+DATABASE_COLLATE="utf8mb4_unicode_ci"
   ##説明：文字データの並び順と比較方法を決定する設定
   ##設定可能値(MySQL)："utf8mb4_unicode_ci", "utf8mb4_general_ci", "utf8mb4_bin"
   ##　※"unicode"は国際的な並び順ルールに従う
   ##　※"general"は国際的な文字並び順ルールでは、一部の特殊文字を異なって処理する場合があり
   ##　※"ci(case insensitive)"は大文字と小文字を区別なし
   ##　※"bin"はバイナリ比較
-  ##設定可能値(PostgreSQL))："C", "en_US.UTF-8", "ko_KR.UTF-8", "ja_JP.UTF-8"
+  ##設定可能値(PostgreSQL)："C", "en_US.UTF-8", "ko_KR.UTF-8", "ja_JP.UTF-8"
 DATABASE_USERNAME="test_user"
   ##説明：データベースに接続するユーザ名
 DATABASE_PASSWORD="TESTpw01#"
   ##説明：データベースに接続するユーザ名のパスワード
-DATABASE_USERRIGHT="Superuser"
-  ##説明：データベースに接続するユーザ名のパスワード
+DATABASE_USERRIGHT="ALL PRIVILEGES"
+  ##説明：データベースに接続するユーザの権限
   ##設定可能値(MySQL)："ALL PRIVILEGES"(全権限), "SELECT,INSERT,UPDATE,DELETE,CREATE,DROP"
   ##設定可能値(PostgreSQL)："Superuser"(全権限), "Createrole,CreateDB,Replication,BypassRLS"
-DATABASE_TABLENAME="*"
-  ##説明：データベースに接続するテーブル指定
+DATABASE_TABLERIGHT="*"
+  ##説明：権限付与するテーブル
   ##設定可能値(MySQL)："*"(全テーブル), "指定したいテーブル名:${SET_TABLENAME}"
 SET_SCHEMA="test_schema"
-  ##説明：作成するテーブル名
+  ##説明：作成するスキーマ名
 SET_TABLENAME="test_table"
   ##説明：作成するテーブル名
 FOREIGN_TABLENAME="foreign_table"
-  ##説明：作成するテーブル名
+  ##説明：参照する外部テーブル名
+
 COLUMN_DATA_NAME="col1","col2","col3","col4","col5","col6","col7","col8","col9","col0"
+  ##説明：項目名情報リスト
 COLUMN_PRIMARY_KEY="true","true","false","false","false","false","false","false","false","false"
+  ##説明：主キー情報リスト
 COLUMN_UNIQUE_KEY="false","false","false","false","true","true","true","false","false","false"
+  ##説明：ユニークキー情報リスト
 COLUMN_FOREIGN_KEY="true","false","false","false","false","false","false","false","false","false"
+  ##説明：外部キー情報リスト
 COLUMN_INDEX_KEY="false","true","false","false","false","false","false","false","false","false"
+  ##説明：インデックス情報リスト
 COLUMN_NOT_NULL="false","false","false","true","false","false","false","false","false","false"
+  ##説明：NOT NULL制約情報リスト
 COLUMN_AUTO_INCREMENT="false","false","false","false","true","false","false","false","false","false"
-COLUMN_DEFAULT_VALUE="dasda"," "," "," "," "," "," "," "," "," "
+  ##説明：AUTO_INCREMENT情報リスト
+COLUMN_DEFAULT_VALUE="das","NONE","NONE","NONE","NONE","NONE","NONE","NONE","NONE","NONE"
+  ##説明：デフォルト値情報リスト
 COLUMN_COMMENT="CMT1","CMT2","CMT3","CMT4","CMT5","CMT6","CMT7","CMT8","CMT9","CMT0"
+  ##説明：カラムコメント情報リスト
 
 ## MYSQL/MARIADB関連
 SQL_SET_HOST="%"
@@ -53,10 +62,10 @@ SQL_SET_HOST="%"
 ## PostgreSQL関連
 POSTGRESQL_TEMPLATE="template1"
   ##説明：データベースの基本設定テンプレート
-  ##設定可能値(PostgreSQL))："template0", "template1"
+  ##設定可能値(PostgreSQL)："template0", "template1"
 POSTGRESQL_CONNECTION_LIMIT="-1"
   ##説明：同時に接続できる許容数(-1は制限ない)
-  ##設定可能値(PostgreSQL))："-1", "1以上の値"
+  ##設定可能値(PostgreSQL)："-1", "1以上の値"
 POSTGRESQL_ALLOW_CONNECTIONS="true"
   ##説明：データベースの接続許可
-  ##設定可能値(PostgreSQL))："true", "false"
+  ##設定可能値(PostgreSQL)："true", "false"
