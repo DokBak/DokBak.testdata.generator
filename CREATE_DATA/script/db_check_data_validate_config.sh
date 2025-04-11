@@ -223,19 +223,21 @@ if [[ "${SEPARATOR_DATE_TIME}" != "NONE" && "${SEPARATOR_DATE_TIME}" != "SPACE" 
 fi
 
 # REFERENCE_DATE の値を検証
-if date --version >/dev/null 2>&1; then
-    # GNU date (Linux)
-    if ! date -d "%Y/%m/%d" "${REFERENCE_DATE}" &>/dev/null; then
-        echo "[220126]エラー: 無効な日付です。${REFERENCE_DATE}は無効な日付です。(GNU date (Linux))"
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220126]エラー: 無効な日付です。${REFERENCE_DATE}は無効な日付です。(GNU date (Linux))" >> ${LOG_DIR}/data_generator.log
-        exit 1
-    fi
-else
-    # BSD/macOS date
-    if ! date -j -f "%Y/%m/%d" "${REFERENCE_DATE}" &>/dev/null; then
-        echo "[220127]エラー: 無効な日付です。${REFERENCE_DATE}は無効な日付です。(BSD/macOS date)"
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220127]エラー: 無効な日付です。${REFERENCE_DATE}は無効な日付です。(BSD/macOS date)" >> ${LOG_DIR}/data_generator.log
-        exit 1
+if [[ "${REFERENCE_DATE}" != "NONE" ]]; then
+    if date --version >/dev/null 2>&1; then
+        # GNU date (Linux)
+        if ! date -d "%Y/%m/%d" "${REFERENCE_DATE}" &>/dev/null; then
+            echo "[220126]エラー: 無効な日付です。${REFERENCE_DATE}は無効な日付です。(GNU date (Linux))"
+            echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220126]エラー: 無効な日付です。${REFERENCE_DATE}は無効な日付です。(GNU date (Linux))" >> ${LOG_DIR}/data_generator.log
+            exit 1
+        fi
+    else
+        # BSD/macOS date
+        if ! date -j -f "%Y/%m/%d" "${REFERENCE_DATE}" &>/dev/null; then
+            echo "[220127]エラー: 無効な日付です。${REFERENCE_DATE}は無効な日付です。(BSD/macOS date)"
+            echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [220127]エラー: 無効な日付です。${REFERENCE_DATE}は無効な日付です。(BSD/macOS date)" >> ${LOG_DIR}/data_generator.log
+            exit 1
+        fi
     fi
 fi
 
