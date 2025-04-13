@@ -6,6 +6,7 @@
 #
 #  作成者        : DokBak
 #  作成日        : 2024/12/13          新規作成
+#  修正日        : 2025/04/14          コードリファクタリング
 #
 #  処理概要      : 設定内容に基づきランダムな文字列、数字、日付データを生成します。
 #
@@ -13,9 +14,9 @@
 #     なし
 #
 #  実行方法    　:
-#     sh ./db_assemble_normal_data.sh
+#     sh ./script/db_assemble_normal_data.sh
 #
-#  参照        :　https://github.com/DokBak/DokBak_Shell_CMD
+#  参照        :　https://github.com/DokBak/DokBak.testdata.generator
 #
 ###################################################################################
 
@@ -61,46 +62,48 @@ for _i in "${!_data_types[@]}"; do
             fi
             ;;
         float|double)
-            _integer_part=$(echo "$_length" | cut -d'.' -f1)
-            _fractional_part=$(echo "$_length" | cut -d'.' -f2)
+            _integer_part=$(echo "${_length}" | cut -d'.' -f1)
+            _fractional_part=$(echo "${_length}" | cut -d'.' -f2)
             _item=`sh ${SCRIPT_DIR}/db_gen_number_data.sh ${_integer_part} ${_fractional_part}`
-            if [[ -n "$_assemble_items" ]]; then
+            if [[ -n "${_assemble_items}" ]]; then
                 _assemble_items+=",${_item}"  # 値が空でない場合、カンマを追加
             else
                 _assemble_items="${_item}"  # 最初の値はカンマなしで追加
             fi
             ;;
         boolean)
-            # 0 または 1 をランダムに生成 (0: FALSE, 1: TRUE)
-            _random_value=$((RANDOM % 2))
-            # ランダム値に基づいて結果を出力
-            if [[ "${_random_value}" -eq 0 ]]; then
-                case "${DBMS_NAME}" in
-                    "MySQL"|"MariaDB")
+            case "${DBMS_NAME}" in
+                "MySQL"|"MariaDB")
+                    if [[ "${_length}" -eq 0 ]]; then
                         _item="0"
-                        ;;
-                    "PostgreSQL")
-                        _item="FALSE"
-                        ;;
-                    *)
-                        echo "サポートされていないDBMSです。"
-                        exit 1 
-                        ;;
-                esac
-            else
-                case "${DBMS_NAME}" in
-                    "MySQL"|"MariaDB")
+                    elif [[ "${_length}" -eq 1 ]]; then
                         _item="1"
-                        ;;
-                    "PostgreSQL")
+                    else
+                        # 0 または 1 をランダムに生成 (0: FALSE, 1: TRUE)
+                        _item=$((RANDOM % 2))
+                    fi
+                    ;;
+                "PostgreSQL")
+                    if [[ "${_length}" -eq 0 ]]; then
+                        _item="FALSE"
+                    elif [[ "${_length}" -eq 1 ]]; then
                         _item="TRUE"
-                        ;;
-                    *)
-                        echo "サポートされていないDBMSです。"
-                        exit 1 
-                        ;;
-                esac
-            fi
+                    else
+                        # 0 または 1 をランダムに生成 (0: FALSE, 1: TRUE)
+                        _random_value=$((RANDOM % 2))
+                        if [[ "${_random_value}" -eq 0 ]]; then
+                            _item="FALSE"
+                        else
+                            _item="TRUE"
+                        fi
+                    fi
+                    ;;
+                *)
+                    echo "サポートされていないDBMSです。"
+                    exit 1 
+                    ;;
+            esac
+
             if [[ -n "$_assemble_items" ]]; then
                 _assemble_items+=",${_item}"  # 値が空でない場合、カンマを追加
             else
@@ -111,9 +114,8 @@ for _i in "${!_data_types[@]}"; do
         date)
             # 日付フォーマットをシステム互換形式に変換
             _system_format="${_length}"
-
             # DATE_SEPARATORが設定されている場合、日付区切り文字を挿入
-            if [[ -n "${DATE_SEPARATOR}" && "${DATE_SEPARATOR}" != " " ]]; then
+            if [[ -n "${DATE_SEPARATOR}" && "${DATE_SEPARATOR}" != "NONE" ]]; then
                 # YとMの間にDATE_SEPARATORを挿入
                 _system_format=$(echo "${_system_format}" | sed 's#Y\(M\)#Y'"${DATE_SEPARATOR}"'\1#')
                 # MとDの間にDATE_SEPARATORを挿入
@@ -121,14 +123,14 @@ for _i in "${!_data_types[@]}"; do
             fi
 
             # TIME_SEPARATORが設定されている場合、時間区切り文字を挿入
-            if [[ -n "${TIME_SEPARATOR}" && "${TIME_SEPARATOR}" != " " ]]; then
+            if [[ -n "${TIME_SEPARATOR}" && "${TIME_SEPARATOR}" != "NONE" ]]; then
                 # hとmの間にTIME_SEPARATORを挿入
                 _system_format=$(echo "${_system_format}" | sed 's#h\(m\)#h'"${TIME_SEPARATOR}"'\1#')
                 # mとsの間にTIME_SEPARATORを挿入
                 _system_format=$(echo "${_system_format}" | sed 's#m\(s\)#m'"${TIME_SEPARATOR}"'\1#')
             fi
 
-            # DATE_TIME_SEPARATORが設定されている場合、日付と時間の間に区切り文字を挿入
+            # SEPARATOR_DATE_TIMEが設定されている場合、日付と時間の間に区切り文字を挿入
             # 日付と時間が全て存在する場合,日付と時間の間に”_"追加
             if [[ "${_system_format}" =~ "YY" || "${_system_format}" =~ "MM" || "${_system_format}" =~ "DD" ]] && [[ "${_system_format}" =~ "hh" || "${_system_format}" =~ "mm" || "${_system_format}" =~ "ss" ]]; then
                 _system_format=$(echo "${_system_format}" | sed 's#\(DD\)\(hh\)#\1'"_"'\2#')
@@ -137,17 +139,21 @@ for _i in "${!_data_types[@]}"; do
             # 1. 年(Y)
             _system_format=$(echo "${_system_format}" | sed -E -e 's/Y{4}/%Y/g' -e 's/Y{2}/%y/g' -e 's/Y{0}//g')
             # 2. 月(M)
-            _system_format=$(echo "${_system_format}" | sed -E -e 's/M{2}/%m/g' -e 's/M{0}//g')
+            _system_format=$(echo "${_system_format}" | sed -E -e 's/M{2}/%m/g' -e 's/M{1}/%-m/g' -e 's/M{0}//g' | sed -E -e 's/%m/%t/g' -e 's/%-m/%-t/g')
             # 3. 日(D)
-            _system_format=$(echo "${_system_format}" | sed -E -e 's/D{2}/%d/g' -e 's/D{0}//g')
+            _system_format=$(echo "${_system_format}" | sed -E -e 's/D{2}/%d/g' -e 's/D{1}/%-d/g' -e 's/D{0}//g')
             # 4. 時(h)
-            _system_format=$(echo "${_system_format}" | sed -E -e 's/h{2}/%H/g' -e 's/h{0}//g')
+            _system_format=$(echo "${_system_format}" | sed -E -e 's/h{2}/%H/g' -e 's/h{1}/%-H/g' -e 's/h{0}//g')
             # 5. 分(m)
-            _system_format=$(echo "${_system_format}" | sed -E -e 's/m{2}/%M/g' -e 's/m{0}//g')
+            _system_format=$(echo "${_system_format}" | sed -E -e 's/m{2}/%M/g' -e 's/m{1}/%-M/g' -e 's/m{0}//g' | sed -E -e 's/%t/%m/g' -e 's/%-t/%-m/g')
             # 6. 秒(s)
-            _system_format=$(echo "${_system_format}" | sed -E -e 's/s{2}/%S/g' -e 's/s{0}//g')
+            _system_format=$(echo "${_system_format}" | sed -E -e 's/s{2}/%S/g' -e 's/s{1}/%-S/g' -e 's/s{0}//g')
             
-            _item=`sh ${SCRIPT_DIR}/db_gen_date_data.sh "${_system_format}" `
+            if [[ "${REFERENCE_DATE}" == "NONE" ]]; then
+                _item=`sh ${SCRIPT_DIR}/db_gen_date_data.sh "${_system_format}" `
+            else
+                _item=`sh ${SCRIPT_DIR}/db_gen_date_data.sh "${_system_format}" "${REFERENCE_DATE}" `
+            fi
             
             if [[ -n "$_assemble_items" ]]; then
                 _assemble_items+=",${_item}"  # 値が空でない場合、カンマを追加
