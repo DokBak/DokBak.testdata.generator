@@ -33,7 +33,7 @@
 #
 ###################################################################################
 
-echo "$(date '+%Y/%m/%d %H:%M:%S') [INFO]  [$(basename $0)] START" >> ${LOG_DIR}/data_generator.log
+echo "$(date '+%Y/%m/%d %H:%M:%S') [INFO]  [$(basename $0)] START" >> ${LOG_DIR}data_generator.log
 
 # パラメータ1とパラメータ2の取得
 _item_length=${1}  # 生成する文字列の長さ
@@ -42,7 +42,7 @@ _option=${2:-mixed} # 空白の場合は "mixed" に設定
 # パラメータチェック：パラメータが2つ以上あるかを確認
 if [[ ${#} -gt 2 ]]; then
     echo "[010101]エラー: 指定できるパラメータの数は最大2つまでです。"
-    echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [010101]エラー: 指定できるパラメータの数は最大2つまでです。" >> ${LOG_DIR}/data_generator.log
+    echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [010101]エラー: 指定できるパラメータの数は最大2つまでです。" >> ${LOG_DIR}data_generator.log
     exit 1
 fi
 
@@ -50,14 +50,14 @@ fi
 if ! [[ "${_item_length}" =~ ^[0-9]+$ ]] || [ "${_item_length}" -le 0 ]; then
     echo "[010102]エラー: パラメータ1は1以上の整数でなければなりません。"
     echo "実行例: sh ./db_gen_string_data.sh 10 " > /dev/null
-    echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [010102]エラー: パラメータ1は1以上の整数でなければなりません。" >> ${LOG_DIR}/data_generator.log
+    echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [010102]エラー: パラメータ1は1以上の整数でなければなりません。" >> ${LOG_DIR}data_generator.log
     exit 1
 fi
 
 if ! [[ "${_option}" =~ ^(NONE|UPPER|LOWER|upper|lower|U|L|u|l)$ ]]; then
     echo "[010201]ワーニング: パラメータ2が「'NONE','UPPER','upper','U','u'」(大文字のみデータ),「'LOWER','lower','L','l'」(小文字のみデータ),以外文字列は大・小文字混在データ"
     echo "実行例: sh ./db_gen_string_data.sh 10 u" > /dev/null
-    echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [010201]ワーニング: パラメータ2が「'NONE','UPPER','upper','U','u'」(大文字のみデータ),「'LOWER','lower','L','l'」(小文字のみデータ),以外文字列は大・小文字混在データ" >> ${LOG_DIR}/data_generator.log
+    echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [010201]ワーニング: パラメータ2が「'NONE','UPPER','upper','U','u'」(大文字のみデータ),「'LOWER','lower','L','l'」(小文字のみデータ),以外文字列は大・小文字混在データ" >> ${LOG_DIR}data_generator.log
 fi
 
 # 生成された文字列を格納する変数
@@ -85,7 +85,7 @@ for ((_i=1; _i<=${_item_length}; _i++)); do
 done
 
 # 生成された文字列を出力
-echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] [010001]生成された文字列: ${_generated_data}" >> ${LOG_DIR}/data_generator.log
-echo "$(date '+%Y/%m/%d %H:%M:%S') [INFO]  [$(basename $0)] END" >> ${LOG_DIR}/data_generator.log
+echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] [010001]生成された文字列: ${_generated_data}" >> ${LOG_DIR}data_generator.log
+echo "$(date '+%Y/%m/%d %H:%M:%S') [INFO]  [$(basename $0)] END" >> ${LOG_DIR}data_generator.log
 echo "${_generated_data}"
 exit 0

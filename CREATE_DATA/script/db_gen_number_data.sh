@@ -37,12 +37,12 @@
 #
 ###################################################################################
 
-echo "$(date '+%Y/%m/%d %H:%M:%S') [INFO]  [$(basename $0)] START" >> ${LOG_DIR}/data_generator.log
+echo "$(date '+%Y/%m/%d %H:%M:%S') [INFO]  [$(basename $0)] START" >> ${LOG_DIR}data_generator.log
 
 # パラメータチェック：パラメータが2つ以上あるかを確認
 if [[ ${#} -gt 2 ]]; then
     echo "[020101]エラー: 指定できるパラメータの数は最大2つまでです。"
-    echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [020101]エラー: 指定できるパラメータの数は最大2つまでです。" >> ${LOG_DIR}/data_generator.log
+    echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [020101]エラー: 指定できるパラメータの数は最大2つまでです。" >> ${LOG_DIR}data_generator.log
     exit 1
 fi
 
@@ -53,28 +53,28 @@ _decimal_places=${2}
 # パラメータ1が数字かどうかを確認 (0も許容)
 if ! [[ "${_item_length}" =~ ^[0-9]+$ ]]; then
     echo "[020102]エラー: パラメータ1は0以上の整数でなければなりません。"
-    echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [020102]エラー: パラメータ1は0以上の整数でなければなりません。" >> ${LOG_DIR}/data_generator.log
+    echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [020102]エラー: パラメータ1は0以上の整数でなければなりません。" >> ${LOG_DIR}data_generator.log
     exit 1
 fi
 
 # パラメータ2が数字かどうかを確認
 if [[ -n "${_decimal_places}" && ! "${_decimal_places}" =~ ^[0-9]+$ ]]; then
     echo "[020103]エラー: パラメータ2は数字でなければなりません。"
-    echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [020103]エラー: パラメータ2は数字でなければなりません。" >> ${LOG_DIR}/data_generator.log
+    echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [020103]エラー: パラメータ2は数字でなければなりません。" >> ${LOG_DIR}data_generator.log
     exit 1
 fi
 
 # パラメータ1が0かつパラメータ2が空白の場合はエラー
 if [[ "${_item_length}" -eq 0 && -z "${_decimal_places}" ]]; then
     echo "[020104]エラー: 整数部が0の場合、小数部の桁数（パラメータ2）を指定してください。"
-    echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [020104]エラー: 整数部が0の場合、小数部の桁数（パラメータ2）を指定してください。" >> ${LOG_DIR}/data_generator.log
+    echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [020104]エラー: 整数部が0の場合、小数部の桁数（パラメータ2）を指定してください。" >> ${LOG_DIR}data_generator.log
     exit 1
 fi
 
 # 整数部と小数部の両方が0の場合は無効
 if [[ "${_item_length}" -eq 0 && "${_decimal_places}" -eq 0 ]]; then
     echo "[020105]エラー: 整数部と小数部の桁数がどちらも0の場合、無効です。"
-    echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [020105]エラー: 整数部と小数部の桁数がどちらも0の場合、無効です。" >> ${LOG_DIR}/data_generator.log
+    echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [020105]エラー: 整数部と小数部の桁数がどちらも0の場合、無効です。" >> ${LOG_DIR}data_generator.log
     exit 1
 fi
 
@@ -89,8 +89,8 @@ if [[ "${_item_length}" -eq 0 ]]; then
     if [[ "${_generated_data: -1}" -eq 0 ]]; then
         _generated_data="${_generated_data%0}$(($RANDOM % 9 + 1))"
     fi
-    echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] [020003]生成された小数: ${_generated_data}" >> ${LOG_DIR}/data_generator.log
-    echo "$(date '+%Y/%m/%d %H:%M:%S') [INFO]  [$(basename $0)] END" >> ${LOG_DIR}/data_generator.log
+    echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] [020003]生成された小数: ${_generated_data}" >> ${LOG_DIR}data_generator.log
+    echo "$(date '+%Y/%m/%d %H:%M:%S') [INFO]  [$(basename $0)] END" >> ${LOG_DIR}data_generator.log
     echo "${_generated_data}"
     exit 0
 
@@ -104,8 +104,8 @@ elif [[ -z "${_decimal_places}" || "${_decimal_places}" -eq 0 ]]; then
         fi
         _generated_data="${_generated_data}${_random_digit}"
     done
-    echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] [020002]生成された整数: ${_generated_data}" >> ${LOG_DIR}/data_generator.log
-    echo "$(date '+%Y/%m/%d %H:%M:%S') [INFO]  [$(basename $0)] END" >> ${LOG_DIR}/data_generator.log
+    echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] [020002]生成された整数: ${_generated_data}" >> ${LOG_DIR}data_generator.log
+    echo "$(date '+%Y/%m/%d %H:%M:%S') [INFO]  [$(basename $0)] END" >> ${LOG_DIR}data_generator.log
     echo "${_generated_data}"
     exit 0
 
@@ -128,8 +128,8 @@ else
     if [[ "${_generated_data: -1}" -eq 0 ]]; then
         _generated_data="${_generated_data%0}$(($RANDOM % 9 + 1))"
     fi
-    echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] [020001]生成された実数: ${_generated_data}" >> ${LOG_DIR}/data_generator.log
-    echo "$(date '+%Y/%m/%d %H:%M:%S') [INFO]  [$(basename $0)] END" >> ${LOG_DIR}/data_generator.log
+    echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] [020001]生成された実数: ${_generated_data}" >> ${LOG_DIR}data_generator.log
+    echo "$(date '+%Y/%m/%d %H:%M:%S') [INFO]  [$(basename $0)] END" >> ${LOG_DIR}data_generator.log
     echo "${_generated_data}"
     exit 0
 fi

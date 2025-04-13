@@ -20,7 +20,7 @@
 #
 ###################################################################################
 
-echo "$(date '+%Y/%m/%d %H:%M:%S') [INFO]  [$(basename $0)] START" >> ${LOG_DIR}/data_generator.log
+echo "$(date '+%Y/%m/%d %H:%M:%S') [INFO]  [$(basename $0)] START" >> ${LOG_DIR}data_generator.log
 
 # 作成データ
 _assemble_items=""
@@ -32,7 +32,7 @@ IFS=',' read -ra _data_lengths <<< "${COLUMN_DATA_LENGTH//\"/}"
 # COLUMN_COUNTS が正しいか確認
 if [[ "${#_data_types[@]}" -ne "${COLUMN_COUNTS}" || "${#_data_lengths[@]}" -ne "${COLUMN_COUNTS}" ]]; then
     echo "[410101]エラー: COLUMN_COUNTS と DATA_TYPE、または DATA_LENGTH の項目数が一致しません。"
-    echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [410101]エラー: COLUMN_COUNTS と DATA_TYPE、または DATA_LENGTH の項目数が一致しません。" >> ${LOG_DIR}/data_generator.log
+    echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [410101]エラー: COLUMN_COUNTS と DATA_TYPE、または DATA_LENGTH の項目数が一致しません。" >> ${LOG_DIR}data_generator.log
     exit 1
 fi
 
@@ -42,11 +42,11 @@ for _i in "${!_data_types[@]}"; do
     _length="${_data_lengths[$_i]}"
     _item_number=$((_i + 1))
 
-    echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] 処理中: 第${_item_number}項目 (データ型: ${_type}, 長さ: ${_length})" >> ${LOG_DIR}/data_generator.log
+    echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] 処理中: 第${_item_number}項目 (データ型: ${_type}, 長さ: ${_length})" >> ${LOG_DIR}data_generator.log
 
     case "${_type}" in
         char|string)
-            _item=`sh ${SCRIPT_DIR}/db_gen_string_data.sh ${_length} ${CASE_MODE}`
+            _item=`sh ${SCRIPT_DIR}db_gen_string_data.sh ${_length} ${CASE_MODE}`
             if [[ -n "${_assemble_items}" ]]; then
                 _assemble_items+=",${_item}"  # 値が空でない場合、カンマを追加
             else
@@ -54,7 +54,7 @@ for _i in "${!_data_types[@]}"; do
             fi
             ;;
         byte|short|int|long)
-            _item=`sh ${SCRIPT_DIR}/db_gen_number_data.sh ${_length}`
+            _item=`sh ${SCRIPT_DIR}db_gen_number_data.sh ${_length}`
             if [[ -n "${_assemble_items}" ]]; then
                 _assemble_items+=",${_item}"  # 値が空でない場合、カンマを追加
             else
@@ -64,7 +64,7 @@ for _i in "${!_data_types[@]}"; do
         float|double)
             _integer_part=$(echo "${_length}" | cut -d'.' -f1)
             _fractional_part=$(echo "${_length}" | cut -d'.' -f2)
-            _item=`sh ${SCRIPT_DIR}/db_gen_number_data.sh ${_integer_part} ${_fractional_part}`
+            _item=`sh ${SCRIPT_DIR}db_gen_number_data.sh ${_integer_part} ${_fractional_part}`
             if [[ -n "${_assemble_items}" ]]; then
                 _assemble_items+=",${_item}"  # 値が空でない場合、カンマを追加
             else
@@ -109,7 +109,7 @@ for _i in "${!_data_types[@]}"; do
             else
                 _assemble_items="${_item}"  # 最初の値はカンマなしで追加
             fi
-            echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] 生成された値：${_item}" >> ${LOG_DIR}/data_generator.log
+            echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] 生成された値：${_item}" >> ${LOG_DIR}data_generator.log
             ;;
         date)
             # 日付フォーマットをシステム互換形式に変換
@@ -150,9 +150,9 @@ for _i in "${!_data_types[@]}"; do
             _system_format=$(echo "${_system_format}" | sed -E -e 's/s{2}/%S/g' -e 's/s{1}/%-S/g' -e 's/s{0}//g')
             
             if [[ "${REFERENCE_DATE}" == "NONE" ]]; then
-                _item=`sh ${SCRIPT_DIR}/db_gen_date_data.sh "${_system_format}" `
+                _item=`sh ${SCRIPT_DIR}db_gen_date_data.sh "${_system_format}" `
             else
-                _item=`sh ${SCRIPT_DIR}/db_gen_date_data.sh "${_system_format}" "${REFERENCE_DATE}" `
+                _item=`sh ${SCRIPT_DIR}db_gen_date_data.sh "${_system_format}" "${REFERENCE_DATE}" `
             fi
             
             if [[ -n "$_assemble_items" ]]; then
@@ -163,14 +163,16 @@ for _i in "${!_data_types[@]}"; do
             ;;
         *)
             echo "[410102]エラー: データ型 ${_type} はサポートされていません。"
-            echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [410102]エラー: データ型 ${_type} はサポートされていません。" >> ${LOG_DIR}/data_generator.log
+            echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [410102]エラー: データ型 ${_type} はサポートされていません。" >> ${LOG_DIR}data_generator.log
             exit 1
             ;;
     esac
 done
 
+echo "%{_assemble_items}" > %{FILES_DIR}/
+
 # 生成された文字列を出力
-echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] [410001]すべてのデータ生成が正常に完了しました。" >> ${LOG_DIR}/data_generator.log
-echo "$(date '+%Y/%m/%d %H:%M:%S') [INFO]  [$(basename $0)] END" >> ${LOG_DIR}/data_generator.log
+echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] [410001]すべてのデータ生成が正常に完了しました。" >> ${LOG_DIR}data_generator.log
+echo "$(date '+%Y/%m/%d %H:%M:%S') [INFO]  [$(basename $0)] END" >> ${LOG_DIR}data_generator.log
 echo "${_assemble_items}"
 exit 0

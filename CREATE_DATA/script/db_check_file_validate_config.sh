@@ -21,22 +21,22 @@
 ###################################################################################
 
 echo "設定ファイルの有効性チェックを実行中..."
-echo "$(date '+%Y/%m/%d %H:%M:%S') [INFO]  [$(basename $0)] START" >> ${LOG_DIR}/data_generator.log
+echo "$(date '+%Y/%m/%d %H:%M:%S') [INFO]  [$(basename $0)] START" >> ${LOG_DIR}data_generator.log
 
 # 設定ファイルのパス
-_config_file="${CONFIG_DIR}/db_file_config.txt"
+_config_file="${CONFIG_DIR}db_file_config.txt"
 
 # 設定ファイルの存在確認
 if [[ ! -f "${_config_file}" ]]; then
     echo "[230101]エラー: 設定ファイル ${_config_file} が存在しません。"
-    echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [230101]エラー: 設定ファイル ${_config_file} が存在しません。" >> ${LOG_DIR}/data_generator.log
+    echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [230101]エラー: 設定ファイル ${_config_file} が存在しません。" >> ${LOG_DIR}data_generator.log
     exit 1
 fi
 
 # FILE_NAME チェック
 if [[ -z "${FILE_NAME}" ]]; then
     echo "[230102]エラー: FILE_NAMEを指定してください。"
-    echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [230102]エラー: FILE_NAMEを指定してください。" >> ${LOG_DIR}/data_generator.log
+    echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [230102]エラー: FILE_NAMEを指定してください。" >> ${LOG_DIR}data_generator.log
     exit 1
 fi
 
@@ -46,7 +46,7 @@ case "${FILE_EXTENSION}" in
         ;;
     *)
         echo "[230103]エラー: FILE_EXTENSIONは 'NONE', '.csv', '.tsv', '.txt' のいずれかで指定してください。"
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [230103]エラー: FILE_EXTENSIONは 'NONE', '.csv', '.tsv', '.txt' のいずれかで指定してください。" >> ${LOG_DIR}/data_generator.log
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [230103]エラー: FILE_EXTENSIONは 'NONE', '.csv', '.tsv', '.txt' のいずれかで指定してください。" >> ${LOG_DIR}data_generator.log
         exit 1
         ;;
 esac
@@ -57,7 +57,7 @@ case "${FILE_COMPRESSION}" in
         ;;
     *)
         echo "[230104]エラー: FILE_COMPRESSIONは 'NONE', '.gz', '.zip', '.Z', '.tar', '.7z' のいずれかで指定してください。"
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [230104]エラー: FILE_COMPRESSIONは 'NONE', '.gz', '.zip', '.Z', '.tar', '.7z' のいずれかで指定してください。" >> ${LOG_DIR}/data_generator.log
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [230104]エラー: FILE_COMPRESSIONは 'NONE', '.gz', '.zip', '.Z', '.tar', '.7z' のいずれかで指定してください。" >> ${LOG_DIR}data_generator.log
         exit 1
         ;;
 esac
@@ -68,7 +68,7 @@ case "${FILE_CHARSET}" in
         ;;
     *)
         echo "[230105]エラー: FILE_CHARSETは 'UTF-8', 'UTF-16', 'EUC-JP', 'SJIS', 'CP932', 'EUC-KR' のいずれかで指定してください。"
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [230105]エラー: FILE_CHARSETは 'UTF-8', 'UTF-16', 'EUC-JP', 'SJIS', 'CP932', 'EUC-KR' のいずれかで指定してください。" >> ${LOG_DIR}/data_generator.log
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [230105]エラー: FILE_CHARSETは 'UTF-8', 'UTF-16', 'EUC-JP', 'SJIS', 'CP932', 'EUC-KR' のいずれかで指定してください。" >> ${LOG_DIR}data_generator.log
         exit 1
         ;;
 esac
@@ -79,7 +79,7 @@ case "${FILE_LINE_BREAK}" in
         ;;
     *)
         echo "[230106]エラー: FILE_LINE_BREAKは 'CRLF', 'LF' のいずれかで指定してください。"
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [230106]エラー: FILE_LINE_BREAKは 'CRLF', 'LF' のいずれかで指定してください。" >> ${LOG_DIR}/data_generator.log
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [230106]エラー: FILE_LINE_BREAKは 'CRLF', 'LF' のいずれかで指定してください。" >> ${LOG_DIR}data_generator.log
         exit 1
         ;;
 esac
@@ -90,7 +90,7 @@ case "${FILE_FIELD_SEPARATOR}" in
         ;;
     *)
         echo "[230107]エラー: FILE_FIELD_SEPARATORは 'NONE', 'COMMA', 'TAB' のいずれかで指定してください。"
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [230107]エラー: FILE_FIELD_SEPARATORは 'NONE', 'COMMA', 'TAB' のいずれかで指定してください。" >> ${LOG_DIR}/data_generator.log
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [230107]エラー: FILE_FIELD_SEPARATORは 'NONE', 'COMMA', 'TAB' のいずれかで指定してください。" >> ${LOG_DIR}data_generator.log
         exit 1
         ;;
 esac
@@ -101,7 +101,7 @@ case "${FILE_ENCLOSING_CHAR}" in
         ;;
     *)
         echo "[230108]エラー: FILE_ENCLOSING_CHAR 'NONE', 'DOUBLE_QUOTE', 'SINGLE_QUOTE' のいずれかで指定してください。"
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [230108]エラー: FILE_ENCLOSING_CHAR 'NONE', 'DOUBLE_QUOTE', 'SINGLE_QUOTE' のいずれかで指定してください。" >> ${LOG_DIR}/data_generator.log
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [230108]エラー: FILE_ENCLOSING_CHAR 'NONE', 'DOUBLE_QUOTE', 'SINGLE_QUOTE' のいずれかで指定してください。" >> ${LOG_DIR}data_generator.log
         exit 1
         ;;
 esac
@@ -109,21 +109,21 @@ esac
 # ROW_COUNTS チェック
 if [[ 1 -gt "${ROW_COUNTS}" ]]; then
     echo "[230109]エラー: ROW_COUNTSを1以上の値に指定してください。"
-    echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [230109]エラー: ROW_COUNTSを1以上の値に指定してください。" >> ${LOG_DIR}/data_generator.log
+    echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [230109]エラー: ROW_COUNTSを1以上の値に指定してください。" >> ${LOG_DIR}data_generator.log
     exit 1
 fi
 
 # FILE_EXTENSION と FILE_FIELD_SEPARATOR の関係を確認
 if [[ "${FILE_EXTENSION}" == ".csv" && "${FILE_FIELD_SEPARATOR}" != "COMMA" ]]; then
     echo "[230201]ワーニング: FILE_EXTENSIONが '.csv' の場合、FILE_FIELD_SEPARATORは 'COMMA' に指定してください。"
-    echo "$(date '+%Y/%m/%d %H:%M:%S') [WARN]  [$(basename $0)] [230110]ワーニング: FILE_EXTENSIONが '.csv' の場合、FILE_FIELD_SEPARATORは 'COMMA' に指定してください。" >> ${LOG_DIR}/data_generator.log
+    echo "$(date '+%Y/%m/%d %H:%M:%S') [WARN]  [$(basename $0)] [230110]ワーニング: FILE_EXTENSIONが '.csv' の場合、FILE_FIELD_SEPARATORは 'COMMA' に指定してください。" >> ${LOG_DIR}data_generator.log
 elif [[ "${FILE_EXTENSION}" == ".tsv" && "${FILE_FIELD_SEPARATOR}" != "TAB" ]]; then
     echo "[230202]ワーニング: FILE_EXTENSIONが '.tsv' の場合、FILE_FIELD_SEPARATORは 'TAB' に指定してください。"
-    echo "$(date '+%Y/%m/%d %H:%M:%S') [WARN]  [$(basename $0)] [230111]ワーニング: FILE_EXTENSIONが '.tsv' の場合、FILE_FIELD_SEPARATORは 'TAB' に指定してください。" >> ${LOG_DIR}/data_generator.log
+    echo "$(date '+%Y/%m/%d %H:%M:%S') [WARN]  [$(basename $0)] [230111]ワーニング: FILE_EXTENSIONが '.tsv' の場合、FILE_FIELD_SEPARATORは 'TAB' に指定してください。" >> ${LOG_DIR}data_generator.log
 fi
 
 # 検証がすべて完了
-echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] [230001]設定ファイルの内容問題なし。" >> ${LOG_DIR}/data_generator.log
-echo "$(date '+%Y/%m/%d %H:%M:%S') [INFO]  [$(basename $0)] END" >> ${LOG_DIR}/data_generator.log
+echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] [230001]設定ファイルの内容問題なし。" >> ${LOG_DIR}data_generator.log
+echo "$(date '+%Y/%m/%d %H:%M:%S') [INFO]  [$(basename $0)] END" >> ${LOG_DIR}data_generator.log
 echo "[230001]設定ファイルの内容問題なし。"
 exit 0
