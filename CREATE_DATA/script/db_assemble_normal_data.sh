@@ -169,7 +169,9 @@ for _i in "${!_data_types[@]}"; do
     esac
 done
 
-echo "%{_assemble_items}" > %{FILES_DIR}/
+if [[ -n ${_assemble_items} ]]; then
+    echo "${_assemble_items}" >> ${FILES_DIR}initialData.txt
+fi
 
 # 生成された文字列を出力
 echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] [410001]すべてのデータ生成が正常に完了しました。" >> ${LOG_DIR}data_generator.log

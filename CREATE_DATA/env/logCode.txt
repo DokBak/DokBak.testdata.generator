@@ -110,6 +110,7 @@ logCode List
    [230107]エラー: FILE_FIELD_SEPARATORは 'NONE', 'COMMA', 'TAB' のいずれかで指定してください。
    [230108]エラー: FILE_ENCLOSING_CHAR 'NONE', 'DOUBLE_QUOTE', 'SINGLE_QUOTE' のいずれかで指定してください。
    [230109]エラー: ROW_COUNTSを1以上の値に指定してください。
+   [230110]エラー: FILE_FIELD_SEPARATORが「NONE」の場合は、FILE_ENCLOSING_CHARには「NONE」以外の値を指定してください。
    [230201]ワーニング: FILE_EXTENSIONが '.csv' の場合、FILE_FIELD_SEPARATORは 'COMMA' に指定してください。
    [230202]FILE_EXTENSIONが '.tsv' の場合、FILE_FIELD_SEPARATORは 'TAB' に指定してください。
 
@@ -166,11 +167,11 @@ logCode List
 
 
 [61]db_output_record_format.sh
-   [610001]フォーマット処理後レコード：${_formatted_data}
-   [610101]エラー: 1つのデータ文字列をパラメータとして指定してください。
+   [610001]区切り文字・囲み文字設定が正常に完了しました。
+   [610101]エラー: ${FILES_DIR}パスに「initialData.txt」が存在しないです。
 
 [62]db_output_file_format.sh
-   [620001]出力ファイルフォーマット確認： `nkf --guess "${FILES_DIR}/${FILE_NAME}"`
+   [620001]出力ファイルフォーマット確認： `nkf --guess "${FILES_DIR}${FILE_NAME}"`
    [620101]エラー: パラメータの数が COLUMN_COUNTS (${COLUMN_COUNTS}) と一致しません。
    [620102]エラー: パラメータ1が指定されていません。
    [620103]エラー: 設定ファイルの改行コード値(FILE_LINE_BREAK)が無効です。'LF' または 'CRLF' を指定してください。
@@ -179,7 +180,7 @@ logCode List
 
 [63]db_output_compression_format.sh
    [630001]ファイル圧縮処理が正常に完了しました。
-   [630101]エラー: 圧縮対象ファイル ${FILES_DIR}/${FILE_NAME}${FILE_EXTENSION} が存在しません。
+   [630101]エラー: 圧縮対象ファイル ${FILES_DIR}${FILE_NAME}${FILE_EXTENSION} が存在しません。
    [630102]エラー: 7z コマンドが見つかりません。7zip をインストールしてください。
    [630103]エラー: サポートされていない圧縮形式 ${FILE_COMPRESSION} が指定されました。
 

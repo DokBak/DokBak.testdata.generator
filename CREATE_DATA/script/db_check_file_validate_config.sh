@@ -114,6 +114,13 @@ if [[ 1 -gt "${ROW_COUNTS}" ]]; then
 fi
 
 # FILE_EXTENSION と FILE_FIELD_SEPARATOR の関係を確認
+if [[ "${FILE_FIELD_SEPARATOR}" == "NONE" && "${FILE_ENCLOSING_CHAR}" != "NONE" ]]; then
+    echo "[230110]エラー: FILE_FIELD_SEPARATORが「NONE」の場合は、FILE_ENCLOSING_CHARには「NONE」以外の値を指定してください。"
+    echo "$(date '+%Y/%m/%d %H:%M:%S') [ERROR] [$(basename $0)] [230110]エラー: FILE_FIELD_SEPARATORが「NONE」の場合は、FILE_ENCLOSING_CHARには「NONE」以外の値を指定してください。" >> ${LOG_DIR}data_generator.log
+    exit 1
+fi
+
+# FILE_EXTENSION と FILE_FIELD_SEPARATOR の関係を確認
 if [[ "${FILE_EXTENSION}" == ".csv" && "${FILE_FIELD_SEPARATOR}" != "COMMA" ]]; then
     echo "[230201]ワーニング: FILE_EXTENSIONが '.csv' の場合、FILE_FIELD_SEPARATORは 'COMMA' に指定してください。"
     echo "$(date '+%Y/%m/%d %H:%M:%S') [WARN]  [$(basename $0)] [230110]ワーニング: FILE_EXTENSIONが '.csv' の場合、FILE_FIELD_SEPARATORは 'COMMA' に指定してください。" >> ${LOG_DIR}data_generator.log
