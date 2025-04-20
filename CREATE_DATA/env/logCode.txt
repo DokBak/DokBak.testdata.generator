@@ -171,19 +171,17 @@ logCode List
    [610101]エラー: ${FILES_DIR}パスに「initialData.txt」が存在しないです。
 
 [62]db_output_file_format.sh
-   [620001]出力ファイルフォーマット確認： `nkf --guess "${FILES_DIR}${FILE_NAME}"`
-   [620101]エラー: パラメータの数が COLUMN_COUNTS (${COLUMN_COUNTS}) と一致しません。
-   [620102]エラー: パラメータ1が指定されていません。
-   [620103]エラー: 設定ファイルの改行コード値(FILE_LINE_BREAK)が無効です。'LF' または 'CRLF' を指定してください。
+   [620001]出力ファイルフォーマット確認：" `nkf --guess "${FILES_DIR}${FILE_NAME}${FILE_EXTENSION}"`
+   [620101]エラー: ${FILES_DIR}パスに「stage1FormattedData.txt」が存在しないです。
+   [620102]エラー: 設定ファイルの改行コード値(FILE_LINE_BREAK)が無効です。'LF' または 'CRLF' を指定してください。
+   [620103]エラー: 設定ファイルの文字コード値(FILE_CHARSET)が無効です。'UTF-8' または 'UTF-16' 'EUC-JP' 'SJIS' 'CP932' 'EUC-KR' を指定してください。
    [620104]エラー: 設定ファイルの文字コード値(FILE_CHARSET)が無効です。'UTF-8' または 'UTF-16' 'EUC-JP' 'SJIS' 'CP932' 'EUC-KR' を指定してください。
-   [620105]エラー: 設定ファイルの文字コード値(FILE_CHARSET)が無効です。'UTF-8' または 'UTF-16' 'EUC-JP' 'SJIS' 'CP932' 'EUC-KR' を指定してください。
 
 [63]db_output_compression_format.sh
    [630001]ファイル圧縮処理が正常に完了しました。
    [630101]エラー: 圧縮対象ファイル ${FILES_DIR}${FILE_NAME}${FILE_EXTENSION} が存在しません。
    [630102]エラー: 7z コマンドが見つかりません。7zip をインストールしてください。
    [630103]エラー: サポートされていない圧縮形式 ${FILE_COMPRESSION} が指定されました。
-
 
 
 [81]db_sql_base_script.sh
