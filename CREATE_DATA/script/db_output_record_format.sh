@@ -14,6 +14,7 @@
 #                 - FILE_ENCLOSING_CHAR  : 項目を囲む文字を指定 ("DOUBLE_QUOTE", "SINGLE_QUOTE","NONE")
 #
 #  パラメータ     :
+#     なし
 #
 #  実行方法      :
 #     sh ./script/db_output_record_format.sh

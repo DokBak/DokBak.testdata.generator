@@ -13,6 +13,7 @@
 #                 - FILE_CHARSET="UTF-8" または "SJIS" に応じて文字コードを設定。
 #
 #  パラメータ    　:
+#     なし
 #
 #  実行方法    　:
 #     sh ./script/db_output_file_format.sh
