@@ -1,0 +1,37 @@
+・ Python 開発バージョン確認：
+　  コマンド(Python3がインストール済み)：python3 --version (Python 3.13.1)
+
+・ Excel連携Pythonライブラリ：
+　  pandas：データ分析作業向け(ファイル書き込みのみ可能)  (※ 作成環境で使用したライブラリ)
+　  openpyxl：書式、チャート、条件付き書式(ファイルの読み込み,書き込み可能)  (※ 作成環境で使用したライブラリ)
+　  xlsxwriter：書式、チャート、条件付き書式(ファイル書き込みのみ可能)
+　  xlrd：古いエクセルを処理するため(97-20003バージョン)
+
+・ Pythonライブラリのインストール(pip3利用)：
+　  (MAC OS:python3がインストールされている場合、pip3を使用。python3以外はpipを使用。)
+    コマンド：pip3 --version (pip 24.3.1 from /usr/local/lib/python3.13/site-packages/pip (python 3.13))
+
+・ ディレクトリ構造(db_doc_read_openpyxl.py)
+    /CREATE_DATA/
+    │
+    ├── env/    (※ 参考ファイル)
+    │   └── envCheck.txt
+    │
+    ├── documents/    (※ 参考ファイル)
+    │   └── 読み込み用Excelファイル
+    │
+    └── py/    (※ 必須ファイル)
+        ├── packages
+        │   ├── openpyxl    (※ EXCELファイルの読み込み,書き込み時、必須ライブラリ:MAIN)
+        │   └── et_xmlfile    (※ openpyxlライブラリ使用時)
+        │   │
+        │   ├── pandas    (※ EXCELファイルの読み込み時、必須ライブラリ:MAIN)
+        │   ├── numpy    (※ pandasライブラリ使用時)
+        │   ├── python_dateutil    (※ pandasライブラリ使用時)
+        │   ├── pytz    (※ pandasライブラリ使用時)
+        │   └── six    (※ pandasライブラリ使用時)
+        │
+        ├── db_doc_create_openpyxl.py
+        ├── db_doc_read_pandas.py
+        ├── db_doc_run.py
+        └── db_doc_set_history_openpyxl.py
