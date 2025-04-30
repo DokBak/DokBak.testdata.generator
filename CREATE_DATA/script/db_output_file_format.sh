@@ -107,7 +107,7 @@ else
     fi
 fi
 
-#設定の出力ファイル（stage2FormattedData.txt）が存在する場合、二次加工ファイルを削除
+#設定の出力ファイルが存在する場合、二次加工ファイル（stage2FormattedData.txt）を削除
 if [[ -f "${FILES_DIR}${FILE_NAME}${FILE_EXTENSION}" ]];then
     rm -f ${FILES_DIR}stage2FormattedData.txt
 fi
