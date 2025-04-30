@@ -15,18 +15,18 @@
 #     なし
 #
 #  実行方法    　:
-#     sh ./db_sql_scrpt.sh
+#     sh ./script/db_sql_base_script.sh
 #
-#  参照        :　https://github.com/DokBak/DokBak_Shell_CMD
+#  参照        :　https://github.com/DokBak/DokBak.testdata.generator
 #
 ###################################################################################
 
 echo "データベース、ユーザ、テーブル関連sql作成中..."
-echo "$(date '+%Y/%m/%d %H:%M:%S') [INFO]  [$(basename $0)] START" >> ${LOG_DIR}/data_generator.log
+echo "$(date '+%Y/%m/%d %H:%M:%S') [INFO]  [$(basename $0)] START" >> ${LOG_DIR}data_generator.log
 
 # 作成対象のファイルが既に存在する場合、バックアップ処理
-if [[ -f "${SQLS_DIR}/base_${DBMS_NAME}.sql" ]];then
-    mv "${SQLS_DIR}/base_${DBMS_NAME}.sql" "${SQLS_DIR}/bk_$(date '+%Y%m%d%H%M%S')_base_${DBMS_NAME}.sql"
+if [[ -f "${SQLS_DIR}base_${DBMS_NAME}.sql" ]];then
+    mv "${SQLS_DIR}base_${DBMS_NAME}.sql" "${SQLS_DIR}bk_$(date '+%Y%m%d%H%M%S')_base_${DBMS_NAME}.sql"
 fi
 
 # DBMSによる処理の分岐
@@ -34,75 +34,75 @@ case "${DBMS_NAME}" in
     "MySQL"|"MariaDB")
         # MySQL/MariaDBの場合
         echo "  MySQL/MariaDB用のデータベース関連sql。"
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] MySQL/MariaDB用のデータベース関連sql。" >> ${LOG_DIR}/data_generator.log
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--データベース作成" >> ${LOG_DIR}/data_generator.log
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  CREATE DATABASE ${DATABASE_NAME} CHARACTER SET ${DATABASE_CHARACTER_SET} COLLATE ${DATABASE_COLLATE};" >> ${LOG_DIR}/data_generator.log
-        echo "--データベース作成" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "CREATE DATABASE ${DATABASE_NAME} " >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "  CHARACTER SET ${DATABASE_CHARACTER_SET} " >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "  COLLATE ${DATABASE_COLLATE};" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] MySQL/MariaDB用のデータベース関連sql。" >> ${LOG_DIR}data_generator.log
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--データベース作成" >> ${LOG_DIR}data_generator.log
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  CREATE DATABASE ${DATABASE_NAME} CHARACTER SET ${DATABASE_CHARACTER_SET} COLLATE ${DATABASE_COLLATE};" >> ${LOG_DIR}data_generator.log
+        echo "--データベース作成" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "CREATE DATABASE ${DATABASE_NAME} " >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "  CHARACTER SET ${DATABASE_CHARACTER_SET} " >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "  COLLATE ${DATABASE_COLLATE};" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
 
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--データベース削除" >> ${LOG_DIR}/data_generator.log
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  CREATE DATABASE ${DATABASE_NAME};" >> ${LOG_DIR}/data_generator.log
-        echo "--データベース削除" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "DROP DATABASE ${DATABASE_NAME}; " >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--データベース削除" >> ${LOG_DIR}data_generator.log
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  CREATE DATABASE ${DATABASE_NAME};" >> ${LOG_DIR}data_generator.log
+        echo "--データベース削除" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "DROP DATABASE ${DATABASE_NAME}; " >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
 
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--データベース確認" >> ${LOG_DIR}/data_generator.log
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  SHOW DATABASES;" >> ${LOG_DIR}/data_generator.log
-        echo "--データベース確認" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "SHOW DATABASES; " >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--データベース確認" >> ${LOG_DIR}data_generator.log
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  SHOW DATABASES;" >> ${LOG_DIR}data_generator.log
+        echo "--データベース確認" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "SHOW DATABASES; " >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
 
         echo "  MySQL/MariaDB用のユーザ関連sql。"
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] MySQL/MariaDB用のユーザ関連sql。" >> ${LOG_DIR}/data_generator.log
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--ユーザ作成" >> ${LOG_DIR}/data_generator.log
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  CREATE USER '${DATABASE_USERNAME}'@'${SQL_SET_HOST}' IDENTIFIED BY '${DATABASE_PASSWORD}';" >> ${LOG_DIR}/data_generator.log
-        echo "--ユーザ作成" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "CREATE USER '${DATABASE_USERNAME}'@'${SQL_SET_HOST}' " >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "  IDENTIFIED BY '${DATABASE_PASSWORD}';" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] MySQL/MariaDB用のユーザ関連sql。" >> ${LOG_DIR}data_generator.log
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--ユーザ作成" >> ${LOG_DIR}data_generator.log
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  CREATE USER '${DATABASE_USERNAME}'@'${SQL_SET_HOST}' IDENTIFIED BY '${DATABASE_PASSWORD}';" >> ${LOG_DIR}data_generator.log
+        echo "--ユーザ作成" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "CREATE USER '${DATABASE_USERNAME}'@'${SQL_SET_HOST}' " >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "  IDENTIFIED BY '${DATABASE_PASSWORD}';" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
 
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--ユーザ権限設定" >> ${LOG_DIR}/data_generator.log
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  GRANT ${DATABASE_USERRIGHT} ON ${DATABASE_NAME}.${DATABASE_TABLENAME} TO '${DATABASE_USERNAME}'@'${SQL_SET_HOST}';" >> ${LOG_DIR}/data_generator.log
-        echo "--ユーザ権限設定" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "GRANT ${DATABASE_USERRIGHT} " >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "  ON ${DATABASE_NAME}.${DATABASE_TABLENAME} " >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "  TO '${DATABASE_USERNAME}'@'${SQL_SET_HOST}';" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--ユーザ権限設定" >> ${LOG_DIR}data_generator.log
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  GRANT ${DATABASE_USERRIGHT} ON ${DATABASE_NAME}.${DATABASE_TABLERIGHT} TO '${DATABASE_USERNAME}'@'${SQL_SET_HOST}';" >> ${LOG_DIR}data_generator.log
+        echo "--ユーザ権限設定" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "GRANT ${DATABASE_USERRIGHT} " >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "  ON ${DATABASE_NAME}.${DATABASE_TABLERIGHT} " >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "  TO '${DATABASE_USERNAME}'@'${SQL_SET_HOST}';" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
 
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--ユーザ適用" >> ${LOG_DIR}/data_generator.log
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  FLUSH PRIVILEGES;" >> ${LOG_DIR}/data_generator.log
-        echo "--ユーザ適用" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "FLUSH PRIVILEGES;" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--ユーザ権限適用" >> ${LOG_DIR}data_generator.log
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  FLUSH PRIVILEGES;" >> ${LOG_DIR}data_generator.log
+        echo "--ユーザ権限適用" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "FLUSH PRIVILEGES;" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
 
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--ユーザ権限確認" >> ${LOG_DIR}/data_generator.log
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  SHOW GRANTS FOR '${DATABASE_USERNAME}'@'${SQL_SET_HOST}';" >> ${LOG_DIR}/data_generator.log
-        echo "--ユーザ権限確認" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "SHOW GRANTS FOR '${DATABASE_USERNAME}'@'${SQL_SET_HOST}';" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--ユーザ権限確認" >> ${LOG_DIR}data_generator.log
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  SHOW GRANTS FOR '${DATABASE_USERNAME}'@'${SQL_SET_HOST}';" >> ${LOG_DIR}data_generator.log
+        echo "--ユーザ権限確認" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "SHOW GRANTS FOR '${DATABASE_USERNAME}'@'${SQL_SET_HOST}';" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
 
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--ユーザ権限取り消し" >> ${LOG_DIR}/data_generator.log
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  REVOKE ${DATABASE_USERRIGHT} ON ${DATABASE_NAME}.${DATABASE_TABLENAME} FROM '${DATABASE_USERNAME}'@'${SQL_SET_HOST}';" >> ${LOG_DIR}/data_generator.log
-        echo "--ユーザ権限限取り消し" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "REVOKE ${DATABASE_USERRIGHT} " >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "  ON ${DATABASE_NAME}.${DATABASE_TABLENAME} " >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "  FROM '${DATABASE_USERNAME}'@'${SQL_SET_HOST}';" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--ユーザ権限取り消し" >> ${LOG_DIR}data_generator.log
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  REVOKE ${DATABASE_USERRIGHT} ON ${DATABASE_NAME}.${DATABASE_TABLERIGHT} FROM '${DATABASE_USERNAME}'@'${SQL_SET_HOST}';" >> ${LOG_DIR}data_generator.log
+        echo "--ユーザ権限取り消し" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "REVOKE ${DATABASE_USERRIGHT} " >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "  ON ${DATABASE_NAME}.${DATABASE_TABLERIGHT} " >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "  FROM '${DATABASE_USERNAME}'@'${SQL_SET_HOST}';" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
 
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--ユーザ削除" >> ${LOG_DIR}/data_generator.log
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  DROP USER '${DATABASE_USERNAME}'@'${SQL_SET_HOST}';" >> ${LOG_DIR}/data_generator.log
-        echo "--ユーザ削除" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "DROP USER '${DATABASE_USERNAME}'@'${SQL_SET_HOST}';" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--ユーザ削除" >> ${LOG_DIR}data_generator.log
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  DROP USER '${DATABASE_USERNAME}'@'${SQL_SET_HOST}';" >> ${LOG_DIR}data_generator.log
+        echo "--ユーザ削除" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "DROP USER '${DATABASE_USERNAME}'@'${SQL_SET_HOST}';" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
 
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--ユーザ確認" >> ${LOG_DIR}/data_generator.log
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  SELECT User, Host FROM mysql.user;" >> ${LOG_DIR}/data_generator.log
-        echo "--ユーザ確認" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "SELECT User, Host FROM mysql.user;" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--ユーザ確認" >> ${LOG_DIR}data_generator.log
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  SELECT User, Host FROM mysql.user;" >> ${LOG_DIR}data_generator.log
+        echo "--ユーザ確認" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "SELECT User, Host FROM mysql.user;" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
 
         # 順番に設定内容を確認し、対応するスクリプトを実行
         IFS=',' read -ra _data_types <<< "${COLUMN_DATA_TYPE//\"/}"
@@ -122,11 +122,11 @@ case "${DBMS_NAME}" in
             _item_number=$((_i + 1))
         done
         echo "  MySQL/MariaDB用のテーブル関連sql。"
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] MySQL/MariaDB用のテーブル関連sql。" >> ${LOG_DIR}/data_generator.log
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--テーブル作成" >> ${LOG_DIR}/data_generator.log
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  CREATE TABLE ${DATABASE_NAME}.${SET_TABLENAME}" >> ${LOG_DIR}/data_generator.log
-        echo "--テーブル作成" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "CREATE TABLE ${DATABASE_NAME}.${SET_TABLENAME} ( " >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] MySQL/MariaDB用のテーブル関連sql。" >> ${LOG_DIR}data_generator.log
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--テーブル作成" >> ${LOG_DIR}data_generator.log
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  CREATE TABLE ${DATABASE_NAME}.${SET_TABLENAME}" >> ${LOG_DIR}data_generator.log
+        echo "--テーブル作成" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "CREATE TABLE ${DATABASE_NAME}.${SET_TABLENAME} ( " >> ${SQLS_DIR}base_${DBMS_NAME}.sql
         for _i in "${!_data_types[@]}"; do
             _type="${_data_types[$_i]}"
             _length="${_data_lengths[$_i]}"
@@ -198,7 +198,7 @@ case "${DBMS_NAME}" in
 
             # DEFAULT
             if [[ ! "${_default_value}" = " " ]]; then
-                _column="${_column} DEFAULT ${_default_value}"
+                _column="${_column} DEFAULT '${_default_value}'"
             fi
 
             # COMMENT
@@ -238,8 +238,8 @@ case "${DBMS_NAME}" in
             fi
 
             # COLUMN 記載
-            echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：    ${_column}" >> ${LOG_DIR}/data_generator.log
-            echo "  ${_column}" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+            echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：    ${_column}" >> ${LOG_DIR}data_generator.log
+            echo "  ${_column}" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
         done
 
         # PRIMARY KEY 追加
@@ -253,8 +253,8 @@ case "${DBMS_NAME}" in
             fi
 
             # PRIMARY KEY の出力
-            echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：    PRIMARY KEY (${_primary_keys_string})${_comma}" >> ${LOG_DIR}/data_generator.log
-            echo "  PRIMARY KEY (${_primary_keys_string})${_comma}" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+            echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：    PRIMARY KEY (${_primary_keys_string})${_comma}" >> ${LOG_DIR}data_generator.log
+            echo "  PRIMARY KEY (${_primary_keys_string})${_comma}" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
         fi
 
         # UNIQUE KEY 追加
@@ -268,8 +268,8 @@ case "${DBMS_NAME}" in
             fi
 
             # UNIQUE KEY の出力
-            echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：    UNIQUE KEY (${unique_keys_string})${_comma}" >> ${LOG_DIR}/data_generator.log
-            echo "  UNIQUE KEY (${unique_keys_string})${_comma}" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+            echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：    UNIQUE KEY (${unique_keys_string})${_comma}" >> ${LOG_DIR}data_generator.log
+            echo "  UNIQUE KEY (${unique_keys_string})${_comma}" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
         fi
 
         # FOREIGN KEY 追加
@@ -287,8 +287,8 @@ case "${DBMS_NAME}" in
                 fi
 
                 # FOREIGN KEY の出力
-                echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：    FOREIGN KEY (${foreign_key}) REFERENCES ${FOREIGN_TABLENAME}(${foreign_key})${_comma}" >> ${LOG_DIR}/data_generator.log
-                echo "  FOREIGN KEY (${foreign_key}) REFERENCES ${FOREIGN_TABLENAME}(${foreign_key})${_comma}" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+                echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：    FOREIGN KEY (${foreign_key}) REFERENCES ${FOREIGN_TABLENAME}(${foreign_key})${_comma}" >> ${LOG_DIR}data_generator.log
+                echo "  FOREIGN KEY (${foreign_key}) REFERENCES ${FOREIGN_TABLENAME}(${foreign_key})${_comma}" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
 
                 ((_current_index++))
             done
@@ -297,123 +297,123 @@ case "${DBMS_NAME}" in
         # COLUMN INDEX 追加
         if [[ "${#index_keys[@]}" -gt 0 ]]; then
             index_keys_string=$(IFS=; echo "${index_keys[*]}" | sed 's/,$//')
-            echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：    INDEX (${index_keys_string})" >> ${LOG_DIR}/data_generator.log
-            echo "  INDEX (${index_keys_string})" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+            echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：    INDEX (${index_keys_string})" >> ${LOG_DIR}data_generator.log
+            echo "  INDEX (${index_keys_string})" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
         fi
 
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  );" >> ${LOG_DIR}/data_generator.log
-        echo ");" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  );" >> ${LOG_DIR}data_generator.log
+        echo ");" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
 
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--テーブル確認" >> ${LOG_DIR}/data_generator.log
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  SHOW TABLES FROM ${DATABASE_NAME};" >> ${LOG_DIR}/data_generator.log
-        echo "--テーブル確認" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "SHOW TABLES FROM ${DATABASE_NAME};" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--テーブル確認" >> ${LOG_DIR}data_generator.log
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  SHOW TABLES FROM ${DATABASE_NAME};" >> ${LOG_DIR}data_generator.log
+        echo "--テーブル確認" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "SHOW TABLES FROM ${DATABASE_NAME};" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
 
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--テーブル構造確認" >> ${LOG_DIR}/data_generator.log
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  DESCRIBE ${DATABASE_NAME}.${SET_TABLENAME};" >> ${LOG_DIR}/data_generator.log
-        echo "--テーブル構造確認" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "DESCRIBE ${DATABASE_NAME}.${SET_TABLENAME};" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--テーブル構造確認" >> ${LOG_DIR}data_generator.log
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  DESCRIBE ${DATABASE_NAME}.${SET_TABLENAME};" >> ${LOG_DIR}data_generator.log
+        echo "--テーブル構造確認" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "DESCRIBE ${DATABASE_NAME}.${SET_TABLENAME};" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
    
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--テーブル削除" >> ${LOG_DIR}/data_generator.log
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  DROP TABLE ${DATABASE_NAME}.${SET_TABLENAME};" >> ${LOG_DIR}/data_generator.log
-        echo "--テーブル削除" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "DROP TABLE ${DATABASE_NAME}.${SET_TABLENAME};" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--テーブル削除" >> ${LOG_DIR}data_generator.log
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  DROP TABLE ${DATABASE_NAME}.${SET_TABLENAME};" >> ${LOG_DIR}data_generator.log
+        echo "--テーブル削除" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "DROP TABLE ${DATABASE_NAME}.${SET_TABLENAME};" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
         ;;
 
     "PostgreSQL")
         # PostgreSQLの場合
         echo "  PostgreSQL用のユーザ関連sql。"
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] PostgreSQL用のユーザ関連sql。" >> ${LOG_DIR}/data_generator.log
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--ユーザ作成" >> ${LOG_DIR}/data_generator.log
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  CREATE USER ${DATABASE_USERNAME} WITH PASSWORD '${DATABASE_PASSWORD}';" >> ${LOG_DIR}/data_generator.log
-        echo "--ユーザ作成" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "CREATE USER ${DATABASE_USERNAME} " >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "  WITH PASSWORD '${DATABASE_PASSWORD}';" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] PostgreSQL用のユーザ関連sql。" >> ${LOG_DIR}data_generator.log
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--ユーザ作成" >> ${LOG_DIR}data_generator.log
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  CREATE USER ${DATABASE_USERNAME} WITH PASSWORD '${DATABASE_PASSWORD}';" >> ${LOG_DIR}data_generator.log
+        echo "--ユーザ作成" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "CREATE USER ${DATABASE_USERNAME} " >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "  WITH PASSWORD '${DATABASE_PASSWORD}';" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
 
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--ユーザパスワード再設定" >> ${LOG_DIR}/data_generator.log
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  ALTER USER ${DATABASE_USERNAME} WITH PASSWORD '${DATABASE_PASSWORD}';" >> ${LOG_DIR}/data_generator.log
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--ユーザパスワード削除" >> ${LOG_DIR}/data_generator.log
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  ALTER USER ${DATABASE_USERNAME} WITH PASSWORD NULL;" >> ${LOG_DIR}/data_generator.log
-        echo "--ユーザパスワード再設定" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "ALTER USER ${DATABASE_USERNAME} " >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "  WITH PASSWORD '${DATABASE_PASSWORD}';" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "--ユーザパスワード削除" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "ALTER USER ${DATABASE_USERNAME} " >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "  WITH PASSWORD NULL;" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--ユーザパスワード再設定" >> ${LOG_DIR}data_generator.log
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  ALTER USER ${DATABASE_USERNAME} WITH PASSWORD '${DATABASE_PASSWORD}';" >> ${LOG_DIR}data_generator.log
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--ユーザパスワード削除" >> ${LOG_DIR}data_generator.log
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  ALTER USER ${DATABASE_USERNAME} WITH PASSWORD NULL;" >> ${LOG_DIR}data_generator.log
+        echo "--ユーザパスワード再設定" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "ALTER USER ${DATABASE_USERNAME} " >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "  WITH PASSWORD '${DATABASE_PASSWORD}';" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "--ユーザパスワード削除" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "ALTER USER ${DATABASE_USERNAME} " >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "  WITH PASSWORD NULL;" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
 
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--ユーザ削除" >> ${LOG_DIR}/data_generator.log
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  DROP USER ${DATABASE_USERNAME};" >> ${LOG_DIR}/data_generator.log
-        echo "--ユーザ削除" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "DROP USER ${DATABASE_USERNAME};" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--ユーザ削除" >> ${LOG_DIR}data_generator.log
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  DROP USER ${DATABASE_USERNAME};" >> ${LOG_DIR}data_generator.log
+        echo "--ユーザ削除" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "DROP USER ${DATABASE_USERNAME};" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
 
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--ユーザ権限設定" >> ${LOG_DIR}/data_generator.log
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  ALTER USER ${DATABASE_NAME} WITH ${DATABASE_USERRIGHT};" >> ${LOG_DIR}/data_generator.log
-        echo "--ユーザ権限設定" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "ALTER USER ${DATABASE_USERNAME} " >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "  WITH ${DATABASE_USERRIGHT};" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--ユーザ権限設定" >> ${LOG_DIR}data_generator.log
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  ALTER USER ${DATABASE_NAME} WITH ${DATABASE_USERRIGHT};" >> ${LOG_DIR}data_generator.log
+        echo "--ユーザ権限設定" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "ALTER USER ${DATABASE_USERNAME} " >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "  WITH ${DATABASE_USERRIGHT};" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
 
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--ユーザ確認と権限確認" >> ${LOG_DIR}/data_generator.log
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  \du" >> ${LOG_DIR}/data_generator.log
-        echo "--ユーザ確認と権限確認" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "\du" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--ユーザ確認と権限確認" >> ${LOG_DIR}data_generator.log
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  \du" >> ${LOG_DIR}data_generator.log
+        echo "--ユーザ確認と権限確認" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "\du" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
 
         echo "  PostgreSQL用のデータベース関連sql。"
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] PostgreSQL用のデータベース関連sql。" >> ${LOG_DIR}/data_generator.log
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--データベース作成" >> ${LOG_DIR}/data_generator.log
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：CREATE DATABASE ${DATABASE_NAME} WITH OWNER = '${DATABASE_USERNAME}' TEMPLATE = '${POSTGRESQL_TEMPLATE}' ENCODING = '${DATABASE_CHARACTER_SET}' LC_COLLATE = '${DATABASE_COLLATE}' LC_CTYPE = '${DATABASE_COLLATE}' CONNECTION LIMIT = ${POSTGRESQL_CONNECTION_LIMIT} ALLOW_CONNECTIONS = '${POSTGRESQL_ALLOW_CONNECTIONS}';" >> ${LOG_DIR}/data_generator.log
-        echo "--データベース作成" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "CREATE DATABASE ${DATABASE_NAME} " >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "  WITH " >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "  OWNER = '${DATABASE_USERNAME}' " >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "  TEMPLATE = '${POSTGRESQL_TEMPLATE}' " >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "  ENCODING = '${DATABASE_CHARACTER_SET}' " >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "  LC_COLLATE = '${DATABASE_COLLATE}' " >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "  LC_CTYPE = '${DATABASE_COLLATE}' " >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "  CONNECTION LIMIT = ${POSTGRESQL_CONNECTION_LIMIT} " >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "  ALLOW_CONNECTIONS = '${POSTGRESQL_ALLOW_CONNECTIONS}';" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] PostgreSQL用のデータベース関連sql。" >> ${LOG_DIR}data_generator.log
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--データベース作成" >> ${LOG_DIR}data_generator.log
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：CREATE DATABASE ${DATABASE_NAME} WITH OWNER = '${DATABASE_USERNAME}' TEMPLATE = '${POSTGRESQL_TEMPLATE}' ENCODING = '${DATABASE_CHARACTER_SET}' LC_COLLATE = '${DATABASE_COLLATE}' LC_CTYPE = '${DATABASE_COLLATE}' CONNECTION LIMIT = ${POSTGRESQL_CONNECTION_LIMIT} ALLOW_CONNECTIONS = '${POSTGRESQL_ALLOW_CONNECTIONS}';" >> ${LOG_DIR}data_generator.log
+        echo "--データベース作成" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "CREATE DATABASE ${DATABASE_NAME} " >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "  WITH " >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "  OWNER = '${DATABASE_USERNAME}' " >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "  TEMPLATE = '${POSTGRESQL_TEMPLATE}' " >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "  ENCODING = '${DATABASE_CHARACTER_SET}' " >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "  LC_COLLATE = '${DATABASE_COLLATE}' " >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "  LC_CTYPE = '${DATABASE_COLLATE}' " >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "  CONNECTION LIMIT = ${POSTGRESQL_CONNECTION_LIMIT} " >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "  ALLOW_CONNECTIONS = '${POSTGRESQL_ALLOW_CONNECTIONS}';" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
 
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--データベース削除" >> ${LOG_DIR}/data_generator.log
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  DROP DATABASE ${DATABASE_NAME};" >> ${LOG_DIR}/data_generator.log
-        echo "--データベース削除" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "DROP DATABASE ${DATABASE_NAME}; " >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--データベース削除" >> ${LOG_DIR}data_generator.log
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  DROP DATABASE ${DATABASE_NAME};" >> ${LOG_DIR}data_generator.log
+        echo "--データベース削除" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "DROP DATABASE ${DATABASE_NAME}; " >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
 
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--データベース確認" >> ${LOG_DIR}/data_generator.log
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  \l" >> ${LOG_DIR}/data_generator.log
-        echo "--データベース確認" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "\l " >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--データベース確認" >> ${LOG_DIR}data_generator.log
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  \l" >> ${LOG_DIR}data_generator.log
+        echo "--データベース確認" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "\l " >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
 
         echo "  PostgreSQL用のスキーマ関連sql。"
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] PostgreSQL用のスキーマ関連sql。" >> ${LOG_DIR}/data_generator.log
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--スキーマ作成" >> ${LOG_DIR}/data_generator.log
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：CREATE SCHEMA ${SET_SCHEMA} AUTHORIZATION ${DATABASE_USERNAME};" >> ${LOG_DIR}/data_generator.log
-        echo "--スキーマ作成" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "CREATE SCHEMA ${SET_SCHEMA} " >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "  AUTHORIZATION ${DATABASE_USERNAME};" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] PostgreSQL用のスキーマ関連sql。" >> ${LOG_DIR}data_generator.log
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--スキーマ作成" >> ${LOG_DIR}data_generator.log
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：CREATE SCHEMA ${SET_SCHEMA} AUTHORIZATION ${DATABASE_USERNAME};" >> ${LOG_DIR}data_generator.log
+        echo "--スキーマ作成" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "CREATE SCHEMA ${SET_SCHEMA} " >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "  AUTHORIZATION ${DATABASE_USERNAME};" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
 
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--スキーマ削除" >> ${LOG_DIR}/data_generator.log
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  DROP SCHEMA ${SET_SCHEMA};" >> ${LOG_DIR}/data_generator.log
-        echo "--スキーマ削除" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "DROP SCHEMA ${SET_SCHEMA}; " >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--スキーマ削除" >> ${LOG_DIR}data_generator.log
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  DROP SCHEMA ${SET_SCHEMA};" >> ${LOG_DIR}data_generator.log
+        echo "--スキーマ削除" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "DROP SCHEMA ${SET_SCHEMA}; " >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
 
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--スキーマ確認" >> ${LOG_DIR}/data_generator.log
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  \dn" >> ${LOG_DIR}/data_generator.log
-        echo "--スキーマ確認" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "\dn " >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--スキーマ確認" >> ${LOG_DIR}data_generator.log
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  \dn" >> ${LOG_DIR}data_generator.log
+        echo "--スキーマ確認" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "\dn " >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
 
         # 順番に設定内容を確認し、対応するスクリプトを実行
         IFS=',' read -ra _data_types <<< "${COLUMN_DATA_TYPE//\"/}"
@@ -433,11 +433,11 @@ case "${DBMS_NAME}" in
             _item_number=$((_i + 1))
         done
         echo "  PostgreSQL用のテーブル関連sql。"
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] PostgreSQL用のテーブル関連sql。" >> ${LOG_DIR}/data_generator.log
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--テーブル作成" >> ${LOG_DIR}/data_generator.log
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  CREATE TABLE ${DATABASE_NAME}.${SET_TABLENAME}" >> ${LOG_DIR}/data_generator.log
-        echo "--テーブル作成" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "CREATE TABLE ${SET_SCHEMA}.${SET_TABLENAME} ( " >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] PostgreSQL用のテーブル関連sql。" >> ${LOG_DIR}data_generator.log
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--テーブル作成" >> ${LOG_DIR}data_generator.log
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  CREATE TABLE ${DATABASE_NAME}.${SET_TABLENAME}" >> ${LOG_DIR}data_generator.log
+        echo "--テーブル作成" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "CREATE TABLE ${SET_SCHEMA}.${SET_TABLENAME} ( " >> ${SQLS_DIR}base_${DBMS_NAME}.sql
         _unique_key_count=0
         for _i in "${!_data_types[@]}"; do
             _type="${_data_types[$_i]}"
@@ -543,8 +543,8 @@ case "${DBMS_NAME}" in
             fi
 
             # COLUMN 記載
-            echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：    ${_column}" >> ${LOG_DIR}/data_generator.log
-            echo "  ${_column}" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+            echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：    ${_column}" >> ${LOG_DIR}data_generator.log
+            echo "  ${_column}" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
         done
 
         # PRIMARY KEY 追加
@@ -558,23 +558,23 @@ case "${DBMS_NAME}" in
             fi
 
             # PRIMARY KEY の出力
-            echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：    PRIMARY KEY (${_primary_keys_string})${_comma}" >> ${LOG_DIR}/data_generator.log
-            echo "  PRIMARY KEY (${_primary_keys_string})${_comma}" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+            echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：    PRIMARY KEY (${_primary_keys_string})${_comma}" >> ${LOG_DIR}data_generator.log
+            echo "  PRIMARY KEY (${_primary_keys_string})${_comma}" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
         fi
 
         # UNIQUE KEY の出力
-        current_count=0
+        _current_count=0
         for _i in "${!_data_types[@]}"; do
             _data_name="${_data_names[$_i]}"
             _unique_key="${_unique_keys[$_i]}"
             if [[ "${_unique_key}" = "true" ]]; then
-                current_count=$((current_count + 1))
+                _current_count=$((_current_count + 1))
                 _comma=","
-                if [[ "$current_count" -eq "$_unique_key_count" && "${#_true_foreign_keys[@]}" -eq 0 ]]; then
+                if [[ "${_current_count}" -eq "${_unique_key_count}" && "${#_true_foreign_keys[@]}" -eq 0 ]]; then
                     _comma=""
                 fi
-                echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：    UNIQUE (${_data_name})${_comma}" >> ${LOG_DIR}/data_generator.log
-                echo "  UNIQUE (${_data_name})${_comma}" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+                echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：    UNIQUE (${_data_name})${_comma}" >> ${LOG_DIR}data_generator.log
+                echo "  UNIQUE (${_data_name})${_comma}" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
             fi
         done
 
@@ -593,69 +593,105 @@ case "${DBMS_NAME}" in
                 fi
 
                 # FOREIGN KEY の出力
-                echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：    FOREIGN KEY (${foreign_key}) REFERENCES ${SET_SCHEMA}.${FOREIGN_TABLENAME}(${foreign_key})${_comma}" >> ${LOG_DIR}/data_generator.log
-                echo "  FOREIGN KEY (${foreign_key}) REFERENCES ${SET_SCHEMA}.${FOREIGN_TABLENAME}(${foreign_key})${_comma}" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+                echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：    FOREIGN KEY (${foreign_key}) REFERENCES ${SET_SCHEMA}.${FOREIGN_TABLENAME}(${foreign_key})${_comma}" >> ${LOG_DIR}data_generator.log
+                echo "  FOREIGN KEY (${foreign_key}) REFERENCES ${SET_SCHEMA}.${FOREIGN_TABLENAME}(${foreign_key})${_comma}" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
 
                 ((_current_index++))
             done
         fi
 
 
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  );" >> ${LOG_DIR}/data_generator.log
-        echo ");" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  );" >> ${LOG_DIR}data_generator.log
+        echo ");" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
 
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--テーブル確認" >> ${LOG_DIR}/data_generator.log
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  \dt ${DATABASE_NAME}.*;" >> ${LOG_DIR}/data_generator.log
-        echo "--テーブル確認" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "\dt ${SET_SCHEMA}.*;" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--テーブル確認" >> ${LOG_DIR}data_generator.log
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  \dt ${DATABASE_NAME}.*;" >> ${LOG_DIR}data_generator.log
+        echo "--テーブル確認" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "\dt ${SET_SCHEMA}.*;" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
 
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--テーブル構造確認" >> ${LOG_DIR}/data_generator.log
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  \d ${DATABASE_NAME}.${SET_TABLENAME};" >> ${LOG_DIR}/data_generator.log
-        echo "--テーブル構造確認" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "\d ${SET_SCHEMA}.${SET_TABLENAME};" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--テーブル構造確認" >> ${LOG_DIR}data_generator.log
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  \d ${DATABASE_NAME}.${SET_TABLENAME};" >> ${LOG_DIR}data_generator.log
+        echo "--テーブル構造確認" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "\d ${SET_SCHEMA}.${SET_TABLENAME};" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
     
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--テーブル削除" >> ${LOG_DIR}/data_generator.log
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  DROP TABLE ${DATABASE_NAME}.${SET_TABLENAME};" >> ${LOG_DIR}/data_generator.log
-        echo "--テーブル削除" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "DROP TABLE ${SET_SCHEMA}.${SET_TABLENAME};" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--テーブル削除" >> ${LOG_DIR}data_generator.log
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  DROP TABLE ${DATABASE_NAME}.${SET_TABLENAME};" >> ${LOG_DIR}data_generator.log
+        echo "--テーブル削除" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "DROP TABLE ${SET_SCHEMA}.${SET_TABLENAME};" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
 
         echo "  PostgreSQL用のインデックス関連sql。"
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] PostgreSQL用のインデックス関連sql。" >> ${LOG_DIR}/data_generator.log
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] PostgreSQL用のインデックス関連sql。" >> ${LOG_DIR}data_generator.log
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--インデックス作成" >> ${LOG_DIR}data_generator.log
+        echo "--インデックス作成" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
         for _i in "${!_data_types[@]}"; do
             _data_name="${_data_names[$_i]}"
             _index_key="${_index_keys[$_i]}"
             _item_number=$((_i + 1))
             # COLUMN INDEX 抽出
             if [[ "${_index_key}" = "true" ]]; then
-                echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--インデックス作成" >> ${LOG_DIR}/data_generator.log
-                echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  CREATE INDEX idx_${_data_name} ON ${SET_SCHEMA}.${SET_TABLENAME} (${_data_name});" >> ${LOG_DIR}/data_generator.log
-                echo "--インデックス作成" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-                echo "CREATE INDEX idx_${_data_name} ON ${SET_SCHEMA}.${SET_TABLENAME} (${_data_name});" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+                echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  CREATE INDEX idx_${_data_name} ON ${SET_SCHEMA}.${SET_TABLENAME} (${_data_name});" >> ${LOG_DIR}data_generator.log
+                echo "CREATE INDEX idx_${_data_name} ON ${SET_SCHEMA}.${SET_TABLENAME} (${_data_name});" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
             fi
         done
-        echo "" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+        echo "" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
 
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--インデックス確認" >> ${LOG_DIR}/data_generator.log
-        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  \di ${DATABASE_NAME}.*;" >> ${LOG_DIR}/data_generator.log
-        echo "--インデックス確認" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "\di ${SET_SCHEMA}.*;" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-        echo "" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--インデックス確認" >> ${LOG_DIR}data_generator.log
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  \di ${DATABASE_NAME}.*;" >> ${LOG_DIR}data_generator.log
+        echo "--インデックス確認" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "\di ${SET_SCHEMA}.*;" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
 
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--インデックス削除" >> ${LOG_DIR}data_generator.log
+        echo "--インデックス削除" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
         for _i in "${!_data_types[@]}"; do
+            _data_name="${_data_names[$_i]}"
             _index_key="${_index_keys[$_i]}"
             _item_number=$((_i + 1))
             if [[ "${_index_key}" = "true" ]]; then
-                echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--インデックス削除" >> ${LOG_DIR}/data_generator.log
-                echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  DROP INDEX ${SET_SCHEMA}.idx_${_data_name};" >> ${LOG_DIR}/data_generator.log
-                echo "--インデックス削除" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
-                echo "DROP INDEX ${SET_SCHEMA}.idx_${_data_name};" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+                echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  DROP INDEX ${SET_SCHEMA}.idx_${_data_name};" >> ${LOG_DIR}data_generator.log
+                echo "DROP INDEX ${SET_SCHEMA}.idx_${_data_name};" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
             fi
         done
-        echo "" >> ${SQLS_DIR}/base_${DBMS_NAME}.sql
+        echo "" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+
+        echo "  PostgreSQL用のコメント関連sql。"
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] PostgreSQL用のコメント関連sql。" >> ${LOG_DIR}data_generator.log
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--コメント作成" >> ${LOG_DIR}data_generator.log
+        echo "--コメント作成" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        for _i in "${!_data_types[@]}"; do
+            _data_name="${_data_names[$_i]}"
+            _comment="${_comments[$_i]}"
+            _item_number=$((_i + 1))
+            # COLUMN INDEX 抽出
+            if [[ -n "${_comment}" ]]; then
+                echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  COMMENT ON COLUMN ${SET_SCHEMA}.${SET_TABLENAME}.${_data_name} IS '${_comment}';" >> ${LOG_DIR}data_generator.log
+                echo "COMMENT ON COLUMN ${SET_SCHEMA}.${SET_TABLENAME}.${_data_name} IS '${_comment}';" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+            fi
+        done
+        echo "" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--コメント確認(Description)" >> ${LOG_DIR}data_generator.log
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  \d+ ${DATABASE_NAME}.${SET_TABLENAME};" >> ${LOG_DIR}data_generator.log
+        echo "--コメント確認(Description)" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "\d+ ${SET_SCHEMA}.${SET_TABLENAME};" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        echo "" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+
+        echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：--コメント削除" >> ${LOG_DIR}data_generator.log
+        echo "--コメント削除" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+        for _i in "${!_data_types[@]}"; do
+            _data_name="${_data_names[$_i]}"
+            _comment="${_comments[$_i]}"
+            _item_number=$((_i + 1))
+            if [[ -n "${_comment}" ]]; then
+                echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] SQLファイル記載：  COMMENT ON COLUMN ${SET_SCHEMA}.${SET_TABLENAME}.${_data_name} IS NULL;" >> ${LOG_DIR}data_generator.log
+                echo "COMMENT ON COLUMN ${SET_SCHEMA}.${SET_TABLENAME}.${_data_name} IS NULL;" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
+            fi
+        done
+        echo "" >> ${SQLS_DIR}base_${DBMS_NAME}.sql
         ;;
 
     "SQLite")
@@ -707,7 +743,7 @@ EOF
         ;;
 esac
 
-echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] [810001]データベース、ユーザ、テーブル関連SQLファイル作成が正常に完了しました。" >> ${LOG_DIR}/data_generator.log
-echo "$(date '+%Y/%m/%d %H:%M:%S') [INFO]  [$(basename $0)] END" >> ${LOG_DIR}/data_generator.log
+echo "$(date '+%Y/%m/%d %H:%M:%S') [DEBUG] [$(basename $0)] [810001]データベース、ユーザ、テーブル関連SQLファイル作成が正常に完了しました。" >> ${LOG_DIR}data_generator.log
+echo "$(date '+%Y/%m/%d %H:%M:%S') [INFO]  [$(basename $0)] END" >> ${LOG_DIR}data_generator.log
 echo "[810001]データベース、ユーザ、テーブル関連SQLファイル作成が正常に完了しました。"
 exit 0
