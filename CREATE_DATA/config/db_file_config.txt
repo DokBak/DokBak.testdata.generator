@@ -15,7 +15,7 @@ FILE_CHARSET="UTF-8"
 FILE_LINE_BREAK="LF"
   ##説明：出力ファイルの改行コード
   ##設定可能値："CRLF", "LF"
-
+ 
 #データ項目の関連
 FILE_FIELD_SEPARATOR="COMMA"
   ##説明：項目の区切り文字
@@ -23,7 +23,7 @@ FILE_FIELD_SEPARATOR="COMMA"
 FILE_ENCLOSING_CHAR="DOUBLE_QUOTE"
   ##説明：項目の囲み文字
   ##設定可能値："NONE", "DOUBLE_QUOTE", "SINGLE_QUOTE"
-
+ 
 #データ件数関連
 ROW_COUNTS="2"
   ##説明：正常系のノーマルデータ件数を指定
